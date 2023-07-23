@@ -182,7 +182,6 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 		El nombre de la variable tiene que estar relacionado con su valor o contenido para que sea significativo, hace que el código sea más legible y facil de mantener. 
 
 
-
 	Scope/Ámbito:
 
 		Se refiere a la visibilidad o alcance de una variable en diferentes partes del código.
@@ -306,7 +305,293 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 
 
 
+|| Tipos de datos
+
+	Los tipos de datos primitivos son inmutables, lo que significa que una vez que se ha creado un valor, no se puede cambiar directamente.
+
+	Si intentas cambiar el valor de una variable, en realidad, estarás creando una nueva variable y asignándole un nuevo valor.
+
+	JavaScript también cuenta con tipos de datos no primitivos, como objetos, arrays y funciones, que son más complejos y permiten representar estructuras de datos más elaboradas.
+
+
+	Number: 
+
+		Representa valores numericos, ya sea enteros o decimales. Se utiliza para hacer cálculos y operaciones matemáticas. 
+
+		```js
+
+			let edad = 30;
+			let precio = 19.99;
+
+		```
+
+	String: 
+
+		Representa una secuencia de caracteres, como palabras o frases. Se utiliza para almacenar y manipular texto.
+
+		```js
+
+			let nombre = "Juan";
+			let mensaje = 'Hola, ¿cómo estás?';
+
+		```
+
+	Boolean: 
+
+		Representa un valor de verdadero (true) o falso (false). Se utiliza para evaluar condiciones y controlar el flujo del programa.
+
+		```js
+
+			let esMayor = true;
+			let esMenor = false;
+
+		```
+
+	Undefined:
+
+		Cuando una variable se declara pero no se le asigna un valor, automáticamente tiene el valor undefined.
+		
+		También se utiliza para representar valores faltantes o inexistentes
+
+		Puede ser útil para manejar situaciones en las que se esperan valores faltantes o indefinidos en el flujo de un programa.
+
+		```js
+
+			let nombre;
+
+			console.log(nombre); // Resultado: undefined
+
+			// Función que no devuelve un valor explícito
+
+			function saludar() {
+			  console.log("¡Hola!");
+			}
+
+			let resultadoSaludo = saludar(); 
+
+			console.log(resultadoSaludo); // Resultado: undefined
+
+			// Acceso a una propiedad inexistente en un objeto
+			let persona = {
+			  nombre: "Juan",
+			  edad: 30,
+			};
+
+		```
+
+	Null: 
+
+		Representa la ausencia de un valor intencionalmente. Se puede utilizar para inicializar una variable que aún no tiene un valor válido.
+
+		O para indicar que una variable no contiene ningún objeto o valor válido.
+
+		```js
+
+			let miVariable = null;
+
+			console.log(miVariable); // Resultado: null
+
+			// Comprobación de valor null en una variable
+			let dato = null;
+
+			if (dato === null) {
+			  console.log("El valor es null.");
+			} else {
+			  console.log("El valor no es null.");
+			}
+
+			// Asignar null a una variable existente
+			let color = "rojo";
+			console.log(color); // Resultado: "rojo"
+
+			color = null;
+			console.log(color); // Resultado: null
+
+			// Uso de null en comparaciones
+			let numero1 = 10;
+			let numero2 = null;
+
+			console.log(numero1 === null); // Resultado: false
+			console.log(numero2 === null); // Resultado: true (la variable numero2 contiene null)
+
+			// Uso de null en objetos
+			let persona = {
+			  nombre: "Juan",
+			  edad: 30,
+			  direccion: null,
+			};
+
+		```
+
+	Symbol: 
+
+		Es un tipo de dato nuevo en ECMAScript 6 (ES6). Representa un valor único e inmutable que se puede usar como clave de propiedad de un objeto. 
+
+		Son útiles para agregar propiedades a objetos sin riesgo de colisión de nombres.
+
+		Permite crear identificadores únicos y privados, evitando colisiones de nombres y mejorando el encapsulamiento en objetos. 
+
+		Son especialmente útiles en situaciones en las que es necesario agregar metadatos o propiedades privadas a objetos sin afectar la interacción con otras partes del código.
+
+		```js
+
+			// Creación de símbolos
+			const simbolo1 = Symbol();
+			const simbolo2 = Symbol("descripcion");
+
+			// Símbolos como identificadores de propiedades únicas en objetos
+			const ID = Symbol("id");
+			const persona = {
+			  [ID]: 1,
+			  nombre: "Juan",
+			  edad: 30,
+			};
+
+			console.log(persona[ID]); // Resultado: 1
+
+			// No se muestra el símbolo en el for...in o for...of
+			for (let key in persona) {
+			  console.log(key); // Resultado: "nombre", "edad" (el símbolo ID no se muestra)
+			}
+
+			// Obtener todos los símbolos de un objeto
+			const simbolosObjeto = Object.getOwnPropertySymbols(persona);
+			console.log(simbolosObjeto); // Resultado: [Symbol(id)]
+
+			// Comprobación de igualdad de símbolos
+			const simbolo3 = Symbol("otra descripcion");
+			console.log(simbolo1 === simbolo2); // Resultado: false
+			console.log(simbolo2 === simbolo3); // Resultado: false
+
+			// Uso de símbolos en conjunción con propiedades no simbólicas
+			const edadSimbolo = Symbol("edad");
+			const personaSimbolos = {
+			  [edadSimbolo]: 30,
+			  nombre: "Ana",
+			};
+
+			console.log(personaSimbolos[edadSimbolo]); // Resultado: 30
+
+		```
+
+		   	1. Creación de símbolos utilizando la función Symbol(). Cada símbolo creado es único, incluso si tienen la misma descripción.
+
+		    2. Utilización de símbolos como identificadores de propiedades únicas en objetos. Los símbolos son ideales para agregar propiedades privadas o evitar colisiones de nombres de propiedades.
+
+		    3. Los símbolos no se muestran al iterar sobre las propiedades de un objeto con for...in o for...of. Esto los hace ideales para propiedades privadas que no deben ser accedidas directamente desde fuera del objeto.
+
+		    4. Es posible obtener todos los símbolos de un objeto utilizando Object.getOwnPropertySymbols().
+
+		    5. Se muestra la comprobación de igualdad de símbolos. Dos símbolos son considerados iguales solo si se crean con la misma descripción.
+
+		    6. También se muestra cómo se pueden utilizar símbolos en conjunción con propiedades no simbólicas en un objeto.
+
+
+	bigint: 
+
+		Se introdujo en ECMAScript 2020 (ES11) para permitir la representación de números enteros más grandes de los que el tipo de dato Number puede manejar.
+
+		A diferencia de los números regulares (Number), que tienen una precisión de 64 bits y pueden representar enteros hasta Number.MAX_SAFE_INTEGER (2^53 - 1), los BigInt pueden representar enteros con una precisión arbitraria.
+
+		Sintaxis:
+
+			Para crear un valor de tipo BigInt, simplemente agrega la letra n al final del número entero que deseas representar:
+
+			```js
+
+				const numeroBigInt = 1234567890123456789012345678901234567890n;
+
+			```
+
+		Casos de uso: 
+
+			1. Operaciones matemáticas precisas: 
+
+				Algunos cálculos financieros, criptográficos o científicos pueden requerir números enteros con una precisión mucho mayor que la proporcionada por los números regulares. 
+
+				BigInt permite realizar operaciones matemáticas precisas sin pérdida de precisión.
+
+
+			2. Manipulación de números de serie o identificadores únicos: 
+
+				En sistemas que utilizan números de serie o identificadores únicos muy grandes, BigInt puede ser útil para manejar esos valores sin preocuparse por desbordamientos numéricos
+
+
+			3. Trabajo con bibliotecas y API que devuelven BigInt: 
+
+				Algunas bibliotecas y APIs pueden devolver valores en forma de BigInt, y necesitarás utilizar este tipo de dato para trabajar correctamente con ellos.
+
+
+		Limitaciones: 
+
+	    	No pueden ser mezclados directamente con los números regulares (Number). Debes convertir explícitamente los BigInt a Number o viceversa cuando sea necesario.
+
+	    	Algunas operaciones matemáticas no están permitidas entre BigInt y Number. Por ejemplo, no puedes utilizar operadores aritméticos directamente entre ellos.
+
+	    	El rendimiento de las operaciones con BigInt es generalmente más lento que con números regulares (Number), por lo que se recomienda utilizar BigInt solo cuando sea realmente necesario.
+
+
+	    ```js 
+
+	    	const a = 1234567890123456789012345678901234567890n;
+			const b = BigInt("9876543210987654321098765432109876543210");
+
+			const suma = a + b;
+			const multiplicacion = a * b;
+
+			console.log(suma);           // Resultado: 11111111101111111110111111111011111111100n
+			console.log(multiplicacion); // Resultado: 12193263113702179520926131472987363595939114093571973950124368987157695597749000n
+
+	    ```
 
 
 
-||
+
+|| Operadores
+
+	
+
+	Lógicos:
+
+		&& (AND), || (OR) y ! (negación).
+
+
+
+|| Template literals
+
+	[]: Acceso a caracteres individuales de un string mediante el uso de corchetes
+
+	${}: insertar variables dentro del string.
+
+
+
+
+|| Propiedades
+
+
+	.length: longitud de un string
+
+
+
+|| Metodos
+
+	toUpperCase(): Conversión de strings a mayúsculas.
+
+	toLowerCase(): Conversión de strings a minúsculas. 
+ 	
+ 	indexOf(): Búsqueda de texto en un string.
+ 	
+ 	replace(): Reemplazo de texto en un string.
+
+	slice(): Extracción de una parte de un string.	
+	split(): Conversión de un string a un array de palabras. 
+
+
+
+|| Objetos
+
+	Math.abs(): 
+
+
+
+
