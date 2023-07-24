@@ -376,14 +376,293 @@ console.log(personaSimbolos[edadSimbolo]); // Resultado: 30
 
 
 
+/*.........................*/
+
+//Objetos
+
+// Creación de un objeto literal
+const persona = {
+  nombre: "Juan",
+  edad: 30,
+  ciudad: "Madrid",
+  hobbies: ["correr", "leer", "viajar"],
+  direccion: {
+    calle: "Calle Mayor",
+    numero: 123,
+    ciudad: "Madrid"
+  },
+  saludar: function() {
+    console.log(`¡Hola! Mi nombre es ${this.nombre}.`);
+  }
+};
+
+// Acceso a propiedades del objeto
+console.log(persona.nombre); // Resultado: "Juan"
+console.log(persona.edad);   // Resultado: 30
+console.log(persona.hobbies); // Resultado: ["correr", "leer", "viajar"]
+console.log(persona.direccion.calle); // Resultado: "Calle Mayor"
+
+// Modificación de propiedades
+persona.edad = 31;
+persona.ciudad = "Barcelona";
+console.log(persona); // Resultado: {nombre: "Juan", edad: 31, ciudad: "Barcelona", ...}
+
+// Agregar nuevas propiedades
+persona.profesion = "ingeniero";
+console.log(persona); // Resultado: {nombre: "Juan", edad: 31, ciudad: "Barcelona", ..., profesion: "ingeniero"}
+
+// Eliminar propiedades
+delete persona.hobbies;
+console.log(persona); // Resultado: {nombre: "Juan", edad: 31, ciudad: "Barcelona", ..., profesion: "ingeniero"}
+
+// Ejecutar métodos del objeto
+persona.saludar(); // Resultado: ¡Hola! Mi nombre es Juan.
+
+// Iterar sobre las propiedades del objeto
+for (let clave in persona) {
+  console.log(clave + ": " + persona[clave]);
+}
+/* Resultado:
+nombre: Juan
+edad: 31
+ciudad: Barcelona
+...
+profesion: ingeniero
+*/
+
+// Obtener todas las claves (propiedades) del objeto
+const claves = Object.keys(persona);
+console.log(claves); // Resultado: ["nombre", "edad", "ciudad", ..., "profesion"]
+
+// Obtener todos los valores del objeto
+const valores = Object.values(persona);
+console.log(valores); // Resultado: ["Juan", 31, "Barcelona", ..., "ingeniero"]
+
+// Verificar si una propiedad existe en el objeto
+console.log("nombre" in persona); // Resultado: true
+console.log("telefono" in persona); // Resultado: false
+
+
+
 
 /*.........................*/
 
-//Operadores
+//Operadores o tipo de operadores o tipo de dato operador
+
+//Aritméticos
+
+let numero1 = 10;
+let numero2 = 5;
+
+// Operador de suma (+)
+let suma = numero1 + numero2;
+console.log(suma); // Resultado: 15
+
+// Operador de resta (-)
+let resta = numero1 - numero2;
+console.log(resta); // Resultado: 5
+
+// Operador de multiplicación (*)
+let multiplicacion = numero1 * numero2;
+console.log(multiplicacion); // Resultado: 50
+
+// Operador de división (/)
+let division = numero1 / numero2;
+console.log(division); // Resultado: 2
+
+// Operador de módulo (%) - devuelve el resto de la división
+let resto = numero1 % numero2;
+console.log(resto); // Resultado: 0 (10 dividido entre 5 da como resultado 2, sin resto)
+
+// Combinación de operadores aritméticos
+let resultado = (numero1 + numero2) * (numero1 - numero2);
+console.log(resultado); // Resultado: 75 (El resultado de la suma es 15 y de la resta es 5, 15 * 5 = 75)
 
 
 
 //---------------
+
+//Asignación
+
+// Operador de asignación simple (=)
+let x = 10;
+console.log(x); // Resultado: 10
+
+// Operadores de asignación combinada
+let y = 5;
+
+y += 3; // Equivalente a: y = y + 3;
+console.log(y); // Resultado: 8
+
+y -= 2; // Equivalente a: y = y - 2;
+console.log(y); // Resultado: 6
+
+y *= 2; // Equivalente a: y = y * 2;
+console.log(y); // Resultado: 12
+
+y /= 3; // Equivalente a: y = y / 3;
+console.log(y); // Resultado: 4
+
+y %= 2; // Equivalente a: y = y % 2;
+console.log(y); // Resultado: 0
+
+// Operador de asignación con otros tipos de datos
+let mensaje = "Hola ";
+mensaje += "Mundo";
+console.log(mensaje); // Resultado: "Hola Mundo"
+
+let edad = 25;
+edad += " años";
+console.log(edad); // Resultado: "25 años"
+
+
+
+//---------------
+
+//Comparación
+
+let numero1 = 10;
+let numero2 = 5;
+
+// Operadores de igualdad (== y ===)
+console.log(numero1 == numero2); // Resultado: false (comparación de valor)
+console.log(numero1 === numero2); // Resultado: false (comparación de valor y tipo de dato)
+
+let texto1 = "10";
+console.log(numero1 == texto1); // Resultado: true (comparación de valor, se convierte el número a string)
+console.log(numero1 === texto1); // Resultado: false (comparación de valor y tipo, son de tipos diferentes)
+
+// Operadores de desigualdad (!= y !==)
+console.log(numero1 != numero2); // Resultado: true (comparación de valor)
+console.log(numero1 !== numero2); // Resultado: true (comparación de valor y tipo de dato)
+
+console.log(numero1 != texto1); // Resultado: false (comparación de valor)
+console.log(numero1 !== texto1); // Resultado: true (comparación de valor y tipo)
+
+// Operadores de comparación (<, >, <=, >=)
+console.log(numero1 < numero2); // Resultado: false
+console.log(numero1 > numero2); // Resultado: true
+console.log(numero1 <= numero2); // Resultado: false
+console.log(numero1 >= numero2); // Resultado: true
+
+// Comparación de cadenas de texto
+let cadena1 = "Hola";
+let cadena2 = "Mundo";
+console.log(cadena1 < cadena2); // Resultado: true (compara según orden alfabético)
+
+
+
+//---------------
+
+//Lógicos
+
+let edad = 25;
+let tieneLicencia = true;
+let tieneTrabajo = false;
+
+// Operador AND lógico (&&)
+console.log(edad >= 18 && tieneLicencia); // Resultado: true (ambas condiciones son verdaderas)
+console.log(edad >= 18 && tieneTrabajo); // Resultado: false (una de las condiciones es falsa)
+
+// Operador OR lógico (||)
+console.log(edad >= 18 || tieneLicencia); // Resultado: true (al menos una de las condiciones es verdadera)
+console.log(edad >= 18 || tieneTrabajo); // Resultado: true (al menos una de las condiciones es verdadera)
+console.log(tieneLicencia || tieneTrabajo); // Resultado: true (ambas condiciones son falsas)
+
+// Operador NOT lógico (!)
+let esMenorDeEdad = !(edad >= 18);
+console.log(esMenorDeEdad); // Resultado: false (la condición se invierte)
+
+// Combinación de operadores lógicos
+let resultado = (edad >= 18 && tieneLicencia) || tieneTrabajo;
+console.log(resultado); // Resultado: true (una de las condiciones es verdadera)
+
+
+
+
+//---------------
+
+//Concatenación
+
+// Operador de concatenación (+)
+let mensaje = "Hola ";
+let nombre = "Juan";
+let saludo = mensaje + nombre;
+console.log(saludo); // Resultado: "Hola Juan"
+
+// Concatenación con números (conversión implícita a cadena)
+let numero = 10;
+let texto = "El número es: " + numero;
+console.log(texto); // Resultado: "El número es: 10"
+
+// Concatenación de cadenas con otros tipos de datos
+let edad = 30;
+let informacion = "Nombre: " + nombre + ", Edad: " + edad;
+console.log(informacion); // Resultado: "Nombre: Juan, Edad: 30"
+
+// Utilizando el método concat()
+let cadena1 = "Hola";
+let cadena2 = "Mundo";
+let resultadoConcat = cadena1.concat(" ", cadena2);
+console.log(resultadoConcat); // Resultado: "Hola Mundo"
+
+// Utilizando template literals (plantillas de cadena)
+let producto = "Smartphone";
+let precio = 250;
+let descripcion = `El ${producto} tiene un precio de ${precio} dólares.`;
+console.log(descripcion); // Resultado: "El Smartphone tiene un precio de 250 dólares."
+
+// Utilizando el método join() para concatenar elementos de un array
+let frutas = ["manzana", "naranja", "plátano"];
+let listaFrutas = frutas.join(", ");
+console.log(listaFrutas); // Resultado: "manzana, naranja, plátano"
+
+
+
+//---------------
+
+//Ternarios
+
+// Ejemplo 1: Verificar si un número es par o impar
+let numero = 10;
+let esPar = numero % 2 === 0 ? true : false;
+console.log(esPar); // Resultado: true
+
+// Ejemplo 2: Calificar si un estudiante aprobó o reprobó el examen
+let calificacion = 75;
+let resultadoExamen = calificacion >= 60 ? "Aprobado" : "Reprobado";
+console.log(resultadoExamen); // Resultado: "Aprobado"
+
+// Ejemplo 3: Asignar un mensaje dependiendo de una condición
+let esDeDia = true;
+let mensaje = esDeDia ? "Buenos días" : "Buenas noches";
+console.log(mensaje); // Resultado: "Buenos días"
+
+// Ejemplo 4: Validar un input vacío
+let texto = "";
+let mensajeValidacion = texto === "" ? "El campo está vacío" : "Texto ingresado";
+console.log(mensajeValidacion); // Resultado: "El campo está vacío"
+
+
+
+/*.........................*/
+
+//Built-in Objects
+
+//Object
+
+
+
+//Array
+
+
+
+
+
+
+//---------------
+
+
 
 
 
@@ -394,14 +673,24 @@ console.log(personaSimbolos[edadSimbolo]); // Resultado: 30
 
 
 
+//---------------
+
+
 /*.........................*/
 
 //Propiedades
 
 
 
+//---------------
+
+
 
 /*.........................*/
 
 //Metodos
+
+
+
+//---------------
 
