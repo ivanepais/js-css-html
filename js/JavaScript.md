@@ -1029,7 +1029,190 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 		```
 
 
-		
+|| TYPE CASTING (conversión de tipos)
+
+	Se refiere a la conversión explícita de un valor de un tipo de dato a otro tipo de dato.
+
+	JavaScript es un lenguaje de programación de tipado débil y dinámico, lo que significa que las conversiones de tipo se realizan automáticamente (implícita) en ciertas situaciones, pero también puedes realizar conversiones explícitas de manera controlada.
+	
+	La conversión explícita puede ser necesaria cuando necesitas asegurarte de que un valor sea de un tipo específico para realizar ciertas operaciones o comparaciones. T
+
+	También puede ser útil cuando necesitas presentar datos en un formato específico para mostrarlos al usuario o enviarlos a un servidor.
+
+	1. Casting a Número: 
+
+		Para convertir un valor a un número, puedes utilizar la función Number(), el operador unario +, o parseInt() y parseFloat() para convertir cadenas numéricas a números enteros o de punto flotante, respectivamente.
+
+		```js
+
+			let numeroString = "42";
+			let numero = Number(numeroString); // Usando la función Number()
+			console.log(numero); // Resultado: 42
+
+			let otraNumero = +numeroString; // Usando el operador unario +
+			console.log(otraNumero); // Resultado: 42
+
+			let entero = parseInt(numeroString, 10); // Convertir a entero usando parseInt()
+			console.log(entero); // Resultado: 42
+
+			let flotante = parseFloat(numeroString); // Convertir a punto flotante usando parseFloat()
+			console.log(flotante); // Resultado: 42
+
+		```
+
+	2. Casting a Cadena de Texto: 
+
+		Para convertir un valor a una cadena de texto, puedes utilizar la función String() o concatenar el valor con una cadena vacía ("").
+
+		```js
+
+			let valor = 42;
+			let cadena = String(valor); // Usando la función String()
+			console.log(cadena); // Resultado: "42"
+
+			let otraCadena = valor + ""; // Concatenando con una cadena vacía
+			console.log(otraCadena); // Resultado: "42"
+
+		```
+	
+	3. Casting a Booleano: 
+
+		Para convertir un valor a un booleano, puedes utilizar el operador unario !! o la función Boolean().
+
+		```js
+
+			let x = 0;
+			let booleano = !!x; // Usando el operador unario !!
+			console.log(booleano); // Resultado: false
+
+			let otroBooleano = Boolean(x); // Usando la función Boolean()
+			console.log(otroBooleano); // Resultado: false
+
+		```
+
+
+	Conversión implícita de JS: 
+
+		Ocurre cuando un operador o una función espera un tipo de dato específico, pero se le proporciona un valor de un tipo diferente. 
+
+		En tales casos, JavaScript automáticamente convierte el valor al tipo de dato esperado antes de realizar la operación o la función.
+
+		Puede ser útil y conveniente en ciertas situaciones, pero también puede llevar a resultados inesperados si no se comprende correctamente. 
+
+		Es importante tener en cuenta cómo se realizan estas conversiones para evitar comportamientos inesperados en el código. 
+
+
+		Operaciones Aritméticas: 
+
+			Cuando se realizan operaciones aritméticas, JavaScript convierte automáticamente los operandos a números antes de realizar la operación.
+
+			```js
+
+				let x = "5"; // Tipo: string
+				let y = 2;   // Tipo: number
+
+				let suma = x + y; 
+
+				// Aquí, x se convierte implícitamente a número y se realiza la suma
+
+				console.log(suma); // Resultado: 7
+
+			```
+
+		Operaciones de Comparación: 
+
+			Al comparar valores con operadores de comparación (por ejemplo, ==, !=, ===, !==, <, >, <=, >=), JavaScript realiza conversiones implícitas para comparar los valores. 
+
+			```js
+
+				let a = 5;   // Tipo: number
+				let b = "5"; // Tipo: string
+
+				console.log(a == b); // Aquí, b se convierte implícitamente a número y la comparación es verdadera
+
+			```
+
+		Operaciones Lógicas: 
+
+			Al utilizar operadores lógicos como &&, ||, y !, JavaScript realiza conversiones implícitas para evaluar las expresiones lógicas. Por ejemplo:
+
+			```js
+
+				let c = 0;   // Tipo: number
+				let d = "hola"; // Tipo: string
+
+				console.log(c && d); // Aquí, c se convierte implícitamente a booleano y la expresión evalúa a 0
+
+			```
+
+		Funciones con Parámetros: 
+
+			Cuando una función espera un cierto tipo de dato como parámetro, si se le pasa un valor de otro tipo, JavaScript realizará una conversión implícita si es posible. Por ejemplo:
+
+			```js
+
+				function sumar(a, b) {
+				  return a + b;
+				}
+
+				let resultado = sumar("2", 3); // Aquí, "2" se convierte implícitamente a número antes de sumar
+				console.log(resultado); // Resultado: 5
+
+			```
+
+	Conversiones explícitas entre varios tipos de datos: 
+
+		Number: 
+
+			Se puede convertir a otros tipos de datos utilizando String() o concatenando con una cadena vacía (""), y también mediante Boolean(). Además, se puede convertir una cadena numérica en un número entero mediante parseInt() o en un número de punto flotante mediante parseFloat().
+
+	    String: 
+
+	    	Se puede convertir a un número utilizando Number(), y también a un booleano utilizando Boolean().
+
+	    Boolean: 
+
+	    	Se puede convertir a un número utilizando Number() (donde true se convierte en 1 y false en 0), y también a una cadena utilizando String().
+
+	    Undefined: 
+
+	    	Se puede convertir a un número o cadena, en ambos casos devuelve NaN o "undefined", respectivamente. También se puede convertir a un booleano, donde se convierte en false.
+
+	    Null: 
+
+	    	Se puede convertir a un número, donde se convierte en 0. También se puede convertir a una cadena, donde se convierte en "null", y a un booleano, donde se convierte en false.
+
+	    Object: 
+
+	    	En general, la conversión de objetos no es tan sencilla y directa como con los tipos de datos anteriores. Puedes usar métodos personalizados dentro del objeto para realizar conversiones específicas.
+
+
+	Coerción vs conversión de tipos: 
+
+		Coerción es lo que aplica JS en la conversión implícita. 
+
+		La conversión explícita tambien se conoce como Type Casting. 
+
+
+	Null vs NaN
+
+		null se utiliza para indicar explícitamente	la ausencia de valor, especialmente cuando deseamos "reiniciar" una variable o propiedad que anteriormente tenía un valor asignado.
+
+		NaN se utiliza para indicar que un resultado de una operación aritmética no es válido o no se puede determinar debido a la presencia de valores no numéricos.
+
+		NaN puede surgir cuando intentamos dividir una cadena de texto por un número, o cuando realizamos operaciones matemáticas con valores no numéricos.
+
+		NaN es de tipo number en JavaScript.
+
+		Null es object. 
+
+		Puedes usar funciones como isNaN() para verificar si un valor es NaN.
+
+		Podemos usar el operador de igualdad estricta (===) para comprobar si una variable es igual a null. Además, ten en cuenta que null es un valor asignable. 
+
+		NaN es un valor que surge como resultado 
+		de operaciones no válidas.
+
 
 
 
