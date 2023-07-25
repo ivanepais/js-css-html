@@ -14,7 +14,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 
 
 
-|| Propósitos
+|| PROPÓSITO
 
 	Es agregar interactividad y funcionalidades dinámicas a las páginas web. Permite a los desarrolladores crear efectos visuales, validar formularios, manipular el contenido de la página en tiempo real, interactuar con el usuario y más. 
 
@@ -44,7 +44,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 
 
 
-|| Versiones de JS
+|| VERSIONES DE JS
 	
 	A lo largo de los años, JavaScript ha tenido varias versiones y actualizaciones importantes.
 
@@ -104,7 +104,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 
 
 
-|| Ejecutar código JS 
+|| EJECUTAR CÓDIGO JS 
 	
 	Se necesita un entorno de ejecución que pueda interpretar y ejecutar el código
 
@@ -127,7 +127,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 		Si tenemos instalado node.js podemos ejecutar un archivo .js desde la terminal del OS y ejecutando el comando: node nombre_del_archivo.js
 
 
-|| Variables
+|| VARIABLES
 	
 	Declaración de variables: 
 
@@ -305,7 +305,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 
 
 
-|| Tipos de datos
+|| TIPOS DE DATOS
 
 	Los tipos de datos primitivos son inmutables, lo que significa que una vez que se ha creado un valor, no se puede cambiar directamente.
 
@@ -545,7 +545,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 	    ```
 
 
-|| Objetos
+|| OBJETOS
 
 	Es una estructura de datos compleja que permite almacenar colecciones de pares clave-valor. 
 
@@ -665,7 +665,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 				Los objetos son la base de la programación orientada a objetos en JavaScript, donde se utilizan clases y prototipos para crear instancias de objetos con propiedades y métodos compartidos.
 
 
-|| Operadores
+|| OPERADORES
 
 	Son símbolos que se utilizan para realizar operaciones en variables y valores. Hay varios tipos de operadores que 
 
@@ -817,7 +817,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 	    ```
 
 
-|| Objetos avanzado
+|| OBJETOS AVANZADO
 	
 	Built-in Objects (objeto integrado o incorporado o predefinido): 
 
@@ -871,20 +871,177 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 
 	Object prototype (objeto prototipo): 
 
+		Es un concepto fundamental relacionado con la herencia y la cadena de prototipos (prototype chain) en el lenguaje. 
 
+		Cada objeto en JavaScript tiene un prototipo, y el prototipo de un objeto es otro objeto al cual el objeto hace referencia para buscar propiedades y métodos que no están presentes en sí mismo.
+
+		Formando una cadena llamada "cadena de prototipos" o "prototype chain". Esta cadena continúa hasta llegar al prototipo final, que es Object.prototype, que es el prototipo de todos los objetos en JavaScript.
+
+		El prototipo de un objeto actúa como una plantilla o modelo para ese objeto. Cuando se accede a una propiedad o método en un objeto, JavaScript busca primero en el propio objeto, y si no lo encuentra, continúa buscando en la cadena de prototipos hasta encontrar la propiedad o método en algún nivel superior de la cadena.
+
+		```js
+
+			let persona = {
+			  nombre: "Juan",
+			  edad: 30,
+			};
+
+			// Agregar un método al prototipo del objeto persona
+			persona.saludar = function () {
+			  console.log(`¡Hola, soy ${this.nombre}!`);
+			};
+
+			persona.saludar(); // Resultado: ¡Hola, soy Juan!
+
+		```
+
+		Hemos creado un objeto persona con dos propiedades nombre y edad. Luego, hemos agregado un método saludar al objeto persona. Cuando llamamos al método saludar() en el objeto persona, JavaScript busca primero en el propio objeto y encuentra el método, por lo que se ejecuta y muestra el mensaje en la consola.
+
+		El prototipo de un objeto se puede acceder a través de la propiedad __proto__ del objeto, pero es más común utilizar el método Object.getPrototypeOf(obj) para obtener el prototipo de un objeto.
+
+		```js
+
+			let prototipoPersona = Object.getPrototypeOf(persona);
+			
+			console.log(prototipoPersona === Object.prototype); // Resultado: true
+
+		```
+
+		En resumen, el "object prototype" en JavaScript es el mecanismo que permite la herencia entre objetos, lo que facilita la reutilización de propiedades y métodos entre diferentes objetos y ayuda a organizar y estructurar el código de manera más eficiente.
+
+
+		El prototipo de un objeto se define mediante la propiedad especial <<prototype>>, que es una propiedad de la función constructora del objeto. 
+
+		Cuando se crea un objeto utilizando una función constructora mediante el operador <<new>>, el objeto creado hereda las propiedades y métodos del prototipo de la función constructora.
+
+		```js
+
+			// Definimos una función constructora
+			
+			function Persona(nombre, edad) {
+			  this.nombre = nombre;
+			  this.edad = edad;
+			}
+
+			// Agregamos un método al prototipo de Persona
+
+			Persona.prototype.saludar = function() {
+			  console.log(`Hola, soy ${this.nombre} y tengo ${this.edad} años.`);
+			};
+
+			// Creamos una instancia de Persona
+			
+			let persona1 = new Persona('Juan', 30);
+			let persona2 = new Persona('María', 25);
+
+			// Las instancias de Persona heredan 
+			el método saludar del prototipo
+
+			persona1.saludar(); // Resultado: Hola, soy Juan y tengo 30 años.
+			
+			persona2.saludar(); // Resultado: Hola, soy María y tengo 25 años.
+
+		```
+
+		En este ejemplo, hemos creado una función constructora Persona que tiene una propiedad nombre y edad, y hemos agregado un método saludar() al prototipo de Persona. 
+
+		Cuando creamos instancias de Persona mediante new Persona(...), las instancias heredan el método saludar() del prototipo de la función constructora, lo que significa que todas las instancias de Persona tienen acceso a ese método.
+
+		La cadena de prototipos (prototype chain) permite que los objetos en JavaScript hereden propiedades y métodos de sus prototipos, y esto se extiende hacia arriba hasta llegar al prototipo base, que es el prototipo de Object. 
+
+		De esta manera, JavaScript implementa la herencia basada en prototipos y proporciona una forma flexible y poderosa de compartir funcionalidades entre objetos.
+
+		Es importante entender el concepto de prototipo en JavaScript, ya que está en el corazón de cómo funciona la herencia en el lenguaje y cómo se comparten y reutilizan las funcionalidades entre objetos.
 
 
 	Prototypal inheritance (herencia de prototipo): 
 
+		Es un concepto fundamental en JavaScript que describe cómo los objetos pueden heredar propiedades y métodos de otros objetos. 
+
+		A diferencia de los lenguajes de programación tradicionales que utilizan la herencia basada en clases, JavaScript utiliza la herencia prototípica, lo que significa que un objeto puede heredar directamente propiedades y métodos de otro objeto conocido como su "prototipo".
+
+		La herencia prototípica permite que los objetos compartan propiedades y métodos comunes sin tener que crear copias independientes de ellos para cada objeto.
+
+		Esto hace que el código sea más eficiente y fácil de mantener, ya que los cambios realizados en el prototipo se reflejarán automáticamente en todos los objetos que lo heredan.
+
+		```js
+
+			// Creamos un objeto prototipo
+			let animal = {
+			  hacerSonido: function() {
+			    console.log("Haciendo un sonido");
+			  }
+			};
+
+			// Creamos un nuevo objeto que hereda del prototipo animal
+			let perro = Object.create(animal);
+			perro.hacerSonido(); // Resultado: Haciendo un sonido
+
+			// Agregamos una nueva función al prototipo animal
+			animal.comer = function() {
+			  console.log("Comiendo");
+			};
+
+			// El objeto perro hereda automáticamente la nueva función
+			perro.comer(); // Resultado: Comiendo
+
+		```
+
+		Hemos creado un objeto animal con un método <<hacerSonido>>. Luego, hemos creado un nuevo objeto perro utilizando Object.create(animal), lo que significa que perro hereda del prototipo animal.
+
+		Cuando llamamos al método hacerSonido() en el objeto perro, JavaScript busca en perro, no lo encuentra y luego busca en su prototipo animal, donde lo encuentra y ejecuta.
+
+		Además, hemos agregado una nueva <<función comer>> al prototipo animal. El objeto perro hereda automáticamente esta nueva función, lo que demuestra cómo los cambios en el prototipo se propagan automáticamente a los objetos que lo heredan.
+
+	
+	Instancias de un objeto: 
+
+		Se refiere a un nuevo objeto creado a partir de un constructor o una clase.
+
+		Un constructor es una función especial en JavaScript que se utiliza para crear objetos con un conjunto específico de propiedades y métodos. 
+
+		Cuando se llama a un constructor con el operador new, se crea una nueva instancia del objeto basada en ese constructor.
+
+		Las instancias de un objeto son objetos individuales que comparten la misma estructura y funcionalidades definidas por el constructor o la clase, pero cada instancia tiene sus propios valores específicos para sus propiedades. 
+
+		Esto permite la creación de múltiples objetos con características comunes, pero con valores únicos para cada instancia.
+
+
+		```js
+
+			// Definimos un constructor para crear objetos "Persona"
+			function Persona(nombre, edad) {
+			  this.nombre = nombre;
+			  this.edad = edad;
+			}
+
+			// Creamos dos instancias del objeto "Persona" utilizando el constructor
+			let persona1 = new Persona('Juan', 30);
+			let persona2 = new Persona('María', 25);
+
+			// Cada instancia tiene sus propios valores para las propiedades "nombre" y "edad"
+			console.log(persona1.nombre); // Resultado: "Juan"
+			console.log(persona1.edad);   // Resultado: 30
+
+			console.log(persona2.nombre); // Resultado: "María"
+			console.log(persona2.edad);   // Resultado: 25
+
+		```
+
+
+		
 
 
 
-|| Built-in Objects de cada tipo de dato
+
+|| BUILT-IN OBJECTS de cada tipo de dato
 
 	
 	1. De Object: 
 
-		Es la base de todos los objetos y proporciona funcionalidades para crear y manipular objetos. A continuación
+		Es la base de todos los objetos y proporciona funcionalidades para crear y manipular objetos.
+
+		Es esencial en el lenguaje y se utiliza ampliamente para trabajar con objetos, realizar operaciones de clonación, manipular propiedades y más.
 
 		Object.create(): 
 
@@ -1536,7 +1693,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
     	```
 
 
-|| Template literals
+|| TEMPLATE LITERALS
 
 	[]: Acceso a caracteres individuales de un string mediante el uso de corchetes
 
@@ -1551,7 +1708,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 
 
 
-|| Metodos
+|| MÉTODOS
 
 	toUpperCase(): Conversión de strings a mayúsculas.
 
@@ -1569,9 +1726,6 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 	join(): para unir elementos de un array en una sola cadena separada por un delimitador específico.
 
 
-|| Objetos
-
-	Math.abs(): 
 
 
 
