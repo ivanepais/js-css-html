@@ -380,6 +380,40 @@ console.log(personaSimbolos[edadSimbolo]); // Resultado: 30
 
 //Objetos
 
+/*
+
+Formas de crear un objeto: 
+
+Usando la sintaxis de objetos literales:
+
+	const persona = {
+	  nombre: "Juan",
+	  edad: 30,
+	  ciudad: "Madrid"
+	};
+
+
+Usando el constructor object(): 
+
+	const persona = new Object();
+	persona.nombre = "Juan";
+	persona.edad = 30;
+	persona.ciudad = "Madrid";
+		
+
+Usando funciones constructoras o clases (sintaxis anterior a ES6):
+
+	function Persona(nombre, edad, ciudad) {
+
+	  this.nombre = nombre;
+	  this.edad = edad;
+	  this.ciudad = ciudad;
+	}
+
+	const persona = new Persona("Juan", 30, "Madrid");
+
+*/
+
 // Creación de un objeto literal
 const persona = {
   nombre: "Juan",
@@ -441,6 +475,39 @@ console.log(valores); // Resultado: ["Juan", 31, "Barcelona", ..., "ingeniero"]
 // Verificar si una propiedad existe en el objeto
 console.log("nombre" in persona); // Resultado: true
 console.log("telefono" in persona); // Resultado: false
+
+
+//---------------
+//Ejemplo 2
+
+// Definimos un objeto prototipo
+let animal = {
+  tipo: 'desconocido',
+  emitirSonido: function() {
+    console.log('El animal hace un sonido.');
+  }
+};
+
+// Creamos un nuevo objeto "perro" que hereda del objeto prototipo "animal"
+let perro = Object.create(animal);
+perro.tipo = 'perro';
+perro.ladrar = function() {
+  console.log('Guau, guau!');
+};
+
+// Creamos otro nuevo objeto "gato" que también hereda del objeto prototipo "animal"
+let gato = Object.create(animal);
+gato.tipo = 'gato';
+gato.maullar = function() {
+  console.log('Miau, miau!');
+};
+
+// Probamos los objetos "perro" y "gato"
+perro.emitirSonido(); // Resultado: El animal hace un sonido. (Heredado del prototipo "animal")
+perro.ladrar(); // Resultado: Guau, guau!
+
+gato.emitirSonido(); // Resultado: El animal hace un sonido. (Heredado del prototipo "animal")
+gato.maullar(); // Resultado: Miau, miau!
 
 
 
@@ -651,16 +718,176 @@ console.log(mensajeValidacion); // Resultado: "El campo está vacío"
 
 //Object
 
-
-
 //Array
 
+//String
+
+//Number
+
+//Boolean
+
+let boolValue = true;
+
+// Utilizando el método toString()
+let boolString = boolValue.toString();
+console.log(boolString); // Resultado: "true"
+
+// Utilizando el método valueOf()
+let boolPrimitive = boolValue.valueOf();
+console.log(boolPrimitive); // Resultado: true
+
+// Creando una instancia del objeto Boolean
+let boolObject = new Boolean(boolValue);
+console.log(boolObject); // Resultado: [Boolean: true]
+
+//Date
+
+//RegExp
+
+// Creando una expresión regular para buscar la palabra "hola" sin importar mayúsculas y minúsculas
+let regex = /hola/i;
+
+// Verificando si la expresión regular encuentra coincidencia en una cadena
+let texto = "Hola mundo";
+let resultado = regex.test(texto);
+console.log(resultado); // Resultado: true
+
+// Buscando coincidencias en una cadena y obteniendo los resultados
+let texto2 = "Hola mundo, hola JavaScript";
+let resultado2 = regex.exec(texto2);
+console.log(resultado2); // Resultado: ["Hola", index: 0, input: "Hola mundo, hola JavaScript", groups: undefined]
+
+//Function
+
+// Creando una función utilizando el constructor Function()
+let sumar = new Function('a', 'b', 'return a + b;');
+console.log(sumar(5, 3)); // Resultado: 8
+
+// Utilizando el método apply()
+function saludar(nombre) {
+  console.log(`¡Hola, ${nombre}!`);
+}
+
+saludar.apply(null, ['Juan']); // Resultado: ¡Hola, Juan!
+
+// Utilizando el método call()
+function mostrarInformacion(nombre, edad) {
+  console.log(`Nombre: ${nombre}, Edad: ${edad}`);
+}
+
+mostrarInformacion.call(null, 'Ana', 30); // Resultado: Nombre: Ana, Edad: 30
+
+// Utilizando el método bind()
+let persona = {
+  nombre: 'Luis',
+  edad: 25,
+};
+
+function presentar() {
+  console.log(`Hola, soy ${this.nombre} y tengo ${this.edad} años.`);
+}
+
+let funcionPresentar = presentar.bind(persona);
+funcionPresentar(); // Resultado: Hola, soy Luis y tengo 25 años.
+
+// Utilizando el método toString()
+function multiplicar(a, b) {
+  return a * b;
+}
+
+console.log(multiplicar.toString()); // Resultado: function multiplicar(a, b) { return a * b; }
 
 
+//JSON
 
+// Utilizando JSON.stringify() para convertir un objeto en una cadena JSON
+let persona = {
+  nombre: 'Juan',
+  edad: 30,
+  ciudad: 'Madrid'
+};
+
+let personaJSON = JSON.stringify(persona);
+console.log(personaJSON);
+// Resultado: '{"nombre":"Juan","edad":30,"ciudad":"Madrid"}'
+
+// Utilizando JSON.parse() para convertir una cadena JSON en un objeto
+let mascotaJSON = '{"nombre":"Luna","edad":5,"tipo":"perro"}';
+let mascota = JSON.parse(mascotaJSON);
+console.log(mascota);
+// Resultado: { nombre: 'Luna', edad: 5, tipo: 'perro' }
 
 
 //---------------
+
+
+
+/*.........................*/
+
+//Objetos avanzado: 
+
+//Object prototype
+
+let persona = {
+  nombre: "Juan",
+  edad: 30,
+};
+
+// Agregar un método al prototipo del objeto persona
+persona.saludar = function () {
+  console.log(`¡Hola, soy ${this.nombre}!`);
+};
+
+persona.saludar(); // Resultado: ¡Hola, soy Juan!
+
+
+//El prototipo de un objeto se puede acceder a través de la propiedad __proto__ del objeto, pero es más común utilizar el método Object.getPrototypeOf(obj)
+let prototipoPersona = Object.getPrototypeOf(persona);
+console.log(prototipoPersona === Object.prototype); // Resultado: true
+
+
+// Definimos una función constructora
+function Persona(nombre, edad) {
+  this.nombre = nombre;
+  this.edad = edad;
+}
+
+// Agregamos un método al prototipo de Persona
+Persona.prototype.saludar = function() {
+  console.log(`Hola, soy ${this.nombre} y tengo ${this.edad} años.`);
+};
+
+// Creamos una instancia de Persona
+let persona1 = new Persona('Juan', 30);
+let persona2 = new Persona('María', 25);
+
+// Las instancias de Persona heredan el método saludar del prototipo
+persona1.saludar(); // Resultado: Hola, soy Juan y tengo 30 años.
+persona2.saludar(); // Resultado: Hola, soy María y tengo 25 años.
+
+
+//---------------
+
+//Prototypal Inheritance
+
+// Definimos un objeto prototipo
+let animal = {
+  tipo: 'desconocido',
+  emitirSonido: function() {
+    console.log('El animal hace un sonido.');
+  }
+};
+
+// Creamos un objeto perro que hereda del objeto prototipo animal
+let perro = Object.create(animal);
+perro.tipo = 'perro';
+perro.emitirSonido(); // Resultado: El perro hace un sonido.
+
+// Creamos otro objeto gato que también hereda del objeto prototipo animal
+let gato = Object.create(animal);
+gato.tipo = 'gato';
+gato.emitirSonido(); // Resultado: El gato hace un sonido.
+
 
 
 
