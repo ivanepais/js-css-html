@@ -891,6 +891,327 @@ gato.emitirSonido(); // Resultado: El gato hace un sonido.
 
 
 
+/*.........................*/
+
+//Type casting (conversión de tipos)
+
+//Implicita: Cuando le pasas un tipo de dato que JS no espera por su lógica y lo convierte en otro.
+	
+//Operaciones aritméticas
+
+let x = "5"; // Tipo: string
+let y = 2;   // Tipo: number
+
+let suma = x + y; // Aquí, x se convierte implícitamente a número y se realiza la suma
+console.log(suma); // Resultado: 7
+
+
+//Comparación
+
+let a = 5;   // Tipo: number
+let b = "5"; // Tipo: string
+
+console.log(a == b); // Aquí, b se convierte implícitamente a número y la comparación es verdadera
+
+
+//Lógicas
+
+let c = 0;   // Tipo: number
+let d = "hola"; // Tipo: string
+
+console.log(c && d); // Aquí, c se convierte implícitamente a booleano y la expresión evalúa a 0
+
+
+//Funciones
+
+function sumar(a, b) {
+  return a + b;
+}
+
+let resultado = sumar("2", 3); // Aquí, "2" se convierte implícitamente a número antes de sumar
+console.log(resultado); // Resultado: 5
+
+
+//---------------
+
+//Explicita: Necesidad de asegurarte un tipo de dato específico para el resultado de una operación.
+
+//Number
+
+let numero = 42; // Tipo: number
+
+let cadena = String(numero); // Conversión a String
+console.log(cadena); // Resultado: "42"
+console.log(typeof cadena); // Resultado: "string"
+
+
+let numero = 0; // Tipo: number
+
+let booleano = Boolean(numero); // Conversión a Boolean
+console.log(booleano); // Resultado: false
+console.log(typeof booleano); // Resultado: "boolean"
+
+
+let numero = 10; // Tipo: number
+
+let indefinido = undefined; // Tipo: undefined
+
+indefinido = numero; // Conversión a Undefined
+console.log(indefinido); // Resultado: 10
+console.log(typeof indefinido); // Resultado: "number"
+
+
+let numero = 5; // Tipo: number
+
+let nulo = null; // Tipo: object
+
+nulo = numero; // Conversión a Null
+console.log(nulo); // Resultado: 5
+console.log(typeof nulo); // Resultado: "number"
+
+
+//---------------
+
+//String
+
+let cadena = "42"; // Tipo: string
+
+let numero = Number(cadena); // Conversión a Number
+console.log(numero); // Resultado: 42
+console.log(typeof numero); // Resultado: "number"
+
+
+let cadena = "true"; // Tipo: string
+
+let booleano = Boolean(cadena); // Conversión a Boolean
+console.log(booleano); // Resultado: true
+console.log(typeof booleano); // Resultado: "boolean"
+
+
+let cadena = "hola"; // Tipo: string
+
+let indefinido = undefined; // Tipo: undefined
+
+indefinido = cadena; // Conversión a Undefined
+console.log(indefinido); // Resultado: "hola"
+console.log(typeof indefinido); // Resultado: "string"
+
+
+let cadena = "null"; // Tipo: string
+
+let nulo = null; // Tipo: object
+
+nulo = cadena; // Conversión a Null
+console.log(nulo); // Resultado: "null"
+console.log(typeof nulo); // Resultado: "string"
+
+
+let cadena = "Hola, soy un objeto"; // Tipo: string
+
+let objeto = {}; // Tipo: object
+
+objeto = cadena; // Conversión a Object
+console.log(objeto); // Resultado: "Hola, soy un objeto"
+console.log(typeof objeto); // Resultado: "string"
+
+
+
+//---------------
+
+//Boolean
+
+let booleano = true; // Tipo: boolean
+
+let numero = Number(booleano); // Conversión a Number
+console.log(numero); // Resultado: 1
+console.log(typeof numero); // Resultado: "number"
+
+
+let booleano = false; // Tipo: boolean
+
+let cadena = String(booleano); // Conversión a String
+console.log(cadena); // Resultado: "false"
+console.log(typeof cadena); // Resultado: "string"
+
+
+let booleano = true; // Tipo: boolean
+
+let indefinido = undefined; // Tipo: undefined
+
+indefinido = booleano; // Conversión a Undefined
+console.log(indefinido); // Resultado: true
+console.log(typeof indefinido); // Resultado: "boolean"
+
+
+let booleano = false; // Tipo: boolean
+
+let nulo = null; // Tipo: object
+
+nulo = booleano; // Conversión a Null
+console.log(nulo); // Resultado: false
+console.log(typeof nulo); // Resultado: "boolean"
+
+
+
+//---------------
+
+//Undefined
+
+let indefinido = undefined; // Tipo: undefined
+
+let numero = Number(indefinido); // Conversión a Number
+console.log(numero); // Resultado: NaN (Not-a-Number)
+console.log(typeof numero); // Resultado: "number"
+
+
+let indefinido = undefined; // Tipo: undefined
+
+let cadena = String(indefinido); // Conversión a String
+console.log(cadena); // Resultado: "undefined"
+console.log(typeof cadena); // Resultado: "string"
+
+
+let indefinido = undefined; // Tipo: undefined
+
+let booleano = Boolean(indefinido); // Conversión a Boolean
+console.log(booleano); // Resultado: false
+console.log(typeof booleano); // Resultado: "boolean"
+
+
+let indefinido = undefined; // Tipo: undefined
+
+let nulo = null; // Tipo: object
+
+nulo = indefinido; // Conversión a Null
+console.log(nulo); // Resultado: undefined
+console.log(typeof nulo); // Resultado: "undefined"
+
+
+
+//---------------
+
+//Null
+
+let nulo = null; // Tipo: object
+
+let numero = Number(nulo); // Conversión a Number
+console.log(numero); // Resultado: 0
+console.log(typeof numero); // Resultado: "number"
+
+
+let nulo = null; // Tipo: object
+
+let cadena = String(nulo); // Conversión a String
+console.log(cadena); // Resultado: "null"
+console.log(typeof cadena); // Resultado: "string"
+
+
+let nulo = null; // Tipo: object
+
+let booleano = Boolean(nulo); // Conversión a Boolean
+console.log(booleano); // Resultado: false
+console.log(typeof booleano); // Resultado: "boolean"
+
+
+let nulo = null; // Tipo: object
+
+let indefinido = undefined; // Tipo: undefined
+
+indefinido = nulo; // Conversión a Undefined
+console.log(indefinido); // Resultado: null
+console.log(typeof indefinido); // Resultado: "object"
+
+
+
+//---------------
+
+//Object
+
+let persona = {
+  nombre: "Juan",
+  edad: 30,
+};
+
+let cadena = JSON.stringify(persona); // Conversión a String utilizando JSON.stringify()
+console.log(cadena); // Resultado: '{"nombre":"Juan","edad":30}'
+console.log(typeof cadena); // Resultado: "string"
+
+
+let producto = {
+  nombre: "Camiseta",
+  precio: 25.99,
+};
+
+let precioNumerico = producto.precio; // Obtener el valor numérico directamente desde el objeto
+console.log(precioNumerico); // Resultado: 25.99
+console.log(typeof precioNumerico); // Resultado: "number"
+
+
+let automovil = {
+  marca: "Toyota",
+  modelo: "Corolla",
+};
+
+let esValido = Boolean(automovil.marca); // Convertir la propiedad a Boolean
+console.log(esValido); // Resultado: true
+console.log(typeof esValido); // Resultado: "boolean"
+
+
+//---------------
+
+//Coerción: Obligar a cambiar de tipo de dato a un objeto, dato. 
+//Es lo que hace JS en la conversión implícita. 
+
+/*Implicit Type Conversion is also known 
+(and more commonly referred to) as Coercion while 
+Explicit Type Conversion is also known 
+as Type Casting*/
+
+
+//Null vs NaN
+
+/*
+
+null se utiliza para indicar explícitamente 
+la ausencia de valor, especialmente cuando deseamos 
+"reiniciar" una variable o propiedad 
+que anteriormente tenía un valor asignado.
+
+NaN se utiliza para indicar que un resultado 
+de una operación aritmética no es válido 
+o no se puede determinar debido a la presencia 
+de valores no numéricos
+
+NaN puede surgir cuando intentamos dividir 
+una cadena de texto por un número, o cuando 
+realizamos operaciones matemáticas con valores 
+no numéricos.
+
+NaN es de tipo number en JavaScript.
+
+Null es object. 
+
+Puedes usar funciones como isNaN() para verificar
+si un valor es NaN, y el operador de igualdad 
+estricta (===) para comprobar si una variable 
+es igual a null. Además, ten en cuenta que null 
+es un valor asignable
+
+mientras que NaN es un valor que surge como resultado 
+de operaciones no válidas.
+
+*/
+
+let miVariable = null; // Se asigna explícitamente el valor null para indicar la ausencia de valor
+console.log(miVariable); // Resultado: null
+console.log(typeof miVariable); // Resultado: "object"
+
+
+let miVariable = null; // Se asigna explícitamente el valor null para indicar la ausencia de valor
+console.log(miVariable); // Resultado: null
+console.log(typeof miVariable); // Resultado: "object"
+
+
 
 
 /*.........................*/
