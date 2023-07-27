@@ -1215,6 +1215,430 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 
 
 
+|| ESTRUCTURAS DE DATOS
+
+	Se refiere a datos organizados y estructurados que se almacenan en variables, objetos, arrays o cualquier otra estructura de datos para facilitar su manipulación y gestión en el código.
+
+	Cuando hablamos de "Structured Data", nos referimos a datos que tienen un formato bien definido y consistente, lo que permite acceder y utilizar la información de manera más eficiente y comprensible para los programadores. 
+
+	
+	Composición de la estructura de datos en JS: 
+
+		1. Tipos de datos primitivos: 
+
+			Number, String, Boolean, Undefined, Null, y Symbol. Estos tipos de datos son valores simples que representan datos básicos y no tienen métodos o propiedades adicionales.
+
+			Son inmutables, lo que significa que una vez que se crea un valor, no se puede modificar. Si se realiza una operación sobre un valor primitivo, se crea un nuevo valor en lugar de modificar el existente.
+
+			Al comparar dos valores primitivos, se compara su contenido, y si tienen el mismo valor, se consideran iguales.
+
+			Cuando se pasa un valor primitivo como argumento a una función, se pasa una copia del valor en lugar de una referencia al valor original.
+
+			Tienen una capacidad fija y no pueden contener otros valores o funciones. Son tipos de datos simples y no complejos.
+
+			Number: 
+
+				Representa números enteros o decimales, como 1, 3.14, -10, etc. 
+
+			String: 
+
+				Representa una secuencia de caracteres, como "Hola", 'Mundo', "123",
+
+			Boolean: 
+
+				Representan los valores de verdad (true) o falsedad (false). 
+
+			Undefined: 
+
+				Representa una variable que ha sido declarada pero no inicializada con un valor.
+
+			Null: 
+
+				Representa la ausencia intencionada de valor.
+
+			Symbol: 
+
+				Representa un valor único e inmutable que puede utilizarse como clave de una propiedad de objeto.
+
+				Permite crear identificadores únicos y privados, evitando colisiones de nombres y mejorando el encapsulamiento en objetos. 
+
+				Son especialmente útiles en situaciones en las que es necesario agregar metadatos o propiedades privadas a objetos sin afectar la interacción con otras partes del código.
+
+				```js
+
+					// Creación de símbolos
+					const simbolo1 = Symbol();
+					const simbolo2 = Symbol("descripcion");
+
+				```
+
+			Bigint: 
+
+				representación de números enteros más grandes de los que el tipo de dato Number puede manejar.
+
+				A diferencia de los números regulares (Number), que tienen una precisión de 64 bits y pueden representar enteros hasta Number.MAX_SAFE_INTEGER (2^53 - 1), los BigInt pueden representar enteros con una precisión arbitraria.
+
+				Sintaxis:
+
+					Para crear un valor de tipo BigInt, simplemente agrega la letra n al final del número entero que deseas representar:
+
+					```js
+
+						const numeroBigInt = 1234567890123456789012345678901234567890n;
+
+					```
+
+		2. Objetos: 
+
+			Permiten almacenar múltiples valores (propiedades/clave) y métodos (funciones) relacionados bajo una misma entidad. Esto facilita la organización de los datos y la agrupación de funcionalidades relacionadas.
+
+			Un objeto se define utilizando llaves {} y los pares clave-valor se separan por comas. Las propiedades se definen como clave: valor, donde la clave es una cadena o un símbolo que representa el nombre de la propiedad y el valor puede ser cualquier tipo de dato, incluido otro objeto.
+
+				```js
+
+					let persona = {
+					  nombre: "Juan",
+					  edad: 30,
+					  esEstudiante: true,
+					  direcciones: ["Calle A", "Calle B"],
+					  contacto: {
+					    telefono: "123456789",
+					    correo: "juan@example.com"
+					  },
+					  saludar: function() {
+					    console.log(`¡Hola! Mi nombre es ${this.nombre}.`);
+					  }
+					};
+
+				```
+
+			2.1: Clases y prototipos: 
+
+				En JavaScript, es común estructurar datos utilizando clases y prototipos en el paradigma de programación orientada a objetos.
+
+
+		3. Arrays: 
+
+			Son estructuras que permiten almacenar una secuencia ordenada de valores en una sola variable.
+
+			```js
+
+				let numeros = [1, 2, 3, 4, 5];
+				let frutas = ["manzana", "naranja", "plátano"];
+
+			```
+
+
+		4. JSON: 
+
+			Es un formato de datos que permite representar datos estructurados como objetos y arrays utilizando una sintaxis similar a la de JavaScript. Es ampliamente utilizado para intercambiar datos entre aplicaciones.
+
+			```js
+
+				{
+				  "nombre": "Juan",
+				  "edad": 30,
+				  "esEstudiante": true,
+				  "direcciones": ["Calle A", "Calle B"],
+				  "contacto": {
+				    "telefono": "123456789",
+				    "correo": "juan@example.com"
+				  }
+				}
+
+
+			```
+
+	JSON: 
+
+		"JavaScript Object Notation" (Notación de Objetos de JavaScript), es un formato de intercambio de datos ligero y legible por humanos. 
+
+		Es ampliamente utilizado para transmitir datos estructurados entre un servidor y un cliente web, así como para almacenar y organizar datos en archivos de configuración.
+
+		Características: 
+
+			Es independiente del lenguaje, lo que significa que puede ser utilizado por diversos lenguajes de programación, no solo JavaScript.
+
+			Utiliza una sintaxis similar a la de los objetos y arrays en JavaScript, lo que facilita su comprensión y uso.
+			
+			Soporta varios tipos de datos primitivos: números, strings, booleanos, null, arrays y objetos anidados.
+
+		Sintaxis: 
+
+			Los datos se organizan en pares clave-valor.
+
+    		Los nombres de las claves (propiedades) deben estar entre comillas dobles.
+
+    		Los valores pueden ser números, strings, booleanos, null, arrays u objetos.
+
+    		Los pares clave-valor se separan por comas.
+
+    		Los objetos se delimitan con llaves {}.
+
+    		Los arrays se delimitan con corchetes [].
+
+
+    	```js 
+
+    		{
+			  "nombre": "Juan",
+			  "edad": 30,
+			  "esEstudiante": true,
+			  "direcciones": ["Calle A", "Calle B"],
+			  "contacto": {
+			    "telefono": "123456789",
+			    "correo": "juan@example.com"
+			  }
+			}
+
+    	```
+
+    	En el ejemplo, hemos definido un objeto JSON que contiene varias propiedades: nombre, edad, esEstudiante, direcciones (un array) y contacto (otro objeto anidado).
+
+
+    	Usos: 
+
+    		Transferencia de datos: 
+
+    			JSON es ampliamente utilizado para enviar y recibir datos entre un servidor y un cliente web en aplicaciones que utilizan tecnologías como AJAX o API REST.
+
+		    Almacenamiento de configuraciones:
+
+		    	JSON se utiliza para almacenar configuraciones y preferencias del usuario en aplicaciones web y móviles.
+
+		    Intercambio de datos entre sistemas: 
+
+		    	JSON es un formato comúnmente utilizado para intercambiar datos estructurados entre diferentes sistemas y aplicaciones.
+
+		    Almacenamiento de datos en archivos:
+
+		    	JSON se utiliza para guardar y leer datos estructurados en archivos de texto, lo que lo hace ideal para almacenar datos pequeños y sencillos.
+
+
+	Indexed Collections:
+
+		Se refiere a estructuras de datos que almacenan elementos ordenados y accesibles mediante un índice numérico. 
+
+		Son útiles cuando necesitas almacenar y acceder a múltiples elementos en un orden específico. 
+
+		Al usar un índice numérico, puedes acceder rápidamente a elementos individuales, recorrer el conjunto de datos y realizar diversas operaciones.
+
+
+		Array: 
+
+			Es una estructura de datos que almacena una lista ordenada de elementos. 
+
+			Cada elemento en el array se identifica mediante un índice numérico, comenzando desde 0 para el primer elemento, 1 para el segundo y así sucesivamente. 
+
+			Los arrays pueden contener elementos de cualquier tipo de dato, incluidos otros arrays y objetos.
+
+			```js
+
+				let frutas = ["manzana", "naranja", "plátano"];
+
+				console.log(frutas[0]); // Resultado: "manzana"
+				console.log(frutas[1]); // Resultado: "naranja"
+				console.log(frutas[2]); // Resultado: "plátano"
+
+			```
+
+		Typed Array: 
+
+			Son una variante de los arrays que permiten almacenar elementos en una memoria de bytes contigua con un tipo de dato específico. 
+
+			Son utilizados principalmente para manipular datos binarios y trabajos con arrays numéricos más eficientes. Los "Typed Arrays" están disponibles en varias formas, como Int8Array, Uint8Array, Float32Array, entre otros.
+
+			```js
+
+				let numeros = new Int8Array([10, 20, 30]);
+
+				console.log(numeros[0]); // Resultado: 10
+				console.log(numeros[1]); // Resultado: 20
+				console.log(numeros[2]); // Resultado: 30
+
+			```
+			Son útiles para aplicaciones que requieren manipulación eficiente de datos numéricos o binarios, como procesamiento de audio, gráficos, trabajos con bytes, etc.
+
+		Los "Indexed Collections" son útiles cuando necesitas almacenar y acceder a múltiples elementos en un orden específico. Al usar un índice numérico, puedes acceder rápidamente a elementos individuales, recorrer el conjunto de datos y realizar diversas operaciones
+
+
+	Keyed Collections: 
+
+		Colecciones indexadas en JavaScript se refiere a estructuras de datos que almacenan elementos asociados a claves únicas. 
+
+		A diferencia de los arrays, donde los elementos se acceden mediante índices numéricos, en las "Keyed Collections" se accede a los elementos a través de claves (llaves) que pueden ser de cualquier tipo de dato, como strings, números o símbolos.
+
+
+		Map: 
+
+			Es una estructura de datos introducida en ECMAScript 6 que permite almacenar pares clave-valor.
+
+			Es una colección de pares clave-valor en JavaScript, donde cada clave debe ser única y puede ser de cualquier tipo de dato, mientras que cada valor puede ser también de cualquier tipo de dato, incluidos objetos y funciones. 
+
+			Esto significa que un mismo valor puede estar asociado con diferentes claves, pero cada clave debe ser única en un Map.
+
+			Son útiles cuando necesitas almacenar datos asociados a claves únicas y no necesariamente quieres utilizar índices numéricos para acceder a los elementos. 
+
+			Los objetos son comúnmente utilizados en JavaScript para representar entidades y datos estructurados, mientras que los Mapas proporcionan una forma más flexible de trabajar con datos clave-valor, especialmente cuando las claves no son limitadas a strings o números.
+
+			Características:
+
+			    Claves únicas: 
+
+			    	Cada clave en un Map debe ser única, lo que significa que no puede haber duplicados.
+
+			    Orden de inserción: 
+
+			    	Los pares clave-valor se mantienen en el orden en que fueron insertados, lo que permite iterar sobre ellos en el mismo orden.
+
+			    Acceso a través de claves: 
+
+			    	Los valores asociados a cada clave se acceden a través de la clave, lo que facilita la búsqueda y recuperación de valores.
+
+			    Puede utilizar cualquier tipo de dato como clave: 
+
+			    	A diferencia de los objetos JavaScript regulares, donde las claves son siempre strings o símbolos, en un Map se pueden utilizar cualquier tipo de dato como clave, incluyendo objetos y funciones.
+
+			    Iterable: 
+
+			    	Puedes recorrer los pares clave-valor de un Map utilizando for...of o el método forEach().
+
+			```js
+
+				let mapa = new Map();
+				mapa.set("nombre", "Juan");
+				mapa.set(30, "treinta");
+				mapa.set(true, "esEstudiante");
+
+			```
+
+		Weak Map: 	
+
+			Es una colección de pares clave-valor donde las claves deben ser objetos y los valores pueden ser cualquier tipo de dato.
+
+			A diferencia de un Map, las claves en un WeakMap son "débiles" o "weak". Esto significa que si no hay otras referencias al objeto clave fuera del WeakMap, el recolector de basura de JavaScript puede eliminar el objeto clave y su valor asociado del WeakMap para liberar memoria.
+
+			Los WeakMaps no son iterables y no tienen métodos como size o forEach.
+			
+			Los WeakMaps no admiten las operaciones comunes de Map como set(), get(), delete() o clear(). Solo proporcionan los métodos get(), set(), has() y delete() para operaciones con claves y valores asociados.
+
+			```js
+
+				let weakMap = new WeakMap();
+
+				let clave1 = {};
+				let clave2 = {};
+
+				weakMap.set(clave1, "Valor asociado a clave1");
+				weakMap.set(clave2, "Valor asociado a clave2");
+
+				console.log(weakMap.get(clave1)); // Resultado: "Valor asociado a clave1"
+
+				clave1 = null; // Eliminar referencia a la clave1
+				console.log(weakMap.get(clave1)); // Resultado: undefined, el objeto clave1 fue recolectado por el recolector de basura
+
+			```
+
+
+		Set: 
+
+			Permite almacenar valores únicos de cualquier tipo de dato, ya sean primitivos u objetos. Esto significa que un mismo valor no puede aparecer más de una vez en un Set. 
+
+			Los valores se mantienen en el orden en que fueron insertados, lo que permite iterar sobre ellos en el mismo orden.
+
+			Los Sets son útiles cuando necesitas almacenar una colección de elementos únicos y realizar operaciones de conjunto, como uniones, intersecciones y diferencias. 
+
+			Su característica de no permitir duplicados los convierte en una herramienta útil para trabajar con conjuntos de datos distintos en JavaScript.
+
+
+			Características: 
+
+				Valores únicos: 
+
+					Cada valor en un Set debe ser único, lo que significa que no puede haber duplicados.
+
+			    Orden de inserción: 
+
+			    	Los valores se mantienen en el orden en que fueron insertados, lo que permite iterar sobre ellos en el mismo orden.
+
+			    No indexado: 
+
+			    	A diferencia de un Array, los elementos en un Set no se acceden mediante índices numéricos, ya que no tienen un índice asociado.
+
+			    No admite claves: 
+
+			    	Los elementos en un Set son la propia clave, es decir, no puedes especificar una clave personalizada para cada elemento, ya que los valores son únicos.
+
+			    Iterable: 
+
+			    	Puedes recorrer los elementos de un Set utilizando for...of o el método forEach().
+
+			```js
+
+				// Crear un Set vacío
+				let miSet = new Set();
+
+				// Crear un Set con valores iniciales
+				let numeros = new Set([1, 2, 3, 4, 5]);
+				let frutas = new Set(["manzana", "naranja", "plátano"]);
+
+			```
+
+		Weak set: 
+
+			Un WeakSet es una colección de objetos donde cada objeto puede aparecer solo una vez en el conjunto.
+
+		    Los WeakSets no son iterables y no tienen métodos como size o forEach.
+		    Los WeakSets no admiten las operaciones comunes de Set como add(), has(), delete() o clear(). Solo proporcionan los métodos add() y delete().
+
+
+		    ```js
+
+		    	let weakSet = new WeakSet();
+
+				let objeto1 = {};
+				let objeto2 = {};
+
+				weakSet.add(objeto1);
+				weakSet.add(objeto2);
+
+				console.log(weakSet.has(objeto1)); // Resultado: true
+
+				objeto1 = null; // Eliminar referencia al objeto1
+
+				console.log(weakSet.has(objeto1)); // Resultado: false, el objeto1 fue recolectado por el recolector de basura
+
+		    ```
+
+		Los WeakMaps y WeakSets son útiles en situaciones donde necesitas asociar datos con objetos y quieres que los objetos sean recolectados por el recolector de basura si no están siendo utilizados en ningún otro lugar de tu código. 
+
+		Estas estructuras de datos son comúnmente utilizadas en casos de uso como almacenar datos privados en clases o asociar información adicional a objetos sin que afecten el ciclo de vida del objeto. 
+
+		Es importante tener en cuenta que debido a su naturaleza "débil", los WeakMaps y WeakSets no se pueden utilizar como soluciones generales para almacenar datos de manera persistente, ya que los datos pueden ser eliminados automáticamente por el recolector de basura si no hay otras referencias a los objetos clave o valores asociados.
+
+
+	Recolector de basura: 
+
+		Es un mecanismo automático que se encarga de administrar la memoria asignada a los objetos y valores creados durante la ejecución del programa. 
+
+		Su función principal es liberar la memoria que ya no es utilizada o referenciada por ninguna parte del código, lo que ayuda a evitar problemas de pérdida de memoria y mejora el rendimiento del programa.
+
+		Cuando se ejecuta un programa en JavaScript, se crean objetos, arrays, funciones y otros valores en memoria para almacenar datos y realizar operaciones. 
+
+		A medida que el programa avanza, algunos de estos valores pueden quedar sin uso o dejar de ser accesibles, ya sea porque se sobrescriben con nuevos valores, se eliminan referencias a ellos o ya no se necesitan en el flujo del programa.
+
+		El proceso de recolección de basura en JavaScript puede variar dependiendo del motor de JavaScript utilizado (como V8 en Google Chrome, SpiderMonkey en Firefox, entre otros). 
+
+		Sin embargo, en general, el recolector de basura utiliza técnicas como el seguimiento de referencias y el conteo de referencias para determinar qué objetos o valores ya no son alcanzables y, por lo tanto, pueden ser eliminados.
+
+		Aunque los desarrolladores no necesitan preocuparse explícitamente por liberar la memoria asignada a los objetos, ya que el recolector de basura se encargará de ello de manera transparente.
+
+		También es importante tener en cuenta las buenas prácticas de programación para evitar fugas de memoria, como asegurarse de eliminar referencias a objetos que ya no son necesarios, especialmente en aplicaciones de larga duración o con uso intensivo de memoria.
+
+
+
+
+
 
 
 || BUILT-IN OBJECTS de cada tipo de dato

@@ -1213,6 +1213,640 @@ console.log(typeof miVariable); // Resultado: "object"
 
 
 
+/*.........................*/
+
+//Data structures
+
+/*
+
+Tipos de datos primitivos: 
+
+	Number, String, Boolean, Undefined, Null, Symbol
+
+Objetos: 
+	
+	Clases, prototipos, herencia
+
+indexed collections (indice/orden):
+	
+	array, typed array
+
+
+JSON (structured data)
+
+
+keyed collections (clave-valor/orden): 
+	
+	map, set, weak map, weak set
+	
+*/
+
+//---------------
+
+//Objetos
+
+let persona = {
+  nombre: "Juan",
+  edad: 30,
+  esEstudiante: true,
+  direcciones: ["Calle A", "Calle B"],
+  contacto: {
+    telefono: "123456789",
+    correo: "juan@example.com"
+  },
+  saludar: function() {
+    console.log(`¡Hola! Mi nombre es ${this.nombre}.`);
+  }
+};
+
+
+
+
+
+//---------------
+
+//JSON
+
+{
+  "nombre": "Juan",
+  "edad": 30,
+  "esEstudiante": true,
+  "direcciones": ["Calle A", "Calle B"],
+  "contacto": {
+    "telefono": "123456789",
+    "correo": "juan@example.com"
+  }
+}
+
+
+// Creación de un objeto JSON
+let persona = {
+  "nombre": "Juan",
+  "edad": 30,
+  "esEstudiante": true,
+  "direcciones": ["Calle A", "Calle B"],
+  "contacto": {
+    "telefono": "123456789",
+    "correo": "juan@example.com"
+  }
+};
+
+// Acceso a las propiedades del objeto
+console.log(persona.nombre); // Resultado: "Juan"
+console.log(persona.edad); // Resultado: 30
+console.log(persona.esEstudiante); // Resultado: true
+console.log(persona.direcciones[0]); // Resultado: "Calle A"
+console.log(persona.contacto.telefono); // Resultado: "123456789"
+
+
+
+//objeto
+let persona = {
+  nombre: "Juan",
+  edad: 30,
+  esEstudiante: true
+};
+
+// Convertir el objeto a JSON
+let personaJSON = JSON.stringify(persona);
+
+console.log(personaJSON);
+// Resultado: '{"nombre":"Juan","edad":30,"esEstudiante":true}'
+
+
+//json
+let personaJSON = '{"nombre":"Juan","edad":30,"esEstudiante":true}';
+
+// Parsear el JSON a un objeto JavaScript
+let persona = JSON.parse(personaJSON);
+
+console.log(persona.nombre); // Resultado: "Juan"
+console.log(persona.edad); // Resultado: 30
+console.log(persona.esEstudiante); // Resultado: true
+
+
+
+// Ejemplo de enviar un JSON a través de una API utilizando fetch()
+let data = {
+  nombre: "Juan",
+  edad: 30,
+  esEstudiante: true
+};
+
+fetch('https://mi-api.com/persona', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+})
+.then(response => response.json())
+.then(responseData => {
+  console.log(responseData);
+})
+.catch(error => {
+  console.error('Error:', error);
+});
+
+
+
+//---------------
+
+//Array
+
+let numeros = [1, 2, 3, 4, 5];
+let frutas = ["manzana", "naranja", "plátano"];
+let vacio = [];
+
+console.log(frutas[0]); // Resultado: "manzana"
+console.log(frutas[1]); // Resultado: "naranja"
+console.log(frutas[2]); // Resultado: "plátano"
+
+
+//Añadir elementos al final del array con push():
+let frutas = ["manzana", "naranja", "plátano"];
+frutas[1] = "limón";
+console.log(frutas); // Resultado: ["manzana", "limón", "plátano"]
+
+
+//Eliminar el último elemento del array con pop():
+let frutas = ["manzana", "naranja", "plátano"];
+let ultimaFruta = frutas.pop();
+console.log(ultimaFruta); // Resultado: "plátano"
+console.log(frutas); // Resultado: ["manzana", "naranja"]
+
+
+//Añadir elementos al principio del array con unshift():
+let frutas = ["naranja", "plátano"];
+frutas.unshift("manzana");
+console.log(frutas); // Resultado: ["manzana", "naranja", "plátano"]
+
+
+//Eliminar el primer elemento del array con shift():
+let frutas = ["manzana", "naranja", "plátano"];
+let primeraFruta = frutas.shift();
+console.log(primeraFruta); // Resultado: "manzana"
+console.log(frutas); // Resultado: ["naranja", "plátano"]
+
+
+//Encontrar la posición de un elemento en el array con indexOf():
+let frutas = ["manzana", "naranja", "plátano"];
+let posicion = frutas.indexOf("naranja");
+console.log(posicion); // Resultado: 1
+
+
+//Eliminar elementos específicos del array con splice():
+let frutas = ["manzana", "naranja", "plátano"];
+frutas.splice(1, 1); // Elimina un elemento desde la posición 1
+console.log(frutas); // Resultado: ["manzana", "plátano"]
+
+
+//Recorrer un array con un bucle for:
+let numeros = [1, 2, 3, 4, 5];
+for (let i = 0; i < numeros.length; i++) {
+  console.log(numeros[i]);
+}
+// Resultado:
+// 1
+// 2
+// 3
+// 4
+// 5
+
+
+//Ordenar elementos del array con sort():
+let frutas = ["manzana", "naranja", "plátano"];
+frutas.sort();
+console.log(frutas); // Resultado: ["manzana", "naranja", "plátano"]
+
+
+//Invertir el orden de los elementos del array con reverse():
+let frutas = ["manzana", "naranja", "plátano"];
+frutas.reverse();
+console.log(frutas); // Resultado: ["plátano", "naranja", "manzana"]
+
+
+
+//---------------
+
+//Typed Array
+
+let numeros = new Int8Array([10, 20, 30]);
+
+console.log(numeros[0]); // Resultado: 10
+console.log(numeros[1]); // Resultado: 20
+console.log(numeros[2]); // Resultado: 30
+
+
+// Crear un Typed Array
+let numeros = new Int16Array([10, 20, 30, 40]);
+
+// Acceder a elementos del Typed Array mediante índices
+console.log(numeros[0]); // Resultado: 10
+console.log(numeros[1]); // Resultado: 20
+
+// Modificar elementos del Typed Array
+numeros[2] = 35;
+console.log(numeros); // Resultado: Int16Array [ 10, 20, 35, 40 ]
+
+// Obtener la longitud del Typed Array con .length
+console.log(numeros.length); // Resultado: 4
+
+// Añadir elementos al final del Typed Array con .set()
+let nuevosNumeros = new Int16Array([50, 60]);
+numeros.set(nuevosNumeros);
+console.log(numeros); // Resultado: Int16Array [ 10, 20, 35, 40, 50, 60 ]
+
+// Eliminar elementos del Typed Array con .subarray()
+let subArray = numeros.subarray(2, 4);
+console.log(subArray); // Resultado: Int16Array [ 35, 40 ]
+
+// Recorrer el Typed Array con un bucle for...of
+for (let numero of numeros) {
+  console.log(numero);
+}
+// Resultado:
+// 10
+// 20
+// 35
+// 40
+
+// Ordenar elementos del Typed Array con .sort()
+numeros.sort();
+console.log(numeros); // Resultado: Int16Array [ 10, 20, 35, 40, 50, 60 ]
+
+// Buscar un elemento en el Typed Array con .find()
+let encontrado = numeros.find((numero) => numero > 30);
+console.log(encontrado); // Resultado: 35
+
+// Filtrar elementos del Typed Array con .filter()
+let filtrados = numeros.filter((numero) => numero > 30);
+console.log(filtrados); // Resultado: Int16Array [ 35, 40, 50, 60 ]
+
+// Mapear elementos del Typed Array con .map()
+let multiplicados = numeros.map((numero) => numero * 2);
+console.log(multiplicados); // Resultado: Int16Array [ 20, 40, 70, 80, 100, 120 ]
+
+
+
+
+//---------------
+
+//Map
+
+let mapa = new Map();
+mapa.set("nombre", "Juan");
+mapa.set(30, "treinta");
+mapa.set(true, "esEstudiante");
+
+
+//crear map
+let empleados = new Map();
+
+//Agregar elementos con .set():
+empleados.set("001", "Juan");
+empleados.set("002", "María");
+empleados.set("003", "Carlos");
+
+//Obtener un valor con .get() mediante la clave:
+console.log(empleados.get("001")); // Resultado: "Juan"
+
+//Verificar si una clave existe con .has():
+console.log(empleados.has("002")); // Resultado: true
+console.log(empleados.has("004")); // Resultado: false
+
+//Obtener la cantidad de elementos con .size:
+console.log(empleados.size); // Resultado: 3
+
+//Eliminar un elemento con .delete() mediante la clave:
+empleados.delete("003");
+console.log(empleados.size); // Resultado: 2
+
+//Recorrer los elementos con for...of:
+for (let [clave, valor] of empleados) {
+  console.log(clave, valor);
+}
+// Resultado:
+// "001" "Juan"
+// "002" "María"
+
+//Recorrer las claves con .keys():
+for (let clave of empleados.keys()) {
+  console.log(clave);
+}
+// Resultado:
+// "001"
+// "002"
+
+//Recorrer los valores con .values():
+for (let valor of empleados.values()) {
+  console.log(valor);
+}
+// Resultado:
+// "Juan"
+// "María"
+
+//Recorrer los pares clave-valor con .entries():
+for (let [clave, valor] of empleados.entries()) {
+  console.log(clave, valor);
+}
+// Resultado:
+// "001" "Juan"
+// "002" "María"
+
+//Eliminar todos los elementos con .clear():
+empleados.clear();
+console.log(empleados.size); // Resultado: 0 (El Map está vacío)
+
+//Convertir un Array de pares clave-valor a un Map:
+let arrayPares = [["a", 1], ["b", 2], ["c", 3]];
+let mapa = new Map(arrayPares);
+console.log(mapa); // Resultado: Map { 'a' => 1, 'b' => 2, 'c' => 3 }
+
+
+//ejemplos pares
+
+// Crear un Set vacío
+let miSet = new Set();
+
+// Crear un Set con valores iniciales
+let numeros = new Set([1, 2, 3, 4, 5]);
+let frutas = new Set(["manzana", "naranja", "plátano"]);
+
+//Agregar elementos
+let miSet = new Set();
+
+miSet.add("Hola");
+miSet.add(42);
+miSet.add({ nombre: "Juan", edad: 30 });
+
+//Comprobar si un valor existe en un Set:
+console.log(miSet.has("Hola")); // Resultado: true
+console.log(miSet.has(42)); // Resultado: true
+console.log(miSet.has({ nombre: "Juan", edad: 30 })); // Resultado: false (los objetos se comparan por referencia)
+
+//Eliminar un elemento de un Set:
+miSet.delete(42);
+
+//Obtener la cantidad de elementos en un Set:
+console.log(miSet.size); // Resultado: 2 (después de eliminar el valor 42)
+
+//Recorrer los elementos de un Set:
+miSet.forEach((valor) => {
+  console.log(valor);
+});
+// Resultado:
+// "Hola"
+// { nombre: "Juan", edad: 30 }
+
+//Limpiar todos los elementos de un Set:
+miSet.clear();
+console.log(miSet.size); // Resultado: 0 (el Set está vacío)
+
+
+
+//---------------
+
+//Set
+
+// Crear un Set vacío
+let miSet = new Set();
+
+// Crear un Set con valores iniciales
+let numeros = new Set([1, 2, 3, 4, 5]);
+let frutas = new Set(["manzana", "naranja", "plátano"]);
+
+
+//Crear un Set:
+let numeros = new Set();
+numeros.add(1);
+numeros.add(2);
+numeros.add(3);
+
+//Agregar elementos con .add():
+let frutas = new Set();
+frutas.add("manzana");
+frutas.add("naranja");
+frutas.add("plátano");
+
+//Eliminar elementos con .delete():
+frutas.delete("naranja");
+
+//Verificar si un elemento existe con .has():
+console.log(frutas.has("manzana")); // Resultado: true
+console.log(frutas.has("uva")); // Resultado: false
+
+//Obtener la cantidad de elementos con .size:
+console.log(frutas.size); // Resultado: 2 (Después de eliminar "naranja")
+
+//Recorrer los elementos con for...of:
+for (let fruta of frutas) {
+  console.log(fruta);
+}
+// Resultado:
+// "manzana"
+// "plátano"
+
+//Eliminar todos los elementos con .clear():
+frutas.clear();
+console.log(frutas.size); // Resultado: 0 (El Set está vacío)
+
+//Convertir un Array a un Set y viceversa:
+let numerosArray = [1, 2, 3, 2, 1];
+let numerosSet = new Set(numerosArray);
+console.log(numerosSet); // Resultado: Set { 1, 2, 3 }
+
+let numerosUnicos = Array.from(numerosSet);
+console.log(numerosUnicos); // Resultado: [1, 2, 3]
+
+
+//Realizar operaciones matemáticas entre Sets:
+let conjuntoA = new Set([1, 2, 3]);
+let conjuntoB = new Set([3, 4, 5]);
+
+let union = new Set([...conjuntoA, ...conjuntoB]);
+console.log(union); // Resultado: Set { 1, 2, 3, 4, 5 }
+
+let interseccion = new Set([...conjuntoA].filter((x) => conjuntoB.has(x)));
+console.log(interseccion); // Resultado: Set { 3 }
+
+let diferencia = new Set([...conjuntoA].filter((x) => !conjuntoB.has(x)));
+console.log(diferencia); // Resultado: Set { 1, 2 }
+
+
+//ejemplos pares
+
+// Crear un Map vacío
+let miMapa = new Map();
+
+// Crear un Map con pares clave-valor iniciales
+let empleados = new Map();
+empleados.set("001", "Juan");
+empleados.set("002", "María");
+empleados.set("003", "Carlos");
+
+
+//Agregar pares clave-valor a un Map:
+let miMapa = new Map();
+
+miMapa.set("nombre", "Juan");
+miMapa.set(42, "cuarenta y dos");
+miMapa.set({ id: 1 }, "Valor asociado a objeto");
+
+//Obtener un valor a través de una clave en un Map:
+console.log(miMapa.get("nombre")); // Resultado: "Juan"
+console.log(miMapa.get(42)); // Resultado: "cuarenta y dos"
+
+let objeto = { id: 1 };
+console.log(miMapa.get(objeto)); // Resultado: "Valor asociado a objeto" (los objetos se comparan por referencia)
+
+//Comprobar si una clave existe en un Map:
+console.log(miMapa.has("nombre")); // Resultado: true
+console.log(miMapa.has("apellido")); // Resultado: false
+
+//Eliminar un par clave-valor de un Map:
+miMapa.delete("nombre");
+
+//Obtener la cantidad de pares clave-valor en un Map:
+console.log(miMapa.size); // Resultado: 2 (después de eliminar el par "nombre")
+
+//Recorrer los pares clave-valor de un Map:
+miMapa.forEach((valor, clave) => {
+  console.log(clave, valor);
+});
+// Resultado:
+// 42 "cuarenta y dos"
+// { id: 1 } "Valor asociado a objeto"
+
+//Limpiar todos los pares clave-valor de un Map:
+miMapa.clear();
+console.log(miMapa.size); // Resultado: 0 (el Map está vacío)
+
+
+//---------------
+
+//Weak map
+
+let weakMap = new WeakMap();
+
+let clave1 = {};
+let clave2 = {};
+
+weakMap.set(clave1, "Valor asociado a clave1");
+weakMap.set(clave2, "Valor asociado a clave2");
+
+console.log(weakMap.get(clave1)); // Resultado: "Valor asociado a clave1"
+
+clave1 = null; // Eliminar referencia a la clave1
+console.log(weakMap.get(clave1)); // Resultado: undefined, el objeto clave1 fue recolectado por el recolector de basura
+
+
+//Creación de un WeakMap:
+let empleados = new WeakMap();
+
+//Agregar pares clave-valor a un WeakMap:
+let empleado1 = { nombre: "Juan" };
+let empleado2 = { nombre: "María" };
+
+empleados.set(empleado1, "Departamento de Ventas");
+empleados.set(empleado2, "Departamento de Finanzas");
+
+//Obtener un valor a través de una clave en un WeakMap:
+console.log(empleados.get(empleado1)); // Resultado: "Departamento de Ventas"
+console.log(empleados.get(empleado2)); // Resultado: "Departamento de Finanzas"
+
+//Comprobar si una clave existe en un WeakMap:
+console.log(empleados.has(empleado1)); // Resultado: true
+console.log(empleados.has({ nombre: "Juan" })); // Resultado: false (los objetos se comparan por referencia)
+
+//Eliminar un par clave-valor de un WeakMap:
+empleados.delete(empleado1);
+
+
+/*
+los WeakMaps no son iterables y no tienen métodos como size o forEach().
+Además, debido a que las claves en un WeakMap
+son "débiles" o "weak", no se pueden utilizar
+todas las operaciones disponibles en un Map tradicional, 
+como la iteración de claves y valores, o la obtención del tamaño del WeakMap.
+
+*/
+
+
+//
+let empleado3 = { nombre: "Carlos" };
+
+empleados.set(empleado3, "Departamento de Recursos Humanos");
+
+// Cuando ya no hay otras referencias a empleado3, el objeto y el par clave-valor se liberarán de memoria.
+empleado3 = null;
+
+
+/*
+Dado que los WeakMaps utilizan "claves débiles" 
+(weak keys), si un objeto utilizado como clave 
+ya no tiene ninguna otra referencia en el código, 
+el recolector de basura de JavaScript lo liberará
+automáticamente de memoria, y el par clave-valor
+asociado también se eliminará del WeakMap.
+*/
+
+
+//---------------
+
+//Weak set
+
+let weakSet = new WeakSet();
+
+let objeto1 = {};
+let objeto2 = {};
+
+weakSet.add(objeto1);
+weakSet.add(objeto2);
+
+console.log(weakSet.has(objeto1)); // Resultado: true
+
+objeto1 = null; // Eliminar referencia al objeto1
+
+console.log(weakSet.has(objeto1)); // Resultado: false, el objeto1 fue recolectado por el recolector de basura
+
+
+//Creación de un WeakSet:
+let libros = new WeakSet();
+
+//Agregar elementos a un WeakSet:
+let libro1 = { titulo: "El Principito", autor: "Antoine de Saint-Exupéry" };
+let libro2 = { titulo: "Cien años de soledad", autor: "Gabriel García Márquez" };
+
+libros.add(libro1);
+libros.add(libro2);
+
+//Comprobar si un objeto existe en un WeakSet:
+console.log(libros.has(libro1)); // Resultado: true
+console.log(libros.has({ titulo: "El Principito", autor: "Antoine de Saint-Exupéry" })); // Resultado: false (los objetos se comparan por referencia)
+
+//Eliminar un elemento de un WeakSet:
+libros.delete(libro1);
+
+//Liberación de memoria de objetos no referenciados:
+let libro3 = { titulo: "Don Quijote de la Mancha", autor: "Miguel de Cervantes" };
+
+libros.add(libro3);
+
+// Cuando ya no hay otras referencias a libro3, el objeto se liberará de memoria y el elemento se eliminará del WeakSet.
+libro3 = null;
+
+/*
+los WeakSets no son iterables y no tienen métodos 
+como size o forEach(). Además, debido a que los
+elementos en un WeakSet son "débiles" o "weak",
+no se pueden utilizar todas las operaciones 
+disponibles en un Set tradicional, como la iteración
+de elementos, o la obtención del tamaño del WeakSet.
+*/
+
+//---------------
+
 
 /*.........................*/
 
