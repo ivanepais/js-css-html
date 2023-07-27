@@ -1848,6 +1848,170 @@ de elementos, o la obtención del tamaño del WeakSet.
 //---------------
 
 
+
+/*.........................*/
+
+//Equality comparison
+
+//vagamente igual (==) /looselyEqual/abstract equal
+
+console.log(5 == 5); // Resultado: true (ambos operandos son números y tienen el mismo valor)
+console.log(5 == "5"); // Resultado: true (el operando izquierdo es un número y el derecho es un string, JavaScript convierte "5" a número y son iguales)
+console.log(5 == true); // Resultado: true (el operando izquierdo es un número y el derecho es un boolean, JavaScript convierte true a 1 y son iguales)
+
+console.log("hello" == "hello"); // Resultado: true (ambos operandos son strings y tienen el mismo valor)
+console.log("hello" == "Hello"); // Resultado: false (los strings son sensibles a mayúsculas y minúsculas, por lo que no son iguales)
+console.log("hello" == true); // Resultado: false (los strings no son iguales a boolean, JavaScript no puede convertir "hello" a boolean)
+
+console.log(null == null); // Resultado: true (ambos operandos son null)
+console.log(null == undefined); // Resultado: true (null y undefined son tratados como iguales en una comparación con "==")
+
+console.log(0 == false); // Resultado: true (JavaScript convierte false a 0 y son iguales)
+console.log("" == false); // Resultado: true (JavaScript convierte false a "", un string vacío, y son iguales)
+console.log([] == false); // Resultado: true (JavaScript convierte false a 0 y un array vacío también se convierte a 0, por lo que son iguales)
+
+console.log(5 == NaN); // Resultado: false (NaN no es igual a ningún valor, ni siquiera a sí mismo)
+console.log(NaN == NaN); // Resultado: false (NaN no es igual a ningún valor, ni siquiera a sí mismo)
+
+console.log(null == 0); // Resultado: false (null no es igual a 0)
+console.log(null == ""); // Resultado: false (null no es igual a un string vacío)
+console.log(null == false); // Resultado: false (null no es igual a false)
+
+console.log(undefined == 0); // Resultado: false (undefined no es igual a 0)
+console.log(undefined == ""); // Resultado: false (undefined no es igual a un string vacío)
+console.log(undefined == false); // Resultado: false (undefined no es igual a false)
+
+console.log(true == 1); // Resultado: true (JavaScript convierte true a 1 y son iguales)
+console.log(false == 0); // Resultado: true (JavaScript convierte false a 0 y son iguales)
+console.log(true == "1"); // Resultado: true (JavaScript convierte true a 1 y el string "1" también se convierte a 1, por lo que son iguales)
+
+
+//---------------
+
+//vagamente desigual (!=)
+
+console.log(5 != 5); // Resultado: false (5 es igual a 5)
+console.log(5 != "5"); // Resultado: false (5 es igual a "5" después de la conversión de tipo)
+console.log(0 != false); // Resultado: false (0 es igual a false después de la conversión de tipo)
+console.log(null != undefined); // Resultado: false (null y undefined son considerados iguales en la desigualdad abstracta)
+
+console.log("hello" != "world"); // Resultado: true ("hello" no es igual a "world")
+console.log("hello" != "Hello"); // Resultado: true (los strings son sensibles a mayúsculas y minúsculas)
+console.log(true != 1); // Resultado: false (true es igual a 1 después de la conversión de tipo)
+console.log(false != 0); // Resultado: false (false es igual a 0 después de la conversión de tipo)
+
+console.log(5 != NaN); // Resultado: true (NaN no es igual a ningún valor, incluyendo a sí mismo)
+console.log(NaN != NaN); // Resultado: true (NaN no es igual a ningún valor, incluyendo a sí mismo)
+
+console.log(null != 0); // Resultado: true (null no es igual a 0)
+console.log(null != ""); // Resultado: true (null no es igual a un string vacío)
+console.log(null != false); // Resultado: true (null no es igual a false)
+
+console.log(undefined != 0); // Resultado: true (undefined no es igual a 0)
+console.log(undefined != ""); // Resultado: true (undefined no es igual a un string vacío)
+console.log(undefined != false); // Resultado: true (undefined no es igual a false)
+
+console.log(true != 1); // Resultado: false (true es igual a 1 después de la conversión de tipo)
+console.log(false != 0); // Resultado: false (false es igual a 0 después de la conversión de tipo)
+console.log(true != "1"); // Resultado: false (true es igual a "1" después de la conversión de tipo)
+
+
+
+//---------------
+
+//estrictamente igual(===) /strictlyEqual
+
+console.log(5 === 5); // Resultado: true (ambos operandos son números y tienen el mismo valor y tipo)
+console.log(5 === "5"); // Resultado: false (el operando izquierdo es un número y el derecho es un string, son de tipos diferentes)
+console.log(5 === true); // Resultado: false (el operando izquierdo es un número y el derecho es un boolean, son de tipos diferentes)
+
+console.log("hello" === "hello"); // Resultado: true (ambos operandos son strings y tienen el mismo valor y tipo)
+console.log("hello" === "Hello"); // Resultado: false (los strings son sensibles a mayúsculas y minúsculas, son de valores diferentes)
+console.log("hello" === true); // Resultado: false (los strings y los boolean son de tipos diferentes)
+
+console.log(null === null); // Resultado: true (ambos operandos son null y tienen el mismo tipo)
+console.log(null === undefined); // Resultado: false (null y undefined son de tipos diferentes)
+
+console.log(0 === false); // Resultado: false (0 es un número y false es un boolean, son de tipos diferentes)
+console.log("" === false); // Resultado: false (un string vacío no es igual a false)
+console.log([] === false); // Resultado: false (un array no es igual a false)
+
+console.log(5 === NaN); // Resultado: false (NaN no es igual a ningún valor, ni siquiera a sí mismo)
+console.log(NaN === NaN); // Resultado: false (NaN no es igual a ningún valor, ni siquiera a sí mismo)
+
+console.log(null === 0); // Resultado: false (null y 0 son de tipos diferentes)
+console.log(null === ""); // Resultado: false (null y un string vacío son de tipos diferentes)
+console.log(null === false); // Resultado: false (null y false son de tipos diferentes)
+
+console.log(undefined === 0); // Resultado: false (undefined y 0 son de tipos diferentes)
+console.log(undefined === ""); // Resultado: false (undefined y un string vacío son de tipos diferentes)
+console.log(undefined === false); // Resultado: false (undefined y false son de tipos diferentes)
+
+console.log(true === 1); // Resultado: false (true y 1 son de tipos diferentes)
+console.log(false === 0); // Resultado: false (false y 0 son de tipos diferentes)
+console.log(true === "1"); // Resultado: false (true es un boolean y "1" es un string, son de tipos diferentes)
+
+
+//---------------
+
+//estrictamente desigual(!==)
+
+console.log(5 !== 5); // Resultado: false (5 es igual a 5 en valor y tipo)
+console.log(5 !== "5"); // Resultado: true (5 es un número y "5" es un string, son de tipos diferentes)
+console.log(0 !== false); // Resultado: true (0 es un número y false es un boolean, son de tipos diferentes)
+console.log(null !== undefined); // Resultado: true (null y undefined son de tipos diferentes)
+
+console.log("hello" !== "world"); // Resultado: true ("hello" es diferente de "world" en valor y tipo)
+console.log("hello" !== "Hello"); // Resultado: true (los strings son sensibles a mayúsculas y minúsculas)
+console.log(true !== 1); // Resultado: true (true es un boolean y 1 es un número, son de tipos diferentes)
+console.log(false !== 0); // Resultado: true (false es un boolean y 0 es un número, son de tipos diferentes)
+
+console.log(5 !== NaN); // Resultado: true (NaN no es igual a ningún valor, incluyendo a sí mismo)
+console.log(NaN !== NaN); // Resultado: true (NaN no es igual a ningún valor, incluyendo a sí mismo)
+
+console.log(null !== 0); // Resultado: true (null y 0 son de tipos diferentes)
+console.log(null !== ""); // Resultado: true (null es un objeto y "" es un string, son de tipos diferentes)
+console.log(null !== false); // Resultado: true (null es un objeto y false es un boolean, son de tipos diferentes)
+
+console.log(undefined !== 0); // Resultado: true (undefined y 0 son de tipos diferentes)
+console.log(undefined !== ""); // Resultado: true (undefined es un objeto y "" es un string, son de tipos diferentes)
+console.log(undefined !== false); // Resultado: true (undefined es un objeto y false es un boolean, son de tipos diferentes)
+
+console.log(true !== 1); // Resultado: true (true es un boolean y 1 es un número, son de tipos diferentes)
+console.log(false !== 0); // Resultado: true (false es un boolean y 0 es un número, son de tipos diferentes)
+console.log(true !== "1"); // Resultado: true (true es un boolean y "1" es un string, son de tipos diferentes)
+
+
+
+
+//---------------
+
+//Object.is
+
+Object.is(valor1, valor2);
+
+console.log(Object.is(5, 5)); // Resultado: true
+console.log(Object.is(5, "5")); // Resultado: false (números y strings son de tipos diferentes)
+console.log(Object.is(0, -0)); // Resultado: false (+0 y -0 son considerados diferentes)
+console.log(Object.is(NaN, NaN)); // Resultado: true (NaN es igual a sí mismo según Object.is())
+console.log(Object.is(null, null)); // Resultado: true (null es igual a sí mismo según Object.is())
+console.log(Object.is(undefined, undefined)); // Resultado: true (undefined es igual a sí mismo según Object.is())
+console.log(Object.is(true, true)); // Resultado: true (true es igual a sí mismo según Object.is())
+console.log(Object.is(false, false)); // Resultado: true (false es igual a sí mismo según Object.is())
+
+
+
+
+
+
+
+/*.........................*/
+
+//Loops(bucles) and iterations(iteraciones)
+
+
+
+
 /*.........................*/
 
 //Template literals

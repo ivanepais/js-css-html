@@ -817,6 +817,167 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 	    ```
 
 
+|| Equality comparisons
+
+	Son las comparaciones de igualdad de dos valores para determinar si son iguales o no.
+
+	La igualdad se evalúa utilizando operadores de igualdad (==) o de desigualdad (!=), así como los operadores de igualdad estricta (===) y de desigualdad estricta (!==).
+
+	Es una buena práctica utilizar siempre la igualdad estricta (===) para evitar problemas de igualdad que puedan surgir debido a las conversiones automáticas realizadas por la igualdad abstracta. 
+
+	Esto ayuda a evitar comportamientos inesperados y asegura que las comparaciones sean precisas en términos de tipo de datos y valor.
+
+
+    Igualdad Abstracta (Equality Abstract Comparison):
+
+    	Se realiza utilizando los operadores de igualdad (==) y de desigualdad (!=).
+
+    	En este tipo de comparación, JavaScript realiza una conversión de tipo (coerción) de los operandos si son de tipos diferentes antes de hacer la comparación.
+
+    	Si los operandos tienen tipos diferentes, JavaScript intentará convertir uno o ambos valores a un tipo común para realizar la comparación.
+
+    	El resultado de una comparación de igualdad abstracta puede ser sorprendente para algunos valores debido a las conversiones automáticas que se realizan.
+
+
+	Igualdad Estricta (Equality Strict Comparison):
+
+    	Se realiza utilizando los operadores de igualdad estricta (===) y de desigualdad estricta (!==).
+
+    	En este tipo de comparación, no se realiza ninguna conversión de tipo (coerción) de los operandos antes de hacer la comparación.
+
+    	Para que los operandos se consideren iguales en una comparación estricta, deben tener el mismo valor y el mismo tipo de dato.
+
+
+	Vagamente igual (==) /looselyEqual: 
+
+		El operador de igualdad abstracta (==) realiza conversiones automáticas (coerciones) entre los operandos si son de tipos diferentes, lo que puede llevar a resultados inesperados en algunas situaciones. 
+
+		Es recomendable utilizar el operador de igualdad estricta (===) cuando desees comparar valores sin que JavaScript realice conversiones de tipo, lo que ayuda a evitar comportamientos inesperados y garantiza comparaciones más precisas.
+
+		```js
+
+			console.log(5 == "5"); // Resultado: true (coerción de tipo: "5" se convierte a 5)
+			console.log(true == 1); // Resultado: true (coerción de tipo: true se convierte a 1)
+			console.log(null == undefined); // Resultado: true (coerción de tipo: ambos se convierten a false)
+
+			console.log("0" == false); // Resultado: true (coerción de tipo: false se convierte a 0)
+			console.log(" " == false); // Resultado: true (coerción de tipo: false se convierte a 0)
+			console.log([] == false); // Resultado: true (coerción de tipo: false se convierte a 0)
+
+		```
+
+	Vagamente desigual (!=): 
+
+		Se utiliza en JavaScript para comparar si dos valores no son iguales. 
+
+		Realiza una conversión de tipos (coerción) similar al operador de igualdad abstracta (==), pero devuelve true si los operandos no son iguales y false si son iguales.
+
+		Realiza conversión de tipos, lo que puede llevar a resultados inesperados en algunas situaciones. 
+
+		Es recomendable utilizar el operador de desigualdad estricta !== cuando desees realizar comparaciones sin conversiones de tipo y así evitar comportamientos inesperados.
+
+		```js
+
+			console.log(5 != 5); // Resultado: false (5 es igual a 5)
+			console.log(5 != "5"); // Resultado: false (5 es igual a "5" después de la conversión de tipo)
+			console.log(0 != false); // Resultado: false (0 es igual a false después de la conversión de tipo)
+			console.log(null != undefined); // Resultado: false (null y undefined son considerados iguales en la desigualdad abstracta)
+
+		```
+
+
+	Estrictamente igual(===) /strictlyEqual: 
+
+		El operador de igualdad estricta (===) compara tanto el valor como el tipo de los operandos. Solo devuelve true si ambos son idénticos en valor y tipo. 
+
+		Esto lo hace más seguro en comparaciones porque no realiza conversiones automáticas de tipos, evitando posibles confusiones y comportamientos inesperados en las comparaciones.
+
+		```js
+
+			console.log(5 === "5"); // Resultado: false (número no es igual a string)
+			console.log(true === 1); // Resultado: false (boolean no es igual a número)
+			console.log(null === undefined); // Resultado: false (null no es igual a undefined)
+
+			console.log("0" === false); // Resultado: false (string no es igual a boolean)
+			console.log(" " === false); // Resultado: false (string no es igual a boolean)
+			console.log([] === false); // Resultado: false (array no es igual a boolean)
+
+		```
+
+
+	Estrictamente desigual (!==): 
+
+		Se utiliza para comparar si dos valores no son iguales, teniendo en cuenta tanto su valor como su tipo. 
+
+		A diferencia del operador de desigualdad abstracta !=, el operador !== no realiza conversiones automáticas de tipos (coerción) antes de hacer la comparación.
+
+		```js
+
+			console.log(5 !== 5); // Resultado: false (5 es igual a 5 en valor y tipo)
+			console.log(5 !== "5"); // Resultado: true (5 es un número y "5" es un string, son de tipos diferentes)
+			console.log(0 !== false); // Resultado: true (0 es un número y false es un boolean, son de tipos diferentes)
+			console.log(null !== undefined); // Resultado: true (null y undefined son de tipos diferentes)
+
+		```
+
+
+	Object.is: 
+
+		Es un método estático introducido en ECMAScript 6 (ES6) que se utiliza para comparar si dos valores son iguales, teniendo en cuenta tanto su valor como su tipo. 
+
+		A diferencia de los operadores de igualdad abstracta (==) y de igualdad estricta (===), Object.is() tiene un comportamiento más preciso y no realiza conversiones automáticas de tipos.
+
+		```js
+
+			Object.is(valor1, valor2);
+
+		```
+
+		Características de Object.is():
+
+		    Precisión en la comparación: 
+
+		    	A diferencia del operador de igualdad abstracta (==), Object.is() devuelve true solo si los valores son idénticos tanto en valor como en tipo. Esto significa que no se realiza coerción de tipos, por lo que ciertos casos de igualdad abstracta que pueden ser confusos son evitados.
+
+
+		    Considera NaN como igual a NaN: 
+
+		    	En JavaScript, el valor especial NaN (Not a Number) es considerado diferente a cualquier otro valor, incluyendo a sí mismo. Sin embargo, Object.is() considera que NaN es igual a NaN, lo que lo hace útil para comparar con precisión valores que pueden ser NaN.
+
+
+		    	Considera +0 y -0 como diferentes: 
+
+		    		A diferencia del operador de igualdad abstracta (==), Object.is() considera a +0 y -0 como valores diferentes, ya que tienen representaciones diferentes en el formato IEEE 754 de punto flotante.
+
+		```js
+
+			console.log(Object.is(5, 5)); // Resultado: true
+			console.log(Object.is(5, "5")); // Resultado: false
+			console.log(Object.is(0, -0)); // Resultado: false
+			console.log(Object.is(NaN, NaN)); // Resultado: true
+			console.log(Object.is(null, null)); // Resultado: true
+			console.log(Object.is(undefined, undefined)); // Resultado: true
+			console.log(Object.is(true, true)); // Resultado: true
+			console.log(Object.is(false, false)); // Resultado: true
+
+		```
+
+
+|| BUCLES E ITERACIONES
+
+
+
+
+
+
+|| CONTROL DE FLUJO
+
+
+
+
+
+
+
 || OBJETOS AVANZADO
 	
 	Built-in Objects (objeto integrado o incorporado o predefinido): 
@@ -1422,7 +1583,6 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 		Son útiles cuando necesitas almacenar y acceder a múltiples elementos en un orden específico. 
 
 		Al usar un índice numérico, puedes acceder rápidamente a elementos individuales, recorrer el conjunto de datos y realizar diversas operaciones.
-
 
 		Array: 
 
