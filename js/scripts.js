@@ -2002,12 +2002,467 @@ console.log(Object.is(false, false)); // Resultado: true (false es igual a sí m
 
 
 
+/*.........................*/
+
+//Loops(bucles) and iterations(iteraciones)
+
+//for
+
+//Imprimir los números del 1 al 5
+for (let i = 1; i <= 5; i++) {
+  console.log(i);
+}
+
+
+//Calcular la suma de los primeros 10 números naturales:
+let suma = 0;
+
+for (let i = 1; i <= 10; i++) {
+  suma += i;
+}
+
+console.log("La suma de los primeros 10 números naturales es: " + suma);
+
+
+//Recorrer un array e imprimir sus elementos:
+const frutas = ["manzana", "plátano", "naranja", "uva"];
+
+for (let i = 0; i < frutas.length; i++) {
+  console.log(frutas[i]);
+}
+
+
+//Generar una secuencia de números:
+for (let i = 0; i < 10; i += 2) {
+  console.log(i);
+}
+
+
+//Imprimir los números del 10 al 1 en orden descendente:
+for (let i = 10; i >= 1; i--) {
+  console.log(i);
+}
+
+
+//Recorrer las propiedades de un objeto y obtener sus valores:
+const persona = {
+  nombre: "Juan",
+  edad: 30,
+  ocupacion: "Ingeniero",
+};
+
+for (let propiedad in persona) {
+  console.log(propiedad + ": " + persona[propiedad]);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+//---------------
+
+//while
+
+// Ejemplo 1: Imprimir los números del 1 al 5
+let i = 1;
+
+while (i <= 5) {
+  console.log(i);
+  i++;
+}
+// Resultado:
+// 1
+// 2
+// 3
+// 4
+// 5
+
+
+// Ejemplo 2: Calcular el factorial de un número
+function calcularFactorial(numero) {
+  let factorial = 1;
+  let contador = 1;
+
+  while (contador <= numero) {
+    factorial *= contador;
+    contador++;
+  }
+
+  return factorial;
+}
+
+console.log(calcularFactorial(5)); // Resultado: 120 (5! = 5 x 4 x 3 x 2 x 1 = 120)
+
+
+// Ejemplo 3: Obtener la suma de los números pares del 1 al 10
+let sumaPares = 0;
+let num = 1;
+
+while (num <= 10) {
+  if (num % 2 === 0) {
+    sumaPares += num;
+  }
+  num++;
+}
+
+console.log("La suma de los números pares del 1 al 10 es:", sumaPares); // Resultado: La suma de los números pares del 1 al 10 es: 30
+
+
+// Ejemplo 4: Validar la entrada del usuario
+let inputUsuario = "";
+const contraseñaCorrecta = "secreto";
+
+while (inputUsuario !== contraseñaCorrecta) {
+  inputUsuario = prompt("Ingresa la contraseña:");
+}
+
+console.log("Contraseña correcta. Bienvenido!"); // Se imprimirá cuando el usuario ingrese la contraseña correcta.
+
+
+
+
+//---------------
+
+//do while
+
+//Imprimir los números del 1 al 5
+let i = 1;
+
+do {
+  console.log(i);
+  i++;
+} while (i <= 5);
+
+
+//Sumar los números del 1 al 10
+let i = 1;
+let suma = 0;
+
+do {
+  suma += i;
+  i++;
+} while (i <= 10);
+
+console.log("La suma es: " + suma);
+
+
+
+
+
+
+//---------------
+
+//for in 
+
+//Imprimir las propiedades de un objeto:
+const persona = {
+  nombre: "Juan",
+  edad: 30,
+  ocupacion: "Ingeniero",
+};
+
+for (let propiedad in persona) {
+  console.log(propiedad);
+}
+
+
+//Obtener los valores de las propiedades de un objeto:
+const persona = {
+  nombre: "Juan",
+  edad: 30,
+  ocupacion: "Ingeniero",
+};
+
+for (let propiedad in persona) {
+  console.log(persona[propiedad]);
+}
+
+
+//Verificar si un objeto tiene una propiedad específica:
+const persona = {
+  nombre: "Juan",
+  edad: 30,
+  ocupacion: "Ingeniero",
+};
+
+const propiedadBuscada = "nombre";
+let tienePropiedad = false;
+
+for (let propiedad in persona) {
+  if (propiedad === propiedadBuscada) {
+    tienePropiedad = true;
+    break; // Detener el bucle una vez que se ha encontrado la propiedad
+  }
+}
+
+console.log("Tiene la propiedad " + propiedadBuscada + ": " + tienePropiedad);
+
+
+//Contar la cantidad de propiedades en un objeto:
+const persona = {
+  nombre: "Juan",
+  edad: 30,
+  ocupacion: "Ingeniero",
+};
+
+let cantidadPropiedades = 0;
+
+for (let propiedad in persona) {
+  cantidadPropiedades++;
+}
+
+console.log("Cantidad de propiedades: " + cantidadPropiedades);
+
+
+//Realizar operaciones con los valores de las propiedades:
+const numeros = {
+  a: 5,
+  b: 10,
+  c: 20,
+};
+
+let suma = 0;
+
+for (let propiedad in numeros) {
+  suma += numeros[propiedad];
+}
+
+console.log("La suma de los valores es: " + suma);
+
+
+//Filtrar propiedades específicas de un objeto:
+const persona = {
+  nombre: "Juan",
+  edad: 30,
+  ocupacion: "Ingeniero",
+  ciudad: "Madrid",
+};
+
+const propiedadesFiltradas = ["nombre", "ocupacion"];
+
+for (let propiedad in persona) {
+  if (propiedadesFiltradas.includes(propiedad)) {
+    console.log(propiedad + ": " + persona[propiedad]);
+  }
+}
+
+
+//propiedades del objeto actual no heredadas:
+for (let propiedad in persona) {
+  if (persona.hasOwnProperty(propiedad)) {
+    console.log(propiedad + ": " + persona[propiedad]);
+  }
+}
+
+
+
+
+//---------------
+
+//for of 
+
+// Ejemplo 1: Recorrer un array y obtener la suma de sus elementos
+const numeros = [1, 2, 3, 4, 5];
+let suma = 0;
+
+for (let numero of numeros) {
+  suma += numero;
+}
+
+console.log("La suma de los números es:", suma); // Resultado: La suma de los números es: 15
+
+
+// Ejemplo 2: Recorrer un string y contar la cantidad de caracteres
+const mensaje = "Hola, mundo!";
+let contador = 0;
+
+for (let letra of mensaje) {
+  contador++;
+}
+
+console.log("La cantidad de caracteres es:", contador); // Resultado: La cantidad de caracteres es: 12
+
+
+// Ejemplo 3: Recorrer un Map y obtener sus claves y valores
+const mapa = new Map([
+  ["a", 1],
+  ["b", 2],
+  ["c", 3]
+]);
+
+for (let [clave, valor] of mapa) {
+  console.log("Clave:", clave, "- Valor:", valor);
+}
+// Resultado:
+// Clave: a - Valor: 1
+// Clave: b - Valor: 2
+// Clave: c - Valor: 3
+
+
+// Ejemplo 4: Recorrer un Set y mostrar sus elementos
+const setNumeros = new Set([10, 20, 30, 40, 50]);
+
+for (let numero of setNumeros) {
+  console.log(numero);
+}
+// Resultado:
+// 10
+// 20
+// 30
+// 40
+// 50
+
+
+// Ejemplo 5: Utilizar el bucle con una función generadora
+function* numerosPares() {
+  yield 2;
+  yield 4;
+  yield 6;
+  yield 8;
+  yield 10;
+}
+
+for (let numero of numerosPares()) {
+  console.log(numero);
+}
+// Resultado:
+// 2
+// 4
+// 6
+// 8
+// 10
+
+
+
+
+//---------------
+
+//break
+
+// Ejemplo 1: Encontrar un valor específico en un array
+const numeros = [10, 20, 30, 40, 50];
+const valorBuscado = 30;
+
+for (let i = 0; i < numeros.length; i++) {
+  if (numeros[i] === valorBuscado) {
+    console.log(`El valor ${valorBuscado} se encontró en el índice ${i}.`);
+    break; // Se detiene el bucle cuando se encuentra el valor buscado
+  }
+}
+
+// Ejemplo 2: Obtener los números pares de un array
+const numeros2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const numerosPares = [];
+
+for (let numero of numeros2) {
+  if (numero % 2 === 0) {
+    numerosPares.push(numero);
+  }
+  if (numerosPares.length === 5) {
+    break; // Se detiene el bucle cuando se encuentran 5 números pares
+  }
+}
+
+console.log("Números pares:", numerosPares);
+
+// Ejemplo 3: Salir de un bucle anidado
+for (let i = 1; i <= 5; i++) {
+  for (let j = 1; j <= 3; j++) {
+    console.log(`i: ${i}, j: ${j}`);
+    if (i === 3 && j === 2) {
+      break; // Se detiene el bucle anidado cuando i es igual a 3 y j es igual a 2
+    }
+  }
+}
+
+
+
+
+
+//---------------
+
+//continue
+
+// Ejemplo 1: Imprimir solo los números impares del 1 al 10
+for (let i = 1; i <= 10; i++) {
+  if (i % 2 === 0) {
+    continue; // Se salta la iteración cuando i es par
+  }
+  console.log(i);
+}
+// Resultado:
+// 1
+// 3
+// 5
+// 7
+// 9
+
+
+// Ejemplo 2: Sumar solo los números positivos de un array
+const numeros = [5, -2, 10, -8, 3];
+let sumaPositivos = 0;
+
+for (let numero of numeros) {
+  if (numero < 0) {
+    continue; // Se salta la iteración cuando el número es negativo
+  }
+  sumaPositivos += numero;
+}
+
+console.log("La suma de los números positivos es:", sumaPositivos); // Resultado: La suma de los números positivos es: 18
+
+
+// Ejemplo 3: Imprimir los valores de un array, pero omitir un valor específico
+const frutas = ["manzana", "plátano", "naranja", "uva", "manzana", "pera"];
+const valorOmitido = "manzana";
+
+for (let fruta of frutas) {
+  if (fruta === valorOmitido) {
+    continue; // Se salta la iteración cuando la fruta es igual al valor a omitir
+  }
+  console.log(fruta);
+}
+// Resultado:
+// plátano
+// naranja
+// uva
+// pera
+
+
+
+
+//---------------
+
+//labeled statements (declaracion o sentencia etiquetada)
+
+etiquetaExterna: for (let i = 1; i <= 3; i++) {
+  for (let j = 1; j <= 3; j++) {
+    console.log(`i: ${i}, j: ${j}`);
+    if (i === 2 && j === 2) {
+      break etiquetaExterna; // Se sale del bucle etiquetado cuando i es igual a 2 y j es igual a 2
+    }
+  }
+}
+
 
 
 
 /*.........................*/
 
-//Loops(bucles) and iterations(iteraciones)
+//Control flow 
+
+
+
+
+
 
 
 
