@@ -817,166 +817,6 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 	    ```
 
 
-|| Equality comparisons
-
-	Son las comparaciones de igualdad de dos valores para determinar si son iguales o no.
-
-	La igualdad se evalúa utilizando operadores de igualdad (==) o de desigualdad (!=), así como los operadores de igualdad estricta (===) y de desigualdad estricta (!==).
-
-	Es una buena práctica utilizar siempre la igualdad estricta (===) para evitar problemas de igualdad que puedan surgir debido a las conversiones automáticas realizadas por la igualdad abstracta. 
-
-	Esto ayuda a evitar comportamientos inesperados y asegura que las comparaciones sean precisas en términos de tipo de datos y valor.
-
-
-    Igualdad Abstracta (Equality Abstract Comparison):
-
-    	Se realiza utilizando los operadores de igualdad (==) y de desigualdad (!=).
-
-    	En este tipo de comparación, JavaScript realiza una conversión de tipo (coerción) de los operandos si son de tipos diferentes antes de hacer la comparación.
-
-    	Si los operandos tienen tipos diferentes, JavaScript intentará convertir uno o ambos valores a un tipo común para realizar la comparación.
-
-    	El resultado de una comparación de igualdad abstracta puede ser sorprendente para algunos valores debido a las conversiones automáticas que se realizan.
-
-
-	Igualdad Estricta (Equality Strict Comparison):
-
-    	Se realiza utilizando los operadores de igualdad estricta (===) y de desigualdad estricta (!==).
-
-    	En este tipo de comparación, no se realiza ninguna conversión de tipo (coerción) de los operandos antes de hacer la comparación.
-
-    	Para que los operandos se consideren iguales en una comparación estricta, deben tener el mismo valor y el mismo tipo de dato.
-
-
-	Vagamente igual (==) /looselyEqual: 
-
-		El operador de igualdad abstracta (==) realiza conversiones automáticas (coerciones) entre los operandos si son de tipos diferentes, lo que puede llevar a resultados inesperados en algunas situaciones. 
-
-		Es recomendable utilizar el operador de igualdad estricta (===) cuando desees comparar valores sin que JavaScript realice conversiones de tipo, lo que ayuda a evitar comportamientos inesperados y garantiza comparaciones más precisas.
-
-		```js
-
-			console.log(5 == "5"); // Resultado: true (coerción de tipo: "5" se convierte a 5)
-			console.log(true == 1); // Resultado: true (coerción de tipo: true se convierte a 1)
-			console.log(null == undefined); // Resultado: true (coerción de tipo: ambos se convierten a false)
-
-			console.log("0" == false); // Resultado: true (coerción de tipo: false se convierte a 0)
-			console.log(" " == false); // Resultado: true (coerción de tipo: false se convierte a 0)
-			console.log([] == false); // Resultado: true (coerción de tipo: false se convierte a 0)
-
-		```
-
-	Vagamente desigual (!=): 
-
-		Se utiliza en JavaScript para comparar si dos valores no son iguales. 
-
-		Realiza una conversión de tipos (coerción) similar al operador de igualdad abstracta (==), pero devuelve true si los operandos no son iguales y false si son iguales.
-
-		Realiza conversión de tipos, lo que puede llevar a resultados inesperados en algunas situaciones. 
-
-		Es recomendable utilizar el operador de desigualdad estricta !== cuando desees realizar comparaciones sin conversiones de tipo y así evitar comportamientos inesperados.
-
-		```js
-
-			console.log(5 != 5); // Resultado: false (5 es igual a 5)
-			console.log(5 != "5"); // Resultado: false (5 es igual a "5" después de la conversión de tipo)
-			console.log(0 != false); // Resultado: false (0 es igual a false después de la conversión de tipo)
-			console.log(null != undefined); // Resultado: false (null y undefined son considerados iguales en la desigualdad abstracta)
-
-		```
-
-
-	Estrictamente igual(===) /strictlyEqual: 
-
-		El operador de igualdad estricta (===) compara tanto el valor como el tipo de los operandos. Solo devuelve true si ambos son idénticos en valor y tipo. 
-
-		Esto lo hace más seguro en comparaciones porque no realiza conversiones automáticas de tipos, evitando posibles confusiones y comportamientos inesperados en las comparaciones.
-
-		```js
-
-			console.log(5 === "5"); // Resultado: false (número no es igual a string)
-			console.log(true === 1); // Resultado: false (boolean no es igual a número)
-			console.log(null === undefined); // Resultado: false (null no es igual a undefined)
-
-			console.log("0" === false); // Resultado: false (string no es igual a boolean)
-			console.log(" " === false); // Resultado: false (string no es igual a boolean)
-			console.log([] === false); // Resultado: false (array no es igual a boolean)
-
-		```
-
-
-	Estrictamente desigual (!==): 
-
-		Se utiliza para comparar si dos valores no son iguales, teniendo en cuenta tanto su valor como su tipo. 
-
-		A diferencia del operador de desigualdad abstracta !=, el operador !== no realiza conversiones automáticas de tipos (coerción) antes de hacer la comparación.
-
-		```js
-
-			console.log(5 !== 5); // Resultado: false (5 es igual a 5 en valor y tipo)
-			console.log(5 !== "5"); // Resultado: true (5 es un número y "5" es un string, son de tipos diferentes)
-			console.log(0 !== false); // Resultado: true (0 es un número y false es un boolean, son de tipos diferentes)
-			console.log(null !== undefined); // Resultado: true (null y undefined son de tipos diferentes)
-
-		```
-
-
-	Object.is: 
-
-		Es un método estático introducido en ECMAScript 6 (ES6) que se utiliza para comparar si dos valores son iguales, teniendo en cuenta tanto su valor como su tipo. 
-
-		A diferencia de los operadores de igualdad abstracta (==) y de igualdad estricta (===), Object.is() tiene un comportamiento más preciso y no realiza conversiones automáticas de tipos.
-
-		```js
-
-			Object.is(valor1, valor2);
-
-		```
-
-		Características de Object.is():
-
-		    Precisión en la comparación: 
-
-		    	A diferencia del operador de igualdad abstracta (==), Object.is() devuelve true solo si los valores son idénticos tanto en valor como en tipo. Esto significa que no se realiza coerción de tipos, por lo que ciertos casos de igualdad abstracta que pueden ser confusos son evitados.
-
-
-		    Considera NaN como igual a NaN: 
-
-		    	En JavaScript, el valor especial NaN (Not a Number) es considerado diferente a cualquier otro valor, incluyendo a sí mismo. Sin embargo, Object.is() considera que NaN es igual a NaN, lo que lo hace útil para comparar con precisión valores que pueden ser NaN.
-
-
-		    	Considera +0 y -0 como diferentes: 
-
-		    		A diferencia del operador de igualdad abstracta (==), Object.is() considera a +0 y -0 como valores diferentes, ya que tienen representaciones diferentes en el formato IEEE 754 de punto flotante.
-
-		```js
-
-			console.log(Object.is(5, 5)); // Resultado: true
-			console.log(Object.is(5, "5")); // Resultado: false
-			console.log(Object.is(0, -0)); // Resultado: false
-			console.log(Object.is(NaN, NaN)); // Resultado: true
-			console.log(Object.is(null, null)); // Resultado: true
-			console.log(Object.is(undefined, undefined)); // Resultado: true
-			console.log(Object.is(true, true)); // Resultado: true
-			console.log(Object.is(false, false)); // Resultado: true
-
-		```
-
-
-|| BUCLES E ITERACIONES
-
-
-
-
-
-
-|| CONTROL DE FLUJO
-
-
-
-
-
-
 
 || OBJETOS AVANZADO
 	
@@ -1794,6 +1634,632 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 		Aunque los desarrolladores no necesitan preocuparse explícitamente por liberar la memoria asignada a los objetos, ya que el recolector de basura se encargará de ello de manera transparente.
 
 		También es importante tener en cuenta las buenas prácticas de programación para evitar fugas de memoria, como asegurarse de eliminar referencias a objetos que ya no son necesarios, especialmente en aplicaciones de larga duración o con uso intensivo de memoria.
+
+
+
+|| Equality comparisons (comparaciones de igualdad o desigualdad)
+
+	Son las comparaciones de igualdad de dos valores para determinar si son iguales o no.
+
+	La igualdad se evalúa utilizando operadores de igualdad (==) o de desigualdad (!=), así como los operadores de igualdad estricta (===) y de desigualdad estricta (!==).
+
+	Es una buena práctica utilizar siempre la igualdad estricta (===) para evitar problemas de igualdad que puedan surgir debido a las conversiones automáticas realizadas por la igualdad abstracta. 
+
+	Esto ayuda a evitar comportamientos inesperados y asegura que las comparaciones sean precisas en términos de tipo de datos y valor.
+
+
+    Igualdad Abstracta (Equality Abstract Comparison):
+
+    	Se realiza utilizando los operadores de igualdad (==) y de desigualdad (!=).
+
+    	En este tipo de comparación, JavaScript realiza una conversión de tipo (coerción) de los operandos si son de tipos diferentes antes de hacer la comparación.
+
+    	Si los operandos tienen tipos diferentes, JavaScript intentará convertir uno o ambos valores a un tipo común para realizar la comparación.
+
+    	El resultado de una comparación de igualdad abstracta puede ser sorprendente para algunos valores debido a las conversiones automáticas que se realizan.
+
+
+	Igualdad Estricta (Equality Strict Comparison):
+
+    	Se realiza utilizando los operadores de igualdad estricta (===) y de desigualdad estricta (!==).
+
+    	En este tipo de comparación, no se realiza ninguna conversión de tipo (coerción) de los operandos antes de hacer la comparación.
+
+    	Para que los operandos se consideren iguales en una comparación estricta, deben tener el mismo valor y el mismo tipo de dato.
+
+
+	Vagamente igual (==) /looselyEqual: 
+
+		El operador de igualdad abstracta (==) realiza conversiones automáticas (coerciones) entre los operandos si son de tipos diferentes, lo que puede llevar a resultados inesperados en algunas situaciones. 
+
+		Es recomendable utilizar el operador de igualdad estricta (===) cuando desees comparar valores sin que JavaScript realice conversiones de tipo, lo que ayuda a evitar comportamientos inesperados y garantiza comparaciones más precisas.
+
+		```js
+
+			console.log(5 == "5"); // Resultado: true (coerción de tipo: "5" se convierte a 5)
+			console.log(true == 1); // Resultado: true (coerción de tipo: true se convierte a 1)
+			console.log(null == undefined); // Resultado: true (coerción de tipo: ambos se convierten a false)
+
+			console.log("0" == false); // Resultado: true (coerción de tipo: false se convierte a 0)
+			console.log(" " == false); // Resultado: true (coerción de tipo: false se convierte a 0)
+			console.log([] == false); // Resultado: true (coerción de tipo: false se convierte a 0)
+
+		```
+
+	Vagamente desigual (!=): 
+
+		Se utiliza en JavaScript para comparar si dos valores no son iguales. 
+
+		Realiza una conversión de tipos (coerción) similar al operador de igualdad abstracta (==), pero devuelve true si los operandos no son iguales y false si son iguales.
+
+		Realiza conversión de tipos, lo que puede llevar a resultados inesperados en algunas situaciones. 
+
+		Es recomendable utilizar el operador de desigualdad estricta !== cuando desees realizar comparaciones sin conversiones de tipo y así evitar comportamientos inesperados.
+
+		```js
+
+			console.log(5 != 5); // Resultado: false (5 es igual a 5)
+			console.log(5 != "5"); // Resultado: false (5 es igual a "5" después de la conversión de tipo)
+			console.log(0 != false); // Resultado: false (0 es igual a false después de la conversión de tipo)
+			console.log(null != undefined); // Resultado: false (null y undefined son considerados iguales en la desigualdad abstracta)
+
+		```
+
+
+	Estrictamente igual(===) /strictlyEqual: 
+
+		El operador de igualdad estricta (===) compara tanto el valor como el tipo de los operandos. Solo devuelve true si ambos son idénticos en valor y tipo. 
+
+		Esto lo hace más seguro en comparaciones porque no realiza conversiones automáticas de tipos, evitando posibles confusiones y comportamientos inesperados en las comparaciones.
+
+		```js
+
+			console.log(5 === "5"); // Resultado: false (número no es igual a string)
+			console.log(true === 1); // Resultado: false (boolean no es igual a número)
+			console.log(null === undefined); // Resultado: false (null no es igual a undefined)
+
+			console.log("0" === false); // Resultado: false (string no es igual a boolean)
+			console.log(" " === false); // Resultado: false (string no es igual a boolean)
+			console.log([] === false); // Resultado: false (array no es igual a boolean)
+
+		```
+
+
+	Estrictamente desigual (!==): 
+
+		Se utiliza para comparar si dos valores no son iguales, teniendo en cuenta tanto su valor como su tipo. 
+
+		A diferencia del operador de desigualdad abstracta !=, el operador !== no realiza conversiones automáticas de tipos (coerción) antes de hacer la comparación.
+
+		```js
+
+			console.log(5 !== 5); // Resultado: false (5 es igual a 5 en valor y tipo)
+			console.log(5 !== "5"); // Resultado: true (5 es un número y "5" es un string, son de tipos diferentes)
+			console.log(0 !== false); // Resultado: true (0 es un número y false es un boolean, son de tipos diferentes)
+			console.log(null !== undefined); // Resultado: true (null y undefined son de tipos diferentes)
+
+		```
+
+
+	Object.is: 
+
+		Es un método estático introducido en ECMAScript 6 (ES6) que se utiliza para comparar si dos valores son iguales, teniendo en cuenta tanto su valor como su tipo. 
+
+		A diferencia de los operadores de igualdad abstracta (==) y de igualdad estricta (===), Object.is() tiene un comportamiento más preciso y no realiza conversiones automáticas de tipos.
+
+		```js
+
+			Object.is(valor1, valor2);
+
+		```
+
+		Características de Object.is():
+
+		    Precisión en la comparación: 
+
+		    	A diferencia del operador de igualdad abstracta (==), Object.is() devuelve true solo si los valores son idénticos tanto en valor como en tipo. Esto significa que no se realiza coerción de tipos, por lo que ciertos casos de igualdad abstracta que pueden ser confusos son evitados.
+
+
+		    Considera NaN como igual a NaN: 
+
+		    	En JavaScript, el valor especial NaN (Not a Number) es considerado diferente a cualquier otro valor, incluyendo a sí mismo. Sin embargo, Object.is() considera que NaN es igual a NaN, lo que lo hace útil para comparar con precisión valores que pueden ser NaN.
+
+
+		    	Considera +0 y -0 como diferentes: 
+
+		    		A diferencia del operador de igualdad abstracta (==), Object.is() considera a +0 y -0 como valores diferentes, ya que tienen representaciones diferentes en el formato IEEE 754 de punto flotante.
+
+		```js
+
+			console.log(Object.is(5, 5)); // Resultado: true
+			console.log(Object.is(5, "5")); // Resultado: false
+			console.log(Object.is(0, -0)); // Resultado: false
+			console.log(Object.is(NaN, NaN)); // Resultado: true
+			console.log(Object.is(null, null)); // Resultado: true
+			console.log(Object.is(undefined, undefined)); // Resultado: true
+			console.log(Object.is(true, true)); // Resultado: true
+			console.log(Object.is(false, false)); // Resultado: true
+
+		```
+
+
+
+|| BUCLES E ITERACIONES (loops and iterations)
+
+	Estan relacionados con la repetición de una secuencia de instrucciones o código varias veces. 
+
+	Bucles: 
+
+		Permiten ejecutar un bloque de código múltiples veces hasta que se cumpla una condición específica.
+
+	Iteraciones:  
+
+		Se refiere a una sola ejecución de un bloque de código dentro de un bucle. En el ejemplo anterior, cada vez que el bucle se ejecuta y el código dentro de él se repite, se realiza una iteración.
+	
+	
+	En resumen, los bucles permiten automatizar y simplificar tareas repetitivas en el código, mientras que las iteraciones se refieren a las repeticiones individuales que ocurren dentro del bucle.
+
+    1. for: 
+
+		Se utiliza cuando se conoce la cantidad exacta de iteraciones que se deben realizar.
+
+		Puede ser utilizado para realizar diversas tareas, como:
+
+    		Recorrer arrays o listas de elementos.
+
+    		Realizar cálculos repetitivos.
+
+    		Crear secuencias de números.
+
+    		Realizar operaciones con cierta cantidad de repeticiones conocidas.
+
+
+		```js
+
+			for (inicialización; condición; expresión_de_actualización) {
+			  // Bloque de código a ejecutar en cada iteración
+			}
+
+		```
+
+		Es importante asegurarse de que la condición del bucle sea adecuada para evitar bucles infinitos. 
+
+		Es posible utilizar otros bucles (como while o do-while) cuando la cantidad de iteraciones no es conocida de antemano.
+
+
+		Inicialización: 
+
+			Aquí se declara y/o inicializa una variable de control que se utilizará para contar las iteraciones o establecer otros valores iniciales necesarios. 
+
+			Por lo general, esta es la parte donde se crea la variable que servirá como contador del bucle.
+
+
+	    Condición: 
+
+	    	Es una expresión que se evalúa antes de cada iteración. 
+
+	    	Si la condición es true, el bloque de código dentro del bucle se ejecutará; si es false, el bucle se detendrá y se saldrá de él.
+
+
+	    Expresión de Actualización: 
+
+	    	Se ejecuta al final de cada iteración, generalmente se usa para incrementar o decrementar el valor de la variable de control. 
+
+	    	Es la parte donde se actualiza el contador del bucle.
+
+		```js
+
+			for (let i = 1; i <= 5; i++) {
+			  console.log(i); // Imprime los números del 1 al 5 en cada iteración
+			}
+
+		```
+
+			En el ejemplo, i es la variable de control que se inicializa en 1, la condición es i <= 5, lo que significa que el bucle continuará mientras i sea menor o igual a 5. En cada iteración, se imprime el valor actual de i y luego se incrementa en 1 con i++.
+
+
+	2. while: 
+
+		Se utiliza cuando no se conoce la cantidad exacta de iteraciones y se ejecutará siempre que la condición especificada sea verdadera.
+
+		Antes de cada iteración, se evalúa la condición y si es verdadera, el bloque de código se ejecuta. 
+
+		Después de cada iteración, se vuelve a evaluar la condición y el bucle continúa mientras la condición siga siendo verdadera.
+
+		Si la condición inicial del bucle while es falsa, el bloque de código nunca se ejecutará. Por lo tanto, asegúrate de que la condición eventualmente se vuelva falsa para evitar bucles infinitos.
+
+
+		```js
+
+			while (condición) {
+			  // Bloque de código a ejecutar en cada iteración
+			}
+
+		```
+
+		Condición: 
+
+			Es una expresión que se evalúa antes de cada iteración. 
+
+			Si la condición es true, el bloque de código se ejecuta nuevamente. Si la condición es false, el bucle se detiene y se sale de él.
+
+
+		```js
+
+			let i = 1;
+
+			while (i <= 5) {
+			  console.log(i);
+			  i++;
+			}
+
+		```
+			inicializamos la variable i con 1 y luego utilizamos el bucle while para imprimir los números del 1 al 5. 
+
+			Antes de cada iteración, se evalúa la condición i <= 5. 
+
+			Si la condición es verdadera, el bloque de código dentro del bucle se ejecuta (en este caso, imprime el valor de i) y luego incrementamos i en 1. 
+
+			El bucle se repite hasta que i sea mayor que 5, momento en el cual la condición se vuelve falsa y el bucle se detiene.
+
+
+	3. do-while: 
+
+		Similar al bucle while, pero garantiza que el bloque de código se ejecute al menos una vez antes de verificar la condición.
+
+		Ejecutará el bloque de código al menos una vez, incluso si la condición inicial es false. 
+
+		Esto asegura que el bloque de código se ejecute al menos una vez antes de verificar la condición, independientemente de si la condición inicial es verdadera o falsa.
+
+		Es útil cuando la condición para detener el bucle se evalúa al final de cada iteración. 
+
+		Es fundamental asegurarse de que la condición eventualmente se vuelva falsa para evitar bucles infinitos.
+
+		Usos: 
+
+			Realizar tareas que deben ejecutarse al menos una vez antes de verificar la condición.
+
+		    Sumar o realizar operaciones matemáticas con números.
+
+		    Recorrer y manipular elementos de un array o lista.
+
+		    Validar la entrada del usuario, pidiendo datos hasta que se cumpla una condición deseada.
+
+		    Realizar acciones en base a eventos que ocurran al menos una vez.
+
+
+		```js
+
+			do {
+			  // Bloque de código a ejecutar en cada iteración
+			} while (condición);
+
+		```
+
+		Bloque de código: 
+
+			Es el conjunto de instrucciones que se ejecutará en cada iteración del bucle.
+
+    	Condición: 
+
+    		Es una expresión que se evalúa al final de cada iteración. 
+
+    		Si la condición es true, el bucle se repetirá y ejecutará nuevamente el bloque de código. Si la condición es false, el bucle se detendrá y se saldrá de él.
+
+
+    	```js
+
+    		let i = 1;
+
+			do {
+			  console.log(i);
+			  i++;
+			} while (i <= 5);
+
+    	```
+
+    		i se inicializa en 1 y se incrementa en cada iteración.
+
+    		El bloque de código dentro del bucle do...while imprime el valor actual de i y luego se incrementa en 1. 
+
+    		El bucle continuará ejecutándose mientras la condición i <= 5 sea verdadera. Como resultado, imprimirá los números del 1 al 5.
+
+
+    4. for in
+
+    	Se utiliza para recorrer las propiedades enumerables de un objeto. 
+
+    	Permite iterar sobre todas las propiedades enumerables de un objeto, incluyendo las propiedades heredadas del objeto y las propiedades que el objeto ha definido directamente.
+
+    	Es útil cuando se necesita recorrer dinámicamente las propiedades de un objeto y realizar operaciones con ellas.
+
+    	Utilizar for...in con cuidado para evitar problemas con propiedades heredadas o no enumerables.
+
+    	Es común utilizar el método hasOwnProperty() para asegurarse de que la propiedad se encuentre directamente en el objeto y no sea heredada.
+
+
+    	```js
+
+    		for (variable in objeto) {
+			  // Bloque de código a ejecutar en cada iteración
+			}
+
+    	```
+
+    	Variable: 
+
+    		Es una variable que toma el nombre de cada propiedad del objeto en cada iteración. 
+
+    		Esta variable se utiliza para acceder al valor de la propiedad o realizar otras operaciones dentro del bloque de código.
+
+    	Objeto: 
+
+    		Es el objeto que se va a recorrer, puede ser cualquier objeto en JavaScript que tenga propiedades enumerables.
+
+
+    	```js
+
+    		const persona = {
+			  nombre: "Juan",
+			  edad: 30,
+			  ocupacion: "Ingeniero",
+			};
+
+			for (let propiedad in persona) {
+			  console.log(propiedad + ": " + persona[propiedad]);
+			}
+
+    	```
+    		
+    		Recorre el objeto persona y en cada iteración, la variable propiedad toma el nombre de cada propiedad del objeto.
+
+    		Luego, imprimimos el nombre de la propiedad y su respectivo valor utilizando la sintaxis objeto[propiedad].
+
+
+    	El orden en que se recorren las propiedades con for...in puede no ser el mismo en que fueron definidas en el objeto, ya que JavaScript no garantiza el orden de las propiedades de un objeto. 
+
+    	Además, for...in también recorre las propiedades heredadas del prototipo del objeto, por lo que es común utilizar el método hasOwnProperty() para asegurarse de que la propiedad se encuentre directamente en el objeto y no sea heredada.
+
+    	```js
+
+    		for (let propiedad in persona) {
+			  if (persona.hasOwnProperty(propiedad)) {
+			    console.log(propiedad + ": " + persona[propiedad]);
+			  }
+			}
+
+    	```
+
+    5. for of
+
+    	se introdujo en ES6 (ECMAScript 2015) y se utiliza para recorrer elementos de colecciones iterables, como arrays, strings, mapas, sets, y otros objetos que implementen la interfaz Iterable. 
+
+    	A diferencia del bucle for...in, que recorre las propiedades enumerables de un objeto, for...of permite acceder directamente a los valores de la colección en cada iteración, sin necesidad de utilizar índices o propiedades.
+
+    	Además, no es necesario preocuparse por la longitud del iterable, ya que el bucle se detendrá automáticamente una vez que se hayan recorrido todos los elementos.
+
+    	Tener en cuenta que no se puede utilizar for...of con objetos regulares (plain objects) ya que estos no son iterables.
+
+    	Para recorrer las propiedades de un objeto, sigue utilizando for...in o Object.keys(), Object.values(), o Object.entries() dependiendo de tus necesidades.
+
+    	Usos: 
+
+    		Recorrer un array y obtener la suma de sus elementos.
+
+		    Recorrer un string y contar la cantidad de caracteres.
+
+		    Recorrer un Map y obtener sus claves y valores.
+
+		    Recorrer un Set y mostrar sus elementos.
+
+		    Utilizar el bucle con una función generadora para recorrer sus valores generados.
+
+
+    	```js
+
+    		for (variable of iterable) {
+			  // Bloque de código a ejecutar en cada iteración
+			}
+
+    	```
+
+    	Variable: 
+
+    		Es una variable que toma el valor de cada elemento de la colección en cada iteración. 
+
+    		Esta variable se utiliza para acceder al valor del elemento o realizar otras operaciones dentro del bloque de código.
+
+    	Iterable: 
+
+    		Es una colección de elementos sobre la cual se va a iterar. Puede ser un array, un string, un mapa, un set u otros objetos iterables.
+
+    	```js
+
+    		const frutas = ["manzana", "plátano", "naranja", "uva"];
+
+			for (let fruta of frutas) {
+			  console.log(fruta);
+			}
+
+    	```
+
+    		Recorre el array frutas y en cada iteración, la variable fruta toma el valor de cada elemento del array. Luego, imprimimos el valor de fruta en cada iteración.
+
+
+    	Objeto plano vs no plano: 		
+
+			Un objeto creado por notación literal o un objeto nuevo se conoce como objeto simple. ejemplo:
+
+				let a = {aaa : 1}
+
+				let b = new Object()
+
+			Mientras que el objeto creado usando una función no es un objeto plano:
+
+				let C = function(){}
+
+				let d = new C()
+
+
+    6. break/continue
+
+    	Son palabras clave en JavaScript que se utilizan para controlar el flujo de ejecución dentro de bucles (for, while, do...while, etc.).
+
+    	Permite tener más control sobre el flujo de ejecución en los bucles.
+
+
+    	Break:
+
+    		La palabra clave break se utiliza para detener la ejecución de un bucle de forma prematura, antes de que se haya completado su recorrido normal.
+    		
+    		Cuando se encuentra la declaración break dentro de un bucle, el programa sale inmediatamente del bucle y continúa con la ejecución del código (global) que sigue después del bucle.
+
+			```js
+
+				for (let i = 1; i <= 10; i++) {
+				  if (i === 5) {
+				    break; // Se detiene el bucle cuando i es igual a 5
+				  }
+				  console.log(i);
+				}
+
+			```
+
+				El bucle for itera del 1 al 10, pero cuando i es igual a 5, se encuentra la declaración break, lo que detiene el bucle y evita que se impriman los números restantes.
+
+				Imprimió 4 valores: 1, 2, 3, 4. 
+
+
+		Continue:
+
+			Se utiliza para saltar una iteración del bucle y continuar con la siguiente iteración.
+
+			```js
+
+				for (let i = 1; i <= 5; i++) {
+				  if (i === 3) {
+				    continue; // Se salta la iteración cuando i es igual a 3
+				  }
+				  console.log(i);
+				}
+
+			```
+
+				itera del 1 al 5, pero cuando i es igual a 3, se encuentra la declaración continue, lo que salta la iteración actual y no se imprime el número 3 en la consola.
+
+
+	Declaraciones etiquetadas: 
+
+		Los "Labeled Statements" en JavaScript son una característica que permite etiquetar bloques de código con identificadores específicos. 
+
+		Estas etiquetas se utilizan principalmente en conjunto con las instrucciones break y continue para especificar a qué bucle o bloque de código se desea aplicar la acción de interrupción o salto.
+
+		Pueden ser útiles en situaciones específicas donde se necesita controlar la ejecución de múltiples bucles anidados o bloques de código.
+
+
+		```js
+
+			etiqueta: declaración
+
+		```
+
+		etiqueta: 
+
+			Es un identificador válido que se coloca seguido de dos puntos (:).
+
+			Puede ser cualquier palabra que cumpla las reglas de nombramiento de variables en JavaScript (por ejemplo, no puede ser una palabra reservada).
+
+
+    	declaración: 
+
+    		Es cualquier instrucción válida en JavaScript, como un bucle for, while, un bloque de código con llaves {}, una sentencia if, etc.
+
+
+    	```js
+
+    		etiquetaExterna: for (let i = 1; i <= 3; i++) {
+			  for (let j = 1; j <= 3; j++) {
+			    console.log(`i: ${i}, j: ${j}`);
+			    if (i === 2 && j === 2) {
+			      break etiquetaExterna; // Se sale del bucle etiquetado cuando i es igual a 2 y j es igual a 2
+			    }
+			  }
+			}
+
+    	```
+
+    	Hemos etiquetado el bucle externo con etiquetaExterna: y el bucle interno imprime los valores de i y j. 
+
+    	Cuando i es igual a 2 y j es igual a 2, se encuentra la declaración break etiquetaExterna;, lo que provoca que el bucle externo (etiquetado) se detenga prematuramente y se salga de ambos bucles. 
+
+    	Sin la declaración etiquetada, solo se saldría del bucle interno.
+
+
+
+|| CONTROL DE FLUJO (control flow)
+
+	El control de flujo se combina con los bucles e iteraciones para formar estructuras decisiones, acciones, repeticiones, salida o continuación. 
+
+	Los bucles e iteraciones son especialmente útiles cuando necesitamos realizar tareas repetitivas o procesar múltiples elementos en una estructura de datos. Permiten automatizar procesos y evitar la repetición manual de código.
+
+
+    Estructuras de decisión:
+
+    	if: 
+
+    		Permite ejecutar un bloque de código si una condición es verdadera.
+
+	    if...else: 
+
+	    	Permite ejecutar un bloque de código si una condición es verdadera, y otro bloque si la condición es falsa.
+
+	    if...else if...else: 
+
+	    	Permite evaluar múltiples condiciones en secuencia y ejecutar el bloque de código correspondiente a la primera condición verdadera.
+
+
+	Bucles e iteraciones:
+
+	    for: 
+
+	    	Se utiliza para repetir un bloque de código un número específico de veces, generalmente basado en una variable contador.
+
+	    while: 
+
+	    	Se utiliza para repetir un bloque de código mientras una condición sea verdadera.
+
+	    do...while: 
+
+	    	Similar a while, pero garantiza que el bloque de código se ejecute al menos una vez antes de verificar la condición.
+
+	    for...in: 
+
+	    	Se utiliza para iterar sobre las propiedades enumerables de un objeto.
+
+	    for...of: 
+
+	    	Se utiliza para iterar sobre elementos iterables como arrays, cadenas, etc.
+
+
+	Estructuras de control especiales:
+
+	    break: 
+
+	    	Se utiliza para salir prematuramente de un bucle o una instrucción etiquetada.	
+
+	    continue: 
+
+	    	Se utiliza para saltar una iteración de un bucle y continuar con la siguiente.
+
+
+	Declaraciones condicionales: 
+
+		If else:
+
+
+
+
+		Switch:
 
 
 
