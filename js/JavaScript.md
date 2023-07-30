@@ -2252,18 +2252,371 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 	    	Se utiliza para saltar una iteración de un bucle y continuar con la siguiente.
 
 
-	Declaraciones condicionales: 
+	Declaraciones condicionales (Conditional Statements): 
+
+		Son estructuras de control que permiten tomar decisiones en el código basándose en el valor de una condición. 
+
+		Estas declaraciones evalúan una expresión lógica y, según si la condición es verdadera o falsa, ejecutan diferentes bloques de código.
+
+		Permiten que un programa tome decisiones basadas en diferentes situaciones. Por ejemplo, puedes utilizar declaraciones condicionales para validar datos de entrada, mostrar mensajes de error o éxito, controlar el flujo de ejecución en un algoritmo, entre muchas otras aplicaciones.
+
+
+		if: 
+
+			Es la forma más básica de declaración condicional. Se utiliza para ejecutar un bloque de código si una condición es verdadera.
+
+			```js
+
+				if (condición) {
+				  // Bloque de código que se ejecuta si la condición es verdadera
+				}
+
+			```
+
 
 		If else:
 
+			Permite ejecutar un bloque de código si la condición es verdadera, y otro bloque si la condición es falsa.
 
+			```js
+
+				if (condición) {
+				  // Bloque de código que se ejecuta si la condición es verdadera
+				} else {
+				  // Bloque de código que se ejecuta si la condición es falsa
+				}
+
+			```
+
+
+		If else if:
+
+			Permite evaluar múltiples condiciones en secuencia y ejecutar el bloque de código correspondiente a la primera condición verdadera.
+
+			```js
+
+				if (condición1) {
+				  // Bloque de código que se ejecuta si condición1 es verdadera
+
+				} else if (condición2) {
+				  // Bloque de código que se ejecuta si condición1 es falsa y condición2 es verdadera
+
+				} else {
+				  // Bloque de código que se ejecuta si ninguna de las condiciones anteriores es verdadera
+				}
+
+			```
+
+			Ejemplo:
+
+				```js
+
+					const numero = -5;
+
+					if (numero > 0) {
+					  console.log("El número es positivo.");
+					} else if (numero < 0) {
+					  console.log("El número es negativo.");
+					} else {
+					  console.log("El número es cero.");
+					}
+
+				```
+
+				Se evalúa la condición numero > 0. 
+
+				Si es verdadera, se imprime "El número es positivo." Si la condición es falsa, se pasa a la siguiente condición numero < 0.
+
+				Si esta última condición también es falsa, se ejecuta el bloque de código dentro del else, imprimiendo "El número es cero."
 
 
 		Switch:
 
+			Se utiliza para tomar decisiones basadas en el valor de una expresión. 
+
+			Es una alternativa a la declaración if...else if...else cuando se necesitan evaluar múltiples casos distintos de una sola variable.
+
+			```js
+
+				switch (expresion) {
+
+				  case valor1:
+
+				    // Bloque de código que se ejecuta si expresion es igual a valor1
+
+				    break;
+
+				  case valor2:
+
+				    // Bloque de código que se ejecuta si expresion es igual a valor2
+
+				    break;
+
+				  // Otros casos...
+				  default:
+
+				    // Bloque de código que se ejecuta si ninguno de los casos anteriores se cumple
+				}
+
+			```
+
+			expresion:
+
+			    Es la variable o expresión que se va a evaluar.
+
+		    case valor1: 
+
+		    	Representa un caso específico que se compara con la expresión. Si la expresión es igual a valor1, se ejecuta el bloque de código asociado. Si no es igual, se pasa al siguiente caso.
+
+		    break: 
+
+		    	Es una palabra clave opcional que se usa para salir del bloque switch una vez que se ha ejecutado el caso correspondiente. 
+
+		    	Si no se incluye el break, la ejecución continuará con el siguiente caso sin importar si la condición se cumple o no. Si no hay un break en ningún caso, el código continuará ejecutándose hasta que encuentre uno o llegue al default.
+
+		    default: 
+
+		    	Es una etiqueta opcional que se utiliza para especificar un bloque de código que se ejecutará si ninguno de los casos anteriores se cumple. Es similar a la cláusula else en las declaraciones if...else.
 
 
+		    ```js
 
+		    	const diaDeLaSemana = "viernes";
+
+				switch (diaDeLaSemana) {
+				  
+				  case "lunes":
+				    console.log("Es el primer día de la semana.");
+				    break;
+
+				  case "martes":
+				  case "miércoles":
+				  case "jueves":
+				    console.log("Es un día laboral.");
+				    break;
+
+				  case "viernes":
+				    console.log("¡Por fin es viernes!");
+				    break;
+
+				  case "sábado":
+				  case "domingo":
+				    console.log("Es fin de semana.");
+				    break;
+
+				  default:
+				    console.log("Día no válido.");
+				}
+
+		    ```
+
+
+	Gestión de excepciones: 
+
+		Es una técnica utilizada para manejar situaciones excepcionales o errores que pueden ocurrir durante la ejecución de un programa. 
+
+		Estas excepciones pueden surgir debido a diversas circunstancias, como errores de sintaxis, errores de lógica, operaciones inválidas o eventos inesperados.
+
+		La idea detrás de la gestión de excepciones es evitar que el programa se bloquee o detenga abruptamente cuando ocurre un error. 
+
+		En lugar de eso, se capturan las excepciones y se toman acciones para manejarlas adecuadamente. 
+
+		Esto permite que el programa continúe ejecutándose de manera controlada y proporciona la oportunidad de mostrar mensajes de error amigables al usuario o realizar otras acciones correctivas.
+
+		Es una práctica importante en la programación para garantizar la estabilidad y robustez de los programas.  
+
+		En JavaScript, la gestión de excepciones se realiza mediante el uso de bloques try, catch, finally y, opcionalmente, throw:
+
+
+		Try:
+
+			Se utiliza para envolver el código que puede lanzar una excepción.
+
+			El propósito del bloque try es probar si hay algún código que podría generar una excepción. Si se produce una excepción dentro del bloque try, la ejecución se detiene en ese punto y pasa al bloque catch correspondiente
+
+
+		Catch:
+
+			Se utiliza para capturar y manejar las excepciones lanzadas dentro del bloque try. 
+
+			Si ocurre una excepción en el bloque try, el bloque catch se ejecuta para gestionar las excepciones y tomar acciones apropiadas y acceder a información sobre la excepción.
+
+			En el bloque catch, se declara una variable que representa el objeto de error asociado con la excepción. Esta variable contiene información sobre el error, como el mensaje de error y otras propiedades.
+
+
+		Finally: 
+
+			Es un bloque opcional que se ejecuta siempre, ya sea que se haya lanzado una excepción o no. 
+
+			Se usa para realizar acciones que deben suceder independientemente de si hay una excepción o no.
+
+			Si hay código que debe ejecutarse sin importar qué, como limpieza de recursos o cierre de conexiones, se coloca en el bloque finally
+
+			```js
+
+				try {
+
+				  // Bloque de código que podría generar una excepción
+
+				} catch (error) {
+
+				  // Bloque de código para manejar la excepción capturada
+
+				} finally {
+
+				  // Bloque de código que siempre se ejecuta, opcional
+				}
+
+			```
+
+			Ejemplo: 
+
+				```js
+
+					function dividir(a, b) {
+
+					  try {
+
+					    if (b === 0) {
+
+					      throw new Error("No se puede dividir por cero.");
+					    }
+					    return a / b;
+
+					  } catch (error) {
+					    console.error(`Error: ${error.message}`);
+					    return 0; // Valor predeterminado para manejar la excepción
+
+					  } finally {
+					    console.log("Bloque finally: La función de división ha terminado.");
+					  }
+					}
+
+					const resultado1 = dividir(10, 2);
+					console.log(`Resultado 1: ${resultado1}`);
+
+					const resultado2 = dividir(10, 0);
+					console.log(`Resultado 2: ${resultado2}`);
+
+				```
+
+				la función dividir intenta realizar una división de dos números, pero verifica si el divisor (b) es igual a cero. Si es así, lanza una excepción con throw new Error(...). 
+
+				En el bloque catch, capturamos la excepción y mostramos un mensaje de error. También establecemos un valor predeterminado (0) para el resultado, lo que nos permite manejar la excepción de manera controlada sin detener el programa por completo.
+
+				Finalmente, en el bloque finally, mostramos un mensaje que indica que la función de división ha terminado, independientemente de si se lanzó una excepción o no.
+
+
+		Throw exception: 
+
+			Se utiliza para lanzar explícitamente una excepción en un bloque try.
+
+			Cuando se lanza una excepción con throw, el flujo normal del programa se interrumpe y se busca un bloque catch que pueda manejar la excepción.
+
+			```js
+
+				throw expresion;
+
+			```
+
+			expresion: 
+
+				Puede ser cualquier valor o un objeto que represente la excepción que se desea lanzar.
+
+				Por convención, se utiliza el objeto Error o sus subclases para representar las excepciones.
+
+
+			```js
+
+				throw new Error("Este es un mensaje de error.");
+
+			```
+
+			En este caso, se está lanzando una excepción de tipo Error con un mensaje descriptivo que indica la naturaleza del error.
+
+			Cuando se lanza una excepción con throw, el control del flujo pasa al bloque catch más cercano que pueda manejar esa excepción. 
+
+			Si no hay ningún bloque catch, la excepción provocará que el programa se detenga y se mostrará información sobre el error en la consola del navegador.
+
+			```js
+
+				function dividir(a, b) {
+
+				  if (b === 0) {
+
+				    throw new Error("No se puede dividir por cero.");
+				  }
+
+				  return a / b;
+				}
+
+				try {
+
+				  const resultado = dividir(10, 0);
+
+				  console.log(`El resultado de la división es: ${resultado}`);
+
+				} catch (error) {
+
+				  console.error(`Error: ${error.message}`);
+
+				}
+
+			```
+
+			La función dividir intenta realizar una división de dos números, pero antes de hacerlo, verifica si el divisor (b) es igual a cero.
+
+			Si es así, lanza una excepción con throw new Error(...). En el bloque try, llamamos a la función dividir con dividir(10, 0), lo que provocará que se lance la excepción ya que intenta dividir por cero. 
+
+			La excepción se captura en el bloque catch, y se muestra el mensaje de error.
+
+
+		Error Object: 
+
+			La utilización de objetos de error en el contexto de control de flujo se refiere al uso de objetos de error, como el objeto Error y sus subclases (TypeError, SyntaxError, etc.), para representar y manejar excepciones de manera más precisa y detallada.
+
+			Estos objetos tienen propiedades como message (mensaje de error), name (nombre del tipo de error) y otras propiedades específicas de cada tipo de error.
+
+			Cuando se lanza una excepción utilizando throw, es común utilizar un objeto de error para proporcionar un mensaje descriptivo que indique qué tipo de error ocurrió y cuál fue la causa del problema. 
+
+			Esto es especialmente útil para depurar y rastrear errores en el código.
+
+			Por ejemplo, en lugar de simplemente lanzar una excepción genérica con throw new Error("Algo salió mal."), podemos utilizar una subclase de Error más específica, como TypeError o SyntaxError, y proporcionar un mensaje más detallado y significativo que indique qué tipo de error ocurrió y en qué parte del código
+
+			```js
+
+				function dividir(a, b) {
+				  if (typeof a !== "number" || typeof b !== "number") {
+				    throw new TypeError("Ambos argumentos deben ser números.");
+				  }
+				  if (b === 0) {
+				    throw new Error("No se puede dividir por cero.");
+				  }
+				  return a / b;
+				}
+
+				try {
+				  const resultado = dividir("10", 5);
+				  console.log(`El resultado de la división es: ${resultado}`);
+				} catch (error) {
+				  console.error(`Error: ${error.message}`);
+				}
+
+			```
+
+			Resultado: 
+
+			```js
+
+				Error: Ambos argumentos deben ser números.
+
+			```
+
+			la función dividir verifica si ambos argumentos son números utilizando typeof. 
+
+			Si alguno de los argumentos no es un número, se lanza una excepción de tipo TypeError con un mensaje descriptivo que indica que ambos argumentos deben ser números. 
+
+			Además, si el divisor (b) es igual a cero, se lanza una excepción genérica con un mensaje que indica que no se puede dividir por cero.
 
 
 

@@ -2463,6 +2463,478 @@ etiquetaExterna: for (let i = 1; i <= 3; i++) {
 
 
 
+//---------------
+
+//Declaraciones condicionales (Conditional Statements)
+
+if (condición) {
+  // Bloque de código que se ejecuta si la condición es verdadera
+}
+
+
+if (condición) {
+  // Bloque de código que se ejecuta si la condición es verdadera
+} else {
+  // Bloque de código que se ejecuta si la condición es falsa
+}
+
+
+if (condición1) {
+  // Bloque de código que se ejecuta si condición1 es verdadera
+} else if (condición2) {
+  // Bloque de código que se ejecuta si condición1 es falsa y condición2 es verdadera
+} else {
+  // Bloque de código que se ejecuta si ninguna de las condiciones anteriores es verdadera
+}
+
+
+//[Ejemplos]
+
+const edad = 25;
+
+if (edad >= 18) {
+  console.log("Eres mayor de edad."); // Se ejecuta si la edad es 18 o más
+} else {
+  console.log("Eres menor de edad."); // Se ejecuta si la edad es menor que 18
+}
+
+
+// Ejemplo 2: Verificar si un número es positivo, negativo o cero
+const numero = -5;
+
+if (numero > 0) {
+  console.log("El número es positivo.");
+
+} else if (numero < 0) {
+  console.log("El número es negativo.");
+
+} else {
+  console.log("El número es cero.");
+}
+
+
+// Ejemplo 3: Determinar el tipo de dato de una variable
+const valor = 42;
+
+if (typeof valor === "number") {
+  console.log("La variable es de tipo número.");
+
+} else if (typeof valor === "string") {
+  console.log("La variable es de tipo cadena.");
+
+} else if (typeof valor === "boolean") {
+  console.log("La variable es de tipo booleano.");
+
+} else {
+  console.log("La variable es de otro tipo.");
+}
+
+//Respuesta
+
+/*Eres mayor de edad.
+El número es negativo.
+La variable es de tipo número.
+*/
+
+
+
+//---------------
+
+//Switch
+
+switch (expresion) {
+  case valor1:
+    // Bloque de código que se ejecuta si expresion es igual a valor1
+    break;
+
+  case valor2:
+    // Bloque de código que se ejecuta si expresion es igual a valor2
+    break;
+
+  // Otros casos...
+  default:
+    // Bloque de código que se ejecuta si ninguno de los casos anteriores se cumple
+}
+
+/*expresion: 
+Es la variable o expresión que se va a evaluar.
+
+case valorX: 
+Representa un caso específico que se compara
+con la expresión.
+
+break: 
+Es una palabra clave opcional que se usa para 
+salir del bloque switch una vez que se ha ejecutado 
+el caso correspondiente.
+
+Si no se incluye el break, la ejecución continuará 
+con el siguiente caso sin importar si la condición se cumple o no. 
+Si no hay un break en ningún caso, 
+el código continuará ejecutándose
+hasta que encuentre uno o llegue al default.
+
+default: 
+Es una etiqueta opcional que se utiliza 
+para especificar un bloque de código 
+que se ejecutará si ninguno de los 
+casos anteriores se cumple. 
+Es similar a la cláusula else 
+en las declaraciones if...else.
+
+*/
+
+
+const diaDeLaSemana = "viernes";
+
+switch (diaDeLaSemana) {
+
+  case "lunes":
+    console.log("Es el primer día de la semana.");
+    break;
+
+  case "martes":
+  case "miércoles":
+  case "jueves":
+    console.log("Es un día laboral.");
+    break;
+
+  case "viernes":
+    console.log("¡Por fin es viernes!");
+    break;
+
+  case "sábado":
+  case "domingo":
+    console.log("Es fin de semana.");
+    break;
+
+  default:
+    console.log("Día no válido.");
+}
+
+//out
+//¡Por fin es viernes!
+
+
+
+const opcion = "C";
+
+switch (opcion) {
+
+  case "A":
+    console.log("Seleccionaste la opción A.");
+    break;
+
+  case "B":
+    console.log("Seleccionaste la opción B.");
+    break;
+
+  case "C":
+    console.log("Seleccionaste la opción C.");
+    // No hay break aquí, la ejecución continuará al siguiente caso
+  case "D":
+    console.log("Seleccionaste la opción D o C.");
+    break;
+
+  default:
+    console.log("Opción no reconocida.");
+}
+
+
+// Ejemplo 2: Usando switch para imprimir el nombre del día de la semana
+
+const dia = 4;
+
+let nombreDia;
+
+switch (dia) {
+
+  case 1:
+    nombreDia = "Domingo";
+    break;
+
+  case 2:
+    nombreDia = "Lunes";
+    break;
+
+  case 3:
+    nombreDia = "Martes";
+    break;
+
+  case 4:
+    nombreDia = "Miércoles";
+    break;
+
+  case 5:
+    nombreDia = "Jueves";
+    break;
+
+  case 6:
+    nombreDia = "Viernes";
+    break;
+
+  case 7:
+    nombreDia = "Sábado";
+    break;
+
+  default:
+    nombreDia = "Día no válido";
+}
+
+console.log(`Hoy es ${nombreDia}.`);
+
+
+//out
+/*
+Seleccionaste la opción C.
+Seleccionaste la opción D o C.
+Hoy es Miércoles.
+
+*/
+
+
+//---------------
+
+//Gestión de excepciones: 
+
+try {
+  // Bloque de código que podría generar una excepción
+} catch (error) {
+  // Bloque de código para manejar la excepción capturada
+} finally {
+  // Bloque de código que siempre se ejecuta, opcional
+}
+
+//throw opcional
+
+
+function dividir(a, b) {
+
+  try {
+
+    if (b === 0) {
+      throw new Error("No se puede dividir por cero.");
+    }
+
+    return a / b;
+
+  } catch (error) {
+
+    console.error(`Error: ${error.message}`);
+    return 0; // Valor predeterminado para manejar la excepción
+
+  } finally {
+
+    console.log("Bloque finally: La función de división ha terminado.");
+  }
+}
+
+const resultado1 = dividir(10, 2);
+console.log(`Resultado 1: ${resultado1}`);
+
+const resultado2 = dividir(10, 0);
+console.log(`Resultado 2: ${resultado2}`);
+
+
+/*
+Resultado 1: 5
+Error: No se puede dividir por cero.
+Bloque finally: La función de división ha terminado.
+Resultado 2: 0
+Bloque finally: La función de división ha terminado.
+*/
+
+
+
+//---------------
+
+//Throw exception
+
+/*	
+throw expresion; 
+
+expresion puede ser cualquier valor o un objeto 
+que represente la excepción que se desea lanzar. 
+Por convención, se utiliza el objeto Error 
+o sus subclases para representar las excepciones
+*/
+
+throw new Error("Este es un mensaje de error.");
+
+/*
+se está lanzando una excepción de tipo Error 
+con un mensaje descriptivo que indica la naturaleza 
+del error.
+
+Cuando se lanza una excepción con throw, 
+el control del flujo pasa al bloque catch más cercano 
+que pueda manejar esa excepción. 
+
+Si no hay ningún bloque catch, 
+la excepción provocará que el programa se detenga
+y se mostrará información sobre el error 
+en la consola del navegador.
+*/
+
+
+/*
+
+tray throw -> catch code or close 
+
+El error anterior no se muestra al user(??) hasta catch
+
+lo toma y muestra en consola, etc. +-
+
+para cada código de try
+
+o throw -> try catch 
+
+Solo con el fin de detallar en error
+
+*/
+
+
+
+function dividir(a, b) {
+  if (b === 0) {
+    throw new Error("No se puede dividir por cero.");
+  }
+  return a / b;
+}
+
+try {
+  const resultado = dividir(10, 0);
+  console.log(`El resultado de la división es: ${resultado}`);
+} catch (error) {
+  console.error(`Error: ${error.message}`);
+}
+
+//out
+//en consola: Error: No se puede dividir por cero.
+
+
+//try code throw -> catch solution/close -> finally
+
+
+/*
+
+//func
+	
+	throw
+
+try
+
+catch
+
+
+try
+	//statements
+	//conditions //function
+	
+		//exception
+		throw Error() -> catch or close and console msj
+
+	//statements
+
+
+catch(var/error) 
+	
+	//code for throw
+
+
+finally
+	//information //code
+*/
+
+
+
+try {
+
+  const numero = "abc";
+
+  if (isNaN(numero)) {
+
+    throw new Error("El valor no es un número válido.");
+  }
+
+  const resultado = numero * 2;
+  console.log(`El resultado es: ${resultado}`);
+
+} catch (error) {
+  console.error(`Error: ${error.message}`);
+
+} finally {
+  console.log("El bloque finally siempre se ejecuta.");
+}
+
+/*
+multiplicar un valor almacenado en la variable numero por 2. 
+Sin embargo, el valor de numero no es un número válido 
+(es una cadena "abc"). 
+
+Al usar isNaN(numero), detectamos 
+que el valor no es un número y lanzamos una excepción 
+usando throw new Error("El valor no es un número válido.").
+
+El bloque catch captura la excepción lanzada en el bloque try 
+y muestra un mensaje de error utilizando error.message. 
+Además, el bloque finally siempre se ejecuta, 
+independientemente de si hay una excepción o no, 
+y en este caso, muestra un mensaje informativo.
+*/
+
+
+//
+
+
+
+
+
+
+//---------------
+
+//Error Object
+
+/*
+Subclases de Error más específica, como TypeError 
+o SyntaxError
+
+Tienen propiedades como message (mensaje de error), 
+name (nombre del tipo de error) y otras propiedades
+específicas de cada tipo de error.
+*/
+
+
+function dividir(a, b) {
+  if (typeof a !== "number" || typeof b !== "number") {
+    throw new TypeError("Ambos argumentos deben ser números.");
+  }
+  if (b === 0) {
+    throw new Error("No se puede dividir por cero.");
+  }
+  return a / b;
+}
+
+try {
+  const resultado = dividir("10", 5);
+  console.log(`El resultado de la división es: ${resultado}`);
+} catch (error) {
+  console.error(`Error: ${error.message}`);
+}
+
+
+//out
+//Error: Ambos argumentos deben ser números.
+
+
+
+
+//---------------
+
+//
+
+
+
 
 
 
