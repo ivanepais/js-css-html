@@ -2929,6 +2929,496 @@ try {
 
 
 
+
+
+
+/*.........................*/
+
+//Expresiones y operadores
+
+//expresiones
+
+/*
+Expresiones numéricas y aritméticas:
+    Suma: a + b
+    Resta: a - b
+    Multiplicación: a * b
+    División: a / b
+    Módulo (resto de la división): a % b
+    Incremento: a++ o ++a
+    Decremento: a-- o --a
+
+Expresiones de cadena (string):
+    Concatenación de cadenas: "Hola" + " " + "mundo"
+    Plantillas de cadena (template literals): `Hola ${nombre}`
+
+Expresiones de asignación:
+    Asignación: a = 10
+    Asignación con operadores: a += 5, b *= 2, etc.
+
+Expresiones de comparación:
+    Igual a: a == b
+    Diferente de: a != b
+    Mayor que: a > b
+    Menor que: a < b
+    Mayor o igual que: a >= b
+    Menor o igual que: a <= b
+
+Expresiones lógicas:
+    AND lógico: a && b
+    OR lógico: a || b
+    NOT lógico: !a
+
+Expresiones condicionales (ternarias):
+    Operador ternario: condicion ? valorSiVerdadero : valorSiFalso
+
+Expresiones de llamada a funciones:
+    Llamada a una función: nombreFuncion()
+    Llamada a una función con argumentos: sumar(10, 20)
+
+Expresiones de acceso a propiedades:
+    Acceso a una propiedad de un objeto: objeto.propiedad
+    Acceso a una propiedad mediante notación de corchetes: objeto['propiedad']
+
+Expresiones de arreglo (Array):
+    Creación de un arreglo: []
+    Acceso a un elemento del arreglo: arreglo[indice]
+
+Expresiones de objeto:
+    Creación de un objeto: {}
+    Definición de propiedades de un objeto: { nombre: "John", edad: 30 }
+
+Expresiones de función:
+    Expresión de función anónima: function() { ... }
+    Expresión de función con nombre: function nombreFuncion() { ... }
+
+Expresiones regulares:
+    Expresión regular: /patron/
+
+*/
+
+
+//---------------
+
+//Operadores
+
+//Operador de asignación
+
+/*
+Asignación básica: =
+Este operador asigna el valor de la expresión a la variable
+*/
+
+let x = 10;
+
+
+//Asignación con suma: +=
+let x = 5;
+x += 3; // x se convierte en 8 (5 + 3)
+
+
+//Asignación con resta: -=
+let x = 10;
+x -= 4; // x se convierte en 6 (10 - 4)
+
+
+//Asignación con multiplicación: *=
+let x = 5;
+x *= 2; // x se convierte en 10 (5 * 2)
+
+
+//Asignación con división: /=
+let x = 20;
+x /= 5; // x se convierte en 4 (20 / 5)
+
+
+//Asignación con módulo(resto de la división): %=
+let x = 15;
+x %= 4; // x se convierte en 3 (15 % 4)
+
+
+//Asignación con exponenciación: **=
+let x = 2;
+x **= 3; // x se convierte en 8 (2 elevado a la potencia de 3)
+
+
+//---------------
+
+//Comparación: Devuelve True o False
+
+//Igual a: == (Verifica solo el valor)
+const a = 5;
+const b = "5";
+console.log(a == b); // true (5 es igual a "5" en valor)
+
+
+//Diferente de: !=
+const a = 10;
+const b = "5";
+console.log(a != b); // true (10 es diferente de "5" en valor)
+
+
+//Igualdad estricta: === (Verifica valor y tipo de dato)
+const a = 5;
+const b = "5";
+console.log(a === b); // false (5 no es igual a "5" en tipo)
+
+
+//Desigualdad estricta: !==
+const a = 10;
+const b = "10";
+console.log(a !== b); // true (10 es diferente de "10" en tipo)
+
+
+//Mayor que: >
+const a = 7;
+const b = 5;
+console.log(a > b); // true (7 es mayor que 5)
+
+
+//Menor que: <
+const a = 3;
+const b = 8;
+console.log(a < b); // true (3 es menor que 8)
+
+
+//Mayor o igual que: >=
+const a = 6;
+const b = 6;
+console.log(a >= b); // true (6 es mayor o igual que 6)
+
+
+//Menor o igual que: <=
+const a = 4;
+const b = 9;
+console.log(a <= b); // true (4 es menor o igual que 9)
+
+
+//---------------
+
+//Aritméticos
+
+
+//Suma: +
+const suma = 5 + 3; // suma será igual a 8
+
+
+//Resta: -
+const resta = 10 - 5; // resta será igual a 5
+
+
+//Multiplicación: *
+const multiplicacion = 2 * 3; // multiplicacion será igual a 6
+
+
+//División: /
+const division = 10 / 2; // division será igual a 5
+
+
+//Módulo (resto de la división): %
+const resto = 10 % 3; // resto será igual a 1 (el resto de dividir 10 por 3)
+
+
+//Exponenciación: **
+const potencia = 2 ** 3; // potencia será igual a 8 (2 elevado a la potencia de 3)
+
+
+//Incremento: ++
+let contador = 5;
+contador++; // contador será igual a 6 después de incrementar en 1
+
+
+//Decremento: --
+let contador = 8;
+contador--; // contador será igual a 7 después de decrementar en 1
+
+
+
+//---------------
+
+//Lógico: Devuelve True o False de acuerdo al valor de verdad (true) las condiciones/valor de variable. 
+
+
+//AND lógico: && (Ambas condiciones)
+const a = true;
+const b = false;
+console.log(a && b); // false (ambas condiciones no son verdaderas)
+
+
+//OR lógico: || (una condición)
+const a = true;
+const b = false;
+console.log(a || b); // true (al menos una de las condiciones es verdadera)
+
+
+//NOT lógico: ! (negar true o false)
+const a = true;
+console.log(!a); // false (la condición es verdadera, pero se negó con el operador !)
+
+
+
+//---------------
+
+//Condicionales: Utilizados en expresiones condicionales para tomar decisiones basadas en condiciones lógicas
+//Tiene que ver con las acciones o los caminos que toma. De acuerdo al valor de verdad (true) o falsedad (false) de una cosa, sucede una u otra cosa; descripta en el código. 
+
+//ternario: condicion ? valorSiVerdadero : valorSiFalso
+const edad = 18;
+const mensaje = edad >= 18 ? "Eres mayor de edad" : "Eres menor de edad";
+console.log(mensaje); // "Eres mayor de edad" (la condición es verdadera)
+
+
+//Operador OR cortocircuito: a || b
+/*
+Si a es verdadero, devuelve a, de lo contrario, devuelve b. 
+Es importante destacar que si a es verdadero, 
+no se evalúa b, ya que el resultado de la expresión ya es verdadero.
+*/
+
+const valor = null;
+const valorDefecto = valor || "Valor por defecto";
+console.log(valorDefecto); // "Valor por defecto" (valor es nulo, por lo que se utiliza el valor por defecto)
+
+
+//Operador AND cortocircuito: a && b
+
+/*
+Si a es falso, devuelve a, de lo contrario, devuelve b. 
+Es importante destacar que si a es falso, no se evalúa b, 
+ya que el resultado de la expresión ya es falso.
+*/
+
+const valor = "Hola";
+const resultado = valor && "Mundo";
+console.log(resultado); // "Mundo" (ambos valores son verdaderos)
+
+
+
+//---------------
+
+//String
+
+//Concatenación: +: Unir cadenas
+const str1 = "Hola";
+const str2 = "Mundo";
+const resultado = str1 + " " + str2; // resultado será "Hola Mundo"
+
+
+//Longitud de la cadena: length, cantidad de caracteres
+const mensaje = "Hola Mundo";
+console.log(mensaje.length); // 10 (la cadena tiene 10 caracteres)
+
+
+//Acceso a caracteres: [índice], comienzan en 0
+const mensaje = "Hola";
+console.log(mensaje[0]); // "H"
+console.log(mensaje[2]); // "l"
+
+
+//Método charAt(): accede a los según el indice
+const mensaje = "Hola";
+console.log(mensaje.charAt(1)); // "o"
+
+
+//Método toUpperCase(): convertir cadena a mayus
+const mensaje = "Hola Mundo";
+const mayusculas = mensaje.toUpperCase(); // mayusculas será "HOLA MUNDO"
+
+
+//Método toLowerCase(): convertir cadena a minus
+const mensaje = "Hola Mundo";
+const minusculas = mensaje.toLowerCase(); // minusculas será "hola mundo"
+
+
+//Método trim(): elimina los espacios en blanco de una cadena
+const mensaje = "   Hola Mundo   ";
+const limpio = mensaje.trim(); // limpio será "Hola Mundo"
+
+
+//Método split(): divide una cadena y lo convierte en un array usando un delimitador (,)
+const mensaje = "Hola,Mundo";
+const arreglo = mensaje.split(","); // arreglo será ["Hola", "Mundo"]
+
+
+
+//---------------
+
+//Operador coma: permite combinar varias expresiones en una sola expresión.
+
+for (let i = 0, j = 10; i < 5; i++, j--) {
+  // Hacer algo con i y j
+}
+
+
+//---------------
+
+//Operador unario: trabajan con un solo operando, es decir, una sola expresión. Estos operadores se utilizan para realizar diversas operaciones en una sola variable o valor
+
+//negación unaria (-): negar un valor numérico o convertir un valor no numérico en un número negativo.
+const numero = 5;
+const negativo = -numero; // negativo será igual a -5
+
+
+//incremento (++): aumentar en 1 el valor de una variable.
+let contador = 10;
+contador++; // contador será igual a 11 después del incremento
+
+
+//decremento (--): isminuir en 1 el valor de una variable.
+let contador = 8;
+contador--; // contador será igual a 7 después del decremento
+
+
+//lógico NOT (!): se utiliza para negar un valor booleano.
+const esVerdadero = true;
+const esFalso = !esVerdadero; // esFalso será igual a false
+
+
+//Operador typeof: se utiliza para obtener una cadena que representa el tipo de un valor.
+const numero = 10;
+const tipo = typeof numero; // tipo será igual a "number"
+
+
+//Operador void: se utiliza para evaluar una expresión y devolver undefined.
+const resultado = void 0; // resultado será undefined
+
+
+
+//---------------
+
+//Operador Bitwise: Realizan operaciones a nivel de bits en números enteros de 32 bits, en los valores binarios de los números. 
+
+//Operador AND bitwise (&): realiza una operación AND a nivel de bits entre dos números
+const a = 5; // Representación binaria: 00000000000000000000000000000101
+const b = 3; // Representación binaria: 00000000000000000000000000000011
+const resultado = a & b; // Representación binaria del resultado: 00000000000000000000000000000001 (1 en decimal)
+
+
+//Operador OR bitwise (|): realiza una operación OR a nivel de bits entre dos números.
+const a = 5; // Representación binaria: 00000000000000000000000000000101
+const b = 3; // Representación binaria: 00000000000000000000000000000011
+const resultado = a | b; // Representación binaria del resultado: 00000000000000000000000000000111 (7 en decimal)
+
+
+//Operador XOR bitwise (^): realiza una operación XOR a nivel de bits entre dos números. 
+const a = 5; // Representación binaria: 00000000000000000000000000000101
+const b = 3; // Representación binaria: 00000000000000000000000000000011
+const resultado = a ^ b; // Representación binaria del resultado: 00000000000000000000000000000110 (6 en decimal)
+
+
+//Operador NOT bitwise (~): realiza una operación NOT a nivel de bits en un solo número.
+const a = 5; // Representación binaria: 00000000000000000000000000000101
+const resultado = ~a; // Representación binaria del resultado: 11111111111111111111111111111010 (-6 en decimal)
+
+
+//Operador desplazamiento a la izquierda (<<): Este operador desplaza los bits de un número hacia la izquierda una cantidad específica de posiciones
+const a = 5; // Representación binaria: 00000000000000000000000000000101
+const resultado = a << 2; // Representación binaria del resultado: 00000000000000000000000000010100 (20 en decimal)
+
+
+//Desplazamiento a la derecha (>>): Este operador desplaza los bits de un número hacia la derecha una cantidad específica de posiciones
+const a = 16; // Representación binaria: 00000000000000000000000000010000
+const resultado = a >> 2; // Representación binaria del resultado: 00000000000000000000000000000100 (4 en decimal)
+
+
+//Desplazamiento a la derecha sin signo (>>>): Este operador desplaza los bits de un número hacia la derecha una cantidad específica de posiciones.
+const a = -16; // Representación binaria: 11111111111111111111111111110000
+const resultado = a >>> 2; // Representación binaria del resultado: 00111111111111111111111111111100 (1073741820 en decimal)
+
+
+
+//---------------
+
+//Operadores Bigint: ara realizar operaciones matemáticas con números enteros muy grandes. Para declarar un número como "BigInt", simplemente agrega la letra "n" al final del número 
+
+const numeroBigInt = 1234567890123456789012345678901234567890n;
+
+
+//aritméticos: Se pueden usar los operadores aritméticos estándar, como +, -, *, /, y %
+const a = 123456789012345678901234567890n;
+const b = 987654321098765432109876543210n;
+const suma = a + b; // 1111111111111111111111111111100n
+const producto = a * b; // 121932631137021795696978281944487162532678405536372274404821000n
+
+
+//de comparación: Se pueden utilizar operadores de comparación como ==, !=, <, >, <=, y >=
+const a = 123456789012345678901234567890n;
+const b = 987654321098765432109876543210n;
+console.log(a < b); // true
+console.log(a == b); // false
+
+
+//unarios: Se pueden utilizar operadores unarios como +, -, y !
+const a = 123456789012345678901234567890n;
+const negativo = -a; // -123456789012345678901234567890n
+
+
+//asignación: Se pueden usar operadores de asignación como =, +=, -=, *=, /=, y %=
+let a = 1234567890n;
+a += 100n; // 1234567990n
+
+
+//Conversión a número regular
+const numeroRegular = 123;
+const numeroBigInt = BigInt(numeroRegular); // convirtiendo a BigInt
+
+
+
+
+
+
+
+
+
+
+//---------------
+
+//
+
+
+
+/*.........................*/
+
+// Comparación vs Lógico vs Condicional
+
+/*
+
+Comparación: 
+
+	Devuelve True o False de acuerdo al valor 
+	o tipo del contenido de las variables. 
+
+Lógico:
+
+	Devuelve True o False de acuerdo al 
+	valor de verdad (true) de 
+	las condiciones/valor de variable. 
+
+Condicional: 
+
+	Utilizados en expresiones condicionales 
+	para tomar decisiones basadas en condiciones
+	lógicas. 
+				
+	Tiene que ver con las acciones o los caminos
+	que toma. De acuerdo al valor de verdad (true)
+	o falsedad (false) de una cosa, sucede una u otra cosa; descripta en el código.
+
+*/
+
+
+//
+
+
+/*.........................*/
+
+//Funciones
+
+
+
+
+
+
 //---------------
 
 //

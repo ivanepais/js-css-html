@@ -2620,6 +2620,489 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 
 
 
+|| Expresiones y operadores
+
+	
+	Expresiones:
+		
+		Una expresión es cualquier unidad de código que produce un valor. 
+
+		Puede ser una combinación de variables, valores literales, operadores y funciones que se evalúan para producir un resultado
+
+
+		Numéricas y aritméticas:
+
+	        Suma: a + b
+
+	        Resta: a - b
+
+	        Multiplicación: a * b
+
+	        División: a / b
+
+	        Módulo (resto de la división): a % b
+
+	        Incremento: a++ o ++a
+
+	        Decremento: a-- o --a
+
+
+	    de Cadena (string):
+
+	        Concatenación de cadenas: "Hola" + " " + "mundo"
+
+	        Plantillas de cadena (template literals): `Hola ${nombre}`
+
+
+	    Asignación:
+
+	        Asignación: a = 10
+
+	        Asignación con operadores: a += 5, b *= 2, etc.
+
+
+	    Comparación:
+
+	        Igual a: a == b
+
+	        Diferente de: a != b
+
+	        Mayor que: a > b
+
+	        Menor que: a < b
+
+	        Mayor o igual que: a >= b
+
+	        Menor o igual que: a <= b
+
+
+	    Lógicas:
+
+	        AND lógico: a && b
+
+	        OR lógico: a || b
+
+	        NOT lógico: !a
+
+
+	    Condicionales (ternarias):
+
+	        Operador ternario: condicion ? 
+
+	        valorSiVerdadero : valorSiFalso
+
+
+	    Llamada a funciones:
+
+	        Llamada a una función: nombreFuncion()
+	        
+	        Llamada a una función con argumentos: sumar(10, 20)
+
+
+	    Acceso a propiedades:
+
+	        Acceso a una propiedad de un objeto: objeto.propiedad
+
+	        Acceso a una propiedad mediante notación de corchetes: objeto['propiedad']
+
+
+	    de Arreglo (Array):
+
+	        Creación de un arreglo: []
+
+	        Acceso a un elemento del arreglo: arreglo[indice]
+
+
+	    de Objeto:
+
+	        Creación de un objeto: {}
+
+	        Definición de propiedades de un objeto: { nombre: "John", edad: 30 }
+
+
+	    de Función:
+
+	        Expresión de función anónima: 
+	        function() { ... }
+
+	        Expresión de función con nombre: function nombreFuncion() { ... }
+
+
+	    Expresiones regulares:
+
+	        Expresión regular: /patron/
+
+
+		```js
+
+			// Expresión numérica
+			const suma = 5 + 3;
+
+			// Expresión de cadena
+			const nombreCompleto = "John" + " " + "Doe";
+
+			// Expresión de llamada a función
+			const resultadoFuncion = Math.sqrt(25);
+
+			// Expresión de comparación
+			const esMayor = 10 > 5;
+
+			// Expresión de asignación
+			let x = 10;
+
+		```
+
+
+	Operadores Avanzados:
+			
+		Los operadores son símbolos o palabras clave que se utilizan para realizar operaciones en las expresiones. Estas operaciones pueden ser matemáticas, de comparación, lógicas, de asignación, entre otras.
+
+
+		Unary/Unario: 
+
+			En matemáticas se utiliza para representa la unidad de los números naturales, ej: III son 3. 
+
+			En JavaScript son operadores que trabajan con un solo operando, es decir, una sola expresión. 
+
+			Estos operadores se utilizan para realizar diversas operaciones en una sola variable o valor. 
+
+			Los operadores unarios pueden tener diferentes efectos según el contexto en el que se utilicen.
+
+
+			Negación unaria (-):
+
+				Se utiliza para negar un valor numérico o convertir un valor no numérico en un número negativo.
+
+				```js
+
+					const numero = 5;
+
+					const negativo = -numero; // negativo será igual a -5
+
+				```
+
+			Operador de incremento (++):
+
+				Se utiliza para aumentar en 1 el valor de una variable.
+
+				```js
+
+					let contador = 10;
+					
+					contador++; // contador será igual a 11 después del incremento
+
+				```
+
+			Operador de decremento (--):
+				
+				Se utiliza para disminuir en 1 el valor de una variable.
+
+				```js
+
+					let contador = 8;
+
+					contador--; // contador será igual a 7 después del decremento
+
+				```
+
+			Operador lógico NOT (!):
+				
+				Se utiliza para negar un valor booleano. 
+
+				Si el valor es true, se convierte en false, y si es false, se convierte en true.
+
+				```js
+
+					const esVerdadero = true;
+
+					const esFalso = !esVerdadero; // esFalso será igual a false
+
+				```
+
+			Operador typeof:
+				
+				Se utiliza para obtener una cadena que representa el tipo de un valor.	
+
+				```js
+
+					const numero = 10;
+					
+					const tipo = typeof numero; // tipo será igual a "number"
+
+				```
+
+			Operador void:
+				
+				Se utiliza para evaluar una expresión y devolver undefined.
+
+				```js
+
+					const resultado = void 0; // resultado será undefined
+
+				```
+
+		Bitwise: 
+
+			Son operadores que trabajan a nivel de bits en números enteros de 32 bits. 
+
+			Estos operadores realizan operaciones a nivel de bits en los valores binarios de los números y son utilizados principalmente para tareas relacionadas con manipulación y control de bits.
+
+			Pueden confundirse con operadores lógicos pero son distintos.
+
+
+			AND bitwise (&):
+
+				Este operador realiza una operación AND a nivel de bits entre dos números. 
+
+				Cada bit en el resultado será 1 si y solo si ambos bits correspondientes en los números de entrada son 1.
+
+				```js
+
+					const a = 5; // Representación binaria: 00000000000000000000000000000101
+					
+					const b = 3; // Representación binaria: 00000000000000000000000000000011
+					
+					const resultado = a & b; // Representación binaria del resultado: 00000000000000000000000000000001 (1 en decimal)
+
+				```
+
+			OR bitwise (|):
+				
+				Este operador realiza una operación OR a nivel de bits entre dos números. 
+
+				Cada bit en el resultado será 1 si al menos uno de los bits correspondientes en los números de entrada es 1.
+
+				```js
+
+					const a = 5; // Representación binaria: 00000000000000000000000000000101
+					
+					const b = 3; // Representación binaria: 00000000000000000000000000000011
+					
+					const resultado = a | b; // Representación binaria del resultado: 00000000000000000000000000000111 (7 en decimal)
+
+				```
+
+			XOR bitwise (^):
+
+				Este operador realiza una operación XOR a nivel de bits entre dos números. 
+
+				Cada bit en el resultado será 1 si solo uno de los bits correspondientes en los números de entrada es 1.
+
+				```js
+
+					const a = 5; // Representación binaria: 00000000000000000000000000000101
+
+					const b = 3; // Representación binaria: 00000000000000000000000000000011
+
+					const resultado = a ^ b; // Representación binaria del resultado: 00000000000000000000000000000110 (6 en decimal)
+
+				```
+
+			NOT bitwise (~):
+				
+				Este operador realiza una operación NOT a nivel de bits en un solo número. 
+
+				Invierte cada bit del número, es decir, cambia 1 a 0 y 0 a 1.
+
+				```js
+
+					const a = 5; // Representación binaria: 00000000000000000000000000000101
+
+					const resultado = ~a; // Representación binaria del resultado: 11111111111111111111111111111010 (-6 en decimal)
+
+				```
+
+			Desplazamiento a la izquierda (<<):
+				
+				Este operador desplaza los bits de un número hacia la izquierda una cantidad específica de posiciones.
+
+				Los bits desplazados a la izquierda se llenan con ceros.
+
+				```js
+
+					const a = 5; // Representación binaria: 00000000000000000000000000000101
+					
+					const resultado = a << 2; // Representación binaria del resultado: 00000000000000000000000000010100 (20 en decimal)
+
+				```
+
+
+			Desplazamiento a la derecha (>>):
+			
+				Este operador desplaza los bits de un número hacia la derecha una cantidad específica de posiciones. 
+
+				Los bits desplazados a la derecha se llenan con el bit más significativo (el bit de signo).
+
+				```js
+
+					const a = 16; // Representación binaria: 00000000000000000000000000010000
+					
+					const resultado = a >> 2; // Representación binaria del resultado: 00000000000000000000000000000100 (4 en decimal)
+
+				```
+
+
+			Desplazamiento a la derecha sin signo (>>>):
+				
+				Este operador desplaza los bits de un número hacia la derecha una cantidad específica de posiciones. 
+
+				Los bits desplazados a la derecha se llenan con ceros.
+
+				```js
+
+					const a = -16; // Representación binaria: 11111111111111111111111111110000
+					
+					const resultado = a >>> 2; // Representación binaria del resultado: 00111111111111111111111111111100 (1073741820 en decimal)
+
+				```
+
+		Bigint: 
+
+			Son operadores que se utilizan para realizar operaciones matemáticas con números enteros muy grandes, más allá del rango que puede manejar el tipo de dato "Number" estándar.
+
+			Para declarar un número como "BigInt", simplemente agrega la letra "n" al final del número.
+
+			```js
+
+				const numeroBigInt = 1234567890123456789012345678901234567890n;
+
+			```
+
+			Operadores aritméticos: 
+
+				Se pueden usar los operadores aritméticos estándar, como +, -, *, /, y %, con números "BigInt".
+
+				```js
+
+					const a = 123456789012345678901234567890n;
+
+					const b = 987654321098765432109876543210n;
+
+					const suma = a + b; // 1111111111111111111111111111100n
+
+					const producto = a * b; // 121932631137021795696978281944487162532678405536372274404821000n
+
+				```
+
+			Operadores de comparación: 
+
+				Se pueden utilizar operadores de comparación como ==, !=, <, >, <=, y >= para comparar números "BigInt".
+
+				```js
+
+					const a = 123456789012345678901234567890n;
+
+					const b = 987654321098765432109876543210n;	
+
+					console.log(a < b); // true
+					console.log(a == b); // false
+
+				```
+
+			Operadores unarios: 
+
+				Se pueden utilizar operadores unarios como +, -, y ! con números "BigInt".
+
+				```js
+				
+					const a = 123456789012345678901234567890n;
+				
+					const negativo = -a; // -123456789012345678901234567890n
+
+				```
+
+			Operadores de asignación: 
+
+				Se pueden usar operadores de asignación como =, +=, -=, *=, /=, y %= con números "BigInt".
+
+				```js
+
+					let a = 1234567890n;
+					
+					a += 100n; // 1234567990n
+
+				```
+
+			Convertir números regulares a bigint
+
+				No se pueden mezclar, pero si convertir. 
+
+				```js
+
+					const numeroRegular = 123;
+					
+					const numeroBigInt = BigInt(numeroRegular); // convirtiendo a BigInt
+
+				```
+
+
+		Operador comparación, lógico y condicional: 
+
+			La diferencia está en el valor de respuesta, los tipos de datos, usos, etc. 
+
+			Comparación: 
+
+				Devuelve True o False de acuerdo al valor o tipo del contenido de las variables. 
+
+				```js
+
+					const a = 5;
+					const b = "5";
+					console.log(a == b);
+				```
+
+			Lógico:
+
+				Devuelve True o False de acuerdo al valor de verdad (true) las condiciones/valor de variable. 
+
+				```js
+
+					const a = true;
+					const b = false;
+					console.log(a && b);
+
+					const a = true;
+					const b = false;
+					console.log(a || b);
+
+				```
+
+			Condicional: 
+
+				Utilizados en expresiones condicionales para tomar decisiones basadas en condiciones lógicas. 
+				
+				Tiene que ver con las acciones o los caminos que toma. De acuerdo al valor de verdad (true) o falsedad (false) de una cosa, sucede una u otra cosa; descripta en el código.
+
+				```js
+
+
+
+				```
+
+
+
+
+
+			Condicional: 
+
+
+
+
+
+
+
+
+
+|| FUNCIONES
+
+
+
+
+
+
+
+
+
 || BUILT-IN OBJECTS de cada tipo de dato
 
 	
