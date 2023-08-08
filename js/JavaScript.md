@@ -3075,29 +3075,1473 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 
 				```js
 
-
+					const valor = "Hola";
+					const resultado = valor && "Mundo";
+					console.log(resultado); // "Mundo" (ambos valores son verdaderos)
 
 				```
 
 
 
 
-
-			Condicional: 
-
-
-
-
-
-
-
-
-
 || FUNCIONES
+	
+	Es un bloque de código reutilizable que se define una vez y luego puede ser invocado o llamado en cualquier parte del código para realizar una tarea específica.
+
+	Puede recibir datos de entrada, conocidos como parámetros, realizar operaciones basadas en esos datos y luego devolver un resultado, conocido como valor de retorno.
+
+	Nos permiten encapsular lógica y tareas en unidades más pequeñas y manejables.
+
+	Se utilizan para dividir un programa en partes más pequeñas y para evitar la repetición de código, lo que facilita el mantenimiento y la legibilidad del código.
+
+	Son fundamentales para la programación estructurada y modular, lo que permite escribir código más eficiente y organizado.
+
+
+	```js
+
+		function saludar(nombre) {
+		  return "Hola, " + nombre + "!";
+		}
+
+		// Llamando a la función y mostrando el resultado
+		const mensajeSaludo = saludar("Juan");
+		console.log(mensajeSaludo); // Salida: "Hola, Juan!"
+
+	```
+
+	Se puede invocar y ejecutar sin problemas.
+
+
+	Parámetros y argumentos: 
+
+		Un parametro es una variable que se utiliza para recibir valores de entrada o datos externos cuando se invoca la función. 
+
+		Los parámetros permiten que las funciones sean más flexibles y puedan ser utilizadas con diferentes valores en diferentes llamadas.
+
+		```js
+
+			function nombreDeLaFuncion(parametro1, parametro2, ...parametroN) {
+			  // Cuerpo de la función que utiliza los parámetros
+			  // ...
+			}
+
+		```
+
+		Los valores que se pasan en la llamada para los parametros, se llaman argumentos.
+
+		```js
+
+			function sumar(a, b) {
+			  return a + b;
+			}
+
+			const resultado = sumar(5, 3); // Aquí, 5 y 3 son los argumentos para los parámetros 'a' y 'b'
+			console.log(resultado); // Salida: 8
+
+		```	
+
+		Los nombres de los parámetros actúan como variables locales dentro del cuerpo de la función y solo están definidos en el contexto de esa función. 
+
+		Por lo tanto, solo son accesibles y válidos dentro de la función.
+
+		Las funciones pueden tener cero o más parámetros, y los parámetros pueden ser de cualquier tipo de dato válido en JavaScript, incluyendo números, cadenas, booleanos, objetos, arreglos y otros.
+
+		```js
+
+			function saludar() {
+			  return "¡Hola, bienvenido!";
+			}
+
+			const mensajeSaludo = saludar();
+			console.log(mensajeSaludo); // Salida: "¡Hola, bienvenido!"
+
+		```
+
+
+	Default params: 	
+
+		Son una característica introducida en ECMAScript 6 (ES6) que permite asignar valores predeterminados a los parámetros de una función en caso de que no se les pase ningún valor o se les pase un valor que sea "undefined".
+
+		Antes era necesario verificar dentro de la función si esos parámetros tenían valores o eran "undefined" y asignarles un valor predeterminado si era necesario.
+
+		Ahora puedes establecer los valores predeterminados directamente en la declaración de la función, lo que hace que el código sea más limpio y fácil de mantener.
+
+		```js
+
+			function nombreDeLaFuncion(parametro1 = valorPredeterminado1, parametro2 = valorPredeterminado2, ...parametroN) {
+			  // Cuerpo de la función que utiliza los parámetros
+			  // ...
+			}
+
+		```
+
+		Si no se proporciona ningún argumento o valor al llamar a la función, el valor predeterminado se utilizará automáticamente para el parámetro.
+
+		```js
+
+			function saludar(nombre = "Invitado") {
+			  return "¡Hola, " + nombre + "!";
+			}
+
+			const mensajeSaludo1 = saludar("Juan");
+			const mensajeSaludo2 = saludar(); // En este caso, no se pasa ningún valor para el parámetro 'nombre', por lo que se utilizará el valor predeterminado "Invitado"
+
+			console.log(mensajeSaludo1); // Salida: "¡Hola, Juan!"
+			console.log(mensajeSaludo2); // Salida: "¡Hola, Invitado!"
+
+		```
+
+
+	Rest params: 
+
+		Son una característica introducida en ECMAScript 6 (ES6) que permite capturar un número variable de argumentos (o valores) pasados a una función en forma de un solo parámetro. 
+
+		Esto es útil cuando no sabemos cuántos argumentos serán pasados o cuando queremos recibir una cantidad variable de argumentos sin necesidad de definir explícitamente cada parámetro.
+
+		El operador de "Rest Params" es representado por tres puntos (...) seguido de un nombre de variable que almacenará los argumentos restantes como un arreglo. 
+
+		El nombre del parámetro con los tres puntos se coloca al final de la lista de parámetros de la función.
+
+		Siempre que se use "Rest Params", solo puede haber un parámetro de este tipo en la función, por eso se coloca al final.
+
+		```js 
+
+			function nombreDeLaFuncion(parametro1, parametro2, ...restParams) {
+			  // Cuerpo de la función que utiliza los parámetros
+			  // 'restParams' es un arreglo que contiene los argumentos restantes
+			  // ...
+			}
+
+		```	
+
+		```js
+
+			function sumar(...numeros) {
+			  let total = 0;
+			  for (let numero of numeros) {
+			    total += numero;
+			  }
+			  return total;
+			}
+
+			const resultado1 = sumar(1, 2, 3, 4, 5); // Se pasan varios argumentos
+			const resultado2 = sumar(10, 20); // Se pasan solo dos argumentos
+
+			console.log(resultado1); // Salida: 15 (1 + 2 + 3 + 4 + 5)
+			console.log(resultado2); // Salida: 30 (10 + 20)
+
+		```
+
+		Cuando se llama a la función con varios argumentos (sumar(1, 2, 3, 4, 5)), el parámetro numeros captura esos argumentos en forma de un arreglo [1, 2, 3, 4, 5]. 
+
+		Cuando se llama a la función con solo dos argumentos (sumar(10, 20)), el parámetro numeros captura esos dos argumentos en forma de un arreglo [10, 20].
+
+		Si no se pasan argumentos al llamar a una función con "Rest Params", el parámetro con los tres puntos será un arreglo vacío.
+
+		```js
+
+			function imprimirMensajes(...mensajes) {
+			  if (mensajes.length === 0) {
+			    console.log("No se proporcionaron mensajes.");
+			  } else {
+			    for (let mensaje of mensajes) {
+			      console.log(mensaje);
+			    }
+			  }
+			}
+
+			imprimirMensajes(); // No se pasan argumentos, el arreglo 'mensajes' será vacío
+			imprimirMensajes("Hola", "Bienvenido"); // Se pasan dos argumentos
+
+		```
+
+
+	Funciones Arrow: 
+
+		A partir de ECMAScript 6 (ES6), JavaScript introdujo funciones de flecha (arrow functions) que proporcionan una sintaxis más corta y concisa para definir funciones.
+
+		Incluye una flecha (=>) entre los parámetros y el cuerpo de la función.
+
+		Una característica heredan el valor de this del ámbito en el que fueron creadas, lo que evita algunos problemas comunes relacionados con el uso de this en las funciones regulares.
+
+		No son adecuadas para todas las situaciones, especialmente cuando se necesita acceder a la palabra clave this en el contexto local de la función.
+
+		```js
+
+			const nombreDeLaFuncion = (parametro1, parametro2, ...restParams) => {
+			  // Cuerpo de la función que utiliza los parámetros
+			  // ...
+			  return resultado;
+			};
+
+		```
+
+		Si la función tiene un solo parámetro, se puede omitir los paréntesis. 
+
+		```js
+
+			const funcionConUnParametro = parametro => {
+			  // Cuerpo de la función que utiliza el parámetro
+			  // ...
+			  return resultado;
+			};
+
+		```
+
+		Si la función tiene una sola instrucción y devuelve un valor, se puede omitir la palabra clave return y las llaves.
+
+		```js
+
+			const funcionCorta = () => "Hola Mundo";
+
+		```
+
+		Ejemplo de función arrow:
+
+		```js
+
+			const multiplicar = (a, b) => a * b;
+
+			const resultadoMultiplicacion = multiplicar(4, 6);
+			console.log(resultadoMultiplicacion); // Salida: 24
+
+		```
+
+		Otro beneficio es que heredan el valor de this del contexto en el que fueron creadas, lo que puede evitar problemas de enlace de this que suelen ocurrir en funciones regulares: 
+
+			this hace referencia al ámbito global y no al objeto
+
+
+		```js
+
+			// Objeto con una función regular
+			const objeto = {
+			  nombre: "Juan",
+			  saludar: function() {
+			    console.log("Hola, mi nombre es " + this.nombre);
+			  }
+			};
+
+			objeto.saludar(); // Salida: "Hola, mi nombre es Juan"
+
+			// Objeto con una Arrow Function
+			const objetoArrow = {
+			  nombre: "Maria",
+			  saludar: () => {
+			    console.log("Hola, mi nombre es " + this.nombre); // 'this' hace referencia al ámbito global y no al objeto
+			  }
+			};
+
+			objetoArrow.saludar(); // Salida: "Hola, mi nombre es undefined"
+
+		```
+
+		El segundo ejemplo, la Arrow Function saludar dentro del objeto objetoArrow no tiene acceso al valor de this.nombre del objeto porque this en una Arrow Function hace referencia al ámbito global (ventana del navegador o módulo en Node.js), y no al objeto en el que fue creada.
+
+
+	Funciones anónimas: 
+
+		Son funciones sin nombre y se pueden asignar a variables o utilizar como argumentos en otras funciones.
+
+		Son funciones sin identificador y generalmente se utilizan en situaciones donde no es necesario referirse a ellas más de una vez o donde su alcance se limita a un contexto específico.
+
+		Son muy comunes en JavaScript, especialmente cuando se utilizan en contextos como callbacks, eventos o IIFE (Immediately Invoked Function Expression).
+
+		Su uso permite tener un código más limpio y conciso, ya que no es necesario nombrar funciones que solo se utilizan en un lugar específico.
+
+		Sin embargo, es importante tener en cuenta que, al ser anónimas, puede resultar un poco difícil de depurar en algunos casos, ya que no se dispone de un nombre descriptivo para identificar la función en las herramientas de desarrollo.
+
+		Por esta razón, es recomendable utilizar funciones anónimas cuando su uso sea apropiado y claro dentro del código.
+
+		```js
+
+			// Función anónima asignada a una variable
+
+			const miFuncion = function() {
+			  // Código de la función anónima
+			};
+
+			// Función anónima como argumento de otra función
+
+			otraFuncion(function() {
+			  // Código de la función anónima
+			});
+
+			// IIFE (Immediately Invoked Function Expression) con función anónima
+
+			(function() {
+			  // Código de la función anónima
+			})();
+
+		```
+
+		Función anónima asignada a una variable:
+
+		```js
+
+			const saludar = function() {
+			  console.log("Hola, ¿cómo estás?");
+			};
+
+			saludar(); // Salida: "Hola, ¿cómo estás?"
+
+		```	
+
+		La función se invoca mediante la variable saludar().
+
+
+		Función anónima como argumento de otra función:
+
+		```js
+
+			function ejecutarFuncion(funcion) {
+			  funcion();
+			}
+
+			ejecutarFuncion(function() {
+			  console.log("Esta es una función anónima como argumento.");
+			});
+
+			// Salida: "Esta es una función anónima como argumento."
+
+		```
+
+		La función ejecutarFuncion recibe otra función como argumento y la ejecuta. 
+
+		La función anónima se pasa como argumento y luego se invoca dentro de la función ejecutarFuncion.
+	
+
+
+	Funciones IIFEs:  
+
+		Son una técnica que se utiliza para crear funciones y ejecutarlas inmediatamente después de su definición. 
+
+		Esta técnica se basa en la utilización de funciones anónimas y se envuelve la definición de la función entre paréntesis para que el motor de JavaScript la interprete como una expresión.
+
+		La principal ventaja de los IIFE es que permiten crear un ámbito (scope) local para encapsular variables y funciones, evitando así la contaminación del ámbito global. 
+
+		Esto es especialmente útil cuando se trabaja en proyectos grandes y complejos, ya que ayuda a prevenir conflictos entre variables y funciones con el mismo nombre.
+
+		Una ventaja adicional de los IIFE es que permiten pasar argumentos a la función y utilizarlos dentro del ámbito local del IIFE. 
+
+		Esto es útil cuando se necesita proteger datos sensibles o configuraciones dentro del IIFE.
+
+		Son útiles para encapsular código en un ámbito local y proteger variables y funciones del ámbito global. 
+
+		También permiten pasar argumentos y datos confidenciales dentro del IIFE. 
+
+		Sin embargo, con la aparición de bloques de código y módulos en JavaScript, los IIFE no se utilizan tan comúnmente como antes.
+
+		```js
+
+			(function() {
+			  // Código del IIFE
+			})();
+
+		```
+
+		```js
+
+			(function() {
+			  const mensaje = "Hola desde un IIFE";
+			  console.log(mensaje);
+			})();
+
+		```
+
+		```js
+
+			(function(nombre) {
+			  console.log("Hola, " + nombre);
+			})("Juan");
+
+		```
+
+
+	Arguments Objects:
+
+		Es un objeto especial que está disponible dentro de todas las funciones y contiene todos los argumentos que se pasaron al llamar a la función. 
+
+		Este objeto es útil cuando se necesita trabajar con un número variable de argumentos o cuando no se conocen de antemano los argumentos que se pasarán a la función.
+
+		Es similar a un array en términos de acceso a los elementos, pero no es un array real. Tiene propiedades numéricas que corresponden a los índices de los argumentos pasados a la función.
+
+		Se puede utilizar para trabajar con un número variable de argumentos, aunque en funciones modernas es más común usar la sintaxis de parámetros rest (...) para manejar argumentos como un array real.
+
+		```js
+
+			function miFuncion() {
+			  console.log(arguments[0]); // Accede al primer argumento
+			  console.log(arguments[1]); // Accede al segundo argumento
+			  // ...
+			}
+
+		```
+
+		La función sumarTodos no tiene parámetros definidos, pero utiliza el objeto "arguments" para sumar todos los argumentos pasados al llamar a la función. 
+
+		La propiedad length del objeto "arguments" indica cuántos argumentos se pasaron.
+
+		Es importante tener en cuenta que el objeto "arguments" es un objeto dinámico y no tiene todas las funcionalidades de un array. 
+
+		Por ejemplo, no tiene métodos como map, filter, forEach, etc. Si se desea utilizar métodos de array en el objeto "arguments", es necesario convertirlo en un array real.
+
+		```js
+
+			function convertirAArray() {
+			  const argsArray = Array.from(arguments);
+			  console.log(argsArray);
+			}
+
+			convertirAArray(1, 2, 3); // Salida: [1, 2, 3]
+
+		```
+
+		En el contexto de funciones modernas de JavaScript, es más común utilizar la sintaxis de parámetros rest (...) para recibir argumentos como un array real en lugar de depender del objeto "arguments".
+
+		```js
+
+			function sumarTodos(...args) {
+			  let total = 0;
+			  for (let i = 0; i < args.length; i++) {
+			    total += args[i];
+			  }
+			  return total;
+			}
+
+			console.log(sumarTodos(1, 2, 3, 4)); // Salida: 10 (1 + 2 + 3 + 4)
+			console.log(sumarTodos(10, 20));     // Salida: 30 (10 + 20)
+
+		```
+
+
+	Scope and function stack:
+		
+		Scope (ámbito o alcance): 
+
+			Se refiere al alcance o contexto en el que una variable o función es accesible dentro del código. 
+
+			El alcance se define por el lugar donde se declara una variable. 
+
+			Hay dos tipos principales de alcance: alcance global y alcance local (también conocido como alcance de función).
+
+			Global: 
+
+				Una variable declarada fuera de cualquier función (o bloque de código) tiene un alcance global y es accesible desde cualquier parte del código.
+
+
+			Local (de función): 
+
+				Una variable declarada dentro de una función tiene un alcance local y solo es accesible dentro de esa función.
+
+
+			```js
+
+				const globalVariable = "Soy global"; // Alcance global
+
+				function miFuncion() {
+				  const localVariable = "Soy local"; // Alcance local
+				  console.log(globalVariable);       // Acceso a la variable global
+				  console.log(localVariable);        // Acceso a la variable local
+				}
+
+				miFuncion();
+				console.log(globalVariable); // Acceso a la variable global fuera de la función
+				// console.log(localVariable);  // Esto resultaría en un error, ya que localVariable es inaccesible aquí
+
+			```
+
+
+		Function Stack (pila de funciones):
+
+			Se refiere al orden en el que las funciones son llamadas y se añaden a una pila a medida que se ejecutan.
+
+			Cuando se ejecuta un programa de JavaScript, las funciones se agregan a la pila de funciones a medida que se llaman y se retiran de la pila cuando se completan. 
+
+			La función en la parte superior de la pila es la que se está ejecutando actualmente.
+
+			```js
+
+				function funcionUno() {
+				  console.log("Función Uno");
+				  funcionDos();
+				}
+
+				function funcionDos() {
+				  console.log("Función Dos");
+				}
+
+				funcionUno();
+
+			```
+
+			Al llamar a funcionUno(), se agrega a la pila de funciones y se ejecuta.
+
+			Luego, dentro de funcionUno(), se llama a funcionDos(), que también se agrega a la pila y se ejecuta.
+
+			Después de que funcionDos() se completa, se retira de la pila, y luego funcionUno() también se retira de la pila cuando termina su ejecución.
+
+
+		Estos conceptos están relacionados y son fundamentales para entender cómo se manejan las variables y las funciones en JavaScript.		
+
+		La combinación de alcance y la pila de funciones es lo que permite que las variables y funciones se gestionen de manera ordenada y que no haya conflictos de nombres entre diferentes partes del código. 
+
+		Cada función tiene su propio alcance local, lo que evita colisiones con variables en otras funciones. 
+
+		La pila de funciones garantiza que las funciones se ejecuten en el orden correcto y que el contexto de ejecución se maneje de manera efectiva.
+
+
+	Funciones recursivas:
+
+		Se refiere a la técnica donde una función se llama a sí misma para resolver un problema. 
+
+		Las funciones recursivas son útiles cuando un problema se puede dividir en subproblemas más pequeños y similares al problema original.
+
+		```js
+
+			function funcionRecursiva(parametros) {
+			  // Caso base: condición para detener la recursión
+			  if (condicion) {
+			    return valorBase;
+			  }
+
+			  // Llamada recursiva
+			  return funcionRecursiva(nuevosParametros);
+			}
+
+		```
+
+		Para evitar que la recursión sea infinita, es importante definir un "caso base" en el que la función no se llame a sí misma y retorne un valor directamente.
+
+		En cada llamada recursiva, el problema se divide en subproblemas más pequeños y la función se llama a sí misma con estos subproblemas. 
+
+		La recursión continúa hasta que se alcanza el caso base, momento en el que la recursión comienza a "desenrollarse" y los valores se combinan para dar la solución final.
+
+		Puede ser poderosa pero también puede llevar a problemas de rendimiento si no se maneja adecuadamente. 
+
+		En algunos casos, las implementaciones recursivas pueden ser menos eficientes que las soluciones iterativas equivalentes.
+
+		```js
+
+			function factorial(n) {
+			  // Caso base: factorial de 0 es 1
+			  if (n === 0) {
+			    return 1;
+			  }
+
+			  // Llamada recursiva para el factorial de n - 1
+			  return n * factorial(n - 1);
+			}
+
+			console.log(factorial(5)); // Calcula 5! = 5 * 4 * 3 * 2 * 1 = 120
+
+		```
+
+		```js
+
+			function fibonacci(n) {
+			  // Casos base: fibonacci de 0 es 0, y de 1 es 1
+			  if (n === 0) {
+			    return 0;
+			  }
+			  if (n === 1) {
+			    return 1;
+			  }
+
+			  // Llamadas recursivas para sumar los dos términos anteriores
+			  return fibonacci(n - 1) + fibonacci(n - 2);
+			}
+
+			console.log(fibonacci(6)); // Calcula el término 6 de la serie de Fibonacci: 0, 1, 1, 2, 3, 5
+
+		```
+
+
+	Lexical Scoping: 
+
+		También conocido como "Static Scoping" o "Closure Scoping", es un concepto importante en la gestión de alcance de variables en JavaScript y en muchos otros lenguajes de programación. 
+
+		Se refiere a cómo se determina el alcance de una variable basándose en el lugar donde se define y no en el lugar desde donde se llama.
+
+		En el contexto de "Lexical Scoping", el alcance de una variable está determinado por la estructura del código fuente (léxico) y cómo se anidan las funciones, en lugar de cómo se ejecuta el programa en tiempo de ejecución.
+
+		```js
+
+			function exterior() {
+			  const mensaje = "Hola desde exterior";
+
+			  function interior() {
+			    console.log(mensaje);
+			  }
+
+			  interior();
+			}
+
+			exterior(); // Salida: "Hola desde exterior"
+
+		```
+
+		La función interior() se define dentro de la función exterior(). 
+
+		Debido a "Lexical Scoping", la función interior() puede acceder a la variable mensaje definida en su alcance externo (es decir, dentro de exterior()), incluso cuando se llama desde fuera de su alcance.
+
+		Vemos como la función interior puede acceder a mensaje porque se definió antes y en otro bloque, porque la función exterior se definió allí.
+
+		Además en el cuerpo de la función exterior llama a la interior cuando se ejecuta, se ejecutará la interior. 
+
+		También es esencial para comprender el concepto de cierre (closure). 
+
+		Un cierre es una función que recuerda las variables en el alcance donde se creó, incluso si esa función se ejecuta en un alcance diferente. 
+
+		Esto permite crear funciones que capturan y retienen el contexto en el que se crearon, lo que puede ser útil para implementar patrones como los módulos y para manejar la encapsulación de datos.
+
+		Es fundamental para entender cómo las variables se acceden y se manejan en diferentes contextos y cómo funcionan los cierres (closures) en la creación de funciones con memoria de su contexto de creación.
+
+		```js
+
+			function contador() {
+			  let count = 0;
+
+			  return function() {
+			    count++;
+			    return count;
+			  };
+			}
+
+			const incrementar = contador();
+			console.log(incrementar()); // Salida: 1
+			console.log(incrementar()); // Salida: 2
+
+		```
+
+		La función interna captura la variable count en su alcance externo, lo que permite que la variable persista y sea modificada a medida que llamamos a la función incrementar().
+
+
+	Funciones Closures: 
+
+		Se refieren a la capacidad de una función de recordar y acceder a las variables de su ámbito externo, incluso después de que esa función haya terminado de ejecutarse. 
+
+		En esencia, un cierre es una función que "encierra" o captura el ámbito en el que se creó.
+
+		Los closures son posibles debido al "Lexical Scoping", que permite que las funciones anidadas accedan a las variables de su ámbito exterior.
+
+		los closures también pueden llevar a problemas de memoria si no se gestionan adecuadamente. 
+
+		Si una función que es un closure se mantiene en memoria (por ejemplo, debido a una referencia que sigue existiendo), todas las variables de su alcance externo también se mantendrán en memoria.
+
+		Son fundamentales para muchas características y patrones avanzados en JavaScript.
+
+		```js
+
+			function exterior() {
+			  const mensaje = "Hola desde exterior";
+
+			  function interior() {
+			    console.log(mensaje);
+			  }
+
+			  return interior;
+			}
+
+			const miClosure = exterior();
+			miClosure(); // Salida: "Hola desde exterior"
+
+		```
+
+		La función interior se convierte en un cierre al ser devuelta desde la función exterior. 
+
+		Aunque exterior ha terminado de ejecutarse y su alcance podría haber sido eliminado, interior aún puede acceder a la variable mensaje debido al cierre.
+
+
+		Aplicaciones: 
+
+			1. Encapsulación: 
+
+				Los closures permiten la creación de variables "privadas". 
+
+				Las variables dentro de un cierre no son accesibles desde fuera de él, lo que permite encapsular datos y limitar su acceso.
+
+		    
+		    2. Datos persistentes: 
+
+		    	Los closures permiten que las funciones "recuerden" datos a lo largo de múltiples llamadas. 
+
+		    	Esto es útil para mantener el estado en funciones que se utilizan repetidamente.
+
+
+		    3. Manejo de eventos: 
+
+		    	Los closures son fundamentales en la asignación de controladores de eventos en JavaScript. 
+
+		    	Cada vez que se asocia una función como manejador de un evento, se crea un cierre para que la función tenga acceso a los datos relevantes en el momento del evento.
+
+
+		    4. Callbacks: 
+
+		    	Los closures son comunes en el uso de callbacks en JavaScript.
+
+		    	Un callback es una función que se pasa como argumento a otra función y se ejecuta en algún momento futuro. 
+
+		    	Los closures permiten que el callback acceda a variables fuera de su alcance.
+
+
+	Built-In Functions:
+
+		Son funciones que están disponibles automáticamente en el entorno de ejecución del lenguaje. 
+
+		Estas funciones son proporcionadas por el propio lenguaje y se pueden utilizar para realizar tareas comunes sin necesidad de definirlas previamente.
+
+		son parte de la API (Interfaz de Programación de Aplicaciones) estándar de JavaScript y están disponibles en todos los entornos de ejecución compatibles con JavaScript, como los navegadores web y los entornos de servidor.
+
+		1. Function: 
+
+			El constructor de funciones en JavaScript.
+
+			```js
+
+				const myFunction = new Function("a", "b", "return a + b");
+				
+				console.log(myFunction(2, 3)); // Devuelve 5
+
+			```
+
+		2. setTimeout() y setInterval():
+
+			Funciones para ejecutar una función después de un retraso específico (una vez) o de manera periódica.
+
+			```js
+
+				function saludar() {
+				  console.log("Hola, mundo!");
+				}
+
+				setTimeout(saludar, 1000); // Ejecuta la función después de 1 segundo
+				setInterval(saludar, 2000); // Ejecuta la función cada 2 segundos
+
+			```
+
+		3. clearTimeout() y clearInterval(): 
+
+			Se utilizan para cancelar la ejecución de una función programada con setTimeout() o setInterval().
+
+			```js
+
+				const timeoutId = setTimeout(saludar, 1000);
+
+				clearTimeout(timeoutId); // Cancela la ejecución programada
+
+			```
+
+		4. Function.prototype.call(), Function.prototype.apply(), y Function.prototype.bind(): 
+
+			Métodos que permiten controlar el valor de this y pasar argumentos a una función en el momento de la llamada.
+
+			```js
+
+				function saludar(nombre) {
+				  console.log(`Hola, ${nombre}!`);
+				}
+
+				saludar.call(null, "Juan"); // Llama a la función con "this" nulo y argumento "Juan"
+
+				saludar.apply(null, ["María"]); // Llama a la función con "this" nulo y argumento "María"
+
+				const saludarJuan = saludar.bind(null, "Juan");
+				saludarJuan(); // Llama a la función con "this" nulo y argumento "Juan"
+
+			```
+
+		5. Function.prototype.toString():
+
+			Devuelve una representación en forma de cadena del código fuente de una función.
+
+			```js
+
+				function suma(a, b) {
+				  return a + b;
+				}
+
+				console.log(suma.toString()); // Muestra el código fuente de la función
+
+			```
+
+
+	This: 
+
+		Hace referencia al objeto al que pertenece el contexto de ejecución actual. 
+
+		El valor de "this" cambia dependiendo de cómo se invoca una función y en qué contexto se encuentra. 
+
+		Es una característica fundamental en JavaScript y es especialmente relevante cuando se trabaja con objetos y funciones.
+
+		Puede tener diferentes valores en diferentes situaciones:
+
+
+		1. En el contexto global (fuera de cualquier función o método): 
+
+		   	"this" hace referencia al objeto global. 
+
+		    En un navegador, el objeto global es el objeto "window". En Node.js, es el objeto "global".
+
+		    ```js
+
+		    	console.log(this); // En un navegador, esto mostrará el objeto 'window'
+
+		    ```
+
+
+		2. Dentro de una función normal: 
+
+		   	"this" hace referencia al objeto que invoca la función. 
+
+		    Sin embargo, esto puede variar dependiendo de cómo se llama la función.
+
+		    ```js
+
+		    	function imprimirThis() {
+				  console.log(this);
+				}
+
+				imprimirThis(); // En el navegador, mostrará el objeto 'window'
+
+		    ```
+
+
+		3. Dentro de un método de un objeto:
+
+		    "this" hace referencia al objeto que contiene el método.
+
+		    ```js
+
+		    	const objeto = {
+				  nombre: "Juan",
+				  saludar: function() {
+				    console.log("Hola, mi nombre es " + this.nombre);
+				  }
+				};
+
+				objeto.saludar(); // Salida: "Hola, mi nombre es Juan"
+
+		    ```
+
+
+		4. En funciones de flecha ("Arrow Functions"):
+
+		   	"this" hace referencia al valor "this" del contexto en el que se creó la función, lo que puede diferir de cómo se comporta en funciones regulares.
+
+		   	```js
+
+		   		const objetoArrow = {
+				  nombre: "Maria",
+				  saludar: () => {
+				    console.log("Hola, mi nombre es " + this.nombre); // 'this' hace referencia al objeto global 'window' (en un navegador)
+				  }
+				};
+
+				objetoArrow.saludar(); // Salida: "Hola, mi nombre es undefined"
+
+		   	```
 
 
 
+|| FUNCIONES AVANZADO
 
+	Casos de uso para cada tipo de función
+
+	
+	Funciones regulares: 
+
+		Tienen un nombre identificador
+
+		1. Legibilidad y claridad del código: 
+
+			Las funciones con nombres descriptivos pueden hacer que el código sea más legible y comprensible, especialmente cuando se utilizan en expresiones complejas. 
+
+			Un nombre adecuado puede proporcionar contexto sobre la intención de la función.
+
+			```js
+
+				// Función convencional con nombre descriptivo
+
+				function calcularPrecioTotal(subtotal, impuestos) {
+				  return subtotal + impuestos;
+				}
+
+			```
+
+		2. Facilitar el debug: 
+
+			Las funciones con nombres son más fáciles de rastrear en la pila de llamadas y en los mensajes de error, lo que facilita la depuración y el diagnóstico de problemas.
+
+    	
+    	3. Reutilización: 
+
+    		Las funciones con nombres pueden ser reutilizadas en múltiples partes del código y en diferentes partes del programa. 
+
+    		Esto puede promover la modularidad y el mantenimiento.
+
+    	
+    	4. Recursión: 
+
+    		Si necesitas implementar recursión, las funciones con nombres son más adecuadas, ya que pueden llamarse a sí mismas de manera más clara y legible.
+
+    		```js
+
+    			function factorial(n) {
+				  if (n === 0) {
+				    return 1;
+				  }
+				  return n * factorial(n - 1);
+				}
+
+    		```
+
+    	5. Mejora de rendimiento: 
+
+    		En algunos escenarios, las funciones con nombre pueden tener un rendimiento ligeramente mejor debido a su definición estática, en comparación con las funciones anónimas que se crean en tiempo de ejecución.
+
+		
+		6. Declaración anticipada: 
+
+			Puedes declarar una función con nombre en cualquier parte de su ámbito, incluso antes de su definición, lo que permite una declaración anticipada antes de su uso.
+
+
+		Las funciones convencionales son preferibles en situaciones donde la claridad, la legibilidad y la reutilización son importantes, así como en casos de recursión y para facilitar la depuración. 
+
+		Las funciones anónimas, por otro lado, son útiles para casos en los que una función se utiliza solo una vez o donde la lógica es simple y no requiere un nombre descriptivo.
+
+
+	Funciones Arrow: 
+
+		Proporcionan una sintaxis más concisa para definir funciones en JavaScript.
+
+
+		1. Callbacks: 
+
+			Las funciones flecha son ideales para definir callbacks en situaciones como métodos de arrays (map, filter, forEach) o en métodos como addEventListener.
+
+			```js
+
+				// Callback con función flecha en un método de array
+
+				const numbers = [1, 2, 3, 4, 5];
+				const squares = numbers.map(number => number * number);
+
+				// Callback con función flecha en addEventListener
+
+				button.addEventListener("click", () => {
+				  console.log("Botón clicado");
+				});
+
+			```
+
+
+		2. Funciones cortas: 
+
+			Cuando la lógica de la función es corta y se puede expresar en una sola línea, las funciones flecha hacen que el código sea más conciso.
+
+			```js
+
+				// Función corta con función flecha
+
+				const sum = (a, b) => a + b;
+
+			```
+
+
+		3. Evitar problemas de contexto: 
+
+			Las funciones flecha no tienen su propio this. 
+
+			Esto es útil cuando necesitas acceder al this del contexto circundante, como en callbacks o métodos de clase.
+
+			```js
+
+				// Usando this en una función flecha
+
+				function MiClase() {
+				  this.propiedad = "Hola";
+
+				  this.metodo = () => {
+				    console.log(this.propiedad);
+				  };
+				}
+
+				const instancia = new MiClase();
+				instancia.metodo(); // Salida: "Hola"
+
+			```
+
+		4. Closures: 
+
+			Las funciones flecha pueden ayudar a mantener el contexto adecuado dentro de los cierres, ya que heredan el ámbito del lugar donde se definen.
+
+			```js
+
+				function contador() {
+				  let count = 0;
+				  return () => {
+				    count++;
+				    return count;
+				  };
+				}
+				const incrementar = contador();
+
+			```
+
+
+		5. Retorno implícito: 
+			
+			Las funciones flecha tienen un retorno implícito si se omite el cuerpo de la función. 
+
+			Esto es útil para funciones simples.
+
+			```js
+
+				const cuadrado = x => x * x; // Retorno implícito
+				
+				const saludar = nombre => `Hola, ${nombre}!`; // Retorno implícito
+
+			```
+
+
+		6. Funciones en contexto de objeto: 
+
+			Las funciones flecha pueden ser útiles al definir métodos en objetos, ya que conservan el this del objeto.
+
+			```js
+
+				const persona = {
+				  nombre: "Alice",
+				  saludar: () => {
+				    console.log(`Hola, soy ${this.nombre}`); // this será undefined
+				  }
+				};
+
+			```
+
+		Son especialmente útiles para escribir código más conciso, evitar problemas de contexto, trabajar con callbacks y mantener cierres con el contexto adecuado. 
+
+		Sin embargo, debes ser consciente de sus limitaciones, como la falta de su propio this y la incapacidad de ser usadas como constructores.
+
+
+	Funciones anónimas: 
+
+		Son funciones que no tienen un nombre identificador.
+
+		Utiles para usarlas dentro de otra función o dentro de un objeto, al pasarla como parámetro. 
+
+
+		1. Callbacks: 
+
+			Las funciones anónimas son comunes cuando se utilizan como callbacks, es decir, funciones que se pasan como argumentos a otras funciones para ser ejecutadas en algún momento en el futuro. 
+
+			Por ejemplo, en el manejo de eventos:
+
+			```js
+
+				button.addEventListener("click", function() {
+				  console.log("Botón clicado");
+				});
+
+			```
+
+
+		2. Funciones de una sola vez: 
+
+			Si solo necesitas una función para un propósito específico y no planeas reutilizarla, una función anónima puede ser más concisa y clara:
+
+			```js
+
+				setTimeout(function() {
+				  console.log("Han pasado 2 segundos");
+				}, 2000);
+
+			```
+
+
+		3. Funciones inmediatas (IIFE): 
+
+			Las funciones anónimas son esenciales en las "Immediately Invoked Function Expressions" (IIFE), que se ejecutan inmediatamente después de ser definidas y son útiles para encapsular variables y evitar contaminar el ámbito global:
+
+			```js
+
+				(function() {
+				  const mensaje = "Soy una IIFE";
+				  console.log(mensaje);
+				})();
+
+			```
+
+
+		4. Iteraciones: 
+			
+			Las funciones anónimas son útiles en métodos de arreglos como map, filter y forEach para definir una lógica específica en línea:	
+
+			```js
+
+				const numbers = [1, 2, 3, 4, 5];
+				const squares = numbers.map(function(num) {
+				  return num * num;
+				});
+
+			```
+
+
+		5. Closures: 
+
+			Las funciones anónimas a menudo se utilizan para crear closures, permitiendo que una función acceda a variables en su alcance externo:
+
+			```js
+
+				function contador() {
+				  let count = 0;
+				  return function() {
+				    count++;
+				    return count;
+				  };
+				}
+				const incrementar = contador();
+
+			```
+
+
+		6. 	Promesas y Async/Await: 
+
+			En el contexto de promesas o async/await, las funciones anónimas son comunes para manejar resoluciones o rechazos:
+
+			```js
+
+				fetch(url)
+				  .then(function(response) {
+				    return response.json();
+				  })
+				  .then(function(data) {
+				    console.log(data);
+				  })
+				  .catch(function(error) {
+				    console.error(error);
+				  });
+
+			```
+
+
+	Funciones IIFEs: 
+
+		Son funciones que se ejecutan inmediatamente después de ser definidas.
+
+		Son útiles en diversas situaciones para encapsular código y crear un ámbito aislado.
+
+		Situaciones de un solo uso propósito. 
+
+
+		1. Evitar contaminación del ámbito global: 
+
+			Al envolver el código en una IIFE, puedes evitar que las variables y funciones definidas en la IIFE se filtren en el ámbito global.
+
+			```js
+
+				(function() {
+				  var variablePrivada = "Esto no afecta el ámbito global";
+				})();
+
+				console.log(variablePrivada); // Error: variablePrivada no está definida
+
+			```
+
+			En el ámbito global no funciona. 
+
+
+		2. Módulos y encapsulación: 
+
+			Las IIFE son fundamentales en la creación de módulos en JavaScript.
+
+			Puedes usarlas para crear un ámbito aislado y exponer solo las partes necesarias de tu código.
+
+			```js
+
+				const miModulo = (function() {
+				  var variablePrivada = "Solo visible en este módulo";
+
+				  function funcionPrivada() {
+				    console.log("Función privada");
+				  }
+
+				  return {
+				    funcionPublica: function() {
+				      console.log("Función pública");
+				    }
+				  };
+				})();
+
+				miModulo.funcionPublica(); // Salida: "Función pública"
+
+				miModulo.funcionPrivada(); // Error: funcionPrivada no está definida
+
+			```
+
+
+		3. Preservar variables en bucles: 
+
+			Al utilizar una IIFE en un bucle, puedes capturar el valor de las variables en cada iteración, en lugar de que todas las iteraciones compartan la misma referencia.
+
+			```js
+
+				for (var i = 0; i < 5; i++) {
+				  (function(index) {
+				    setTimeout(function() {
+				      console.log(index);
+				    }, 1000);
+				  })(i);
+				}
+				// Salida después de 1 segundo: 0, 1, 2, 3, 4
+
+			```
+
+
+		4. Gestión de ámbito: 
+
+			Las IIFE son útiles para limitar el alcance de variables temporales y evitan la creación innecesaria de variables globales.
+
+			```js
+
+				(function() {
+				  var temporal = "Uso temporal";
+				  // Resto del código aquí
+				})();
+
+				console.log(temporal); // Error: temporal no está definida
+
+			```
+			
+
+		5. Plugins y librerías: 
+
+			Las IIFE son comunes en la creación de plugins y librerías para garantizar que el código interno esté aislado del entorno del usuario.
+
+			```js
+
+				var miLibreria = (function() {
+				  // Código de la librería aquí
+
+				  return {
+				    metodoPublico: function() {
+				      // Lógica pública aquí
+				    }
+				  };
+				})();
+
+			```
+
+			las IIFE son especialmente útiles para evitar contaminar el ámbito global, crear módulos, preservar variables en bucles y encapsular código. 
+
+			Proporcionan un mecanismo para ejecutar código inmediatamente mientras mantienen su alcance aislado.
+
+
+	Funciones recursivas: 
+
+		Las funciones recursivas son aquellas que se llaman a sí mismas para resolver un problema o realizar un cálculo. 
+
+		Son especialmente útiles en situaciones donde un problema se puede dividir en problemas más pequeños y similares al original.
+
+
+		1. Cálculos matemáticos: 
+
+			Problemas matemáticos como el cálculo del factorial, la serie de Fibonacci y las combinaciones se pueden resolver de manera elegante con funciones recursivas.
+
+			```js
+
+				function factorial(n) {
+				  if (n === 0) {
+				    return 1;
+				  }
+				  return n * factorial(n - 1);
+				}
+
+				function fibonacci(n) {
+				  if (n <= 1) {
+				    return n;
+				  }
+				  return fibonacci(n - 1) + fibonacci(n - 2);
+				}
+
+			```
+
+
+		2. Estructuras de datos: 
+
+			Recorrer estructuras de datos anidadas, como árboles y listas enlazadas, es un caso de uso común para funciones recursivas.
+
+			```js
+
+				function recorrerArbol(nodo) {
+				  console.log(nodo.valor);
+				  nodo.hijos.forEach(hijo => recorrerArbol(hijo));
+				}
+
+			```
+
+
+		3. Resolución de problemas: 
+
+			Problemas que pueden ser divididos en subproblemas más pequeños a menudo se pueden resolver de manera recursiva. 
+
+			Por ejemplo, recorrer directorios y subdirectorios en un sistema de archivos.
+
+			```js
+
+				function buscarArchivosEnDirectorio(directorio) {
+				  const archivos = [];
+				  const elementos = obtenerElementosEnDirectorio(directorio);
+				  elementos.forEach(elemento => {
+				    if (elemento.esDirectorio) {
+				      archivos.push(...buscarArchivosEnDirectorio(elemento));
+				    } else {
+				      archivos.push(elemento);
+				    }
+				  });
+				  return archivos;
+				}
+
+			```
+
+
+		4. Divide y vencerás: 
+
+			Algoritmos de tipo "divide y vencerás" a menudo se implementan de manera recursiva, dividiendo el problema en subproblemas más pequeños y resolviéndolos por separado.
+
+
+    	5. Procesamiento de datos: 
+
+    		En análisis de datos o manipulación de estructuras complejas, las funciones recursivas pueden ser útiles para aplicar la misma lógica a diferentes niveles de profundidad.
+
+
+    	Deben tener una condición base que detenga la recursión para evitar un bucle infinito. 
+
+    	Además, en algunas situaciones, las soluciones iterativas pueden ser más eficientes en términos de rendimiento. 
+
+    	Es importante entender bien el problema y evaluar si una función recursiva es la mejor opción para resolverlo.
+
+
+	Funciones closures:
+
+		Permiten capturar y mantener el estado de una función incluso después de que la función haya finalizado su ejecución.
+
+
+		1. Encapsulación de datos: 
+
+			Los closures permiten crear variables privadas que no son accesibles desde fuera de la función, lo que promueve la encapsulación y el ocultamiento de datos.
+
+			```js
+
+				function contador() {
+				  let count = 0;
+				  return function() {
+				    count++;
+				    return count;
+				  };
+				}
+				const incrementar = contador();
+				console.log(incrementar()); // 1
+				console.log(incrementar()); // 2
+
+			```
+
+
+		2. Funciones de fábrica: 
+
+			Puedes usar closures para crear funciones personalizadas basadas en ciertos parámetros o configuraciones.
+
+			```js
+
+				function crearSaludo(saludo) {
+				  return function(nombre) {
+				    console.log(`${saludo}, ${nombre}!`);
+				  };
+				}
+				const hola = crearSaludo("Hola");
+				const adios = crearSaludo("Adiós");
+				hola("Alice"); // "Hola, Alice!"
+				adios("Bob"); // "Adiós, Bob!"
+
+			```
+
+
+		3. Manejo de callbacks: 
+
+			Los closures son comunes al usar callbacks, ya que puedes capturar variables en el ámbito circundante y utilizarlas en el callback.
+
+			```js
+
+				function hacerAlgo(callback) {
+				  const datos = obtenerDatos();
+				  callback(datos);
+				}
+
+			```
+
+
+		4. Memoización: 
+
+			Los closures pueden usarse para implementar la memoización, una técnica que almacena en caché los resultados de una función costosa para mejorar el rendimiento.
+
+			```js
+
+				function memoizacion(func) {
+				  const cache = new Map();
+				  return function(arg) {
+				    if (cache.has(arg)) {
+				      return cache.get(arg);
+				    }
+				    const result = func(arg);
+				    cache.set(arg, result);
+				    return result;
+				  };
+				}
+
+			```
+
+
+		4. Event Listeners: 
+
+			Los closures son muy utilizados en la programación de eventos, ya que puedes capturar el contexto del evento y utilizarlo en la función del controlador.
+
+			```js
+
+				for (var i = 0; i < 5; i++) {
+				  const boton = document.createElement("button");
+				  boton.textContent = `Botón ${i + 1}`;
+				  boton.addEventListener("click", function() {
+				    console.log(`Botón ${i + 1} clicado`);
+				  });
+				  document.body.appendChild(boton);
+				}
+
+			```
+
+
+		5. Iteradores personalizados: 
+
+			Puedes usar closures para crear iteradores personalizados que mantengan el estado entre llamadas.
+
+			```js
+
+				function crearIterador(arr) {
+				  let index = 0;
+				  return function() {
+				    if (index < arr.length) {
+				      return arr[index++];
+				    }
+				  };
+				}
+
+				const iterador = crearIterador([1, 2, 3]);
+				console.log(iterador()); // 1
+				console.log(iterador()); // 2
+				console.log(iterador()); // 3
+				console.log(iterador()); // undefined
+
+			```
 
 
 
