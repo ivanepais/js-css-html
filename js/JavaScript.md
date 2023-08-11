@@ -4313,7 +4313,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 				console.log(temporal); // Error: temporal no está definida
 
 			```
-			
+
 
 		5. Plugins y librerías: 
 
@@ -4542,6 +4542,710 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 				console.log(iterador()); // undefined
 
 			```
+
+
+
+|| Strict Mode 
+
+	"Strict Mode" o "Modo Estricto" en JavaScript es una característica introducida en ECMAScript 5 (ES5) que permite a los desarrolladores escribir un código más seguro, libre de ciertas prácticas propensas a errores y malas prácticas. 
+
+	Habilitar el modo estricto implica una serie de restricciones y reglas adicionales que el intérprete de JavaScript aplicará al analizar y ejecutar el código. Esto ayuda a prevenir errores comunes y a mejorar la calidad del código para que sea más seguro y predecible.
+
+	El modo estricto en tu archivo JavaScript, no solo afecta el alcance local de las funciones, sino que también afecta el alcance global, es decir, el ámbito fuera de todas las funciones.
+
+	Para habilitar el modo estricto, simplemente coloca 'use strict'; al comienzo de un archivo JavaScript o al comienzo de una función. Por ejemplo:
+
+	```js
+
+		'use strict';
+
+		function miFuncion() {
+		  // Código en modo estricto
+		}
+
+	```
+
+	El "Strict Mode" es una excelente práctica para escribir un código más seguro y de alta calidad. Sin embargo, ten en cuenta que una vez habilitado, no se pueden revertir sus restricciones en ese ámbito particular. 
+
+	Por lo tanto, es importante asegurarse de que tu código esté preparado para el modo estricto antes de habilitarlo en un proyecto existente.	
+
+
+	Algunas de las características y restricciones que se aplican cuando se utiliza el "Strict Mode" son las siguientes:
+
+
+	1. Evita el uso de variables globales implícitas: 
+
+		En el modo estricto, no se permiten variables globales no declaradas. Esto evita posibles conflictos y hace que sea más fácil rastrear y controlar las variables.
+
+		```js
+			//Declarar una variable
+			let x; 
+
+			//Asignar valor a una variable
+			x = 1;
+
+			//Declara y asignar valor
+			let x = 1 
+
+		```
+
+		Si intentas acceder a una variable sin haberla declarado previamente, JavaScript tratará esa variable como una "variable global no declarada". 
+
+		Ejemplo: 
+
+		```js
+			//Variable sin declarar (ausencia palabra reservada 'var, let, const')
+			x = 10; 	
+
+		```
+
+		Esto significa que el intérprete de JavaScript buscará la variable en el ámbito global (en el caso de un navegador, esto sería el objeto window) y si no la encuentra, creará automáticamente una variable global con ese nombre. 
+
+		Esto puede ser problemático, ya que puede llevar a errores difíciles de rastrear y a comportamientos inesperados en tu código.
+
+		Variable global no declarada en función: 
+
+		```js
+
+			function miFuncion() {
+			  x = 10; // x se convierte en una variable global no declarada
+			}
+
+			miFuncion();
+			console.log(x); // 10
+
+		```
+
+		En el ejemplo, la variable x se utiliza dentro de la función miFuncion sin haber sido declarada previamente con var, let o const. 
+
+		Esto resultará en que x se convierta en una variable global no declarada. 
+
+		Si bien el código puede funcionar en este caso, puede ser problemático en situaciones más complejas, ya que la variable x no está limitada al alcance de miFuncion.
+
+
+
+    2. Errores en asignaciones no permitidas: 
+
+    	En modo estricto, se generará un error si intentas asignar un valor a una variable no declarada.
+
+
+    3. No se permite eliminar variables y funciones: 
+
+    	En el modo estricto, el uso de delete en variables y funciones generará un error.
+
+    
+    4. Evita asignaciones a palabras clave reservadas: 
+
+    	En el modo estricto, no puedes asignar valores a palabras clave reservadas, como undefined, NaN, Infinity, etc.
+
+    	undefined:
+
+    		Es una constante predefinida en JavaScript que se utiliza para representar un valor no asignado o no definido a una variable.
+
+    	NaN:
+
+    		Es un valor especial en JavaScript que se produce cuando se realizan operaciones matemáticas que no tienen sentido, como dividir cero por cero o sumar una cadena y un número. 
+
+    		NaN se utiliza para representar resultados no numéricos.
+
+
+    	Infinity: 
+
+    		Es una constante que representa el valor infinito positivo en JavaScript. 
+
+    		No es una variable que pueda ser reasignada, ya que es un valor constante.
+
+    	```js
+
+    		undefined = 5; // Generará un error: Cannot assign to undefined
+
+    		NaN = 10; // Generará un error: Cannot assign to NaN
+
+    		Infinity = 100; // Generará un error: Cannot assign to Infinity
+
+    	```
+
+
+    5. Funciones deben tener parámetros únicos:
+
+    	En modo estricto, las funciones no pueden tener parámetros con nombres duplicados.
+
+    	```js
+
+    		"use strict";
+
+			// Esto lanzará un error en modo estricto
+			function suma(a, a, b) {
+			  return a + a + b;
+			}
+
+    	```
+
+
+    6. Evita el uso de octales en literales: 
+
+    	Los literales octales (por ejemplo, 0123) no son permitidos en modo estricto.
+
+    	los literales numéricos pueden representar valores en diferentes bases numéricas, como decimal, octal y hexadecimal. 
+
+    	Los literales octales son aquellos que comienzan con el prefijo "0" seguido por uno o más dígitos en el rango de 0 a 7. 
+
+    	Por ejemplo, el número octal 0123 representa el valor decimal 83 porque 1 * 8^2 + 2 * 8^1 + 3 * 8^0 = 83.
+
+		En el "modo estricto", el uso de literales octales está desaconsejado y puede generar errores. 
+
+		Si intentas usar literales octales en modo estricto, se lanzará un error en tiempo de ejecución.
+
+		```js
+
+			"use strict";
+
+			const numeroOctal = 0123; // Esto lanzará un error en modo estricto
+
+			console.log(numeroOctal);
+
+		```
+
+		En este ejemplo, al intentar declarar y asignar un número octal utilizando el prefijo "0" en modo estricto, se generará un error.
+
+
+    7. Evita el uso de this global: 
+
+    	En modo estricto, this dentro de una función no referenciará al objeto global (window en navegadores). 
+
+    	En su lugar, será undefined si la función no está siendo llamada como un método.
+
+    	En el caso de que la función sí esté siendo llamada como método de un objeto (es decir, es un método de un objeto), this se referirá al objeto que contiene la función.
+
+    	```js
+
+    		"use strict";
+
+			function mostrarThis() {
+			  console.log(this);
+			}
+
+			mostrarThis(); // Salida: undefined
+
+			const objeto = {
+			  metodo: mostrarThis
+			};
+
+			objeto.metodo(); // Salida: { metodo: [Function: mostrarThis] }
+
+    	```
+
+    	En modo estricto, cuando se llama mostrarThis() fuera de cualquier contexto de objeto, el valor de this será undefined. 
+
+    	Sin embargo, cuando la función se llama como un método de objeto, el valor de this se refiere al objeto objeto.
+
+
+
+    8. Errores en asignaciones no extensibles: 
+
+    	En modo estricto, no puedes agregar propiedades a objetos que son "no extensibles".
+
+    	Un objeto en JavaScript puede ser "extensible" o "no extensible". 
+
+    	Un objeto extensible es aquel al que puedes agregar nuevas propiedades en cualquier momento, incluso después de haber sido creado. 
+
+    	Por otro lado, un objeto no extensible es aquel en el que no puedes agregar nuevas propiedades una vez que ha sido creado.
+
+    	En el modo estricto, si intentas agregar una propiedad a un objeto que es "no extensible", se lanzará un error en tiempo de ejecución. 
+
+    	```js
+
+    		"use strict";
+
+			const persona = {
+			  nombre: "Juan"
+			};
+
+			// Hacemos que el objeto sea no extensible
+			Object.preventExtensions(persona);
+
+			// Esto lanzará un error en modo estricto
+			persona.edad = 30;
+
+    	```
+
+    	Después de hacer que el objeto persona sea no extensible utilizando Object.preventExtensions, intentamos agregar la propiedad edad al objeto. 
+
+    	En modo estricto, esto lanzará un error y evitará que se agregue la propiedad edad.
+
+
+    9. Modo estricto para eval y funciones en el ámbito global: 
+
+    	En modo estricto, el código dentro de una función eval y en el ámbito global se ejecuta en modo estricto.
+
+    	Una función 'eval' toma una cadena de texto como argumento y la evalúa como código JavaScript en el contexto actual. 
+
+    	Básicamente, permite ejecutar código JavaScript dinámicamente en tiempo de ejecución.
+
+    	Sintaxis 'eval':
+
+    	```js
+
+    		eval(codigo);
+
+    	```
+
+    	Ejemplo 'eval': 
+
+    	```js
+
+    		const num1 = 5;
+			const num2 = 10;
+			const operacion = "num1 + num2";
+
+			const resultado = eval(operacion); // Aquí se evalúa la cadena "num1 + num2"
+			console.log(resultado); // Salida: 15
+
+    	```
+
+    	Si el código pasado a eval proviene de fuentes no confiables, podría ejecutar código malicioso en tu aplicación. Además, el uso excesivo de eval puede dificultar la depuración y el mantenimiento del código, ya que el código dinámico puede ser difícil de rastrear y entender.
+
+
+    	Ejemplo 'eval' y 'strict mode':
+
+    	Significa que las restricciones y reglas del modo estricto se aplicarán al código evaluado dentro de la función eval.
+
+    	```js
+
+    		"use strict";
+
+			function funcionEjemplo() {
+			  eval("console.log('Código en eval en modo estricto')");
+			}
+
+			funcionEjemplo(); // Salida: Código en eval en modo estricto
+
+			console.log('Código global en modo estricto');
+
+    	```
+
+    	Hemos activado el modo estricto con "use strict". Dentro de la función funcionEjemplo, usamos eval para ejecutar una cadena de código. 
+
+    	Debido a que estamos en modo estricto, el código dentro de eval también se ejecutará en modo estricto. 
+
+    	Luego, fuera de la función, la declaración console.log en el ámbito global también se ejecutará en modo estricto.
+
+
+
+|| This 
+
+	Hace referencia al objeto al que pertenece el contexto de ejecución actual. 
+
+	El valor de "this" cambia dependiendo de cómo se invoca una función y en qué contexto se encuentra. 
+
+	Es una característica fundamental en JavaScript y es especialmente relevante cuando se trabaja con objetos y funciones.
+
+	Puede tener diferentes valores en diferentes situaciones:
+
+
+	1. En el contexto global (fuera de cualquier función o método): 
+
+	   	"this" hace referencia al objeto global. 
+
+	    En un navegador, el objeto global es el objeto "window". En Node.js, es el objeto "global".
+
+	    ```js
+
+	    	console.log(this); // En un navegador, esto mostrará el objeto 'window'
+
+	    ```
+
+
+	2. Dentro de una función normal: 
+
+	   	"this" hace referencia al objeto que invoca la función. 
+
+	    Sin embargo, esto puede variar dependiendo de cómo se llama la función.
+
+	    ```js
+
+	    	function imprimirThis() {
+			  console.log(this);
+			}
+
+			imprimirThis(); // En el navegador, mostrará el objeto 'window'
+
+	    ```
+
+
+	3. Dentro de un método de un objeto:
+
+	    "this" hace referencia al objeto que contiene el método.
+
+	    Permite acceder y manipular las propiedades y métodos del objeto desde dentro del propio método.
+
+	    El valor de this en un método está ligado al objeto que contiene el método y cambia según el contexto de la llamada, como se ve en el segundo ejemplo.
+
+
+	    ```js
+
+	    	const persona = {
+			  nombre: "Juan",
+			  edad: 30,
+			  saludar: function() {
+			    console.log(`Hola, mi nombre es ${this.nombre} y tengo ${this.edad} años.`);
+			  }
+			};
+
+			persona.saludar(); // Salida: Hola, mi nombre es Juan y tengo 30 años.
+
+	    ```
+
+	    this se refiere al objeto persona, lo que permite acceder a sus propiedades (nombre y edad) y mostrar la información correcta.
+
+	    Es importante destacar que el valor de this en un método depende de cómo se llama el método.
+
+	    Si se llama directamente a través del objeto, como en el ejemplo anterior, this se refiere a ese objeto. 
+
+	    Sin embargo, si extraes el método y lo llamas de manera independiente, el valor de this podría cambiar.
+
+	    ```js
+
+	    	const saludar = persona.saludar;
+			
+			saludar(); // Salida: Hola, mi nombre es undefined y tengo undefined años.
+
+	    ```
+
+
+	4. En funciones de flecha ("Arrow Functions"):
+
+	   	"this" hace referencia al valor "this" del contexto en el que se creó la función, lo que puede diferir de cómo se comporta en funciones regulares.
+
+	   	```js
+
+	   		const objetoArrow = {
+			  nombre: "Maria",
+			  saludar: () => {
+			    console.log("Hola, mi nombre es " + this.nombre); // 'this' hace referencia al objeto global 'window' (en un navegador)
+			  }
+			};
+
+			objetoArrow.saludar(); // Salida: "Hola, mi nombre es undefined"
+
+	   	```
+
+
+	5. Event handlers (manejadores de eventos): 
+
+		'this' se refiere al elemento DOM que disparó el evento. 
+
+		Cuando un evento ocurre en un elemento HTML, como un clic de ratón o un cambio en un campo de entrada, se puede asociar una función JavaScript para manejar ese evento.
+
+		```js
+
+			const boton = document.querySelector('#miBoton');
+
+			boton.addEventListener('click', function() {
+			  console.log(this); // Se refiere al elemento 'boton' que disparó el evento
+			});
+
+		```
+
+		this se refiere al botón que disparó el evento, es decir, al elemento DOM con el ID miBoton.
+
+
+	6. Callback: 
+
+		Es un función que se pasa como argumento de otra. 
+
+		En este caso, el valor de this puede variar según cómo se invoca la función que contiene el callback.
+
+
+		```js
+
+			function hacerAlgo(callback) {
+			  callback();
+			}
+
+			const objeto = {
+			  metodo: function() {
+			    hacerAlgo(function() {
+			      console.log(this); // Se refiere a 'window' en un navegador
+			    });
+			  }
+			};
+
+			objeto.metodo();
+
+		```
+
+
+	Function Borrowing (Préstamo de función): 
+
+		Es un concepto en JavaScript que implica tomar una función de un objeto y usarla en otro objeto sin copiar ni modificar la función en sí. 
+
+		Esto es posible debido a cómo funciona el valor de this en JavaScript y cómo se puede modificar temporalmente para que apunte a un objeto diferente.
+
+		Se utiliza cuando tienes dos objetos con métodos similares pero no idénticos, y quieres reutilizar uno de los métodos en lugar de duplicar el código.
+
+		```js
+
+			const persona1 = {
+			  nombre: "Juan",
+			  saludar: function() {
+			    console.log(`Hola, mi nombre es ${this.nombre}.`);
+			  }
+			};
+
+			const persona2 = {
+			  nombre: "María"
+			};
+
+			persona1.saludar(); // Salida: Hola, mi nombre es Juan
+
+			// Usando la función 'saludar' de persona1 en persona2
+			persona1.saludar.call(persona2); // Salida: Hola, mi nombre es María
+
+		```
+
+		Tenemos dos objetos: persona1 y persona2. Ambos tienen una propiedad nombre, pero solo persona1 tiene un método saludar.
+
+		Mediante el uso del método call (o apply), podemos "tomar prestado" el método saludar de persona1 y usarlo en el contexto de persona2. 
+
+		Esto permite que el método saludar de persona1 se ejecute en el contexto de persona2, haciendo que el valor de this apunte a persona2 en lugar de persona1
+
+		Es una técnica útil para reutilizar funcionalidad y evitar la duplicación de código en situaciones donde tienes objetos relacionados pero no idénticos.
+
+		Sin embargo, es importante comprender cómo funciona el valor de this y cómo se puede manipular en JavaScript para usar esta técnica de manera efectiva.
+
+
+	Explicit Binding (Vinculación explícita):  
+
+		Es un concepto en JavaScript que se refiere a la forma en que puedes controlar explícitamente el valor de this en una función utilizando métodos como call, apply o bind.
+
+		Estos métodos permiten establecer el valor de this para una función en un objeto específico, independientemente del contexto en el que se llame la función.
+
+		La vinculación explícita es especialmente útil cuando tienes una función que normalmente se ejecuta en un contexto, pero deseas ejecutarla en el contexto de otro objeto temporalmente.
+
+
+		Call: 
+
+			Se utiliza para invocar una función con un valor de this y argumentos específicos. 
+
+			Los argumentos se pasan como argumentos separados por coma después del primer argumento que establece el valor de this.
+
+			```js
+
+				function saludar() {
+				  console.log(`Hola, mi nombre es ${this.nombre}.`);
+				}
+
+				const persona = {
+				  nombre: "Juan"
+				};
+
+				saludar.call(persona); // Salida: Hola, mi nombre es Juan
+
+			```
+
+
+		Apply: 
+
+			El método apply es similar a call, pero los argumentos se pasan como un arreglo.
+
+			```js
+
+				function saludar(mensaje) {
+				  console.log(`${mensaje}, mi nombre es ${this.nombre}.`);
+				}
+
+				const persona = {
+				  nombre: "María"
+				};
+
+				saludar.apply(persona, ["Hola"]); // Salida: Hola, mi nombre es María
+
+			```
+
+
+		Bind: 
+
+			El método bind devuelve una nueva función con un valor de this preestablecido y, opcionalmente, argumentos preestablecidos.
+
+			```js
+
+				function saludar() {
+				  console.log(`Hola, mi nombre es ${this.nombre}.`);
+				}
+
+				const persona = {
+				  nombre: "Luis"
+				};
+
+				const funcionSaludar = saludar.bind(persona);
+				
+				funcionSaludar(); // Salida: Hola, mi nombre es Luis
+
+			```
+
+
+	Contextos en JS y valor this: 
+
+		Se refieren al entorno en el cual se ejecuta un fragmento de código y cómo las variables y funciones están disponibles en ese entorno.
+
+
+		Contexto Global:
+
+        	this: 
+
+        		En el contexto global, this se refiere al objeto global, que es window en un navegador o el objeto global en Node.js.
+ 	
+        	Variables y funciones: 
+
+        		Las variables y funciones declaradas en el contexto global son accesibles desde cualquier parte del código.
+
+
+		Contexto de Función:
+
+		    this: 
+
+		    	En el contexto de una función regular, this puede variar dependiendo de cómo se llama la función.
+
+		    Variables y funciones: 
+
+		    	Las variables y funciones declaradas en la función solo son accesibles dentro de esa función, a menos que sean declaradas con var (lo que las hace variables globales en ese contexto).
+
+
+		Contexto de Objeto:
+
+		    this:
+
+		    	En el contexto de un objeto, this se refiere al objeto que contiene la función en la que se encuentra. 
+
+		    	Este contexto es crucial para las funciones que son métodos de objetos.
+		   
+		    Variables y funciones: 
+
+		    	Las variables y funciones declaradas en el objeto son accesibles desde todas las funciones dentro del objeto.
+
+
+		Contexto de Evento:
+
+		    this: 
+
+		    	En el contexto de un manejador de eventos, this se refiere al elemento DOM que disparó el evento.
+
+		    Variables y funciones: 
+
+		    	Las variables y funciones declaradas fuera del manejador de eventos pueden no ser accesibles dentro de él debido a la naturaleza de los closures.
+
+
+		Contexto de Arrow Function:
+
+		    this: 
+
+		    	En una función flecha (=>), this se mantiene en el contexto donde se definió la función, no es afectado por cómo se llama.
+
+		    Variables y funciones: 
+
+		    	Las variables y funciones que están en el mismo contexto donde se definió la función flecha son accesibles en ella.
+
+
+		Contexto de Bloque (ES6+):
+
+		    En las versiones más recientes de JavaScript (ES6+), los bloques ({}) crean su propio ámbito de variables, aunque el objeto this aún puede cambiar dependiendo de cómo se ejecute el código.
+
+
+		Los métodos call, apply y bind permiten cambiar explícitamente el valor de this en una función. 
+
+		La función bind crea una nueva función con un this enlazado, mientras que call y apply permiten llamar a una función con un valor de this y argumentos específicos.
+
+
+	Objeto window: 
+
+		Es un objeto global en el entorno de navegadores web. Representa la ventana o pestaña del navegador en la que se está ejecutando el código JavaScript. 
+
+		El objeto window proporciona una interfaz para interactuar con la ventana del navegador y controlar aspectos relacionados con la ventana, como la ubicación, el historial, los temporizadores y más.
+
+		El objeto window es implícito en el entorno del navegador, lo que significa que no es necesario escribir window. antes de acceder a sus propiedades y métodos. 
+
+		Por ejemplo, setTimeout es equivalente a window.setTimeout.
+
+		Ten en cuenta que mientras window es específico del entorno del navegador, en otros entornos como Node.js, no existe el objeto window, ya que no hay una ventana del navegador. 
+
+		En su lugar, Node.js proporciona otros objetos globales y funcionalidades.
+
+
+		Hay algunas de las propiedades y métodos más comunes disponibles en el objeto window:
+
+
+			1. Document Object Model (DOM):
+		    	
+		    	El objeto window contiene el árbol DOM de la página web actual. 
+
+		    	Puedes acceder y manipular los elementos HTML y sus propiedades utilizando métodos como document.getElementById, document.querySelector, etc.
+
+
+		    2. Timers:
+		   		
+		   		window permite usar los métodos setTimeout y setInterval para ejecutar funciones después de un retraso o repetidamente a intervalos regulares.
+
+
+		    3. Ventana del Navegador:
+
+		    	window proporciona métodos para controlar la ventana del navegador, como window.open para abrir nuevas ventanas o pestañas, y window.close para cerrar la ventana actual.
+
+
+		    4. Ubicación:
+
+		    	Puedes acceder y manipular la URL actual de la página utilizando la propiedad window.location.
+
+
+		    5. Historial del Navegador:
+
+		    	window.history permite acceder y manipular el historial de navegación del usuario, como navegar hacia atrás o hacia adelante en la sesión de navegación.
+
+
+		    6. Almacenamiento Web:
+
+		    	window.localStorage y window.sessionStorage permiten almacenar datos en el navegador para su uso posterior.
+
+
+		    7. Alertas, Confirmaciones y Prompts:
+		    	
+		    	window proporciona métodos como window.alert, window.confirm y window.prompt para interactuar con el usuario mostrando mensajes, solicitudes de confirmación y solicitudes de entrada.
+
+
+		   	8. Manejo de Errores:
+
+		    	window.onerror permite capturar y manejar errores no controlados en la página.
+
+
+		    9. Eventos Globales:
+
+		    	Puedes adjuntar manejadores de eventos globales utilizando window.addEventListener.
+
+
+
+
+
+|| Asincrónismo
+
+
+
+
+
+
+
+|| APIs 
+
+
+
+
+
+
+|| Classes
+
+
+
+
+
 
 
 

@@ -3621,23 +3621,21 @@ ya que no se dispone de un nombre descriptivo para identificar la función en la
 
 
 // Función anónima asignada a una variable
-
 const miFuncion = function() {
   // Código de la función anónima
 };
 
-// Función anónima como argumento de otra función
 
+// Función anónima como argumento de otra función
 otraFuncion(function() {
   // Código de la función anónima
 });
 
-// IIFE (Immediately Invoked Function Expression) con función anónima
 
+// IIFE (Immediately Invoked Function Expression) con función anónima
 (function() {
   // Código de la función anónima
 })();
-
 
 
 //Función anónima asignada a una variable
@@ -4921,6 +4919,467 @@ function calcularFactorial(n) {
 const factorialMemoizado = memoizacion(calcularFactorial);
 console.log(factorialMemoizado(5)); // Salida: Cálculo nuevo (factorial de 5)
 console.log(factorialMemoizado(5)); // Salida: Desde caché (factorial de 5)
+
+
+
+
+
+/*.........................*/
+
+//Strict Mode 
+
+/*
+Habilitar el modo estricto implica una serie de restricciones y reglas adicionales que el intérprete de JavaScript aplicará al analizar y ejecutar el código. 
+Esto ayuda a prevenir errores comunes y a mejorar la calidad del código para que sea más seguro y predecible.
+
+El modo estricto en tu archivo JavaScript, no solo afecta el alcance local de las funciones, 
+sino que también afecta el alcance global, es decir, el ámbito fuera de todas las funciones.
+
+Una vez habilitado, no se pueden revertir sus restricciones en ese ámbito particular. 
+Por lo tanto, es importante asegurarse de que tu código esté preparado para el modo estricto antes de habilitarlo en un proyecto existente. 
+*/
+
+'use strict';
+
+function miFuncion() {
+  // Código en modo estricto
+}
+
+
+//1. Evita el uso de variables globales implícitas:
+//2. Generará un error si intentas asignar un valor a una variable no declarada.
+
+//Declarar una variable
+let x; 
+
+//Asignar valor a una variable
+x = 1;
+
+//Declara y asignar valor
+let x = 1 
+
+//Variable global no declarada en función:
+function miFuncion() {
+  x = 10; // x se convierte en una variable global no declarada
+}
+
+miFuncion();
+console.log(x); // 10
+
+
+
+//3. No se permite eliminar variables y funciones: 
+//En el modo estricto, el uso de delete en variables y funciones generará un error.
+
+
+//4. Evita asignaciones a palabras clave reservadas:
+undefined = 5; // Generará un error: Cannot assign to undefined
+
+NaN = 10; // Generará un error: Cannot assign to NaN
+
+Infinity = 100; // Generará un error: Cannot assign to Infinity
+
+
+//5. Funciones deben tener parámetros únicos:
+"use strict";
+
+// Esto lanzará un error en modo estricto
+function suma(a, a, b) {
+  return a + a + b;
+}
+
+
+//6. Evita el uso de octales en literales: 
+
+/*Los literales octales (por ejemplo, 0123) no son permitidos en modo estricto.
+los literales numéricos pueden representar valores en diferentes bases numéricas, como decimal, octal y hexadecimal. 
+Los literales octales son aquellos que comienzan con el prefijo "0" seguido por uno o más dígitos en el rango de 0 a 7. 
+Por ejemplo, el número octal 0123 representa el valor decimal 83 porque 1 * 8^2 + 2 * 8^1 + 3 * 8^0 = 83.
+En el "modo estricto", el uso de literales octales está desaconsejado y puede generar errores.
+*/
+
+"use strict";
+
+const numeroOctal = 0123; // Esto lanzará un error en modo estricto
+
+console.log(numeroOctal);
+
+
+
+//7. Evita el uso de this global: 
+/*
+En modo estricto, this dentro de una función no referenciará al objeto global (window en navegadores). 
+En su lugar, será undefined si la función no está siendo llamada como un método.
+Cuando la función se llama como un método de objeto, el valor de this se refiere al objeto objeto.
+*/
+
+"use strict";
+
+function mostrarThis() {
+console.log(this);
+}
+
+mostrarThis(); // Salida: undefined
+
+const objeto = {
+metodo: mostrarThis
+};
+
+objeto.metodo(); // Salida: { metodo: [Function: mostrarThis] }
+
+
+
+//8. Errores en asignaciones no extensibles: 
+/*
+En modo estricto, no puedes agregar propiedades a objetos que son "no extensibles".
+Un objeto en JavaScript puede ser "extensible" o "no extensible". 
+Un objeto extensible es aquel al que puedes agregar nuevas propiedades en cualquier momento, incluso después de haber sido creado.
+*/
+
+"use strict";
+
+const persona = {
+  nombre: "Juan"
+};
+
+// Hacemos que el objeto sea no extensible
+Object.preventExtensions(persona);
+
+// Esto lanzará un error en modo estricto
+persona.edad = 30;
+
+
+
+//9. Modo estricto para eval y funciones en el ámbito global: 
+/*
+En modo estricto, el código dentro de una función eval y en el ámbito global se ejecuta en modo estricto.
+Una función 'eval' toma una cadena de texto como argumento y la evalúa como código JavaScript en el contexto actual. 
+Básicamente, permite ejecutar código JavaScript dinámicamente en tiempo de ejecución.
+
+Si el código pasado a eval proviene de fuentes no confiables, 
+podría ejecutar código malicioso en tu aplicación. 
+Además, el uso excesivo de eval puede dificultar la depuración y el mantenimiento del código, 
+ya que el código dinámico puede ser difícil de rastrear y entender.
+*/
+
+
+const num1 = 5;
+const num2 = 10;
+const operacion = "num1 + num2";
+
+const resultado = eval(operacion); // Aquí se evalúa la cadena "num1 + num2"
+console.log(resultado); // Salida: 15
+
+
+"use strict";
+
+function funcionEjemplo() {
+eval("console.log('Código en eval en modo estricto')");
+}
+
+funcionEjemplo(); // Salida: Código en eval en modo estricto
+
+console.log('Código global en modo estricto');
+
+
+
+/*.........................*/
+
+//This 
+
+
+//Solo
+/*
+1. En el contexto global (fuera de cualquier función o método): 
+"this" hace referencia al objeto global. 
+*/
+
+console.log(this); // En un navegador, esto mostrará el objeto 'window'
+
+
+
+//Función
+
+/*
+2. Dentro de una función normal: 
+"this" hace referencia al objeto que invoca la función. 
+Puede variar dependiendo de cómo se llama la función.
+*/
+
+function imprimirThis() {
+console.log(this);
+}
+
+imprimirThis(); // En el navegador, mostrará el objeto 'window'
+
+
+
+//Función Arrow
+/*
+3. En funciones de flecha ("Arrow Functions"):
+"this" hace referencia al valor "this" del contexto en el que se creó la función, 
+lo que puede diferir de cómo se comporta en funciones regulares.
+*/
+
+const objetoArrow = {
+  nombre: "Maria",
+  saludar: () => {
+    console.log("Hola, mi nombre es " + this.nombre); // 'this' hace referencia al objeto global 'window' (en un navegador)
+  }
+};
+
+objetoArrow.saludar(); // Salida: "Hola, mi nombre es undefined"
+
+
+
+//Metodo 
+/*
+Dentro de un método de un objeto:
+"this" hace referencia al objeto que contiene el método.
+Permite acceder y manipular las propiedades y métodos del objeto desde dentro del propio método.
+El valor de this en un método está ligado al objeto que contiene el método y cambia según el contexto de la llamada, como se ve en el segundo ejemplo.
+
+this se refiere al objeto persona, lo que permite acceder a sus propiedades (nombre y edad) y mostrar la información correcta.
+
+Si se llama directamente a través del objeto, como en el ejemplo anterior, this se refiere a ese objeto. 
+Sin embargo, si extraes el método y lo llamas de manera independiente, el valor de this podría cambiar.
+*/
+
+const persona = {
+  nombre: "Juan",
+  edad: 30,
+  saludar: function() {
+    console.log(`Hola, mi nombre es ${this.nombre} y tengo ${this.edad} años.`);
+  }
+};
+
+persona.saludar(); // Salida: Hola, mi nombre es Juan y tengo 30 años.
+
+
+const saludar = persona.saludar;
+saludar(); // Salida: Hola, mi nombre es undefined y tengo undefined años.
+
+
+
+//Evento
+/*
+'this' se refiere al elemento DOM que disparó el evento. 
+Cuando un evento ocurre en un elemento HTML, como un clic de ratón o un cambio en un campo de entrada, 
+se puede asociar una función JavaScript para manejar ese evento.
+*/
+
+const boton = document.querySelector('#miBoton');
+
+boton.addEventListener('click', function() {
+  console.log(this); // Se refiere al elemento 'boton' que disparó el evento
+});
+
+
+
+
+//Callback 
+/*
+Es un función que se pasa como argumento de otra. 
+En este caso, el valor de this puede variar según cómo se invoca la función que contiene el callback.
+*/
+
+function hacerAlgo(callback) {
+  callback();
+}
+
+const objeto = {
+  metodo: function() {
+    hacerAlgo(function() {
+      console.log(this); // Se refiere a 'window' en un navegador
+    });
+  }
+};
+
+objeto.metodo();
+
+
+
+
+//---------------
+
+//Function borrowing (préstamo)
+
+/*
+Implica tomar una función de un objeto y usarla en otro objeto sin copiar ni modificar la función en sí. 
+Esto es posible debido a cómo funciona el valor de this en JavaScript y cómo se puede modificar temporalmente para que apunte a un objeto diferente.
+Se utiliza cuando tienes dos objetos con métodos similares pero no idénticos, y quieres reutilizar uno de los métodos en lugar de duplicar el código.
+
+Tenemos dos objetos: persona1 y persona2. Ambos tienen una propiedad nombre, pero solo persona1 tiene un método saludar.
+Mediante el uso del método call (o apply), podemos "tomar prestado" el método saludar de persona1 y usarlo en el contexto de persona2.
+*/
+
+const persona1 = {
+  nombre: "Juan",
+  saludar: function() {
+    console.log(`Hola, mi nombre es ${this.nombre}.`);
+  }
+};
+
+const persona2 = {
+  nombre: "María"
+};
+
+persona1.saludar(); // Salida: Hola, mi nombre es Juan
+
+// Usando la función 'saludar' de persona1 en persona2
+persona1.saludar.call(persona2); // Salida: Hola, mi nombre es María
+
+
+
+
+//---------------
+
+//Explicit binding (vinculación)
+/*
+Es un concepto en JavaScript que se refiere a la forma en que puedes controlar explícitamente el valor de this en una función utilizando métodos como call, apply o bind.
+Estos métodos permiten establecer el valor de this para una función en un objeto específico, independientemente del contexto en el que se llame la función.
+La vinculación explícita es especialmente útil cuando tienes una función que normalmente se ejecuta en un contexto, pero deseas ejecutarla en el contexto de otro objeto temporalmente.
+*/
+
+//Call
+/*
+Invocar una función con un valor de this y argumentos específicos. 
+Los argumentos se pasan como argumentos separados por coma después del primer argumento que establece el valor de this.
+*/
+
+function saludar() {
+  console.log(`Hola, mi nombre es ${this.nombre}.`);
+}
+
+const persona = {
+  nombre: "Juan"
+};
+
+saludar.call(persona); // Salida: Hola, mi nombre es Juan
+
+
+
+
+//Ejemplos
+
+
+
+
+
+//---------------
+
+
+//Apply
+/*
+similar a call (la función debe tener this)
+pero los argumentos se pasan como un arreglo.
+*/
+
+function saludar(mensaje) {
+  console.log(`${mensaje}, mi nombre es ${this.nombre}.`);
+}
+
+const persona = {
+  nombre: "María"
+};
+
+saludar.apply(persona, ["Hola"]); // Salida: Hola, mi nombre es María
+
+
+
+//Ejemplos
+
+
+
+
+
+//---------------
+
+//Bind
+/*
+Devuelve una nueva función con un valor de this preestablecido y, opcionalmente, argumentos preestablecidos.
+*/
+
+function saludar() {
+  console.log(`Hola, mi nombre es ${this.nombre}.`);
+}
+
+const persona = {
+  nombre: "Luis"
+};
+
+const funcionSaludar = saludar.bind(persona);
+
+funcionSaludar(); // Salida: Hola, mi nombre es Luis
+
+
+
+
+
+//---------------
+
+//Contextos en Js y su relación con this
+/*
+Se refieren al entorno en el cual se ejecuta un fragmento de código y cómo las variables y funciones están disponibles en ese entorno.
+This puede hacer referencia a un objeto o a un contexto como window cuando se lo llama solo o en una función Arrow.  
+*/
+
+
+//contexto global: 
+/*
+
+*/
+
+
+
+//contexto función: 
+/*
+
+*/
+
+
+
+//contexto objeto: 
+/*
+
+*/
+
+
+
+//evento: 
+/*
+
+*/
+
+
+
+//arrow function: 
+/*
+
+*/
+
+
+
+//contexto de bloque: 
+/*
+
+*/
+
+
+//---------------
+
+//Objeto window
+
+
+
+
+
+
+
+/*.........................*/
+
+//Js Asíncrono
+
 
 
 
