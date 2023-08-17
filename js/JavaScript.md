@@ -5813,21 +5813,1070 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 
 
 
+|| API
+	
+	Una API (Interfaz de Programación de Aplicaciones) es un conjunto de reglas y protocolos que permiten que distintas aplicaciones o sistemas se comuniquen entre sí. 
 
-|| APIs 
+	En esencia, una API define cómo los diferentes componentes de software deben interactuar y cómo deben intercambiar datos y funcionalidades.
+
+	Imagina que estás en un restaurante y el camarero toma tu pedido y lo comunica a la cocina. 
+
+	La cocina prepara la comida según tus especificaciones y luego el camarero te trae la comida. 
+
+	Aquí, el camarero actúa como una interfaz entre tú y la cocina. 
+
+	Tú no necesitas conocer todos los detalles sobre cómo se cocina la comida; solo necesitas interactuar con el camarero según el protocolo establecido.
+
+	En el mundo de la programación y la informática, una API funciona de manera similar. 
+
+	Proporciona un conjunto de métodos, funciones y reglas que permiten que una aplicación solicite y utilice servicios o datos de otra aplicación, servicio o sistema sin necesidad de conocer los detalles internos de cómo funcionan internamente.
+
+	Las APIs son esenciales para la construcción de aplicaciones modernas, ya que permiten la reutilización de funcionalidades existentes, la integración de sistemas de terceros y la creación de aplicaciones más eficientes y escalables.
+
+	Por ejemplo, una API de servicios de mapas podría permitir que una aplicación de navegación solicite rutas y direcciones. 
+
+	Una API de redes sociales podría permitir que una aplicación comparta contenido en plataformas como Twitter o Facebook. En resumen, las APIs son como puentes que permiten que diferentes aplicaciones se comuniquen y colaboren de manera efectiva.
+
+
+	Composición de una API: 
+
+		Una API (Interfaz de Programación de Aplicaciones) se compone de un conjunto de endpoints y métodos que permiten a los desarrolladores interactuar con una aplicación o servicio a través de solicitudes HTTP. 
+
+		Cada endpoint representa una acción o funcionalidad específica que la API proporciona. Aquí está cómo se compone una API básica:
+
+
+	    Endpoints:
+
+	    	Un endpoint es una URL específica que representa una acción o recurso en la API. 
+
+	    	Por ejemplo:
+	        /users: para obtener una lista de usuarios.
+	        /products/123: para obtener detalles sobre un producto con el ID 123.
+
+
+	    Métodos HTTP:
+
+	    	Cada endpoint se asocia con un método HTTP que indica qué tipo de acción se está realizando. 
+
+	    	Los métodos más comunes son:
+
+	        	GET: para obtener datos.
+
+	        	POST: para crear nuevos datos.
+
+	        	PUT: para actualizar datos existentes.
+
+	        	DELETE: para eliminar datos.
+
+
+	    Parámetros:
+
+	   		Los endpoints pueden aceptar parámetros en la URL o en el cuerpo de la solicitud. 
+
+	   		Los parámetros pueden ser necesarios para filtrar datos, especificar opciones o enviar información adicional.
+
+
+	    Cuerpo de la Solicitud:
+
+	    	Algunos métodos, como POST y PUT, pueden enviar datos en el cuerpo de la solicitud. 
+
+	    	Estos datos generalmente están en formato JSON o XML y contienen la información necesaria para la acción solicitada.
+
+
+	    Códigos de Estado HTTP:
+
+	    	Después de enviar una solicitud a la API, el servidor responde con un código de estado HTTP que indica si la solicitud fue exitosa o si ocurrió algún error. 
+
+	    	Algunos códigos comunes son 200 OK (éxito), 404 Not Found (recurso no encontrado) y 500 Internal Server Error (error del servidor).
+
+
+	    Respuestas:
+
+	    	Junto con el código de estado, la API generalmente devuelve datos en el cuerpo de la respuesta. 
+
+	    	Estos datos pueden estar en formato JSON o XML y contienen la información solicitada.
+
+
+	    Versionado:
+
+	    	A medida que la API evoluciona, es común versionarla para mantener la compatibilidad con versiones anteriores. 
+
+	    	Esto implica incluir un número de versión en la URL de la API, como /v1/users.
+
+
+	    Autenticación y Autorización:
+
+	    	Muchas APIs requieren autenticación para acceder a ciertas funciones o recursos. 
+
+	    	Esto implica enviar un token de acceso o clave API junto con la solicitud para verificar la identidad del usuario. 
+
+	    	La autorización controla qué usuarios tienen permiso para realizar ciertas acciones.
+
+
+	    Documentación:
+
+	    	Una API debe estar documentada de manera clara y concisa para que los desarrolladores sepan cómo usarla. 
+
+	    	La documentación incluye descripciones de los endpoints, ejemplos de solicitud y respuesta, y detalles sobre autenticación y parámetros.
+
+
+	Implicaciones y responsabilidades en una API: 
+
+		Implica una serie de consideraciones y responsabilidades adicionales además de simplemente crearla. 
+
+		Aquí hay algunos aspectos importantes a tener en cuenta cuando se tiene una API propia:
+
+
+		Diseño y documentación:
+
+	   		Diseño de la API: 
+
+	    		Antes de comenzar a crear la API, es fundamental definir cómo será su estructura, qué endpoints tendrá y qué tipos de datos aceptará y devolverá.
+
+	    	Documentación: 
+
+	    		Debes proporcionar una documentación clara y completa que explique cómo usar la API, qué endpoints están disponibles, cómo autenticarse (si es necesario) y cómo interpretar las respuestas. 
+
+	    	Una buena documentación facilita que otros desarrolladores puedan integrar tu API de manera exitosa.
+
+
+	    Seguridad:
+
+	        Autenticación y Autorización: 
+
+	        	Si tu API maneja datos confidenciales o realiza operaciones críticas, es importante implementar métodos de autenticación y autorización sólidos para asegurarte de que solo usuarios autorizados puedan acceder y manipular los datos.
+
+
+	    Gestión de Versiones:
+
+	        Cambios en la API: 
+
+	        	A medida que evoluciona tu aplicación, es posible que necesites realizar cambios en la API, como agregar nuevos endpoints o modificar los existentes. 
+
+	        	Es importante gestionar estos cambios de manera controlada y mantener la retrocompatibilidad con versiones anteriores para no afectar a los usuarios existentes.
+
+
+	    Rendimiento y Escalabilidad:
+
+	        Rendimiento: 
+
+	        	Debes optimizar la API para que responda de manera eficiente y rápida, minimizando los tiempos de respuesta y la latencia.
+
+	        Escalabilidad: 
+
+	        	A medida que más usuarios comienzan a utilizar tu API, debes asegurarte de que pueda manejar la carga creciente de solicitudes. Esto podría implicar el uso de sistemas de caché, equilibrio de carga y otras técnicas de escalabilidad.
+
+
+	    Monitoreo y Análisis:
+
+	        Monitoreo en Tiempo Real: 
+
+	        	Debes implementar sistemas de monitoreo en tiempo real para detectar problemas y anomalías en la API, lo que te permitirá solucionarlos rápidamente.
+
+	        Análisis de Uso: 
+
+	        	Es importante obtener información sobre cómo los usuarios están utilizando tu API. 
+
+	        	Esto puede ayudarte a comprender las necesidades de los usuarios y a tomar decisiones informadas sobre futuras mejoras y cambios.
+
+
+	    Mantenimiento:
+	        
+	        Parches y Actualizaciones: 
+
+	        	Deberás estar preparado para solucionar problemas y aplicar parches en caso de que se descubran vulnerabilidades o errores en tu API. 
+
+	        	Además, a medida que la tecnología evoluciona, es posible que necesites actualizar tu API para aprovechar nuevas características y mejoras.
+
+
+	    Soporte Técnico:
+
+	        Atención al Cliente: 
+
+	        	Si otros desarrolladores utilizan tu API, es posible que necesites proporcionar soporte técnico para ayudarlos con problemas o preguntas que puedan surgir.
+
+
+		Implica una serie de responsabilidades relacionadas con el diseño, la seguridad, el rendimiento, la escalabilidad, el monitoreo y el mantenimiento continuo.
+
+		Sin embargo, una API bien diseñada y mantenida puede proporcionar un valor significativo al permitir que otros desarrolladores utilicen y se integren con tus servicios de manera eficiente
 
 
 
+	Creación de una API: 
+
+		Implica diseñar y desarrollar endpoints que expongan funcionalidades y datos a otros sistemas o aplicaciones. Aquí hay una guía básica sobre cómo crear una API:
+
+
+	    Definir los Requisitos:
+
+	        Determine qué funcionalidades o datos desea exponer a través de la API.
+	        Determine qué métodos HTTP (GET, POST, PUT, DELETE, etc.) serán utilizados para interactuar con la API.
+
+
+	    Diseñar la Estructura:
+
+	        Decida la estructura de los endpoints y las rutas de la API.
+
+	        Defina el formato de los datos de solicitud y respuesta (generalmente JSON o XML).
+
+
+	    Seleccionar un Lenguaje de Programación:
+
+	        Elija un lenguaje de programación para implementar la lógica de la API. 
+
+	        Algunos lenguajes populares incluyen JavaScript (Node.js), Python, Ruby, Java, PHP, etc.
+
+
+	    Elegir un Framework:
+
+	        Utilice un framework que simplifique la creación de API, como Express.js para Node.js, Django o Flask para Python, Ruby on Rails para Ruby, etc.
+
+
+	    Implementar los Endpoints:
+
+	        Escriba las funciones y rutas que manejen las solicitudes a cada endpoint.
+
+	        Convierta los datos en formato JSON o XML para las respuestas.
+
+
+	    Implementar Funcionalidades:
+
+	        Agregue la lógica de negocio y la funcionalidad a cada endpoint.
+
+	        Conecte con bases de datos u otras fuentes de datos si es necesario.
+
+
+	    Agregar Autenticación y Seguridad:
+
+	        Implemente métodos de autenticación, como tokens de acceso o claves API, para proteger la API de accesos no autorizados.
+
+
+	    Documentar la API:
+
+	        Proporcione una documentación clara y completa que explique cómo utilizar cada endpoint, qué parámetros acepta y qué devuelve.
+
+	        Use herramientas como Swagger o Postman para crear documentación interactiva.
+
+
+	    Probar la API:
+
+	        Pruebe cada endpoint y funcionalidad para asegurarse de que funcionan según lo previsto.
+
+	        Realice pruebas de integración y pruebas de rendimiento para garantizar que la API pueda manejar la carga.
+
+
+	    Implementar en un Servidor:
+
+	        Despliegue la API en un servidor web o en la nube para que esté disponible en línea.
+
+	        Asegúrese de que el servidor sea escalable y pueda manejar el tráfico esperado.
+
+
+	    Monitorear y Mantener:
+
+	        Configure sistemas de monitoreo para rastrear el rendimiento y los posibles problemas de la API.
+
+	        Realice actualizaciones y parches según sea necesario.
+
+
+	    Versionar la API:
+
+	        Si es probable que realice cambios en la API en el futuro, considere la posibilidad de versionarla para mantener la retrocompatibilidad.
+
+
+	    Proporcionar Soporte:
+
+	        Si otros desarrolladores utilizan su API, proporcione soporte técnico para ayudarlos con problemas y preguntas.
+
+
+		Crear una API puede ser un proceso complejo y requiere un buen entendimiento de la arquitectura de APIs, protocolos de red y lenguajes de programación. 
+
+		Sin embargo, con planificación y atención a los detalles, puedes crear una API robusta y útil que permita la interacción con tus servicios desde otras aplicaciones
+
+
+
+|| APIs en JS 
+
+	APIs (Application Programming Interfaces) en JavaScript implica la interacción y obtención de datos de servicios externos a través de solicitudes HTTP. 
+
+	Las APIs son utilizadas para acceder a recursos y funcionalidades proporcionados por otros servicios, como redes sociales, servicios de geolocalización, bases de datos y más. 
+
+	En JavaScript, puedes utilizar APIs para obtener datos en tiempo real y actualizar tu aplicación web sin necesidad de recargar la página.
+
+
+	Trabajar con APIs en JavaScript:
+
+		1. Hacer una solicitud GET a una API:
+
+			Para hacer una solicitud GET a una API, puedes usar la función fetch en JavaScript. 
+
+			Esta función devuelve una promesa que se resuelve con la respuesta de la API.
+
+			```js
+
+				fetch("https://api.example.com/data")
+				  .then(response => response.json())
+				  .then(data => {
+				    console.log(data); // Datos obtenidos de la API
+				  })
+				  .catch(error => {
+				    console.error("Error al obtener los datos:", error);
+				  });
+
+			```
+
+
+		2. Enviar datos a una API:
+
+			Para enviar datos a una API, generalmente se utiliza el método POST. 
+
+			Puedes incluir datos en el cuerpo de la solicitud utilizando fetch.
+
+			```js
+
+				const dataToSend = {
+				  username: "usuario",
+				  password: "contraseña"
+				};
+
+				fetch("https://api.example.com/login", {
+				  method: "POST",
+				  headers: {
+				    "Content-Type": "application/json"
+				  },
+				  body: JSON.stringify(dataToSend)
+				})
+				  .then(response => response.json())
+				  .then(data => {
+				    console.log(data); // Respuesta de la API después de enviar datos
+				  })
+				  .catch(error => {
+				    console.error("Error al enviar datos:", error);
+				  });
+
+			```
+
+
+		3. Trabajar con Promises y async/await:
+
+			Puedes utilizar Promises para manejar las respuestas de las solicitudes a APIs y realizar acciones una vez que se resuelva la promesa. 
+
+			Además, con async/await, puedes escribir código más limpio y fácil de entender.
+
+			```js
+
+				async function fetchData() {
+				  try {
+				    const response = await fetch("https://api.example.com/data");
+				    const data = await response.json();
+				    console.log(data);
+				  } catch (error) {
+				    console.error("Error al obtener los datos:", error);
+				  }
+				}
+
+				fetchData();
+
+			```
+
+
+		4. Uso de APIs con autenticación:
+
+			Algunas APIs requieren autenticación para acceder a los datos. 
+
+			Puede haber diferentes métodos de autenticación, como tokens, claves API, etc. 
+
+			Debes seguir las instrucciones proporcionadas por la API para incluir la autenticación adecuada en tus solicitudes.
+
+
+		5. Trabajar con datos recibidos:
+
+			Una vez que hayas obtenido los datos de la API, puedes manipularlos y mostrarlos en tu aplicación web. 
+
+			Esto podría incluir mostrar datos en tablas, listas, gráficos, etc.
+
+			Recuerda que las APIs pueden tener diferentes puntos finales, estructuras de datos y métodos de autenticación, por lo que es importante consultar la documentación proporcionada por el proveedor de la API que deseas utilizar.
+
+
+	XMLHttpsRequest: 	
+
+		Es un objeto en JavaScript que se utiliza para realizar solicitudes HTTP asíncronas hacia servidores web y recibir respuestas. 
+
+		Aunque su nombre contiene "XML", no se limita a trabajar solo con XML; también puede manejar otros tipos de datos, como JSON y texto plano. 
+
+		Sin embargo, a lo largo del tiempo, fetch se ha convertido en un enfoque más moderno y versátil para realizar solicitudes HTTP asíncronas en lugar de XMLHttpRequest.
+
+
+		Sintaxis basica: 
+
+		```js
+
+			// Crear un objeto XMLHttpRequest
+			var xhr = new XMLHttpRequest();
+
+			// Configurar la solicitud (GET, URL)
+			xhr.open('GET', 'https://api.example.com/data', true);
+
+			// Configurar el manejo de la respuesta
+			xhr.onload = function() {
+			  if (xhr.status === 200) {
+			    // La solicitud se completó exitosamente
+			    console.log(xhr.responseText);
+			  } else {
+			    // Ocurrió un error en la solicitud
+			    console.error('Error en la solicitud. Código: ' + xhr.status);
+			  }
+			};
+
+			// Enviar la solicitud
+			xhr.send();
+
+		```
+
+		Creamos un objeto XMLHttpRequest usando la variable xhr.
+
+	    Usamos el método open() para configurar la solicitud. 
+
+	    El primer parámetro es el método HTTP (en este caso, 'GET'), el segundo es la URL del recurso y el tercero es un booleano que indica si la solicitud debe ser asíncrona (true).
+
+	    Configuramos el evento onload para manejar la respuesta cuando se complete la solicitud. 
+
+	    Si el estado de la respuesta es 200 (éxito), mostramos el contenido de la respuesta con xhr.responseText. 
+
+	    Si el estado no es 200, mostramos un mensaje de error.
+
+	    Finalmente, usamos el método send() para enviar la solicitud al servidor.
+
+
+		Ejemplo basico de XMLHttpRequest con una solicitud GET: 
+
+		```js
+
+			// Crear un objeto XMLHttpRequest
+			var xhr = new XMLHttpRequest();
+
+			// Configurar la solicitud (GET, URL)
+			xhr.open('GET', 'https://api.example.com/data', true);
+
+			// Configurar el manejo de la respuesta
+			xhr.onload = function() {
+			  if (xhr.status === 200) {
+			    // La solicitud se completó exitosamente
+			    console.log(xhr.responseText);
+			  } else {
+			    // Ocurrió un error en la solicitud
+			    console.error('Error en la solicitud. Código: ' + xhr.status);
+			  }
+			};
+
+			// Enviar la solicitud
+			xhr.send();
+
+		```
+
+		Creamos un objeto XMLHttpRequest, configuramos la solicitud GET especificando la URL del recurso que queremos obtener y habilitamos el modo asíncrono con true. 
+
+		Luego, definimos una función onload que se ejecutará cuando se complete la solicitud. 
+
+		En esta función, verificamos el estado de la respuesta (status) para manejar el éxito o el error de la solicitud.
+
+		Aunque XMLHttpRequest todavía se usa en algunas aplicaciones, especialmente en las más antiguas, muchos desarrolladores prefieren utilizar fetch debido a su sintaxis más simple y su mayor flexibilidad en el manejo de solicitudes y respuestas.
+
+
+	Fetch: 
+
+		Es una función incorporada en JavaScript que permite realizar solicitudes HTTP asíncronas hacia servidores web y obtener respuestas en formato JSON, texto, HTML u otros formatos. 
+
+		fetch es más moderno y más versátil que XMLHttpRequest, y se ha convertido en una forma común de realizar solicitudes en las aplicaciones web.
+
+		fetch también admite la configuración de opciones, como el método HTTP, los encabezados y los datos del cuerpo en las solicitudes POST.
+
+
+		Sintaxis de fetch:
+
+		```js
+
+			// Realizar una solicitud GET
+			fetch('https://api.example.com/data')
+			  .then(response => {
+			    if (!response.ok) {
+			      throw new Error('Error en la solicitud. Código: ' + response.status);
+			    }
+			    return response.json();
+			  })
+			  .then(data => {
+			    console.log(data);
+			  })
+			  .catch(error => {
+			    console.error(error);
+			  });
+
+		```
+
+		Utilizamos la función fetch para realizar una solicitud GET a la URL especificada ('https://api.example.com/data').
+
+   		Usamos el primer then para manejar la respuesta de la solicitud. Verificamos si la respuesta es exitosa (código de estado 200) y luego llamamos al método .json() en la respuesta para convertir los datos a formato JSON.
+
+    	En el segundo then, trabajamos con los datos convertidos.
+
+    	En este ejemplo, simplemente los mostramos en la consola, pero aquí es donde puedes realizar las operaciones que necesites con los datos.
+
+    	El bloque catch captura y maneja cualquier error que ocurra durante la solicitud.
+
+		Esta sintaxis aprovecha las promesas en JavaScript para manejar las solicitudes asíncronas de manera más legible y estructurada.
+
+
+		Ejemplo básico de fech con una solicitud GET: 
+
+			```js
+
+				// Realizar una solicitud GET
+				fetch('https://api.example.com/data')
+				  .then(response => {
+				    if (!response.ok) {
+				      throw new Error('Error en la solicitud. Código: ' + response.status);
+				    }
+				    return response.json(); // Convierte la respuesta a formato JSON
+				  })
+				  .then(data => {
+				    console.log(data); // Muestra los datos en la consola
+				  })
+				  .catch(error => {
+				    console.error(error);
+				  });
+
+			```
+
+			fetch devuelve una promesa que se resuelve con la respuesta de la solicitud. 
+
+			Utilizamos el método then para manejar la respuesta. 
+
+			Dentro del primer then, verificamos si la respuesta fue exitosa (código de estado 200) y luego convertimos la respuesta a formato JSON con el método .json().
+
+			Luego, en el segundo then, podemos trabajar con los datos convertidos y realizar las operaciones necesarias. Si ocurre algún error en la solicitud, lo capturamos y manejamos en la parte catch.
 
 
 
 || Classes
 
+	Son una característica introducida en ECMAScript 2015 (también conocido como ES6) que permiten definir objetos y su comportamiento de manera similar a la programación orientada a objetos (POO) en otros lenguajes. 
+
+	Las clases proporcionan una sintaxis más clara y organizada para crear y trabajar con objetos y sus propiedades y métodos asociados.
+
+
+	Sintaxis de Class: 
+
+	```js
+
+		// Declaración de una clase
+		class Animal {
+		  // Constructor de la clase
+		  constructor(nombre, tipo) {
+		    this.nombre = nombre;
+		    this.tipo = tipo;
+		  }
+
+		  // Método de la clase
+		  saludar() {
+		    console.log(`Hola, soy un ${this.tipo} llamado ${this.nombre}.`);
+		  }
+		}
+
+		// Creación de una instancia de la clase
+		const perro = new Animal('Max', 'perro');
+		perro.saludar();  // Salida: "Hola, soy un perro llamado Max."
+
+		// Herencia de clases
+		class Gato extends Animal {
+		  constructor(nombre) {
+		    super(nombre, 'gato');
+		  }
+
+		  maullar() {
+		    console.log(`${this.nombre} está maullando.`);
+		  }
+		}
+
+		const gato = new Gato('Mittens');
+		gato.saludar();   // Salida: "Hola, soy un gato llamado Mittens."
+		gato.maullar();   // Salida: "Mittens está maullando."
+
+	```
+
+	Usamos la palabra clave class para declarar una clase llamada Animal.
+
+    Dentro de la clase, definimos un constructor utilizando el método especial constructor().
+
+    El constructor se llama cuando se crea una nueva instancia de la clase y se utiliza para inicializar las propiedades del objeto.
+
+    Definimos un método llamado saludar() que puede ser llamado en instancias de la clase.
+
+    Creamos una instancia de la clase Animal llamada perro, proporcionando los valores necesarios para el constructor.
+
+    Luego, declaramos una clase Gato que hereda de la clase Animal utilizando la palabra clave extends. 
+
+    Usamos super() en el constructor de Gato para llamar al constructor de la clase base y pasar los parámetros necesarios.
+
+    Creamos una instancia de la clase Gato llamada gato y llamamos a los métodos de ambas clases.
+
+
+	Ejemplo de Class: 
+
+	```js
+
+		class Persona {
+		  constructor(nombre, edad) {
+		    this.nombre = nombre;
+		    this.edad = edad;
+		  }
+
+		  saludar() {
+		    console.log(`Hola, mi nombre es ${this.nombre} y tengo ${this.edad} años.`);
+		  }
+		}
+
+	```
+
+	Hemos definido una clase llamada Persona. 
+
+	El constructor se llama automáticamente cuando se crea una nueva instancia de la clase y se utiliza para inicializar las propiedades del objeto. 
+
+	Luego, hemos definido un método llamado saludar() que puede ser llamado en instancias de la clase para imprimir un saludo personalizado.
+
+
+	Para crear una instancia de la clase y acceder a sus propiedades y métodos:
+
+	```js
+
+		const persona1 = new Persona('Alice', 30);
+		const persona2 = new Persona('Bob', 25);
+
+		persona1.saludar();  // Salida: "Hola, mi nombre es Alice y tengo 30 años."
+		persona2.saludar();  // Salida: "Hola, mi nombre es Bob y tengo 25 años."
+
+	```
+
+	Las clases en JavaScript también pueden heredar propiedades y métodos de otras clases mediante la palabra clave extends. 
+
+	Esto permite crear jerarquías de clases y compartir funcionalidad común.
+
+	```js
+
+		class Estudiante extends Persona {
+		  constructor(nombre, edad, grado) {
+		    super(nombre, edad);
+		    this.grado = grado;
+		  }
+
+		  estudiar() {
+		    console.log(`${this.nombre} está estudiando en el ${this.grado} grado.`);
+		  }
+		}
+
+		const estudiante1 = new Estudiante('Eva', 18, '12vo');
+		estudiante1.saludar();  // Salida: "Hola, mi nombre es Eva y tengo 18 años."
+		estudiante1.estudiar(); // Salida: "Eva está estudiando en el 12vo grado."
+
+	```
+
+
+	Constructor super(): 
+
+		Se utiliza en una clase extendida para llamar al constructor de la clase padre (superclase) y acceder a sus propiedades y métodos. 
+
+		Esto es especialmente útil cuando estás definiendo una subclase que hereda de una clase base y deseas reutilizar la funcionalidad existente de la clase base.
+
+		```js
+
+			class ClasePadre {
+			  constructor(propiedad) {
+			    this.propiedad = propiedad;
+			  }
+
+			  metodo() {
+			    console.log('Método de la clase padre');
+			  }
+			}
+
+			class ClaseHija extends ClasePadre {
+			  constructor(propiedad, otraPropiedad) {
+			    super(propiedad); // Llama al constructor de la clase padre
+			    this.otraPropiedad = otraPropiedad;
+			  }
+
+			  metodoHijo() {
+			    super.metodo(); // Llama al método de la clase padre
+			    console.log('Método de la clase hija');
+			  }
+			}
+
+			const instanciaHija = new ClaseHija('valor1', 'valor2');
+			instanciaHija.metodoHijo();
+
+		```
+
+		Tenemos una clase base llamada ClasePadre con un constructor y un método.
+
+	    Luego, tenemos una clase hija llamada ClaseHija que extiende de ClasePadre. 
+
+	    En el constructor de la clase hija, usamos super(propiedad) para llamar al constructor de la clase padre y heredar la propiedad propiedad.
+
+	    Dentro del método metodoHijo() de la clase hija, utilizamos super.metodo() para llamar al método de la clase padre y ejecutar su funcionalidad. 
+
+	    Luego, agregamos más funcionalidad específica de la clase hija.
+
+	    Creamos una instancia de la clase hija y llamamos al método metodoHijo(). Esto resulta en la ejecución del método de la clase padre y luego del método de la clase hija.		
+
+
+
+|| Iteradores y Generadores
+
+	Permiten trabajar con secuencias de valores de manera más eficiente y controlada. 
+	
+
+	Iteradores:
+
+		Un iterador es un objeto que proporciona una forma de acceder a los elementos de una colección uno por uno sin la necesidad de exponer la estructura interna de la colección. 
+
+		Para crear un iterador personalizado, necesitas definir una función next() que retorne un objeto con propiedades value y done.
+
+		```js
+
+			const iterable = {
+			  items: [1, 2, 3],
+			  index: 0,
+			  next() {
+			    if (this.index < this.items.length) {
+			      return { value: this.items[this.index++], done: false };
+			    } else {
+			      return { done: true };
+			    }
+			  }
+			};
+
+			const iterator = iterable.next();
+			console.log(iterator.value); // 1
+			console.log(iterator.value); // 2
+			console.log(iterator.value); // 3
+			console.log(iterator.done);  // true
+
+		```
+
+		Creamos un objeto iterable que tiene una propiedad items que contiene una matriz de elementos y un método next() que implementa la lógica del iterador.
+
+
+	Generadores:
+
+		Un generador es una función especial que puede pausar y reanudar su ejecución. 
+
+		Se define usando la palabra clave function*, y se utilizan yield para pausar la ejecución y retornar un valor.
+
+		Puedes iterar sobre los valores generados utilizando un iterador.
+
+		Son útiles para trabajar con flujos de datos asincrónicos y tareas que se pueden pausar y reanudar, como la iteración sobre grandes conjuntos de datos o la gestión de solicitudes de red.
+
+
+		```js
+
+			function* numerosPares() {
+			  let num = 2;
+			  while (true) {
+			    yield num;
+			    num += 2;
+			  }
+			}
+
+			const generador = numerosPares();
+			console.log(generador.next().value); // 2
+			console.log(generador.next().value); // 4
+			console.log(generador.next().value); // 6
+			// ...
+
+			// También puedes utilizar un bucle for...of para iterar
+			for (const numero of generador) {
+			  if (numero > 10) {
+			    break;
+			  }
+			  console.log(numero);
+			}
+
+		```
+
+		Tenemos la función generadora llamada generadorNumeros. 
+
+		Dentro de esta función, utilizamos la palabra clave yield para pausar la ejecución y producir un valor. 
+
+		Cuando llamamos al método next() en el generador, la ejecución se reanuda desde donde se detuvo y se devuelve el valor producido por yield.
+
+		En cada llamada a next(), el generador produce un valor y se detiene hasta la siguiente llamada. 
+
+		Una vez que no hay más declaraciones yield, las llamadas adicionales a next() producirán un objeto con una propiedad value establecida en undefined.
+
+
+
+|| Modulos en JS 
+	
+	Son una forma de organizar y reutilizar el código dividiéndolo en piezas más pequeñas y autónomas. 
+
+	Antes de que los módulos fueran parte de JavaScript, los desarrolladores tenían que depender de patrones de diseño como IIFE (Expresión de Función Ejecutada Inmediatamente) para lograr la modularidad.
+
+	Sin embargo, con la introducción de los módulos en el estándar ECMAScript, ahora existe una forma nativa de modularizar el código.
+
+	Los módulos permiten dividir el código en archivos separados, cada uno con su propio alcance. 
+
+	Esto facilita la reutilización de código, mejora la organización y la legibilidad, y evita la contaminación del espacio global. 
+
+	Los módulos también permiten ocultar ciertos componentes y exponer solo lo que se desea compartir con otras partes del código.
+
+
+	Exportar desde un Módulo: 
+
+		```js
+
+			// modulo.js
+			export const variable = "Hola, mundo!";
+			export function saludar(nombre) {
+			  return `¡Hola, ${nombre}!`;
+			}
+
+		```
+
+	Importar en otro Módulo: 
+
+		```js
+
+			import { variable, saludar } from './modulo.js';
+
+			console.log(variable);        // "Hola, mundo!"
+			console.log(saludar('Juan')); // "¡Hola, Juan!"
+
+		```
+
+		Exportamos una variable y una función con un parámetro. 
+
+
+	Tipos de exportación: 
+	
+		
+		Named Exports: 
+
+			Exportas componentes individuales y los importas usando sus nombres.
+
+			Ejemplo, dos funciones en un archivo llamado math.js y deseas exportar ambas funciones para usarlas en otro archivo:
+
+			```js
+
+				// math.js
+				export function sumar(a, b) {
+				  return a + b;
+				}
+
+				export function restar(a, b) {
+				  return a - b;
+				}
+
+			```
+
+			Importar y usar estas funciones:
+
+			```js
+
+				// main.js
+				import { sumar, restar } from './math.js';
+
+				console.log(sumar(5, 3));  // 8
+				console.log(restar(10, 4)); // 6
+			
+			```
+
+			Utilizamos "Named Exports" para exportar las funciones sumar y restar desde el archivo math.js. 
+
+			Luego, en el archivo main.js, los estamos importando utilizando los mismos nombres con los que fueron exportados.
+
+			Esto nos permite acceder a estas funciones en el archivo main.js y utilizarlas como cualquier otra función.
+
+
+		Default Export: 
+
+			Exportas un solo componente como el valor por defecto del módulo, lo que permite importarlo con cualquier nombre.
+
+			Exportar desde un Módulo:
+
+			```js
+
+				// math.js
+				export default function sumar(a, b) {
+				  return a + b;
+				}
+
+			```
+
+			Importar en otro Módulo:
+
+			```js
+
+				// main.js
+				import sumar from './math.js';
+
+				console.log(sumar(5, 3)); // 8
+
+			```
+
+			En el archivo main.js, la estamos importando utilizando el nombre que queramos, ya que es el valor por defecto exportado. 
+
+			Esto nos permite acceder a la función en el archivo main.js y utilizarla como cualquier otra función.
+
+
+
+	Common JS 
+
+		Es un sistema de módulos en JavaScript que se utilizaba principalmente en entornos de servidor, como Node.js, para organizar y reutilizar el código en diferentes archivos. 
+
+		Fue una de las primeras formas de modularizar el código en JavaScript y ayudó a abordar problemas relacionados con la organización y dependencias en proyectos más grandes.
+
+
+		Modularización: 
+
+			CommonJS permite dividir el código en módulos independientes, lo que facilita la organización y mantenimiento del código en proyectos grandes. 
+
+			Cada módulo tiene su propio alcance (scope) y puede exportar e importar variables, funciones y objetos para su uso en otros módulos.
+
+
+		Uso de require() y module.exports: 
+
+			CommonJS utiliza la función require() para cargar módulos y la propiedad module.exports para exportar elementos desde un módulo. 
+
+			Con require(), puedes cargar módulos externos y acceder a lo que han exportado. 
+
+			Con module.exports, puedes exportar tus propios elementos para que otros módulos los utilicen.
+
+
+		Carga síncrona: 
+
+			Una característica clave de CommonJS es que la carga de módulos se realiza de manera síncrona, lo que significa que el módulo se carga y evalúa antes de continuar con la ejecución del código. 
+
+			Esto es especialmente útil en entornos de servidor, donde la velocidad de carga puede ser menos crítica que en los navegadores.
+
+
+		Ejemplo de exportación e importación: 
+
+			```js
+
+				// math.js
+				module.exports = {
+				  sumar: function(a, b) {
+				    return a + b;
+				  },
+				  restar: function(a, b) {
+				    return a - b;
+				  }
+				};
+
+			```
+
+			```js
+
+				// main.js
+				const math = require('./math.js');
+
+				console.log(math.sumar(5, 3));  // 8
+				console.log(math.restar(10, 4)); // 6
+
+			```
+
+
+	ECMAScript Modules: 
+
+		ES6 Modules o ESM) son una forma estándar y nativa de modularizar el código en JavaScript, introducida en el estándar ECMAScript 6 (ES6) en 2015. 
+
+		A diferencia de "CommonJS", los módulos ES6 son parte del lenguaje JavaScript y están diseñados para funcionar tanto en entornos de navegador como en entornos de servidor (como Node.js).
+
+
+		Sintaxis de Importación y Exportación:
+
+			Los módulos ES6 utilizan las palabras clave import y export para definir qué elementos se importan o exportan en un módulo. 
+
+			Puedes exportar variables, funciones y objetos utilizando export y luego importarlos en otros módulos utilizando import.
+
+
+	    Soporte para Carga Asíncrona: 
+
+	    	A diferencia de CommonJS, los módulos ES6 admiten la carga asíncrona por naturaleza. 
+
+	    	Esto significa que los módulos se cargan de manera asíncrona cuando se importan, lo que puede mejorar el rendimiento en aplicaciones web.
+
+
+	    Enlace Estático: 
+
+	    	Los enlaces de importación/exportación en los módulos ES6 se resuelven estáticamente en tiempo de compilación, lo que permite optimizaciones por parte de los motores de JavaScript. 
+
+	    	Esto contrasta con CommonJS, donde las importaciones se resuelven en tiempo de ejecución.
+
+
+	    Ámbito de Módulo: 
+
+	    	Cada módulo ES6 tiene su propio ámbito, lo que significa que las variables y funciones definidas en un módulo no contaminan el ámbito global ni interfieren con otros módulos.
+
+
+	    Ejemplo de exportar e importar: 
+
+	    	```js
+
+	    		// math.js
+				export function sumar(a, b) {
+				  return a + b;
+				}
+
+				export function restar(a, b) {
+				  return a - b;
+				}
+
+	    	```
+
+	    	```js
+
+	    		// main.js
+				import { sumar, restar } from './math.js';
+
+				console.log(sumar(5, 3));  // 8
+				console.log(restar(10, 4)); // 6
+
+	    	```
+
+	   	Los módulos ES6 se han vuelto ampliamente adoptados en el desarrollo web moderno debido a su integración nativa con JavaScript y a las ventajas que ofrecen en términos de rendimiento y organización del código. 
+
+	   	Sin embargo, es importante tener en cuenta que la compatibilidad del navegador y del entorno de ejecución puede variar, por lo que es posible que necesites configurar herramientas de construcción o transpiladores para asegurarte de que tus módulos sean compatibles en todos los navegadores y entornos que necesites.
+
+
+
+|| Memory Management
+
+	
+	Memory lifecycle: 
+
+
+
+
+	Garbage collection: 
 
 
 
 
 
+
+
+|| Dev Tools
+	
+
+	Debugging issues:
+
+
+
+	Debugging memory leaks:
+
+
+
+	Debugging performance: 
 
 
 
