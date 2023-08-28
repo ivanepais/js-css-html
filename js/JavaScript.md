@@ -665,6 +665,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 				Los objetos son la base de la programación orientada a objetos en JavaScript, donde se utilizan clases y prototipos para crear instancias de objetos con propiedades y métodos compartidos.
 
 
+
 || OPERADORES
 
 	Son símbolos que se utilizan para realizar operaciones en variables y valores. Hay varios tipos de operadores que 
@@ -5318,7 +5319,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
     		Puede haber un pequeño desfase debido a la programación del sistema y la carga del procesador.
 
 
-		setInternal: 
+		setInterval: 
 
 			Se utiliza para ejecutar repetidamente una función a intervalos regulares. 
 
@@ -5693,7 +5694,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 
 		Sin embargo, muchas operaciones en JavaScript, como solicitudes de red, operaciones de E/S (entrada/salida) y temporizadores, son asincrónicas y podrían bloquear la ejecución del hilo si se manejaran de manera síncrona.
 
-		Aquí es donde entra en juego el "Event Loop". El bucle de eventos es una estructura que se encarga de gestionar las tareas asíncronas y los eventos en el entorno de ejecución de JavaScript, ya sea en un navegador o en un entorno de servidor como Node.js. 
+		Aquí es donde entra en juego el "Event Loop". El bucle de eventos es una estructura que se encarga de  gestionar las tareas asíncronas y los eventos en el entorno de ejecución de JavaScript, ya sea en un navegador o en un entorno de servidor como Node.js. 
 
 		
 		Funciona de la siguiente manera:
@@ -5937,7 +5938,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 
 	    		Debes proporcionar una documentación clara y completa que explique cómo usar la API, qué endpoints están disponibles, cómo autenticarse (si es necesario) y cómo interpretar las respuestas. 
 
-	    	Una buena documentación facilita que otros desarrolladores puedan integrar tu API de manera exitosa.
+	    		Una buena documentación facilita que otros desarrolladores puedan integrar tu API de manera exitosa.
 
 
 	    Seguridad:
@@ -6198,7 +6199,7 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 			Recuerda que las APIs pueden tener diferentes puntos finales, estructuras de datos y métodos de autenticación, por lo que es importante consultar la documentación proporcionada por el proveedor de la API que deseas utilizar.
 
 
-	XMLHttpsRequest: 	
+	XMLHttpRequest: 	
 
 		Es un objeto en JavaScript que se utiliza para realizar solicitudes HTTP asíncronas hacia servidores web y recibir respuestas. 
 
@@ -6850,34 +6851,421 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 
 
 || Memory Management
+	
+	Por supuesto, "Memory Management" (Gestión de Memoria) se refiere al proceso de administrar y controlar la asignación y liberación de memoria en un programa de JavaScript. 
+
+	Dado que JavaScript se ejecuta en un entorno con recursos limitados, como un navegador web o un entorno de servidor, es crucial administrar la memoria de manera eficiente para evitar problemas como fugas de memoria y agotamiento de recursos.
+
+
+	La gestión de memoria se realiza de la siguiente manera:
+
+    	Asignación de Memoria: 
+
+    		Cuando creas objetos, arrays, funciones y otros tipos de datos en JavaScript, el motor de JavaScript (por ejemplo, el motor V8 en Chrome) asigna memoria para almacenar esos datos en el montón (heap), que es la región de memoria donde se almacenan los objetos y estructuras de datos. 
+
+    		En JavaScript, no necesitas preocuparte por asignar memoria manualmente, ya que el motor de JavaScript se encarga de ello automáticamente.
+
+
+   		Referencias: 
+
+   			La gestión de memoria implica rastrear las referencias a los objetos almacenados en el montón. 
+
+   			Si un objeto ya no tiene referencias a él desde el código en ejecución, se considera "inaccesible" y puede ser elegible para ser liberado de la memoria. 
+
+   			Esto se conoce como recolección de basura.
+
+
+    	Recolección de Basura: 
+
+    		Los motores de JavaScript utilizan algoritmos de recolección de basura para identificar y eliminar los objetos inaccesibles y liberar la memoria que ocupan. 
+
+    		Uno de los algoritmos más comunes es el "Garbage Collector" (Recolector de Basura) que busca objetos que ya no son accesibles y los marca para su eliminación.
+
+
+    	Fugas de Memoria: 
+
+    		Una fuga de memoria ocurre cuando los objetos que ya no son necesarios siguen teniendo referencias, lo que impide que el recolector de basura los elimine. 
+
+    		Esto puede llevar a un aumento continuo en el uso de memoria y eventualmente agotar los recursos disponibles.
+
+
+    	Buenas Prácticas: 
+
+    		Para evitar problemas de gestión de memoria, es importante seguir buenas prácticas de programación, como liberar referencias a objetos cuando ya no se necesitan, evitar ciclos de referencia que impidan que los objetos sean liberados, y utilizar las herramientas de desarrollo del navegador para monitorear el uso de memoria y detectar posibles fugas.
 
 	
+
 	Memory lifecycle: 
 
+		Se refiere al proceso por el cual se asigna, utiliza y finalmente se libera la memoria en un programa de software. 
+
+		En el contexto de JavaScript y otros lenguajes de programación, el ciclo de vida de la memoria es fundamental para comprender cómo se gestionan los recursos y cómo prevenir problemas como fugas de memoria y agotamiento de recursos.
+
+
+		El ciclo de vida de la memoria se puede dividir en varias etapas:
+
+		Asignación: 
+
+		    En esta etapa, se asigna memoria para almacenar datos, como variables, objetos, funciones y estructuras de datos. 
+
+		    En JavaScript, esta asignación de memoria puede ocurrir automáticamente cuando se crean variables y objetos, o cuando se reserva espacio para arrays y otros tipos de datos.
+
+
+		Uso: 
+
+			Una vez que la memoria se ha asignado y los datos se han creado, se utilizan a través de la ejecución del código. 
+
+			Los datos almacenados en la memoria se pueden leer, modificar y pasar a funciones para su procesamiento.
+
+
+		Referencias: 
+
+			Los datos en la memoria están vinculados a través de referencias. Las variables y objetos pueden contener referencias a otros objetos o valores en la memoria. 
+
+			Si no hay referencias a un objeto, se considera inaccesible y puede ser candidato para ser eliminado en la etapa de liberación de memoria.
+
+
+		Liberación: 
+
+			En esta etapa, los datos que ya no son necesarios se liberan de la memoria para que los recursos se puedan utilizar nuevamente. 
+
+			En lenguajes de programación con administración automática de memoria, como JavaScript, esto es manejado por el recolector de basura. 
+
+			El recolector de basura identifica objetos que ya no tienen referencias y los elimina, liberando la memoria que ocupaban.
+
+
+		Finalización: 
+
+			En algunos lenguajes de programación, especialmente en aquellos que permiten la programación con recursos más bajos, es posible que necesites realizar tareas adicionales antes de liberar la memoria, como cerrar archivos, liberar conexiones de red u otras acciones de limpieza.
 
 
 
 	Garbage collection: 
 
+		Es un proceso automático en los lenguajes de programación que administran la memoria, como JavaScript, para detectar y liberar la memoria que ya no es utilizada por el programa. 
+
+		Su objetivo principal es prevenir las fugas de memoria y liberar recursos para que puedan ser reutilizados por otras partes del programa.
+
+		En JavaScript, el proceso de recolección de basura es manejado por el "Garbage Collector". 
+
+		El Garbage Collector rastrea las referencias a los objetos almacenados en memoria. 
+
+		Si un objeto ya no tiene ninguna referencia que lo vincule, es decir, si ningún elemento del programa puede acceder al objeto, se considera que está listo para ser eliminado. 
+
+		El Garbage Collector se encarga de identificar estos objetos no referenciados y liberar el espacio de memoria que ocupan.
+
+		La recolección de basura en JavaScript se basa en un algoritmo que rastrea el grafo de referencias entre los objetos. 
+
+		Hay diferentes enfoques para la recolección de basura, incluyendo el algoritmo de "Referencia Contable", el algoritmo de "Recorrido de Raíz" y el algoritmo de "Marcado y Barrido" (Mark and Sweep), entre otros.
+
+		Es importante mencionar que la recolección de basura es una tarea automática y transparente para los desarrolladores en lenguajes de programación de alto nivel como JavaScript. 
+
+		Sin embargo, entender cómo funciona este proceso es valioso para escribir código eficiente y prevenir problemas relacionados con la memoria, como las fugas de memoria.
 
 
+		Algunos consejos para optimizar la recolección de basura en JavaScript incluyen:
+
+    	Limitar el uso de variables globales: 
+
+    		Las variables globales pueden mantener referencias a objetos en todo el ciclo de vida de la aplicación, lo que puede dificultar la recolección de basura. 
+
+    		Trata de utilizar variables locales siempre que sea posible.
+
+
+    	Evitar ciclos de referencias: 
+
+    		Si dos objetos se refieren mutuamente, pueden formar un ciclo de referencias que impide que el Garbage Collector los elimine. 
+
+    		Presta atención a estas situaciones y evita que los objetos tengan referencias circulares.
+
+
+    	Utilizar alcance de bloque: 
+
+    		Utilizar variables dentro de un alcance de bloque limitado puede ayudar a que los objetos sean más fáciles de eliminar cuando ya no son necesarios.
+
+
+    	Libera recursos explícitamente: 
+
+    		Aunque JavaScript tiene un Garbage Collector, en ocasiones es útil liberar recursos explícitamente cuando ya no son necesarios, especialmente en aplicaciones que manejan recursos externos como conexiones de red o archivos.
 
 
 
 
 || Dev Tools
 	
+	Permiten a los desarrolladores inspeccionar, depurar el código fuente (y sus errores) y perfilar sus aplicaciones web.
+
+	Estas herramientas son muy útiles para analizar y mejorar el rendimiento de sitios web y aplicaciones en JavaScript. 
+
+	Aquí hay una descripción general de algunas de las características clave de las Chrome DevTools relacionadas con JavaScript:
+
+
+		1. Consola (Console): 
+
+			La consola es una de las características más utilizadas en las DevTools. 
+
+			Permite interactuar con la página web mediante la ejecución de comandos de JavaScript directamente en el contexto de la página. 
+
+			Esto es útil para probar rápidamente fragmentos de código, imprimir valores y depurar problemas.
+
+
+		2. Inspector de Elementos (Elements):
+
+			Esta sección permite inspeccionar y manipular el DOM de la página web. 
+
+			Puedes ver y editar HTML, CSS y atributos de elementos, así como agregar y eliminar elementos para probar cómo afecta la estructura del sitio.
+
+
+		3. Depurador (Sources): 
+
+			El depurador es una herramienta poderosa que te permite establecer puntos de interrupción en el código JavaScript y seguir su ejecución paso a paso. 
+
+			También puedes examinar variables, ver la pila de llamadas y observar el flujo del programa.
+
+
+		4. Performance: 
+
+			La pestaña de rendimiento te permite grabar y analizar el rendimiento de tu sitio web, incluido el tiempo de carga, la actividad de la CPU y la utilización de memoria. 
+
+			Esto es útil para identificar cuellos de botella y optimizar el rendimiento.
+
+
+		5. Memory: 
+
+			La pestaña de memoria te permite tomar capturas de la memoria utilizada por tu sitio web y analizar qué objetos están ocupando espacio en la memoria. 
+
+			Esto es valioso para identificar fugas de memoria y optimizar el uso de recursos.
+
+
+		6. Network: 
+
+			La pestaña de red proporciona información detallada sobre las solicitudes y respuestas de red realizadas por tu sitio web. 
+
+			Puedes ver tiempos de carga, encabezados de solicitud y respuesta, y más.
+
+
+		7. Application: 
+
+			La pestaña de aplicación proporciona información sobre los Service Workers, almacenamiento en caché y otras características relacionadas con las aplicaciones web progresivas.
+
+
+		8. Audits: 
+
+			Esta característica te permite ejecutar auditorías en tu sitio web para verificar el cumplimiento de las mejores prácticas de rendimiento, accesibilidad, SEO y más.
+
+
+		9. Console Drawer: 
+
+			Una consola más avanzada que permite escribir y ejecutar múltiples líneas de código de manera persistente a lo largo de las páginas.
+
+		
+		10. Mobile Emulation: 
+
+			Puedes emular diferentes dispositivos y resoluciones para probar cómo se verá y se comportará tu sitio web en diferentes tamaños de pantalla.
+
 
 	Debugging issues:
 
+		Depurar problemas es una de las funciones más importantes de las Chrome DevTools.
+
+		Se trata de identificar y corregir errores en tu código JavaScript y en otros aspectos de tu sitio web.
 
 
-	Debugging memory leaks:
+		1. Abrir las Chrome DevTools:
+
+        	Haz clic derecho en cualquier parte de tu página web y selecciona "Inspeccionar" o presiona Ctrl+Shift+I (o Cmd+Option+I en macOS) para abrir las DevTools.
+        	
+        	También puedes abrir las DevTools desde el menú de Chrome en la esquina superior derecha, seleccionando "Más herramientas" y luego "Herramientas de desarrollo".
+
+
+	    2. Usar el Depurador:
+
+	        Ve a la pestaña "Sources" en las DevTools.
+
+	        Encuentra el archivo JavaScript que deseas depurar en la lista de archivos cargados.
+
+	        Haz clic en el número de línea junto a la línea donde deseas establecer un punto de interrupción. 
+
+	        Esto detendrá la ejecución del código en ese punto.
+
+	        Refresca la página para activar el depurador en ese punto de interrupción.
+
+	        Utiliza los botones de control en la parte superior para avanzar paso a paso, pausar, continuar o salir del depurador.
+
+
+	    3. Inspeccionar Variables:
+
+	        Mientras estás en el depurador, puedes ver el contenido de las variables en el ámbito actual. 
+
+	        Simplemente coloca el cursor sobre una variable para ver su valor.
+
+	        Utiliza la pestaña "Scope" en el panel derecho para ver todas las variables en ese ámbito y sus valores.
+
+	    
+	    4. Console Debugging:
+
+	        Usa la pestaña "Console" para ejecutar comandos de JavaScript en el contexto de la página y ver resultados en tiempo real.
+
+	        Imprime valores de variables, realiza cálculos y prueba funciones directamente en la consola.
+
+	    
+	    5. Breakpoints:
+
+	        Además de establecer puntos de interrupción en el código, también puedes establecer puntos de interrupción condicionales o puntos de interrupción de eventos específicos.
+
+	        Esto te permite detener la ejecución del código solo cuando se cumple una condición o cuando ocurre un evento en particular.
+
+	    
+	    6. Network Debugging:
+
+	        Utiliza la pestaña "Network" para analizar las solicitudes y respuestas de red, incluidos los encabezados y el contenido.
+
+	        Puedes ver el tiempo de carga de cada recurso y detectar problemas de rendimiento.
+
+
+	    7. Performance Profiling:
+
+	        Utiliza la pestaña "Performance" para realizar perfiles de rendimiento y analizar dónde tu código puede estar ralentizando la página.
+
+
+	    8. Memory Profiling:
+
+	        La pestaña "Memory" te permite tomar capturas de la memoria y analizar el uso de memoria para identificar posibles fugas.
+
+
+	    9. Console Logs:
+
+	        Utiliza console.log() para imprimir mensajes y valores en la consola. Estos mensajes te ayudarán a entender cómo se comporta tu código.
+
+
+	    10. Sources Panel:
+
+	        Aquí puedes editar el código en tiempo real para probar soluciones antes de implementarlas en tu código fuente original.
+
+
+	    11. Search and Filters:
+
+	        Utiliza la barra de búsqueda y los filtros para encontrar archivos, funciones y variables específicos en tu código.
 
 
 
-	Debugging performance: 
+	Debugging Memory Leaks:
 
+		Se trata de asegurarse de que tu aplicación no esté usando más memoria de la necesaria, lo que podría llevar a problemas de rendimiento.
+
+
+		1. Realizar una Captura de Memoria:
+
+    		En la pestaña "Memory", haz clic en el botón "Capture" para tomar una instantánea del uso de memoria en ese momento.
+
+
+		2. Analizar la Captura:
+
+		    Después de tomar la captura, verás una lista de objetos y recursos en la parte superior de la pestaña "Memory".
+		    
+		    Puedes explorar cada objeto y ver cuánta memoria está siendo utilizada por cada uno.
+
+
+		3. Comparar Capturas:
+
+		    Si sospechas que hay una fuga de memoria, puedes tomar dos capturas en diferentes momentos y compararlas.
+
+		    Esto te mostrará cualquier diferencia en el uso de memoria entre las dos capturas, lo que puede ayudarte a identificar qué objetos o recursos no están siendo liberados correctamente.
+
+		
+		4. Analizar los Objetos Retenidos:
+
+		    La sección "Retained Size" en la captura muestra los objetos que están siendo retenidos en la memoria.
+
+		    Puedes explorar esta lista para identificar qué objetos están ocupando más memoria.
+
+
+		5. Analizar las Referencias:
+
+		    Haz clic en un objeto en la captura para ver sus referencias y referencias inversas. 
+
+		    Esto te ayuda a rastrear cómo los objetos se relacionan entre sí.
+
+
+		 6. Profiling JavaScript Execution:
+
+		    Si una fuga de memoria está relacionada con la ejecución de JavaScript, también puedes utilizar la pestaña "Profiles" para analizar el rendimiento y la memoria utilizada por el código JavaScript.
+
+
+		7. Liberar Memoria Manualmente:
+
+		    En la pestaña "Memory", puedes ejecutar la opción "Collect Garbage" para forzar la recolección de basura y liberar la memoria no utilizada.
+
+
+		8. Ver Información de Referencias:
+
+		    La pestaña "References" te muestra una visualización del árbol de objetos y cómo están relacionados en términos de referencias.
+
+
+	Debugging Performance: 
+
+		Depurar el rendimiento de tu aplicación web es esencial para asegurarte de que se ejecute de manera eficiente y rápida.
+
+
+		1. Pestaña "Performance":
+
+    		Ve a la pestaña "Performance" en las DevTools.
+
+
+		2. Grabar una Sesión de Rendimiento:
+
+		    En la pestaña "Performance", haz clic en el botón de grabación o presiona Ctrl+E (o Cmd+E en macOS) para comenzar a grabar la sesión de rendimiento.
+
+
+		3. Interactuar con tu Aplicación:
+
+		    Realiza las acciones en tu aplicación que quieras analizar en términos de rendimiento, como hacer clic en botones, navegar entre páginas, etc.
+
+		
+		4. Detener la Grabación:
+
+		    Detén la grabación haciendo clic en el botón de grabación nuevamente.
+
+
+		5. Analizar el Rendimiento:
+
+		    Después de detener la grabación, verás una línea de tiempo que muestra cómo se ejecutaron las diferentes operaciones en tu aplicación.
+
+		    Puedes explorar esta línea de tiempo para identificar cuellos de botella y áreas de bajo rendimiento.
+
+
+		6. Identificar Problemas:
+
+		    Los marcadores de eventos te mostrarán detalles sobre los eventos que ocurrieron durante la grabación.
+
+		    Puedes hacer clic en ellos para obtener más información.
+
+
+		7. Análisis Detallado:
+
+		    Puedes hacer zoom en áreas específicas de la línea de tiempo para un análisis más detallado. 
+
+		    Esto te ayudará a identificar funciones, llamadas de red u operaciones que están consumiendo mucho tiempo.
+
+
+		8. Registro de Pila:
+
+		    La pestaña "Call Tree" te permite ver el registro de pila de las funciones y operaciones que se ejecutaron durante la grabación.
+
+
+		9. Análisis de Fotogramas:
+
+		    Si estás trabajando con animaciones o renderización de gráficos, la pestaña "Frames" te proporciona información sobre el rendimiento de cada fotograma.
+
+
+		10. Análisis de Carga de Recursos:
+
+		    La pestaña "Network" te muestra información sobre los recursos cargados por tu página, lo que te ayuda a identificar posibles cuellos de botella en la carga.
+
+
+		11. Consejos y Sugerencias:
+
+		    Las DevTools a menudo ofrecen sugerencias sobre cómo mejorar el rendimiento en función de lo que encuentren en la grabación.
 
 
 

@@ -6435,6 +6435,158 @@ for (const numero of generador) {
 
 
 
+/*.........................*/
+
+//Modulos Js 
+
+
+//Standar ECMA 
+
+/*
+Soporte para Carga Asíncrona: 
+A diferencia de CommonJS, los módulos ES6 admiten la carga asíncrona por naturaleza. 
+Esto significa que los módulos se cargan de manera asíncrona cuando se importan, lo que puede mejorar el rendimiento en aplicaciones web.
+*/
+
+
+/*  
+Named Exports: 
+Exportas componentes individuales y los importas usando sus nombres.
+Ejemplo, dos funciones en un archivo llamado math.js y deseas exportar ambas funciones para usarlas en otro archivo:
+*/
+
+
+// math.js
+export function sumar(a, b) {
+  return a + b;
+}
+
+export function restar(a, b) {
+  return a - b;
+}
+
+
+//Importar y usar estas funciones:
+
+// main.js
+import { sumar, restar } from './math.js';
+
+console.log(sumar(5, 3));  // 8
+console.log(restar(10, 4)); // 6
+
+/*
+Utilizamos "Named Exports" para exportar las funciones sumar y restar desde el archivo math.js. 
+Luego, en el archivo main.js, los estamos importando utilizando los mismos nombres con los que fueron exportados.
+Esto nos permite acceder a estas funciones en el archivo main.js y utilizarlas como cualquier otra función.
+*/
+
+
+
+/*
+Default Export: 
+Exportas un solo componente como el valor por defecto del módulo, lo que permite importarlo con cualquier nombre.
+Exportar desde un Módulo:
+*/
+
+// math.js
+export default function sumar(a, b) {
+  return a + b;
+}
+
+
+//Importar en otro Módulo:
+
+// main.js
+import sumar from './math.js';
+
+console.log(sumar(5, 3)); // 8
+
+/*
+En el archivo main.js, la estamos importando utilizando el nombre que queramos, ya que es el valor por defecto exportado. 
+Esto nos permite acceder a la función en el archivo main.js y utilizarla como cualquier otra función.
+*/
+
+
+
+//CommonJS
+
+/*
+Uso de require() y module.exports: 
+CommonJS utiliza la función require() para cargar módulos y la propiedad module.exports para exportar elementos desde un módulo. 
+Con require(), puedes cargar módulos externos y acceder a lo que han exportado. 
+Con module.exports, puedes exportar tus propios elementos para que otros módulos los utilicen.
+*/
+
+//exportación e importación: 
+
+// math.js
+module.exports = {
+  sumar: function(a, b) {
+    return a + b;
+  },
+  restar: function(a, b) {
+    return a - b;
+  }
+};
+
+
+// main.js
+const math = require('./math.js');
+
+console.log(math.sumar(5, 3));  // 8
+console.log(math.restar(10, 4)); // 6
+
+
+
+
+/*.........................*/
+
+//Memory Management
+/*
+
+*/
+  
+
+//Memory lifecycle: 
+/*
+
+*/
+
+
+
+//Garbage collection:
+/*
+
+*/
+
+
+
+
+
+
+
+/*.........................*/
+
+//Dev Tools 
+
+
+
+
+
+//Debugging issues
+
+
+
+//Debugging memory leaks
+
+
+
+//Debugging performance
+
+
+
+
+
 
 
 
