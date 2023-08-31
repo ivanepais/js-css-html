@@ -4545,6 +4545,390 @@ Frameworks y bibliotecas como React, Angular, y Vue.js han impulsado aún más l
 			```
 
 
+	Cuando usar variables locales o globales:
+
+		El uso de variables globales y locales en JavaScript se trata de gestionar el alcance y la accesibilidad de las variables de manera eficiente y segura en tus programas. 
+
+
+		Variables Globales:
+
+	   		Cuando se necesita acceso en todo el programa: 
+
+	   			Las variables globales son accesibles desde cualquier parte del código, lo que puede ser útil si necesitas que una variable sea accesible en múltiples funciones o módulos.
+
+
+	    	Configuración Global: 
+
+	    		Pueden usarse para almacenar configuraciones globales, como valores constantes que afectan a todo el programa.
+
+
+	    	Evitar Repetición: 
+
+	    		Si tienes datos que se utilizan en varios lugares y no quieres pasarlos como argumentos de función, podrías considerar una variable global.
+
+
+	    	Event Handlers: 
+
+	    		A menudo se utilizan variables globales para compartir información entre diferentes manejadores de eventos.
+
+
+		Variables Locales:
+
+	    	Evitar Colisiones de Nombres: 
+
+	    		Las variables locales están limitadas al ámbito de una función o bloque, lo que evita colisiones de nombres con otras partes del programa.
+
+
+	    	Encapsulación: 
+
+	    		Las variables locales ayudan a mantener la encapsulación y el aislamiento de diferentes partes de tu código.
+
+
+	    	Evitar Efectos Secundarios: 
+
+	    		El uso de variables locales puede ayudar a evitar efectos secundarios no deseados en otras partes del programa.
+
+
+	    	Modularidad: 
+
+	    		Las variables locales son esenciales en la programación modular, ya que cada módulo puede tener sus propias variables sin afectar otros módulos.
+
+
+	    	Mejora de Rendimiento: 
+
+	    		El acceso a variables locales suele ser más rápido que el acceso a variables globales debido a la forma en que se almacenan en memoria.
+
+
+			En general, se recomienda minimizar el uso de variables globales, ya que pueden hacer que tu código sea menos mantenible y propenso a errores. 
+
+			En su lugar, se recomienda utilizar variables locales siempre que sea posible, ya que promueven la encapsulación, el aislamiento y una mejor estructura de código.
+
+	
+		En resumen, el enfoque principal debe ser limitar el alcance de tus variables a donde realmente son necesarias para mantener la coherencia y la seguridad de tu código.
+
+
+	Inmutabilidad de los tipos de datos primitivos: 
+
+		Se refiere al hecho de que una vez que se crea una variable con un valor primitivo (como un número, una cadena, un booleano, etc.), ese valor no puede modificarse directamente. 
+
+		Cualquier operación que parezca modificar el valor de una variable en realidad crea una nueva instancia (nuevo objeto) del valor con el cambio aplicado, en lugar de modificar directamente el valor original.
+
+		Los tipos de datos primitivos en JavaScript son inmutables. 
+
+		Esto significa que cuando realizas operaciones como cambiar el valor de una variable, estás creando una nueva variable con un nuevo valor en lugar de modificar el valor original. 
+
+		Esto puede ser un concepto confuso para algunas personas, ya que en otros lenguajes de programación, es común modificar el valor de una variable directamente.
+
+		```js
+
+			let a = 5;
+			let b = a;
+			b = 10;
+			console.log(a); // 5
+			console.log(b); // 10
+
+		```
+
+		Cuando asignamos b = a, se crea una copia independiente del valor 5 en b. 
+
+		Luego, cuando asignamos b = 10, estamos creando una nueva variable b con el valor 10, pero esto no afecta al valor original de a.
+
+		Puede ser beneficiosa porque ayuda a prevenir efectos secundarios no deseados y simplifica el rastreo de cambios en el código. 
+
+		Sin embargo, también significa que para realizar cambios en los valores, necesitas asignar el nuevo valor a una nueva variable en lugar de modificar directamente la variable original.
+
+
+
+
+|| Expresiones regulares
+	
+	Conocidas como regex o regexp, son patrones que se utilizan para buscar y manipular cadenas de texto. 
+
+	Son una herramienta poderosa en programación para realizar operaciones como búsqueda, coincidencia, reemplazo y extracción de datos específicos en cadenas de texto.
+
+	En JavaScript, puedes crear expresiones regulares utilizando el objeto RegExp o mediante la notación literal utilizando barras diagonales (/). 
+
+	```js
+
+		// Con el constructor RegExp
+		let regex = new RegExp("patrón");
+
+		// Notación literal
+		let regexLiteral = /patrón/;
+
+	```
+
+	Caracteres Literales:
+
+		Los caracteres en una expresión regular coinciden con sí mismos. 
+
+		Por ejemplo, /abc/ buscará la cadena "abc" en el texto.
+
+	
+	Metacaracteres:
+
+		Los metacaracteres tienen un significado especial en las expresiones regulares y permiten crear patrones más complejos.
+
+		Algunos metacaracteres comunes incluyen . (cualquier carácter), \d (dígito), \w (carácter de palabra), \s (espacio en blanco), etc.
+
+	Cuantificadores:
+
+		Los cuantificadores especifican la cantidad de ocurrencias de un elemento en un patrón. 
+
+		Algunos ejemplos son * (cero o más), + (uno o más), ? (cero o uno), {n} (exactamente n), {n, m} (entre n y m).
+
+
+	Grupos y Capturas:
+
+		Los paréntesis () se utilizan para agrupar elementos en la expresión. Esto es útil para aplicar cuantificadores o realizar capturas. 
+
+		Por ejemplo, /(abc)+/ coincidirá con "abc", "abcabc", etc.
+
+
+	Caracteres de Escape:
+
+		Algunos caracteres como [, ], (, ), {, }, ^, $, etc., tienen significados especiales en expresiones regulares. 
+
+		Si deseas buscar uno de estos caracteres literalmente, debes escaparlos con \.
+
+
+	Modificadores:
+
+		Los modificadores se agregan al final de una expresión regular para realizar coincidencias que no sean sensibles a mayúsculas y minúsculas (i), buscar en varias líneas (m), etc.
+
+
+	Métodos de Cadena:
+
+		JavaScript proporciona métodos de cadena como match(), test(), replace(), search(), que te permiten trabajar con expresiones regulares.
+
+
+	Ejemplo:	
+
+		```js
+
+			const text = "Hola, mi número es 123-456-7890.";
+			const pattern = /\d{3}-\d{3}-\d{4}/;
+			const result = text.match(pattern); // Coincidencia: ["123-456-7890"]
+
+		```
+
+
+	Casos de uso: 
+
+		Se utilizan en una variedad de situaciones para buscar, validar y manipular cadenas de texto. 
+
+
+	    Búsqueda y Extracción:
+
+	    	Las expresiones regulares se utilizan para buscar y extraer patrones específicos en una cadena de texto. 
+
+	    	Por ejemplo, encontrar direcciones de correo electrónico, números de teléfono, fechas o cualquier otro patrón específico.
+
+
+	    Validación de Entrada de Usuario:
+	    	
+	    	Puedes usar expresiones regulares para validar que una entrada de usuario cumple con un formato específico. 
+
+	    	Por ejemplo, asegurarse de que un número de teléfono esté en el formato correcto o que una dirección de correo electrónico sea válida.
+
+
+	    Reemplazo y Formateo:
+	    	
+	    	Las expresiones regulares son útiles para reemplazar o formatear texto en una cadena. 
+
+	    	Por ejemplo, puedes reemplazar todas las instancias de una palabra en un texto o formatear fechas y números de cierta manera.
+
+
+	    Análisis de Datos:
+
+	    	Cuando se trabaja con datos estructurados en texto, como archivos CSV o logs, las expresiones regulares pueden ayudar a extraer información relevante y transformarla.
+
+
+	    Búsqueda y Resaltado en Editores de Texto:
+	    	
+	    	Los editores de texto y las IDEs a menudo usan expresiones regulares para buscar y resaltar patrones en archivos grandes. 
+
+	    	Esto es especialmente útil para realizar cambios masivos en código.
+
+
+	    Análisis de Lenguaje Natural:
+
+	    	En el procesamiento de lenguaje natural, las expresiones regulares pueden utilizarse para analizar y manipular texto, como identificar palabras clave o patrones de frase.
+
+
+	    Validación de Formularios Web:
+
+	    	En aplicaciones web, las expresiones regulares son útiles para validar los datos ingresados por los usuarios en formularios antes de enviarlos al servidor.
+
+
+	    Manejo de URL:
+
+	    	Pueden usarse para analizar y manipular URL, como extraer parámetros de consulta o analizar rutas en una aplicación web.
+
+
+	    Filtrado de Datos:
+
+	   		En procesos de procesamiento de datos, las expresiones regulares pueden utilizarse para filtrar y seleccionar datos específicos de una fuente más grande.
+
+
+	    Transformación de Datos:
+	    		
+	    	Las expresiones regulares se pueden utilizar para transformar datos de un formato a otro, como convertir un formato de fecha a otro o reformatear una cadena de texto.
+
+
+		En resumen, las expresiones regulares son una herramienta poderosa y versátil en programación y análisis de texto. 
+
+		Pueden ahorrar tiempo y esfuerzo al buscar y manipular patrones específicos en cadenas de texto, lo que las hace esenciales en una variedad de contextos de desarrollo y procesamiento de datos.
+
+
+
+
+|| Manipular DOM
+
+	Se refiere al DOM (Document Object Model) en JavaScript que ofrece funcionalidades para crear, modificar y eliminar elementos, atributos y contenido en una página web.
+
+
+    querySelector: 
+
+    	Selecciona un elemento del DOM según un selector CSS.
+
+
+    querySelectorAll: 
+
+    	Selecciona todos los elementos del DOM que coinciden con un selector CSS.
+
+
+    getElementById: 
+
+    	Obtiene un elemento por su ID.
+
+
+    getElementsByClassName: 
+
+    	Obtiene elementos por su clase.
+
+
+    getElementsByTagName: 
+
+    	Obtiene elementos por su nombre de etiqueta.
+
+
+    createElement: 
+
+    	Crea un nuevo elemento HTML.
+
+
+    appendChild: 
+
+    	Agrega un elemento hijo a otro elemento.
+    
+
+    removeChild: 
+
+    	Elimina un elemento hijo de otro elemento.
+    
+
+    replaceChild:
+
+    	Reemplaza un elemento hijo con otro.
+
+
+    innerHTML: 
+
+    	Establece o obtiene el contenido HTML interno de un elemento.
+
+
+    textContent: 
+
+    	Establece o obtiene el contenido de texto de un elemento.
+
+
+    setAttribute: 
+
+    	Establece un atributo en un elemento.
+
+
+    removeAttribute: 
+
+    	Elimina un atributo de un elemento.
+
+
+    classList.add: 
+
+    	Agrega una clase a un elemento.
+
+
+    classList.remove: 
+
+    	Elimina una clase de un elemento.
+
+
+    classList.toggle: 
+
+    	Alterna una clase en un elemento.
+
+
+    classList.contains: 
+
+    	Verifica si un elemento tiene una clase específica.
+
+
+    style: 
+
+    	Permite manipular las propiedades de estilo de un elemento.
+
+
+    addEventListener: 
+
+    	Agrega un manejador de eventos a un elemento.
+
+
+    removeEventListener: 
+
+    	Elimina un manejador de eventos de un elemento.
+
+
+    preventDefault: 
+
+    	Evita que un evento siga su comportamiento predeterminado.
+
+
+    stopPropagation: 
+
+    	Detiene la propagación del evento a través del DOM.
+
+
+    querySelector: 
+
+    	Busca un elemento que coincida con un selector.
+
+
+    querySelectorAll: 
+
+    	Busca todos los elementos que coincidan con un selector.
+
+
+    getAttribute: 
+
+    	Obtiene el valor de un atributo de un elemento.
+
+
+    ```js
+
+    	// Obtener una referencia al párrafo y al botón
+		const myParagraph = document.getElementById('myParagraph');
+		const myButton = document.getElementById('myButton');
+
+		// Cambiar el contenido del párrafo cuando se hace clic en el botón
+		myButton.addEventListener('click', () => {
+		  myParagraph.textContent = 'El contenido de este párrafo ha cambiado.';
+		  myParagraph.style.color = 'blue';
+		  myParagraph.style.fontSize = '18px';
+		});
+
+    ```
+
+
 
 || Strict Mode 
 
