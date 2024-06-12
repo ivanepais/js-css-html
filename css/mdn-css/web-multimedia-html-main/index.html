@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Web multimedia</title>
+</head>
+<body>
+	<h1>Imagenes en HTML</h1>
+	
+	<img src="images/dinosaurio-rojo.png" alt="Dinosaurio rojo atigrado sonriendo" width="350" height="220" title="Un dinosaurio sonriendo">
+	<!-- el tamaño es mejor subirla editada (mas recomendado) o editarla con css. 
+	No se recomienda usar title, mejor escribir la info en el texto del articulo. -->
+
+	<div class="figure">
+	<img src="https://raw.githubusercontent.com/mdn/learning-area/master/html/multimedia-and-embedding/images-in-html/dinosaur_small.jpg" width="200" height="171">
+
+	<p>Exposición de un T-Rex en el museo de la Universidad de Manchester.</p>
+	</div>
+	
+	<figure>
+	<img src="images/dinosaurio-rojo.png" alt="Dinosaurio rojo atigrado sonriendo" width="300" height="180" title="Un dinosaurio sonriendo">
+	<figcaption>Un lindo dinosaurio sonriendo</figcaption>
+	</figure>
+
+	<figure>
+	<img src="images/dinosaurio-rojo.png" width="350" height="220" title="Un dinosaurio sonriendo">
+	<figure>Dinosaurio atigrado rojo sonriendo</figure>
+	</figure>
+
+	<p><strong>Poner un simple vídeo en HTML:</strong></p>
+	<video src="video/rabbit320.mp4" controls></video>
+
+	<p><a href="video/rabbit320.mp4">Vídeo</a> de un simpático conejo</p>
+
+	<!-- <p> mensaje y archivo para cuando el usuario no puede ver el contenido. Formato/contenedores: mp3, mp4, webm. Codecs: -->
+
+	<p><strong>Contenido en diferentes formatos:</strong></p>	
+	<video controls>
+		<source src="video/rabbit320.webm" type="video/webm">
+		<source src="video/rabbit320.mp4" type="video/mp4">	
+		<p>Advertencia: su navegador no soporta vídeo HTML 5. Dejamos un enlace para que puedas reproducir el contenido. <a href="video/rabbit320.webm">Vídeo del conejito</a>.</p>
+	</video>
+
+	<p><strong>Más atributos para vídeos:</strong></p> 
+	<!--con autoplay no se ve el póster y queda un margen entre el video y el parrafo al reproducir</!-->
+	<video controls width="400" height="400" 
+	 loop muted preload="auto" poster="images/poster.png"> 
+		<source src="video/rabbit320.webm" type="video/webm">
+		<source src="video/rabbit320.mp4" type="video/mp4">
+		<p>Tu navegador no puede reproducir vídeo HTML5 .<a href="">Link</a>al vídeo</p>	
+	</video>
+
+	<p><strong>Elemento Audio:</strong></p>
+	<audio controls>
+		<source src="audio/audio-viper.ogg" type="audio/ogg">
+		<source src="audio/audio-viper.mp3" type="audio/mp3">
+		<p>Tu navegador no reproduce audio en HTML5. <a href="">Link</a> para que puedas reproducirlo</p>
+	</audio>
+
+	<p><strong>Subs a un medio de reproducción:</strong></p>
+	<video controls>
+   	 <source src="video/rabbit320.mp4" type="video/mp4">
+   	 <source src="video/rabbit320.webm" type="video/webm">
+     <track kind="subtitles" src="subtitles-en.vtt" srclang="en">
+	</video>
+	<!--podría agregar captions al rabbit -->
+
+	<p><strong>Video de Youtube</strong></p>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/Ei8lofB_xbE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+	<!-- iframe (audio y video), embed (complementos), object (recursos) -->
+
+ 	<!-- <embed src="whoosh.swf" quality="medium"
+       bgcolor="#ffffff" width="550" height="400"
+       name="whoosh" align="middle" allowScriptAccess="sameDomain"
+       allowFullScreen="false" type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer">
+    -->   
+
+    <!-- igual es mejor ponerlo a descarga o abrir con nav que ponerlo para leer todo el pdf en una pagina web de un sitio-->
+	<object data="mypdf.pdf" type="application/pdf"
+        width="800" height="1200" typemustmatch>
+  		<p>You don't have a PDF plugin, but you can <a href="myfile.pdf">download the PDF file.</a></p>
+	</object>
+
+	<!-- guardar los links a las explicaciones extendidas mdn
+		sandbox, security concerns, csp, licencias cc, x frame options, -->
+
+	<!-- programar/marcar un svg sin sofw dis -->
+	
+	<p><strong>SVG: un circulo y un rectangulo</strong></p>
+	<svg version="1.1"
+     baseProfile="full"
+     width="300" height="200"
+     xmlns="http://www.w3.org/2000/svg">
+  	<rect width="100%" height="100%" fill="black" />
+  	<circle cx="150" cy="100" r="90" fill="blue" />
+	</svg>
+
+	<p>Insertar SVG</p>
+	<img
+    src="images/tux-icon.svg"
+    alt="Logo de GNU/Linux: Tux"
+    height="60"
+    width="70" />
+	
+ 	<p>Compatibilidad con todos los navegadores</p>
+ 	<img src="images/tux-icon.png" alt="Logo de GNU/Linux: Tux" srcset="images/tux-icon.svg" height="75"
+    width="85">
+
+ 	<!-- Fondo con css 
+ 	background: url("fallback.png") no-repeat center;
+	background-image: url("image.svg");
+	background-size: contain; -->
+
+	<p><strong>Mi SVG:</strong> paisaje "hola mundo!"</p>
+	<svg width="600" height="200">
+		<rect width="200" height="100" fill="blue" />
+		<rect width="100" height="100" fill="green" />
+		<circle cx="50" cy="50" r="25" fill="yellow" />
+		<text x="78" y="55" font-family="Sans" font-size="18" fill="white">hola mundo!</text>
+	</svg>
+
+	<!-- Responsive HTML (con css es mejor)
+	podemos: "recortar" la imagen para que se muestre lo importante o ajustar la imagen para distintas resoluciones. 
+	-->
+	<p><strong>Not Responsive HTML:</strong></p>
+	<img src="images/set-vertical-800w.jpg" alt="Escritorio personal">
+
+	<p><strong>Responsive HTML:</strong></p>
+	<!--Ver inspector "vista diseño receptivo" con web no responsiva, despues entrar al "vista modelo de cajas" y configurar lo que va a ser la web responsiva -->
+	
+	<img srcset="images/set-vertical-320w.jpg 320w,
+				 images/set-vertical-480w.jpg 480w,
+				 images/set-vertical-600w.jpg 600w,				
+				 images/set-vertical-800w.jpg 800w" 
+		  sizes="(max-width: 320px) 280px,
+		  		 (max-width: 480px) 440px,
+		  		 (max-width: 600px) 580px,
+		  		 800px" 
+		 src="images/set-vertical.jpg" alt="Escritorio personal">
+	
+	<p>ajuste constante:</p>
+	<img srcset="images/set-vertical-480w.jpg 480w,
+                 images/set-vertical-800w.jpg 800w"
+          sizes="(max-width: 600px) 480px,
+                  800px"
+          src="images/set-vertical-800w.jpg" alt="Escritorio personal">
+
+
+	<!--max-width: 320px esta relacionado con tamaño real de srcset 
+	"cuando el ancho de la ventana gráfica es de 600 píxeles o menos", mostrar la imagen de 480
+	480px es el ancho de la ranura: que la img llenara cuando la condicion (max-width) sea verdadera.
+	La ultima ranura no tiene condicion, cuando no se cumplen las anteriores se usa esta resolucion de img 
+
+	ERRORES: 1) poner las comas mal, adelante de los valores. Va al final en los dos elementos. 2) la w al valor final. 3) la condicion
+	-->
+
+		<!--
+        <img srcset="elva-fairy-480w.jpg 480w,
+                     elva-fairy-800w.jpg 800w"
+             sizes="(max-width: 600px) 480px,
+                    800px"
+             src="elva-fairy-800w.jpg" alt="Elva dressed as a fairy">
+
+		<img srcset="elva-fairy-320w.jpg 320w,
+             elva-fairy-480w.jpg 480w,
+             elva-fairy-800w.jpg 800w"
+     		 sizes="(max-width: 320px) 280px,
+             (max-width: 480px) 440px,
+             800px"
+        -->     
+
+    <p>Adaptacion sin condiciones:(carga la primera que lee???)</p>   
+    <img 
+    srcset="images/set-vertical-320w.jpg,
+    		images/set-vertical-480w.jpg 1.5x,
+    		images/set-vertical-600w.jpg 2x" 	
+    src="images/set-vertical-800w.jpg" alt="Escritorio personal">
+
+    <p><strong>Picture: mostrar bien el objetivo</strong></p>
+    <p>imagen no adaptativa:</p>
+    <img src="images/set-vertical-600w.jpg" alt="Escritorio personal: una mesa, dos pantallas con fondo de cachorros">
+
+    <p>imagen adaptativa: objetivo, enfocar solo el escritorio</p>
+    <picture>
+    	<source media="(max-width: 799px)" srcset="images/set-vertical-art.jpg">
+    	<source media="(min-width: 800px)" srcset="images/set-vertical-800w.jpg">
+    	<img src="images/set-vertical-600w.jpg" alt="Escritorio personal: una mesa, dos pantallas con fondo de cachorros">	
+    </picture> <!-- min-width es desde x resolucion muestra y
+    				max-width es hasta x resolucion muestra y -->
+    
+	<!--<script src="scripts/main.js"></script>-->
+</body>
+</html>
