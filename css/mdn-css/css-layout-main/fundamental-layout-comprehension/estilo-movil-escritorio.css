@@ -1,0 +1,160 @@
+/* || STYLE NORMAL FLOW */
+
+body {
+    background-color: #fff;
+    color: #333;
+    margin: 0;
+    font: 1.2em / 1.2 Arial, Helvetica, sans-serif;
+  }
+
+  img {
+      max-width: 100%;
+      display: block;
+  }
+
+  /* Header */
+  
+  .logo {
+    font-size: 200%;
+    padding: 50px 20px;
+    margin: 0 auto;
+    max-width: 980px;
+  }
+  
+  /* Main Content */
+
+  .grid {
+    margin: 0 auto;
+    padding: 0 20px;
+    max-width: 980px;
+  }
+
+  /* Nav-Bar */
+  
+  nav {
+    background-color: #000;
+    padding: .5em;
+  }
+  
+  nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: .5em 1em;
+  }
+
+  /* Aside content */
+  
+  .photos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Img Float */
+
+  .feature {
+      width: 200px;
+  }
+
+  /* || MOBILE LAYOUT IN NORML FLOW */
+
+  .logo, h1,  nav ul, h2 {
+    text-align: center;
+  }
+
+  /* Img Float */
+
+  .feature {
+    margin: 0 auto;
+  }
+
+  nav ul li {
+    padding: 10px;
+  }
+
+  /* Aside content */
+
+  .photos li img {
+    margin: 0 auto;
+    margin-bottom: 1px;
+  }
+
+/* || MOBILE DESKTOP RESPONSIVE LAYOUT */
+
+  @media screen and (min-width: 40em) {
+    /* in 640px */
+
+    /* Header - Navbar */
+    .logo, main article h1, aside h2 {
+      text-align: left;
+    }
+
+    nav ul {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+    }
+
+    nav ul li {
+      flex: 1fr;
+    }
+
+    /* Img float */
+
+    .feature {
+      float: left;
+      margin-right: 25px;
+    }
+
+    /* Aside content */
+
+    .photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 10px;
+    }
+
+    .photos li img {
+      margin-bottom: 0px;
+    }
+
+  }
+
+  @media screen and (min-width: 60em) {
+    /* in 960px */  
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 99;
+    }
+
+    /* Main content */
+
+    .grid {
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      grid-gap: 20px;
+
+    }
+
+    /* Aside content */
+
+    .photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 1px;
+    }
+}
+
+
+
+
+
+

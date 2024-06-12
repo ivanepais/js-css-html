@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Alineación de cajas en bloque</title>
+</head>
+<body>
+	<h1>Alineación de cajas en bloque, posición absoluta y diseño de tablas</h1>
+	<p>La especificación de <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Alignment">Box Alignment</a> determina como funciona la alineación para cada metodo de diseño. Empezamos por la alineación en el contexto de bloque que incluyen los elementos posicionados, flotantes y de tabla. Debe leerse junto con la página <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Alignment">CSS Box Alignment</a> que detalla las propiedades para todos los metodos de diseño.</p>
+
+	<h2>align-content y justify-content</h2>
+
+	<p>La propiedad <em>justify-content</em> no se aplica a contenedores de bloque o celdas de tablas.</p>
+
+	<p>La propiedad <em>align-content</em> al eje en bloque (o dirección en bloque) para alinear el contenido de la caja dentro que está dentro del contenedor. Si el contenido necesita de <em>space-between</em>, <em>space-around</em> o <em>space-evely</em>; requieren de una alineación alternativa porque el contenido será tratado como un sujeto de alineación unico.</p>
+
+	<h2>justify-self</h2>
+	<p>Alinea un elemento dentro del bloque contenedor en el eje en linea (o dirección de contenido).</p>
+
+	<h2>align-self</h2>
+	<p>No se aplica a las cajas en bloques, incluidos los flotantes; porque hay más elementos en el eje de bloque. Tampoco se apliqua a las celdas de las tablas.</p>
+
+	<h3>Elementos con posicion absoluta</h3>
+	<p>El bloque posicionado se mueve con las propiedades <em>top</em>, <em>left</em>, <em>right</em> y <em>bottom</em>.</p>
+
+	<h2>Alineación en los metodos de diseño hoy</h2>
+	<p>No tenemos alineación compatible para los bloques, por eso se usa flexbox u otro metodo para alinear un grupo de elementos.</p>
+	<p>La alineación de bloques en horizontal antes de que exista flexbox, se hacia con margenes automaticos. Un margen en <em>auto</em> absorve el espacio, si lo usamos a la izquierda y derecha; empuja el bloque hacia el centro.</p>
+	<code>
+		.container {
+		  width: 20em;
+		  margin-left: auto;
+		  margin-right: auto;
+		}
+	</code>
+	<p>En el diseño de tabla se usa <em>vertical-align</em> para alinear el contenido de una celde de la tabla.</p>
+
+	<p>Para muchos casos de uso, podemos convertir el contenedor de bloques en un contenedor flexible para alinear horizontalmente. En el ejemplo, tenemos un contendor flex con un solo elemento: dentro del div (.box) hay un sub elemento div.</p>
+	<code>
+		.box {
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+		}
+
+		<!--
+		.box div {
+		  width: 100px;
+		  height: 100px;
+		}
+		-->
+		</code>
+	
+</body>
+</html>

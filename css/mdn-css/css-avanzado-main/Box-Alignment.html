@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index/style-index.css">
+	<title>Especificación de CSS Box Alignment</title>
+</head>
+<body>
+	<h1>CSS Box Alignment</h1>
+	<p>Especifica la alineación en los distintos metodos de diseño: block, table, flex y grid. En cada metodo cambiaran algunas cosas.</p>
+
+	<h2>Alineación heredada</h2>
+	<p>Se denomina heradado a las formas de hacer algunas cosas antiguamente, en lo que respecta a la alineación de cajas: para alinear texto usabamos <em>text-align</em>, centrar bloques usando <em>margin: auto</em> a la izquierda y derecha de cada caja y para los diseños de tabla o bloques en línea se usaba <em>vertical-align</em>.</p>
+
+	<h2>Ejemplos basicos</h2>
+	<p>Tanto en grid como flexbox, <em>justify-content</em> se usa en el eje principal y <em>align-items</em> en el eje secundario o transversal.</p>
+	<p>Para grid, el eje principal es la dirección en línea (texto) y el eje secundario es la dirección en bloque (cajas).</p>
+	<p>En flex, el eje principal se alinea con justify-content y el transversal se alinea con align-items. Con la propiedad <em>flex-dirección</em> podemos cambiar la dirección de los ejes, sin necesidad de cambiar el <em>writing-mode</em>.</p>
+
+	<p>Los ejes dependen del <em>writing-mode</em> y las propiedades de alineación se aplican en el contenedor.</p>
+
+	<h3>Ejemplo en Grid</h3>
+	<p>Podemos sobreescribir la alineación del contenedor para algún elemento.</p>
+	<code>
+		.box {
+  display: grid;
+  width: 540px;
+  grid-template-columns: 120px 120px 120px;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.box :first-child {
+    align-self: center;
+}
+	</code>
+
+	<h3>Ejemplo en Flexbox</h3>
+	<p>Podemos hacer lo mismo del ejemplo anterior.</p>
+	<code>
+		.box {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.box :first-child {
+    align-self: center;
+}
+	</code>
+
+	<h2>Conceptos claves y terminología</h2>
+	<p>La especificación determina conceptos para facilitar la comprensión del apartado Box Alignment.</p>
+
+	<h3>Relación con los modos de escritura</h3>
+	<p>La alineación está vinculada a los modos de escritura, no depende de los lugares fisicos de la caja como arriba, abajo, etc. Si no desde dónde empieza y termina un elemento, esto se ve facilmente en los valores de writing mode; de manera que la alineación funcione sea cual éste valor.</p>
+	
+	<h3>Las dos dimensiones de alineación</h3>
+	<p>las propiedades de alineación de cuadro, alineará el contenido en uno de dos ejes: el eje en línea/principal (hacia donde fluyen las palabras) y el eje de bloque/transversal (hacia donde fluyen las cajas/elementos, atraviesa al primero).</p>
+	<p>Para alinear en línea se utilizan las propiedades <em>justify-content/items/self</em>. Para los elementos en bloque se utilizan las propieades <em>align-content/items/self</em>.</p>
+	<p>En flexbox, si cambiamos el valor de <em>flex-direction: row</em> a <em>column</em>, se invierte la dirección de las palabras y los elementos. Aquí es más facil pensar en eje principal (justify) y en eje transveral (align) esto es lo que no se cambia.</p>
+
+	<h3>Sujeto y contenedor de la alineación</h3>
+	<p>Es <em>lo que se está alineando</em>, en justify-items o align-items es la caja de los elementos. En justify-content o align-content es el contenedor de elementos.</p>
+
+	<h3>Fallback en la alineación</h3>
+	<p>Si establece una alineación que no se puede cumplir, la alineación alternativa entrará en juego y se ocupará del espacio disponible. Esta alineación alternativa se especifica individualmente para cada método de diseño.</p>
+
+	<h2>Tipos de alineación</h2>
+	<p>Hay tre tipos de alineación, son valores en palabras claves:</p>
+	<ul>
+		<li><strong>Positional alignment</strong>: es la posición de un sujeto de alíneación en relación con su contenedor.</li>
+		<li><strong>Baseline alignment</strong>: está palabra clave, define la alineación como una relación entre las líneas de multiples sujetos de alineación dentro de un contexto de alineación.</li>
+		<li><strong>Distrituted alignment</strong>: sus palabras claves definen la alineación como una distribución de espacios entre los sujetos/elementos/cajas de alineación.</li>
+	</ul>
+
+	<h3>Palabras claves de Positional alignment</h3>
+	<p>Son valores para <em>justify-content/items/self</em> y <em>align-content/items/self</em>.</p>
+	<ul>
+		<li>center</li>
+		<li>start</li>
+		<li>end</li>
+		<li>self-start</li>
+		<li>self-end</li>
+		<li>flex-start (solo para flexbox)</li>
+		<li>flex-end (solo para flexbox)</li>
+		<li>left</li>
+		<li>right</li>
+	</ul>
+	<p>Los <em>valores fisicos</em> como left y right se relacionan con los lados de la pantalla/caja pero los <em>valores lógicos</em> se relacionan con el inicio y final de los elementos en el writing-mode.</p>
+
+	<p>Por ejemplo, en Grid si ponemos <em>justify-content: start</em> es una propiedad para el eje en línea/principal. Si estamos en modo de escritura ingles, el inicio de los elementos están a la izquierda de la pantalla.</p>
+	<p>En arabe, empiezan desde la izquierda (start) hacia la derecha (end).</p>
+
+	<h3>Alineación para Baseline alignment</h3>
+	<p>Los valores se usan para alinear las líneas de base a traves de un grupo de sujetos o elementos. Funcionan con las propiedades justify-content o align-content.</p>
+	<ul>
+		<li>baseline</li>
+		<li>first-baseline</li>
+		<li>last-baseline</li>
+	</ul>
+	<p>Funcionan en las líneas de los metodos de diseño, los elementos/sujeto se alinearán en la línea base agregando paddig o relleno en éstas.</p>
+
+	<p>Self alignment en baseline mueve las cajas/elementos para alinearlos por línea de base agregando un margen fuera de los cuadros. Cuenta como <em>self alignment</em> cuando se usa <em>justify-self</em> o <em>align-content</em>, o cuando se establecen estos valores en un grupo de elementos con <em>justify-items</em> o <em>align-items</em>.</p>
+
+	<h3>Distributed alignment</h3>
+	<p>Sus valores definen lo que sucede con cualquier espacio adicional después de que se hayan mostrado/puesto los elementos en el sitio. Se usan en justify-content y align-content, sus valores son:</p>
+	<ul>
+		<li>stretch</li>
+		<li>space-between</li>
+		<li>space-around</li>
+		<li>space-evely</li>
+	</ul>
+	<p>Debe haber espacio disponible en la dimensión en la que desea alinear los elementos para que estas palabras clave surtan efecto. Sin espacio, no hay nada que distribuir.</p>
+	<p>Se usan frecuentemente con flexbox para alinear elemenentos dentro de contenedores.</p>
+
+	<h2>Espacios entre cajas</h2>
+	<p>La especificación para la alineación tambien incluye las propiedades <em>column-gap</em>, <em>row-gap</em> y <em>gap</em> para los espacios entre los elementos. Permiten los espacios fijos entre filas columnas, elementos, etc.</p>
+
+	<h2>Desbordamiento en la alineación</h2>
+	<p>Tiene palabras claves como <em>unsafe</em> y <em>safe</em> que determinan un comportamiento cuando los elementos alineados son más grandes que el contenedor. Safe se alineará el elemento al inicio en caso de que se provoque un desbordamiento, para que no se pierda contenido. Unsafe dejará el desbordamiento, incluso si hay perdida de contenido.</p>
+
+</body>
+</html>

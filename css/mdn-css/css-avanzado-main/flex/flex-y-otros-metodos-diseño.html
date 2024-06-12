@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Flexblox y su relación con otros metodos de diseño</title>
+</head>
+<body>
+
+	<h2>Modulo de alineación de cajas</h2>
+	<p>Algunas propiedades de alineación de elementos flexibles son parte del <a href="https://www.w3.org/TR/css-align-3/">Modulo de alineación de cajas</a> que especifica las propiedades para la alineación de elementos en todos los metodos de diseño: normal flow, flex, grid, etc.</p>
+	<p>Hay una nota en la especificación de flexbox que indica que en el futuro, una vez que se complete, las definiciones en Box Alignment Level 3 reemplazarán a las de flexbox</p>
+
+	<h2>Writting mode</h2>
+	<p>Flexbox se adapta a los modos de escritura que determina la propiedad <em>writing-mode</em> con sus valores:</p>
+	<ul>
+		<li>horizontal-tb: Por defecto, usado en los idiomas en latin.</li>
+		<li>vertical-rl: usado en idiomas y cultura japonesa, china.</li>
+		<li>vertical-lr</li>
+		<li>sideways-rl: (solo en firefox).</li>
+		<li>sideways-lr: (solo en firefox).</li>
+	</ul>
+	<p>Esta propiedad se usa para cuestiones creativas de diseño ya que estamos en CSSS, no se usa para cambiar el idioma de un documento completo. Esto se hace desde HTML con los atributos <em>dir</em> y <em>lang</em> para indicar la dirección de texto y su idioma.</p>
+
+	<h2>Flexbox y otros metodos de diseño</h2>
+	<p>Por ejemplo, si un elemento flota y luego su padre se convierte en un contenedor flexible, cómo se comporta un contenedor flexible como parte del diseño.</p>
+	<p>La propiedad float y cleaner no se aplica a un elemento en el contenedor flexible y los márgenes del contenedor flexible no colapsan con los márgenes de su contenido. </p>
+	<p>Para las alineaciones usamos las propiedades de flex.</p>
+
+	<h2>Flex y Grid</h2>
+	<p>Con flex y grid podemos sobreescribir otros metodos, los reemplazamos, no se aplican todos juntos. Si un elemento flexible se convierte en un elemento de cuadrícula, se ignorarán las propiedades flexibles que se hayan asignado a los elementos secundarios. Se puede usar flex para reemplazar un grid, en un navegador antiguo para dar compatibilidad y no cambiar tanto el diseño, ademas podemos usar las propiedades de <em>Box alignment</em> para alinear los elementos.</p>
+	<p>Podemos crear diseños muy similares:</p>
+	<p>Flex:</p>
+	<code>
+		<!--         
+		.box {
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        .box>* {
+          flex: 1 1 200px;
+        }
+    	-->
+    </code>
+
+    <p>Grid:</p>
+	<code>
+		<!-- 
+	  	.box {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, auto));
+          }
+      	-->
+    </code>
+	<p>Diferencias:</p>
+	<ul>
+		<li>Diseño unidimensional en flex (todos los elementos se agrupan en fila o columna) versus, diseño bidimensional en grid (los elementos se agruparán en filas y columnas).</li>
+		<li>Hay diferencias en cuanto a como se ordenan (en flex se ubican todos los elementos seguidos, en una dirección; en grid se puede elegir el orden de un elemento, le damos una ubicación en la cuadrícula), como se configuran los espacios entre los elementos, etc.</li>
+	<p>En algunos casos se pueden usar los dos, pero en otros es mejor uno u otro. Aunque con el tiempo se dará cuenta cual funciona mejor para cada caso.</p>
+	</ul>
+
+	<h2>Flex y la propiedad display: contents</h2>
+	<p>La propiedad <em>display: contents</em>.</p>
+	<p>Ejemplo, tengo un contenedor flexible con tres elementos secundarios. Uno de estos elementos flexibles tiene <em>dos elementos anidados</em>, que <span>normalmente no participarían en el diseño flexible</span>. El diseño flexible solo se aplica a los hijos directos de un contenedor flexible.</p>
+	<p>Al agregar display: contents al envoltorio alrededor de los elementos anidados, puede ver que el elemento ha desaparecido del diseño, lo que permite que los dos subelementos se presenten como si fueran elementos secundarios directos del contenedor flexible. Puede intentar eliminar la pantalla: línea de contenido para verla regresar.</p>
+	<p>Tenga en cuenta que esto solo elimina el cuadro del diseño; los subhijos no se vuelven hijos directos de ninguna otra manera. Puede ver que, como he usado un selector secundario directo para agregar el fondo y los bordes a los elementos flexibles, esto no se ha aplicado a nuestros elementos secundarios anidados. Se han presentado como artículos flexibles, pero como no son hijos directos, no obtienen el otro estilo.</p>
+	<p>Al haber eliminado estilo con display: contents; no puede usarlo para, por ejemplo, agregar un color de fondo detrás de los subhijos anidados</p>
+	<code>
+	    <!--	
+	        .box {
+            display: flex;
+        }
+
+        .nested {
+            background-color: orange;
+            display: contents;
+        }
+    	-->
+    </code>
+	<p>Esta característica será muy útil en circunstancias en las que necesite el marcado por razones semánticas pero no desee mostrar el cuadro que generaría de forma predeterminada.</p>
+</body>
+</html>

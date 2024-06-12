@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index.css">
+	<title>Flujo normal - CSS</title>
+</head>
+<body>
+	<h1>Capitulo 2: Flujo normal</h1>
+	<p>Es el comportamiento por defecto que tienen diferentes elementos sino se cambia con <a href="https://developer.mozilla.org/es/docs/Web/CSS/display">display</a>. Es una buena practica comenzar el documento con el flujo normal y despues hacer las modificaciones.</p>
+	<h2>Presentación de los elementos por defecto</h2>
+	<p>Al contenido de una caja se le añade padding (relleno), border y margin. El modelo de caja más facil de aplicar es el que se usa con <em>box-sizing: border-box</em> en el cual las propiedades anteriores no afectan a la caja cambiando su anchura y altura dado.</p>
+	<code>
+		<!--
+			<h1>Basic document flow</h1>
+			<p>
+			  I am a basic block level element. My adjacent block level elements sit on new
+			  lines below me.
+			</p>
+
+			body {
+			  width: 500px;
+			  margin: 0 auto;
+			}
+
+			p {
+			  background: rgba(255, 84, 104, 0.3);
+			  border: 2px solid rgb(255, 84, 104);
+			  padding: 10px;
+			  margin: 10px;
+		 -->
+	</code>
+
+	<p>El contenido de un <a href="https://developer.mozilla.org/es/docs/Web/HTML/Block-level_elements">elemento en bloque</a> va a ocupar el 100% del ancho de su elemento padre, por ejemplo, si el padre de un parrafo es el body va a ocupar todo su espacio asignado en horizontal. Un <a href="https://developer.mozilla.org/es/docs/Web/HTML/Inline_elements">elemento en línea</a> tiene su ancho y alto determinado por su contenido, no se puede cambiar a menos que se utilize <em>display</em> en block o inline-block.</p>
+	<p>Estos elementos interactuan mediante <a href="https://developer.mozilla.org/es/docs/Web/CSS/writing-mode">writting-mode</a> que determina como van apareciendo u ordenandose los elementos, los bloques aparecen uno debajo de otro, los en línea se ordenan uno al lado de otro que se debe a la <em>dimensión en bloque</em>, y el contenido va a fluir de izquierda a derecha que es su <em>dimensión en linea</em> siempre y cuando el valor de writting-mode sea <em>horizontal-tb</em> (tb es top-buttom, como aparecen los bloques), es el que viene por defecto en el flujo normal en los elementos padres.</p>
+	<p>Si dos elementos adyacentes tienen margen aplicado, se impondrá el más grande debido al <em>colapso de margen</em>.</p>
+</body>
+</html>

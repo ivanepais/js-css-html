@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Estilizar fuente y texto</title>
+	<link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+	<h1>Fundamentos de texto y fuentes tipograficas</h1>
+	<p>Los fundamentos de su diseño son el grosor (<em>font-weight</em>), familia (<em>font-family</em>) y estilo de letra (<em>font-style</em>), las propiedades abreviadas, la alineación del texto (<em>text-alignment</em>), espaciado entre línea (<em>line-height</em>) y espaciado entre letras (<em>letter-spacing</em>) entre otras propiedades.</p>
+
+	<h2>Aplicar estilo al texto</h2>
+	<p>El texto del elemento dentro de una caja empieza en la parte superior izquierda en caso de usar la dirección de izquierda a derecha. Este texto de contenido fluye hacia el final de la linea, baja y repite hasta llenar la caja, como se explica en el apartado de <em>Box Model y direcciones de texto</em>.</p>
+	<p>Las <strong>propiedades</strong> de CSS para aplicar estilo al texto pueden clasificarse en dos categorias que veremos por separado:</p>
+	<ul>
+		<li><strong>Estilos del tipo de letra</strong> (font-styles): <em>Afectan al texto</em> como el tipo de letra, tamaño, negrita, cursiva, etc.</li>
+
+		<li><strong>Estilos de disposición del texto</strong> (text layout styles): <em>Afectan al espaciado</em> y otras caracteristicas de disposición de texto.</li>
+	</ul>
+	<p>Se aplica a todo el texto, no se aplica por partes de texto a menos que esten etiquetados con <em>span</em> y <em>strong</em>. Con pseudo elementos como <a href="https://developer.mozilla.org/es/docs/Web/CSS/::first-letter">::firs-latter</a> (primera letra del texto de un elemento), <a href="https://developer.mozilla.org/es/docs/Web/CSS/::first-line">::first-line</a> (primera linea del texto de un elemento) o <a href="https://developer.mozilla.org/es/docs/Web/CSS/::selection">::selection</a> (selecciona el texto que esta resaltado por el cursor). Así se seleccionamos una parte del texto.</p>
+
+	<h2>Tipos de letra (Fonts)</h2>
+	<p>Veremos propiedades que afectan al tipo de letra (se aplican al texto).</p>
+
+	<h3>Color</h3>
+	<p>Establece el <a href="https://developer.mozilla.org/es/docs/Web/CSS/color"></a>color del contenido de los elementos selecionados. Su <em>valor</em> puede ser cualquier <em>unidad de color</em> como palabras clave (ej, blue), codigos, etc. Tambien se puede aplicar a <em>text-decoration</em> (subrayados para el texto). El color negro es el estandar.</p>
+	<p>Ejemplo: si usamos el selector de elemento <em>p</em> con el color rojo, el contendio de este elemento se pondrá rojo.</p>
+
+	<h3>Familia de tipos de letras</h3>
+	<p>Usamos <a href="https://developer.mozilla.org/es/docs/Web/CSS/font-family">font-family</a> para definir un <em>tipo de letra diferente para el texto</em>. Indica el tipo de letra (o una lista) para aplicar al texto de los elementos. El navegador le mostrará la letra seleccionada si los visitantes al sitio, la disponen en su computadora o dispositivo. De lo contrario, seleccionará la <em>default font</em> del navegador. Tambien podemos usar las fuentes de google, ningun dispositivo tendrá problemas.</p>
+	<code>
+		<!--
+			p {
+			  font-family: arial;
+			}
+		 -->
+	</code>	
+
+	<h4>Tipos de letras seguros para la web</h4>
+	<p>Solo hay una cantidad limitada de tipos de letras disponibles en los dispositivos sin preocupaciones. Estos tipos de letras se llaman <strong>web safe fonts</strong>.</p>
+	<p>Los desarrolladores web desean tener un control sobre los tipos de letras para el contenido de texto. No hay manera de saber que fuentes disponen los dispositivos que van a acceder a la web. Pero todos los sistemas tienen tipos de letras seguras para la web. En <a href="https://es.wikipedia.org/wiki/Core_fonts_for_the_Web">Wikipedia</a> hay un articulo que detalla una lista con fuentes seguras comunes en los sistemas, aunque pueden cambiar y evolucionar con los sistemas operativos.</p>
+	<ul>
+		<li><strong>Arial</strong>: Es un tipo de letra sans-serif. Tambien se podría añadir Helvetica que es más agradable.</li>
+		<li><strong>Courier New</strong>: Es de tipo monospace, hay una más antigua que se llama Courier. Es buena practica añadir a las dos.</li>
+		<li><strong>Georgia</strong>: Es de tipo serif, tiene una forma elegante y clasica de periodico, parecida a Times New Roman</li>
+		<li><strong>Times New Roman</strong>: es de tipo serif, tiene una version más antigua llamada Times, es una buena practica agregar las dos.</li>
+		<li><strong>Trebuchet MS</strong>: es sans-serif, este tipo de letra no suele estar en los dispositivos moviles, hay que tener cuidado al usarla.</li>
+		<li><strong>Verdana</strong>: es sans-serif, con una estetica moderna muy agradable.</li>
+	</ul>
+	<p>El sitio <a href="http://www.cssfontstack.com/">cssfontstack</a>, tiene una lista para elegir tipos de letras seguros para distintos sistemas operativos.</p>
+	<p>El articulo <a href="https://developer.mozilla.org/es/docs/Learn/CSS/Styling_text/Web_fonts"></a>web font, profundiza este tema, tambien lo veremos pero más adelante.</p>
+
+	<h4>Fuentes predeterminadas</h4>
+	<p>CSS define cinco nombres genericos para los tipos de letra, <em>serif</em>, <em>sans-serif</em>, <em>monospace</em>, <em>cursive</em>, <em>fantasy</em> y <em>fantasy</em>. Son genericos y el tipo de letra exacto que se va a utilizar cuando se determinen, dependerá de cada navegador y varia en los sitemas operativos. El peor escenario es que el navegador tratará de proporcionar al menos una fuente que parezca apropiada. serif, sans-serif y monospace son predecibles, pero cursive y fantasy, no. El navegador debería proporcionar algo razonable, las dos ultimas son menos recomendables.</p>
+	<ul>
+		<li><strong>serif</strong>: Tipo de letra que tiene adorno en los extremos de los trazos, pueden ser redondeados o planos.</li>
+		<li><strong>sans-serif</strong>: Letras que carecen de serifas (adornos)</li>
+		<li><strong>monospace</strong>: Cada caracter tiene el mismo ancho, se usa en codigo de programación, en los editores, terminales de los OS.</li>
+		<li><strong>cursive</strong>: intentan emular la letra manuscrita, con trazos fluidos y conectados</li>
+		<li><strong>fantasy</strong>: Tipo de letra decoraciva.</li>
+	</ul>
+
+	<h4>Listas de tipos de letras</h4>
+	<p>Ya que no podemos garantizar qué tipo de letra tienen en el sistema los que visitan la web, puedes proporcionar una <em> lista de tipos de letras</em> para que el navegador pueda elegir.</p>
+	<p>Con la propiedad <em>font-family</em> eleguimos como valores los tipo de letra y las separamos con una coma.</p>
+	<p>El navegador comienza al principio y busca el tipo de letra que esta disponible en el sistema o dispositivo.</p>
+	<p>Proporcionar un <em>tipo de letra generico</em> (serif, sans-serif y monospace) al final de la lista para que el navegador pueda proporcionar la go medianamente adecuado en el caso de que no haya ningun <em>tipo de letra segura</em> (Arial, Helvetica, Times New York, Verdana).</p>
+	<code>
+		<!--
+			p {
+			  color: red;
+			  font-family: Helvetica, Arial, sans-serif;
+			}
+
+			p {
+			  font-family: "Trebuchet MS", Verdana, sans-serif;
+			}
+		-->
+	</code>
+
+<h3>Tamaño de la letra</h3>
+<p>En el articulo <a href="https://developer.mozilla.org/es/docs/Learn/CSS/Building_blocks/Values_and_units">unidades y valores</a> revisamos las unidades de longitud y tamaño. El tamaño del tipo de letra (establecido con <a href="https://developer.mozilla.org/es/docs/Web/CSS/font-size">font-size</a>) puede tomar estos valores en estas unidaes y porcentajes.</p>
+<p>Pero las unidades más comunes para ajustar el tamaño del texto son:</p>
+<ul>
+	<li><strong>px</strong>: (pixeles), numero de pixeles de altura para el texto. Es una unidad absoluta, su valor es intrínseco no depende de otro elemento.</li>
+	<li><strong>em</strong>: 1em equivale al tamaño fuente que se haya establecido en el elemento que estamos diseñando, ej: si el elemento que diseñamos tiene font-size de 16px, será 1em (puede tener fuente heredada -cuando no la cambiamos-, se ve en el inspector); 2rem = 32px, haciendo la multiplicación, así sucesivamente. Puede ser complejo cuando hay muchos elementos anidados con diferentes tamaños de letra, pero podemos usar <em>em</em> para estatablecer el tamaño de todo, lo que facilita su mantenimiento.</li>
+	<li><strong>rem</strong>: 1rem equivale al tamaño del elemento raiz de todo el documento es <em>html</em> que tiene 16px de tamaño de letra, entonces, 1rem es solo 16px; 2rem es 32px. Si redefinimos el tamaño de fuente del elemento raíz (<em>HTML</em>), en 10px; 1rem = 10px y 2rem = 20px, etc.</li>
+ 	</ul>	
+	<p>La <em>font-size</em> de un elemento se hereda del elemento raiz <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/html">HTML</a> que tiene 16px en todos los navegadores. Cualquier parrafo que no tenga definido un tamaño, va a heredar 16px del elemento HTML.</p>
+	<p>Las cosas se complican cuando se altera el tamaño de letra de los elementos anidados. ej: si en la etiqueta contenedor <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/article">article</a> con 1.5em que resulta 24px y luego quieres que los parrafos dentro tengan tamaño de 20px. Se necesitará establecer el tamaño en 20/24em que es 0.8,33em. Lo mejor es usar <em>rem</em> donde se pueda, simplificarán las cosas. Evitar establecer un tamaño de letra concreto para los elementos del contenedor. No es compatible con Windows 8 y anteriores.</p>
+
+	<h3>Rem vs Em</h3>
+	<p>Para tamaño de fuente (font-size) usamos <em>rem</em> para elementos que tienen que tener tamaños fijos y relativos al tamaño raíz. Cuando necesitamos que el tamaño de los elementos se adapte al cambio de tamaño del texto. usamos <em>em</em>. Por ejemplo, para valores de padding, margin, etc.</p>
+	<p>De otra forma practica, puede ir probando valores en em o rem y cambiando el tamaño de los elementos para ver cual unidad se adapta mejor a lo que desea.</p>
+
+	<h4>Ejemplo de definición de tamaños</h4>
+	<p>Es una buena idea de establecer el tamaño basico del texto del documento (HTML) en 10px, así los calculos son sencillos, los valores r/em que necesites son el tamaño de letra en px, dividido por 10 y no por 16. Luego establecemos los diferentes tamaños que el documento necesite. Hacemos una lista de reglas para <em>font-size:</em></p>
+	<code>
+		<!--
+			html {
+		  		font-size: 10px;
+			}	
+
+			h1 {
+		  		font-size: 2.6rem;
+			}		
+
+			p {
+		  		font-size: 1.4rem;
+		 		color: red;
+		  		font-family: Helvetica, Arial, sans-serif;	
+			}
+		-->
+	</code>
+	<p>Vemos que el titulo queda con 26px, el parrafo con 14px.</p>
+
+	<h3>Estilo y cuerpo del tipo de letra, efectos y decoraciones al texto</h3>
+	<p>CSS proporciona cuatro <em>propiedades</em> para alterar el efecto visual y enfasis del texto:</p>
+	<ul>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/font-style">font-style</a>: Se usa para activar o desactivar la cursiva (se usa poco, a menos que necesites cursivas), tiene tres valores:</li>
+			<ul>
+				<li>normal: Valor por defecto (desactiva la cursiva).</li>
+				<li>italic: Pone el texto en cursiva, si el sistema del visitante lo tiene, sino usará el estilo oblique</li>
+				<li>oblique: Inclina la version normal.</li>
+			</ul>
+
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/font-weight">font-weight</a>: Establece el gruso o peso del texto, tiene muchos valores y variantes (light, normal, extrabold, bold) pero los que se usan son normal y bold.</li>
+			<ul>
+				<li>normal, bold: Grueso normal (defecto) y negrita</li>
+				<li>lighter, bolder: Gruego negrita, en un nivel por debajo (lighter) o por encima (bolder) del elemento padre.</li>
+				<li>100-900: Valores numericos de negrita, permite un control más detallado que los valores en palabra.</li>	
+			</ul>
+
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/text-transform">text-transform</a>: permite transformaciones sobre el tipo de letra, con los valores:</li>
+			<ul>
+				<li>none: Impide la transformación.</li>
+				<li>uppercase: Pone todo el texto en mayus.</li>
+				<li>capitalize: Transforma las letras iniciales de cada palabra en el texto.</li>
+				<li>full-width: Transforma los caracteres para cada uno quede dentro de una caja de ancho fijo, similar a una fuente monoespaciada. Permite la alineacion de caracteres occidentales con los asiáticos.</li>
+			</ul>
+
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/text-decoration">text-decoration</a>: decora el texto (principalmente se usa para desactivar el subrayado por defecto de los enlaces).</li>
+			<ul>
+				<li>none: Desactiva la decoración presente del texto.</li>
+				<li>underline: Subraya el texto.</li>
+				<li>overline: Proporciona una linea arriba del texto.</li>
+				<li>line-through: Coloca un tachado sobre el texto.</li>
+			</ul>
+	</ul>
+	<p>Text-decoration es una propiedad abreviada de <a href="">text-decoration-line</a> por esto puede aceptar varios valores a la vez.</p>
+
+	<h3>Textos sombreados</h3>
+	<p>La propiedad <em>text-shadow</em> aplica sombras al texto, consta de 4 valores.</p>
+	<code>
+			<!--text-shadow: 1px 1px 1px red; -->
+	</code>
+
+	<ul>
+		<li>Desplazamiento horizontal: Admite la mayoría de las <a href="https://developer.mozilla.org/es/docs/Learn/CSS/Building_blocks/Values_and_units">unidades y magnitudes</a> pero se suele utilizar <em>px</em> Es obligatorio, va de der (pos) a izq (neg)</li>
+		<li>Desplazamiento vertical: Se comporta como el anterior y tambien es obligatorio, va de abajo (pos) hacia arriba (neg)</li>
+		<li>Radio de desenfoque: Cuanto más alto es este valor, mayor será la dispersión. Si no se incluye es 0. Las magnitudes soportadas son como las de los anteriores valores.</li>
+		<li>Color: Admite todos los colores soportados por CSS <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value"></a>, su valor por defecto el negro sino se pone uno.</li>
+	</ul>
+	<p><strong>Nota:</strong> Los desplazamientos de las sombras aceptan valores negativos que cambian la dirección de la sombra.</p>
+
+	<h4>Sombras multiples</h4>
+	<p>Se pueden aplicar separando con una coma el grupo de valores que define cada sombra individual. Todo a un solo elemento.</p>
+	<code>
+		<!-- 
+			text-shadow: -1px -1px 1px #aaa,
+             0px 4px 1px rgba(0,0,0,0.5),
+             4px 4px 5px rgba(0,0,0,0.7),
+             0px 0px 7px rgba(0,0,0,0.4); 
+         -->
+	</code>
+    <p>Se pueden ver más usos en este articulo de <a href="https://www.sitepoint.com/moonlighting-css-text-shadow/">Sitepoint</a>.</p>
+
+    <h2>Diseño del texto</h2>
+    <p>Despues de las propiedades basicas para el tipo de letra, toca dar un vistazo a las propiedades para la disposición del texto.</p>
+
+    <h3>Alineación del texto</h3>
+    <p>La propiedad <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-align">text-align</a> se usa para mover el texto dentro de la caja, sus <em>valores</em> son los siguientes:</p>
+    <ul>
+    	<li><strong>left</strong>: Alinea el texto por la izquierda.</li>
+    	<li><strong>right</strong>: Alinea el texto por la derecha.</li>
+    	<li><strong>center</strong>: Centra el texto.</li>
+    	<li><strong>justify</strong>: Varía los espacios entre las palabras para que todas las líneas de texto tengan el mismo ancho, cuando hay palabras largas en el texto hay que tener cuidado. Se puede combinar con la propiedad <a href="https://developer.mozilla.org/es/docs/Web/CSS/hyphens"> hyphens</a> para dividir las palabras largas entre las líneas.</li>
+    </ul>
+
+    <h3>Interlineado</h3>
+    <p>La propiedad <a href="https://developer.mozilla.org/es/docs/Web/CSS/line-height">line-height</a> determina la altura entre cada línea de texto, admite los valores del apartado <a href="https://developer.mozilla.org/es/docs/Learn/CSS/Building_blocks/Values_and_units"> unidades y magnitudes</a>, pero tambien puede tomar un valor sin unidades que actúa como multiplicador de <em>font-size</em> para determinar la altura entre líneas, es la mejor opción, como se ve en el ejemplo: 1.5 o 2 para doblar la altura de la fuente. Se usa para que el texto del <em>body</em> se vea mejor.</p>
+    <code>
+    	<!--
+			p {
+			  line-height: 1.6;
+			}
+			
+			html {
+			  font-size: 10px;
+			}
+
+			h1 {
+			  font-size: 5rem;
+			  text-transform: capitalize;
+			  text-shadow: 1px 1px 1px red, 2px 2px 1px red;
+			  text-align: center;
+			}
+
+			h1 + p {
+			  font-weight: bold;
+			}
+
+			p {
+			  font-size: 1.5rem;
+			  color: red;
+			  font-family: Helvetica, Arial, sans-serif;
+			  line-height: 1.6;
+			}
+    	 -->
+    </code>
+
+	<h3>Espaciado entre letras y palabras</h3>
+	<p>Las propiedades <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing">letter-spacing</a> y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing">word-spacing</a> son utilies para lograr algun efecto o para aumentar la visibilidad de algun tipo de letra condensada.</p>
+	<code>
+		<!--
+			p::first-line {
+			  letter-spacing: 4px;
+			  word-spacing: 4px;
+			}
+
+			html {
+			  font-size: 10px;
+			}
+
+			h1 {
+			  font-size: 5rem;
+			  text-transform: capitalize;
+			  text-shadow: 1px 1px 1px red, 2px 2px 1px red;
+			  text-align: center;
+			  letter-spacing: 2px;
+			}
+
+			h1 + p {
+			  font-weight: bold;
+			}
+
+			p {
+			  font-size: 1.5rem;
+			  color: red;
+			  font-family: Helvetica, Arial, sans-serif;
+			  line-height: 1.6;
+			  letter-spacing: 1px;
+			}
+		 -->
+	</code>
+
+    <h3>Otras propiedades interesantes</h3>
+    <p>Podrías explorar las siguientes para el tipo de letra:</p>
+    <ul>
+    	<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/font-variant">font-variant</a>: Cambia entre las opciones de versalita y normal.</li>
+    	<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-kerning">font-kerning</a>: Activa/Desactiva las opciones de interletraje</li>
+    	<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-feature-settings">font-feature-settings</a>: Activa/Desactiva diversas caracteristicas de los tipos de letras <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-feature-settings">OpenType</a></li>
+    	<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/font-variant-alternates">font-variant-alternates</a>: Controla el uso de los caracteres alternativos para un tipo de letra dado.</li>
+    	<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-caps">font-variant-caps</a>: Controla el uso de los caracteres alternativos de las mayúsculas.</li>
+    	<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-ligatures">font-variant-ligatures</a>: Armoniza la forma esteticas del texto.</li>
+    	<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric">font-variant-numeric</a>: Modifica la estetica de la representación de los numeros.</li>
+    	<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-position">font-variant-position</a>: Controla como se ve el tamaño de los subíndices y superíndices.</li>
+    	<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/font-size-adjust">font-size-adjust</a>: Ajusta el tamaño visual del texto independientemente del tamaño de la fuente.</li>
+    	<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-stretch">font-stretch</a>: Cambia entre posibles versiones ampliadas de un tipo de letra determinado.</li>
+    	<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-underline-position">text-underline-position</a>: especifica la posición de los subrayados.</li>
+    	<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-rendering">text-rendering</a>: Mejora la visualización del texto.</li>
+    </ul>
+    
+    <p><span>Para ver ejemplos en la documentación de MDN cambiar el idioma al ingles.</span></p>
+    <p>Otras propiedades para la disposión del texto:</p>
+    <ul>
+    	<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-indent">text-indent</a>: Afecta al espacio horizontal antes del comienzo de la primera línea del texto</li>
+    	<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/text-overflow">text-overflow</a>: Define como se va a mostrar el contenido que no entra en la caja.</li>
+    	<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/white-space">white-space</a>: Define como se usan los espacios en blanco y los saltos de linea asociados dentro del elemento.</li>
+    	<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/word-break">word-break</a>: Especifica si se deben dividir las palabras al final de la linea.</li>
+    	<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/direction">direction</a>: Define la dirección del texto, como es un tema complicado, así que hay un apartado exclusivo. Es mejor dejarlo por defecto en un principio.</li>
+    	<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/hyphens">hyphens</a>: Activa/Desactiva la separación de las palabras en idiomas permitidos.</li>
+    	<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-align-last">text-align-last</a>: Define la ultima alineacion de la ultima línea de un bloque o línea justo antes de un salto de línea forzado.</li>
+    	<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/text-orientation">text-orientation</a>: Define la orientación del texto en una línea.</li>
+    	<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap">word-wrap</a>: especifica si el navegador puede dividir palabras al final de la línea para evitar desbordamientos del contenido.</li>
+    	<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/writing-mode">writing-mode</a>: Modifica las lineas de texto para que se puedan ver en horizontal (normal) o vertical.</li>
+    </ul>
+
+    <h2>Propiedades abreviadas para el texto</h2>
+    <p>Se pueden escribir solo con la propiedad <a href="https://developer.mozilla.org/es/docs/Web/CSS/font">font</a> agregando los valores que pertenecen a las demas propiedades seguidos. Se escriben en este orden: <a href="https://developer.mozilla.org/es/docs/Web/CSS/font-style">font-style</a>, <a href="https://developer.mozilla.org/es/docs/Web/CSS/font-variant">font-variant</a>, <a href="https://developer.mozilla.org/es/docs/Web/CSS/font-weight">font-weight</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-stretch">font-stretch</a>, <a href="https://developer.mozilla.org/es/docs/Web/CSS/font-size">font-size</a>, <a href="https://developer.mozilla.org/es/docs/Web/CSS/line-height">line-height</a> y <a href="https://developer.mozilla.org/es/docs/Web/CSS/font-family">font-family</a>.</p>
+    <p>Siendo obligatorias <em>font-size</em> y <em>font-family</em></p>
+    <p>Ademas se debe colocar una barra inclinada entre font-size y line-height como se ve en el siguiente ejemplo.<p>
+
+	<h2>Resumen de los fundamentos de texto y fuentes</h2>
+	<p>La personalizacion del texto con CSS afectan a dos ambitos distintos: al <em>tipo de letra</em> que afecta a la letra misma y a la <em>disposición del texto</em> que afecta a como se ve el texto junto con los demás elementos de la web.</p>
+
+	<p>Para el tipo de letra tenemos: La propiedad <em>color</em>, <em>family-font</em> para definir nuestras fuentes favoritas en diferentes secciones de la web. Tambien las <span>fuentes generica</span> para que el navegador muestre una fuente apropiada cuando el cliente no dispone la <span>fuente principal</span>. Con family-font podemos crear una <span>lista de fuentes</span> así crear una experiencia adecuada. El <em>tamaño de la fuente</em> depende de diferentes unidades de valor, explicadas anteriormente con sus usos adecuados. Disponemos de un grupo de propiedades para estilizar el tipo de letra: como <em>font-style</em> (activa/desactiva cursiva, oblicua, etc.), <em>font-weight</em> (cambia el grueso del texto), <em>text-transform</em> (modifica las letras) y <em>text-decoration</em> (subrayados). De las sombras se encarga <em>text-shadow</em> hasta se pueden aplicar multiples sombras en diferentes direcciones.</p>
+
+	<p>Para la visualización del texto tenemos: La propiedad <em>text-alin</em> (diferentes alineaciones), <em>line-height</em> (interlineado/altura enter lineas de texto), <em>letter-spacing</em> (espacio entre letras) y <em>word-spacing</em> (espacio entre palabras).</p>
+</body>
+</html>

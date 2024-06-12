@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="styles/basic.css" rel="stylesheet"> 
+    <title>Introducción a CSS</title>
+</head>
+<body>
+    <h1>Capitulo 1: Qué es CSS</h1>
+    <h2>Introducción a CSS</h2>
+    <p><strong>CSS</strong> (<em>Cascading Style Sheets</em>) es un lenguaje basado en reglas que definen grupos de estilos.</p>
+    <p>Elementos de CSS: <strong>selector</strong> (de etiquetas HTML), <strong>declaración</strong> contiene propiedad (colores, fuentes, etc) y valor (para los colores, fuentes, etc); el conjunto de todo esto se llama <strong>regla</strong>.</p>
+    <p>Las reglas de CSS se usan para dar una estética agradable a los sitios web.</p>
+
+    <code>
+        <!--
+        h1 {
+          color: red;
+          font-size: 5em;
+        }
+        -->
+    </code>
+
+    <code>
+        <!--
+        p {
+          color: black;
+        }
+        -->
+    </code>
+
+    <h2>Empezar con CSS</h2>
+    <p>Este es un párrafo de texto. En el texto hay un <span>elemento span</span>y también un <a href="http://example.com">enlace</a>.</p>
+        
+    <p>Este es el segundo párrafo. Contiene un elemento <em>destacado</em>.</p>
+        
+    <ul>
+        <li>Punto uno</li>
+        <li>Punto dos</li>
+        <li>Punto <em>tres</em></li>
+    </ul>
+
+    <p><strong>CSS de los Navegadores:</strong></p>
+    <p>Podemos cambiar el css predeterminado de los navegadores por otros valores</p>
+    <p>podemos ver la documentación: list-style-type.</p> 
+
+    <p>Un navegador suele decirse que es un <a href="https://developer.mozilla.org/en-US/docs/Glossary/User_agent">agente de usuario</a>, tiene una versión y corre en un sistema operativo que permite identificarse ante servidores y suele representar a una persona/visitante.</p>
+
+    <p>Las especificaciones de CSS son documentos que definen como deben comportarse las tecnologias (<em>HTMl</em>, <em>CSS</em>, <em>JavaScript</em>, etc) y los estandares aplicados en ella. Son redactados, proporcionados y/o distribuidos por organizaciones como <a href="https://developer.mozilla.org/en-US/docs/Glossary/W3C">W3C</a>, <a href="https://developer.mozilla.org/es/docs/Glossary/WHATWG">WHATWG</a>, <a href="https://developer.mozilla.org/en-US/docs/Glossary/ECMA">ECMA</a> o <a href="https://developer.mozilla.org/en-US/docs/Glossary/Khronos">Khronos</a>.</p>
+
+    <p>CSS está desarrollado por <a href="https://www.w3.org/Style/CSS/">CSS Working Group</a> de la organización W3C.</p>
+
+    <p>Entre que se desarrolla una nueva caracteristica (pedido de los desarrolladores o por interes de las organizaciones) y su implementación en los navegadores puede pasar un tiempo. De la misma manera pasa en los navegadores, no todos la implementan al mismo tiempo o a veces ni siquiera está soportada.</p>
+
+    <h3>Añadir una clase:</h3>
+    <p>Para seleccionar un subgrupo de elementos y aplicar otros estilos.</p>
+    <code>
+        <!--
+        <ul>
+            <li>Punto uno</li>
+            <li class="special">Punto dos</li>
+            <li>Punto <em>tres</em></li>
+        </ul> 
+        -->
+    </code>
+
+    <p><strong>Aplicar la clase a cualquier otro elemento:</strong></p>
+    <p>En CSS elegimos un elemento y llamamos a la clase que habíamos definido y le aplica su css: ej, li.special en el mismo lugar. Ademas de agregarle al elemento en el html la clase special, también se repite el nombre de la clase.</p>
+    <code>
+        <!--
+        <p>hay un <span class="special">elemento span</span></p>
+        -->
+    </code> 
+
+    <h3>Dar estilo según la ubicación del elemento:</h3> 
+    <p>Mismos elementos de HTML pueden estar ubicados en distintos lugares del documento y entre distintos elementos.</p>
+    <p><strong>Se hace espacio entro los selectores en css:</strong> el primero es la ubicación y el segundo donde se va a aplicar formato. Se llama <em>selector descendenete</em>.</p>
+
+    <code>
+        <!--
+        li em {
+          color: rebeccapurple;
+        }
+        -->
+    </code>
+
+    <p><em>Selector hermano adyacente</em>:</p>
+    <p><strong>Formato a párrafo después de titulo:</strong> h1 + p en un mismo nivel de jerarquía</p>
+
+    <code>
+        <!--
+        h1 + p {
+          font-size: 200%;
+        }
+        -->
+    </code>
+    
+    <h3>Dar formato según el estado:</h3>
+    <p>Como va cambiando el elemento cuando interactuás como puede ser el elemento enlace que tiene tres estados (inicial, clickeado, visual).</p>
+    <p>Tener en cuenta que podemos perjudicar la accesibilidad.</p>
+
+    <code>
+        <!--
+        a:link {
+          color: pink;
+        }
+
+        a:visited {
+          color: green;
+        }
+        -->
+    </code>
+
+    <h3>Accesibilidad</h3>
+    <p>Nuestros sitios web deben ser comprensibles y usables para todas las personas independientemente de su condición fisica o material, debemos hacer nuestra web apta para diferentes dispositivos.</p>
+
+    <h3>Selectores y combinación:</h3>
+    <p><strong>ejemplos:</strong></p>
+    <p><strong>Selecciona cualquier elemento span que se encuentre dentro de un párrafo, que esté dentro de un articulo:</strong> se invoca al elemento padre espacio hijo; <span>p span</span>.</p>
+
+    <code>
+        <!--
+       article p span {
+            background-color: green;
+       }
+        -->
+    </code>
+
+    <p><strong>Selecciona cualquier p que se encuentre directamente después de ul, que va directamente después de h1:</strong> tiene que estar en la misma jerarquía, se aplican un conjunto de estilos en grupo para estos elementos; <span>h1 + ul + p</span>.</p>
+
+    <code>
+        <!--
+        h1 + ul + p {
+        }
+         -->
+    </code>
+
+    <p><strong>Combinación de estas dos técnicas:</strong> ej body h1 + p .special, va a formatear class dentro de p que venga después de h1 que se encuentre dentro de body.</p>
+
+    <code>
+        <!--
+        body h1 + p .special {
+          color: yellow;
+          background-color: black;
+          padding: 5px;
+        }
+        -->
+    </code>
+    
+    <h2>Estructurar CSS</h2>
+
+    <h3>Hoja de estilo externa</h3>
+    <p>El CSS estará escrito en un archivo externo al documento HTML. Solo debemos crear un archivo nuevo con la extensión <em>.css</em> y ponerlo en algun lugar de la carpeta.</p>
+    <p>En el HTML debemos usar el elemento <em>link</em> para insertar el archivo css. Tiene el atributo <em>href</em> en donde va la ruta del archivo css.</p>
+
+    <code>
+        <!--
+        /*
+        link rel="stylesheet" href="styles/style.css"
+        link rel="stylesheet" href="styles/general/style.css" 
+        link rel="stylesheet" href="../styles/style.css" 
+        */
+        -->
+    </code>
+
+    <p>Con los selectores de CSS elegimos los elementos a los que le aplicaremos estilo.</p>
+
+    <p>Es el metodo más usado, pero existen otros:</p>
+    <ul>
+        <li><em>Hoja de estilo interna</em>: Funciona desde el propio documento html, dentro del head, usamos la etiqueta <em>style</em> y dentro de esta usamos selectores con sus reglas para aplicar css.</li>
+
+        <li><em>Estilo en linea</em>: Usamos el atributo <em>style</em> y los valores de éste, serán las reglas (propiedad y valor) de CSS. Debemos separar las propiedades con punto y coma.</li>
+    </ul>
+    
+    <h3>Selectores:</h3>
+    <p>Hay diferentes <a href="https://developer.mozilla.org/es/docs/Learn/CSS/Building_blocks/Selectors">formas de seleccionar elementos de HTML</a> al cual le aplicamos estilos. Cada regla tiene un selector y estos tienen propiedad (color, párrafos, etc) y valor(numérico/nombre).</p>
+
+    <code>
+        <!--
+       */ 
+        h1
+        a:link
+        .manythings
+        #onething
+        *
+        .box p
+        .box p:first-child 
+        h1, h2, .intro
+        */
+        -->
+    </code>
+    
+    <h3>Especificidad:</h3>
+    <p>Suponemos una situación donde dos selectores o más usan un mismo elemento para aplicarle estilo.</p>
+    <p><strong>Cascada</strong> y <strong>Especificidad</strong>:</p>
+
+    <p>Entro dos elementos con la misma especificidad se aplicará el estilo del ultimo elemento escrito.</p>
+    <code>
+        <!--
+        p {
+          color: red;
+        }
+
+        p {
+          color: blue;
+        }
+        -->
+    </code>
+
+    <p>El siguente se sobreescribirá por la cascada, dado que está escrito ultimo.</p>
+    <code>
+        <!--
+        p {
+          color: red;
+        }
+
+        p {
+          color: blue;
+        }
+        -->
+    </code>
+
+    <p class="specificity">Entre dos elementos en el cual hay uno que es mas especifico que otro, ganara este por mas que esté escrito primero.</p>
+    <code>
+        <!--
+        .special {
+          color: red;
+        }
+
+        p {
+          color: blue;
+        }
+        -->
+    </code>
+    
+    <h3>Propiedad y Valor:</h3>
+    <p><strong>Propiedad:</strong> Son características de estilo (font-size, width, etc).</p>
+    <p><strong>Valor:</strong> Indica como quieres que cambien las características de estilo.</p>
+    <p><strong>Declaración y regla:</strong> La <em>declaración</em> es un conjunto de propiedades y valores que están dentro de las llaves del código de CSS. La <em>regla</em> son los selectores junto a sus propiedades y valores.</p>
+    
+    <h3>Ejemplos de Propiedades:</h3> 
+
+    <h4>font-size</h4> 
+    <p>Es la dimension de la letra, es mejor usar px para darle valor.</p>
+
+    <h4>width</h4>
+    <p>Especifica la anchura del area de contenido de un elemento, está dentro del padding, borde y margen. Tiene varios tipos de valores.</p>
+
+    <h4>background-color</h4> 
+    <p>Define el color de fondo de un elemento o puede ser trasparente (predeterminado).</p>
+
+    <h4>color</h4> 
+    <p>Selecciona el valor de color para textos y decoraciones. El valor debe ser un color uniforme, no puede ser gradient (degradado/tipo de imagen).</p>
+
+    <h4>border</h4>
+    <p>Define todos los bordes (width, color, style) en una sola regla.</p>
+
+    <h3>Funciones</h3>
+    <p>Se pueden realizar distintas operaciones matemáticas para valores dados.</p>
+
+    <h4>calc():</h4>
+    <p>Se usa para determinar valores de propiedades mediante cálculos.</p>
+
+    <code>
+        <!--
+       <div class="outer"><div class="box">The inner box is 90% - 30px.</div></div>
+
+        .outer {
+          border: 5px solid black;
+        }
+
+        .box {
+          padding: 10px;
+          width: calc(90% - 30px);
+          background-color: rebeccapurple;
+          color: white;
+        }
+        -->
+    </code>
+    <code>
+        <!--
+        .outer {
+          border: 5px solid black;
+        }
+
+        .box {
+          padding: 10px;
+          width: calc(90% - 30px);
+          background-color: rebeccapurple;
+          color: white;
+        }
+        -->
+    </code>
+
+    <h4>transform:</h4>
+    <p>Te permite cambiar el espacio de coordenadas del modelo visual de css. Los elementos modificarse con funciones como trasladar, rotar, escalar o sesgar; de acuerdo a los valores introducidos en ellas.</p>
+
+    <code>
+        <!-- 
+        <div class="box"></div>
+
+            .box {
+              margin: 30px;
+              width: 100px;
+              height: 100px;
+              background-color: rebeccapurple;
+              transform: rotate(0.8turn);
+            }
+        -->
+        </code>
+
+    <h2>@rules</h2>
+    <p>Las reglas se pronuncian "at rules", algunas son simples otras cuando se cumple una condición podemos brindar instrucciones en CSS. Un ejemplo simple es:</p>
+
+    <code>
+        @import "styles2.css";
+    </code>
+
+    <p>Importará una hoja de estilo hacia otra hoja.</p>
+    <p>Otra regla muy frecuente es <em>@media</em>, está tiene tiene una condición que si se cumple ejecuta el css indicado.</p>
+
+    <p>Ejemplo, la regla definirá un fondo azul cuando se agrende la ventana en 30em en más.</p>
+    <code>
+        <!--
+        body {
+          background-color: pink;
+        }
+
+        @media (min-width: 30em) {
+          body {
+            background-color: blue;
+          }
+        }
+        -->
+    </code>
+
+    <h2>Propiedades abreviadas (shorthands)</h2>
+    <p>Pueden establecer varios valores en una sola línea, por ejemplo: <em>font</em>, <em>background</em>, <em>padding</em>, <em>border</em>, <em>margin</em>, etc.</p>
+
+    <p>En el ejemplo, aplicará los valores en el sentido de las agujas del reloj: top, right, bottom y left si ponemos los 4 valores; o si ponemos dos valores, el primero va para top/bottom y el segundo para left/right.</p>
+
+    <code>
+        padding: 10px 15px 15px 5px;
+    </code>
+
+    <p>Su equivalencia es:</p>
+    <code>
+        padding-top: 15px;
+        padding-right: 15px;
+        padding-bottom: 15px;
+        padding-left: 5px;
+    </code>
+
+    <h2>Comentarios</h2>
+    <p>Ayuda a recordar cómo funciona el código a medida que regresa más tarde para realizar correcciones o mejoras. También ayuda a otros a entender el código.</p>
+    <p>Se abren con /* y se cierran con */, se pueden usar par a marcar secciones de código, dar explicaciones y buscarlas.</p>
+
+    <code>
+        <!--
+        /* Handle basic element styling */
+
+        body {
+          font: 1em/150% Helvetica, Arial, sans-serif;
+          padding: 1em;
+          margin: 0 auto;
+          max-width: 33em;
+        }
+        -->
+    </code>
+
+    <p>Tambien podemos usarlos para desactivar código temporalmente</p>
+    
+    <code>
+        <!--
+        /*.special {
+          color: red;
+        }*/
+        -->
+    </code>
+
+    <h2>Espacios en blanco</h2>
+    <p>Se usan para que el código sea legible, se hacen con la barra espaciadora y la tecla tab. En el documento HTML y CSS serán ignorados por el navegador.</p>
+    <p>Por ejemplo, al navegador le da igual el siguiente código, tener un código legible y limpio es una buena practica.</p>
+
+    <code>
+        <!--
+        body {font: 1em/150% Helvetica, Arial, sans-serif; padding: 1em; margin: 0 auto; max-width: 33em;}
+        @media (min-width: 70em) { body { font-size: 130%;}}
+
+        /* o */
+
+        body {
+        font: 1em/150% Helvetica, Arial, sans-serif;
+        padding: 1em;
+        margin: 0 auto;
+        max-width: 33em;
+        }
+        -->
+    </code>
+
+    <p>Por otro lado, las propiedades nunca llevan espacios, tienen guiones medios y cuando hay más de un valor se usan espacios para separarlos.</p>
+
+    <code>
+        <!--
+        /* valido  */
+        margin: 0 auto;
+        padding-left: 10px;
+
+        /* no valido */
+        margin: 0auto;
+        padding- left: 10px;
+        -->
+    </code>
+
+    <h3>@rules</h3>
+    <p>Contienen CSS ademas del que tiene nuestra hoja de estilo.</p>
+
+    <h3>Abreviaturas</h3>
+    <p>Las propiedades abreviadas permiten poner valores de varias propiedades en una sola linea. Si falta algún valor, se pone el predeterminado/inicial o puede no funcionar.</p>
+    <p>Los valores pueden afectar las cuatro direcciones: arriba, derecha, abajo, izquierda en este sentido (si ponemos 4 valores).</p>
+
+    <h4>font</h4>
+    <p>Permite establecer los valores de font: style, variant, weight, size, height, family; en una sola linea</p>
+
+    <h4>background</h4>
+    <p>Es el fondo de un elemento. En una sola line permite establecer sus valores de : attachment, color, image, position, repeat.</p>
+
+    <h4>padding</h4>  
+    <p>Es el espacio entre el borde y el elemento. En una line podemos escribir las propiedades individuales de padding: top, right, bottom y left.</p>
+    <h4>border</h4>  
+
+    <p>Da formato al borde de un elemento, puede no tener borde, o tener una linea, etc. Puede aplicar de una sola vez los valores de las propiedades: style, width y color.</p>
+
+    <h4>margin</h4>
+    <p>Es el espacio que esta por fuera del borde de un elementos. Los valores van a ser de las propiedades: top, right, botoom, left.</p>
+
+    <h3>Comentarios</h3>
+    <p>Ayudan a comprender el código o hacer pruebas deshabilitando parte del código y ademas podemos buscarlos en el editor a medida que el código se vaya complejizando.</p>
+
+    <h3>Espacios en blanco</h3>
+    <p>Mejora la legibilidad y hace mas fácil el mantenimiento.</p>
+
+    <h2>Como funciona CSS</h2>
+    <p>El navegador combina el documento HTML que tiene todo el contenido de la web con el archivo CSS que determinará el aspecto del sitio.</p>
+    <p>Procesa el documento en una serie de etapas, pero antes se debe conocer ciertos conceptos tecnicos y no muy importantes cuando empezas:</p>
+    <p>El navegador y el DOM son los actores principales que interactuán con el HTML y el CSS.</p>
+    <p>El DOM (Modelo de Objetos del Documento) es una API (Interfaz de Programación de Aplicaciones) que es software que puede funcionar, comunicarse e interactuar con otro software. Permite ejecutar código en el navegador para acceder e interactuar con cualquier nodo del documento.</p>
+    <p>Se usa para interactuar y representar documentos HTML o XML. El DOM es un modelo de documento que se carga en el navegador y representa al documento como un árbol de nodos. Los nodos pueden crearse, modificarse o moverse.</p>
+    <p>Un nodo (en DOM) es un punto único en el árbol de nodos, puede ser un documento mismo, elementos de HTML, texto (contenido) o comentarios que representa una parte del documento.</p>
+    <p>El DOM se estructura como un árbol, sus ramificaciones van a ser como padres e hijos en donde esta el contenido que programamos.</p>
+    <p>Cuando en el HTML incluimos un CSS, el navegador lee el HTML y creará un DOM a partir de este así puede leer las reglas de CSS y aplicarlas.</p>
+
+    <p>Cuando el navegador lee un documento:</p>
+    <ol>
+        <li>El navagador carga el HTML</li>
+        <li>Convierte el HTML en un DOM (el modelo de objetos del documento es un arbol que tiene nodos -elementos que programamos-), represetará el documento en la memoria del ordenador.</li>
+        <li>El navegador va a buscar la mayor parte de los recursos vinculados al documento HTML, como las imagenes, los videos, el CSS vinculado al documento. JavaScript aparecerá más adelante.</li>
+        <li>El navegador analiza el CSS y ordena las diferentes cajas/elementos (nodos) segun la cascada y espeficificad para aplicar los estilos (este proceso se llama <em>arbol de renderización</em>).</li>
+        <li>El arbol de renderización presenta la estructura en que los nodos deben aparecer despues de aplicarle las reglas.</li>
+        <li>En la pantalla se muestra el aspecto visual de la página (esta etapa se denomina <em>painting</em>).</li>
+    </ol>
+
+    <p>En las herramientas para desarrolladores te mostrará todos los elementos que forman el DOM, te ayudarán a diseñar, depurar y mantener el CSS porque en el DOM se encuentra el HTML y el CSS.</p>
+    <p>En las herramientas se muestran se muestran tres paneles muestran (DOM, Propiedades y calculos de cajas) para navegar por el DOM, correguirlo y testear las funcionalidades del documento.</p>
+
+    <p>Este fragmento de código HTML se puede convertir en DOM:</p>
+    <code>
+        <!--      
+        <p>
+            Let's use:
+            <span>Cascading</span>
+            <span>Style</span>
+            <span>Sheets</span>
+        </p>
+
+        -->
+    </code>
+    <p>Hay nodos padres como el parrafo y nodos hijos como los elementos span, así sucesivamente. El DOM representa los elementos/nodo como un arbol (padres) y sus ramificaciones (hijos) y en la pantalla se muestran de forma adecuada.</p>
+
+    <h2>Aplicando CSS al DOM</h2>
+    <p>Después de que el navegador halla cargado y analizado el HTML, creaŕa un árbol (DOM), despues cargará el CSS y analizará los estilos (propiedades, valores) y los ordenará (herencia, cascada, prioridad, etc) para al final mostrarlos en pantalla.</p>
+
+    <code>
+        span {
+          border: 1px solid black;
+          background-color: lime;
+        }
+    </code>
+    <p>Los elementos span se muestran de color lima.Si el navegador encuentra una regla mal escrita o propiedades que no tiene soportada o valores que no entiende, no hace nada/no se aplica y salta a otra propiedad. Analiza línea por línea.
+    <p>Cuando inspeccionamos el DOM si podemos ver los errores.</p>
+    <p>Hay un concepto de usar propiedades solo soportadas por navegadores antiguos, antes de las propiedades nuevas para navegadores modernos dado que la cascada de CSS (si hay dos propiedades para un mismo elemento, aplica la ultima o la más especifica) y el navegador lo que no entiende lo saltea. Así es como se da soporte para la mayoría de navegadores.</p>
+
+
+   <h2>Más Propiedades</h2> 
+   <h3>font-family</h3>
+   <p>define una lista de fuentes o familias de fuentes, con un orden de prioridad, para utilizar en un elemento seleccionado.  los valores se separan con comas (",") para indicar que son valores alternativos.</p>
+   <p>Los valores puede ser: <strong>nombre de familia</strong> (Times, Helvetica, etc), las tengan espacios se escriben entre comillas; puede haber varias. <strong>nombre genérico</strong> (serif, sans-serif) no van entre comillas; se usa para cuando ninguna de las fuentes este disponible, puede haber una y se escribe al final.</p> 
+   <p>Cuando alguna fuente no tiene alguna propiedad, pasa a la siguiente.</p> 
+
+   <h3>border-bottom</h3> 
+   <p>Permite de definir de una vez todas las propiedades individuales que describen el color, estilo y ancho: border-bottom-color, border-bottom-style, y border-bottom-width</p>
+   <p>Se puede especificar los tres valores en cualquier orden y omitir hasta 2</p>
+
+   <h3>font-weight</h3>
+   <p>Especifica el grueso de la letra, algunos tipos de letra solo están disponibles en normal o bold por ejemplo.</p>   
+   <p><strong>Valores:</strong> normal (es 400), bold (700), lighter (menos grueso que su elemento padre), bolder (mas grueso que su elemento padre) entre 100 y 900 (para los tipos de letra que nos permiten flexibilidad, si no existe algún valor, se presentara el mas aproximado entre la escala normal-bold)</p>   
+
+   <h3>font-size</h3>   
+   <p>Determina el tamaño de la letra, puede alterar el aspecto de otra cosa al usarse para calcular la longitud de las unidades em y ex, si hay que usar este tipo de valores mejor usar px (no varia en función de las caracteristicas del dispositivo)</p>
+
+   <h3>text-decoration</h3>
+   <p>Se usa para establecer el formato de texto a subrayado (underline) y suprarrayado (overline), tachado (line-through) o parpadeo (blink). El subrayado y el suprarrayado son posicionados bajo el texto, mientras la línea a través de éste se posiciona por encima.</p>
+   <p>Es una forma reducida, y puede usar los valores de cada una de las propiedades de la forma larga: text-decoration-line, text-decoration-color, y text-decoration-style.</p>
+   <p>Las decoraciones también se aplican a los elementos hijos/descendientes que esten en la misma linea, para solucionar esto al elemento hijo le agregamos una decoración vaciá o le aplicamos otro tipo de decoración en una nueva regla.</p>
+
+</body>
+</html>

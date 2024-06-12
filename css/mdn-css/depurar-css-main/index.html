@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="styles/style.css">
+	<title>Depurar CSS</title>
+</head>
+<body>
+	<h1>Capitulo 10: Depurar CSS</h1>
+	<p>A veces, al escribir CSS no hace lo que esperas. Aquí es cuando usamos las Dev Tools de los navegadores para ver qué está pasando por detras de la web y solucionar los problemas.</p>
+
+	<h2>Acceder a las DevTools de los navegadores</h2>
+	<p>Generalmente en los navegadores más utilizados, se abre con f12 o ir al menu - herramientas - herramientas del desarrollador o haciendo click derecho a un elemento de la web e inspeccionar el elemento. Veras que hay varios apartados que siren ver y hacer diferentes cosas, explicadas más adelante.</p>
+	<p>Es necesario hacer pruebas en los navegadores más utilizados del mercado, aunque tambien hay navegadores que tienen herramientas especializadas en algun area.</p>
+
+	<h2>Uso y Herramientas del desarollador - Basico</h2>
+	<h3>Inspector: Explorador del DOM y editor de CSS</h3>
+	<p>Se ve el HTML y el CSS que se está aplicando hasta lo podemos modificar y ver el resultado instantaneamente.</p>
+
+	<h4>Explorando el DOM</h4>
+	<p>Hacemos click derecho en un elemento del HTML y podemos ver distintas opciones:</p>
+	<ul>
+		<li>Eliminar nodo/elemento: Elimina el elemento en el que estamos posicionados.</li>
+		<li>Editar como HTML/Agregar atributo/Editar texto: Permite cambiar el HTML y ver resultados. Sirve para depurar y probar.</li>
+		<li>Copiar/Copiar como HTML: Copia el HTML seleccionado.</li>
+		<li>Copiar ruta CSS y XPath: Para copiar el selector CSS o XPath que selecciona el elemento HTML posicionado</li>
+		<li>Estados de los elementos: Si un elemento seleccionado los tiene, lo podemos activar para verlos.</li>
+	</ul>
+	<p>Podemos realizar los cambios que deseemos pero no los podemos guardar.</p>
+
+	<h4>Editor de CSS</h4>
+	<p>Cuando abrimos las DevTools o seleccionamos un elemento, en la segunda columna nos encontramos con el CSS aplicado a la web. Con algunos apartados:</p>
+	<ul>
+		<li>Las reglas aplicadas al elemento selecionado se muestran de mayor a menor especificidad.</li>
+		<li>Casillas de verificacion de las reglas: si la desactivamos en algun elemento, este cambia su aspecto por uno predeterminado.</li>
+		<li>Al lado de las propiedades (abreviadas) hay una flechita que si la activas te muestra las propiedades individuales aplicadas a la página.</li>
+		<li>Si una propiedad y valor esta disponible, tocando su nombre o valor lo podemos cambiar. Si no está disponible podemos crear una regla.</li>
+		<li>Junto a cada regla está el nombre del archivo y el numero de línea para poder editar y guardar. Lo vemos arriba a la izquierda.</li>
+		<li>Si hacemos click en la llave de cierre de la declaración, nos abre un cuadro en donde podemos escribir una nueva regla completa.</li>
+	</ul>
+	<p>En la tercera columna notaras algunas pestañas que proporciona otro tipo de info:</p>
+	<ul>
+		<li>Calculado: Muestra el estilo calculado para el elemento seleccionado</li>
+		<li>Diseño/layout/distribución: incluye secciones relacionadas con la visualizacion de la página como:</li>
+			<ul>
+				<li>Box-model: Muestra el modelo de caja para el elemento seleccionado y sus valores</li>
+				<li>Cuadricula/Grid y Flexbox: Si utilizamos alguno de estos metodos de diseño, se mostrará sus detalles.</li>
+			</ul>
+		<li>Fuentes: Muestra los tipos de letra aplicados al elemento.</li>
+	</ul>
+	<p>Puedes ver más info en la documentacion de los navegadores con respecto a su DevTools.</p>
+
+	<h4>Consola y Depurador de JS</h4>
+	<p>Al lado de la pestaña de inspector podemos ver estas dos opciones que se utilizan para JavaScript, la utilizaremos en su curso.</p>
+
+	<h2>Depurando CSS con Firefox</h2>
+	<p>Primero abrimos el documento que vamos a utilizar para practicar.</p>
+	<p>Cuando miramos el codigo fuente con el click derecho - ver codigo fuente nos aparece el HTML que escribimos nosotros en una pestaña nueva. Es distinto cuando miramos el codigo desde la DevTools del navegador, este va a mostrar un correcciones si escribimos mal el codigo</p>
+	<p>Esto lo hace el DOM y lo que vemos es el arbol de HTML que nos muestra lo que representa para el navegador el codigo que escribimos.</p>
+
+	<h2>Inspeccion del CSS</h2>
+	<p>Seleccionamos cualquier elemento con la DevTools, por ejemplo, la clase box1; primero vemos el arbol de HTML y al lado vemos el panel de CSS que tiene las reglas aplicadas a este elemento y tambien el CSS heredado de su elemento padre <em>body</em>. Es util cuando se aplica un CSS que no esperabas porque se esta heredando de un elemento padre y necesitas sobreescribirlo con una nueva regla para este elemento.</p>
+	<p>En este mismo apartado del panel, podemos expandir las propiedades abreviadas y se mostraran las individuales con la flechita izquierda.</p>
+	<p>Tambien podemos deshacer reglas si pasamos el mouse sobre las declaraciones, nos aparece una casilla que cuando la desactivamos quitará este CSS. Podemos usarlo para hacer una comparacion A y B para elegir cual regla es mejor. O si un diseño falla podemos ver qué causa el problema.</p>
+
+	<h2>Editar valores</h2>
+	<p>Es util para ver diferentes tamaños, colores, podemos ahorra mucho tiempo al editar una hoja de estilo y volver a cargar la página.</p>
+	<p>Seleccionamos box1 y en border vemos que hay un color, en el circulo clickeamos y nos aparecerá un selector para probar en tiempo real distintas opaciones. Como tambien podemos cambiar el ancho o el estilo de este borde.</p>
+
+	<h2>Añadir propiedad nueva</h2>
+	<p>Por ejemplo, si queremos que la caja no herede el tamaño de letra del body; podemos añadir una nueva declaracion en el elemento. Hacemos click en la llave de cierre para agregar la propiedad.</p>
+	<p>Arriba de las reglas hay un boton + que permite agregar reglas en el selector posicionado o usando otro.</p>
+	<p>En este panel tambien podemos ver reglas tachadas porque sus valores no estan permitidos.</p>
+
+	<h2>Entendiendo el modelo de cajas</h2>
+	<p>Tenemos el Box Model y el modelo alternativo, en la tercera columna con la pestaña layout/diseño/distribucion vemos el model box de los elementos seleccionados. Incluye propiedades declaradas y las que vienen predeterminadas</p>
+	<p>Abajo del diagrama se detallas las propiedades del modelo. Una muy importante es <em>box-sizing</em> que controla el modelo de cajas que usa el elemento.</p>
+	<p>Box1 usa <em>content-box</em> que toma el tamaño que le asignamos al elemento y luego añade el padding y el ancho de border. O sea, al tamaño inicial se le suman los demas y el elemento queda más grande.</p>
+	<p>Box2 usa <em>border-box</em>, el tamaño de toda la caja va a ser el ancho y alto que le asignemos, si usamos padding y border se va a restar ancho y alto pero va a quedar de igual en tamaño total.</p>
+
+	<h2>Resolver problemas de especificidad</h2>
+	<p>Cuando necesitamos editar el estilo de una pagina ya publicada y nos resulta dificil que se aplique un estilo, lo que suelo suceder es que <strong>un selector más especifico anula los cambios</strong></p>
+	<p>En nuestro ejemplo vemos el elemento em (cursiva) en colores distintos. En la hoja de estilo primero esta el selector de clase <em>".special</em> con un color naranja y despues aparece un selector de etiquea <em>em</em> de color rosa. El primer selector es más especifico que el segundo, no importa si está escrito antes. En DevTools vemos que el selector de clase ".special" anula al selector de elemento.</p>
+
+	<h2>Problemas al depurar CSS</h2>
+	<p>Cuando no podemos resolver los problemas con las herramientas de desarrollador, los siguientes apartados te pueden ayudar.</p>
+	
+	<h3>Alégate del problema</h3>
+	<p>Especialmente en los problemas con CSS porque no recibimos mensaje de error ni dónde está el problema, ni la documentación para solucionarlo -como sucede en JS-. Entonces, cuando nos sentimos agobiados, frustrados de tanto intentar y no encontramos la solución es mejor alejarnos del problema, salimos a algun lugar, hablamos con un compañero, la solucion puede llegar cuando nos sentimos más frescos.</p>
+
+	<h3>El HTML y el CSS son validos?</h3>
+	<p>Los navegadores harán todo lo posible para mostrar nuesta página incluso con errores, por lo tanto, un primer paso es pasar el docuemnto HTML y CSS por un validaddor:</p>
+	<ul>
+		<li><a href="https://jigsaw.w3.org/css-validator/"></a>Validador de CSS</li>
+		<li><a href="https://validator.w3.org/"></a>Validador de HTML</li>
+	</ul>
+
+	<h3>La propiedad y el valor son compatibles con el navegador?</h3>
+	<p>Los navegadores ignoran lo que no entienden, si la propiedad o valor no es compantible con el navegador, el CSS no se aplicará. Las DevTools tienen un icono triangular de precausion en la pestaña de las reglas y declaraciones de CSS</p>
+	<p>Tambien podemos mirar las tablas de compatibilidad que cada propiedad tiene en la documentación.</p>
+
+	<h3>Hay algo más que anule el CSS?</h3>
+	<p>Aquí es donde el conocimiento sobre especificidad, cascada y herencia es de gran ayuda.</p>
+	 <ul>
+	 	<li>Si tenemos algo mas especifico que lo que intentamos hacer, usamos la DevTools para ver que estilo se ha aplicado verdaderamente. Así podemos hacer un selector bien especifico para lo que queremos hacer.</li>
+	 </ul>
+	 
+	 <h3>Haz un caso de prueba reducido del problema</h3>
+	 <p>Es una habilidad muy util, ayudará a encontrar problemas en el codigo para informar errores o pedir ayuda adecuadamente al identificar los elementoss en conflicto.</p>
+	 <p>El metodo es mostrar el problema en codigo reducido lo más simple posible sin contenido y estilo complejo. Sacar el codigo problematico del diseño para que solo muestre este codigo o caracteristica.</p>
+	 <P>Para crear un caso de prueba reducido</P>
+	 <ol>
+	 	<li>Si el marcado se genera dinamicamente, por ejemplo, desde un CMS creamos una version estatica de la salida que muestre el problema. <a href="https://codepen.io/"></a>CodePen</li> podemos alojar los casos de prueba, compartirlos. Copiamos el todo el HTML del codigo fuente, CSS y JS relevante, podemos verificar si el problema sigue ahí.  
+	 	<li>Si eliminar JS no soluciona el problema, no lo incluyas. Si hace desaparecer el problema, elimina la mayor cantidad de JS que puedas; deja solo las causas del problema.</li>
+	 	<li>Elimina cualquier HTML que no contribuya al problema. Elimina componentes o elementos principales del diseño. Intenta reducir al minimo la cantidad de codigo que aun muestra el problema.</li>
+	 	<li>Elimina cualquier CSS que no afecte al problema.</li>
+	 </ol>
+
+	 <p>En el proceso, puedes descubrir que causa el problema o al menos ser capaz de ponerlo o quitarlo al eliminar algo especifico. Podemos escribir comentarios en el codigo a medida que se descubre cosas. Si pedimos ayuda, s comentarios indicaran lo que hemos intentado. Esto proporciona info que permite buscar soluciones alternativas</p>
+	 <p>Aun sino  da resultado aislar el codigo, podemos acudir a un foro o mostrarlo a un compañero. Puedes describir lo que has intentado con el codigo reducido, un desarrollador más experimentado podrá orientarte.</p>
+	 <p>En caso de que el problema sea del navegador, podemos presentar el codigo aislado como un informe de error al proveedor del navegador en su sitio oficial de bugs.</p>
+</body>
+</html>
+

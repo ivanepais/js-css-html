@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index/style-index.css">
+	<title>Tablas y Accesibilidad - HTML</title>
+</head>
+<body>
+	<h1>Tablas y Accesibilidad</h1>
+	<p>Tratamos algunas funciones más avanzadas sobre las tablas, como subtitulos/resumen, agrupación de filas en secciones de encabezado, el cuerpo y pie de la página. Tambien conceptos sobre la accesibilidad en las tablas.</p>
+
+	<h2>Subtitulos en la tabla: elementos caption</h2>
+	<p>Con <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/caption">caption</a> ponemos un titulo a la tabla, justo debajo de la etiqueta de apertura del elemento que la define; <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/table">table</a>.</p>
+	<p>El contenido de caption debe ser una breve descripción de la tabla. Es más util para accesibilidad, para un usuario ciego, su lector de pantalla leera primero este elemento antes del contenido. Así puede avanzar rapido sobre la web y pasar lo que le interesa.</p>
+
+	<h3>Estructura de una tabla</h3>
+	<p>Son utiles para aplicar CSS y diseñar estos elementos, podemos hacer que en una tabla extensa se repitan el encabezado o el pie de página al desplazarse por el contenido. Por si mismo no ayudan en accesibilidad.</p>
+
+	<p>El elemento <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/thead">thead</a> debe contener a los encabezados de la tabla. Si hay colgroup y col, debe ir debajo de estos.</p>
+
+	<p>El elemento <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tfoot">tfoot</a> debe contener a la fila final que generalmente son datos resaltados que resumen todo el contenido anterior. Una cosa curiosa es que el navegador va a mostrar esta fila, al final de la tabla, aunque en el html este puesta debajo de los encabezados por ejemplo.</p>
+
+	<p>El elemento <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tbody">tbody</a> debe contener a todos los elementos que no pertenecen a la fila de cabecera de la página ni a la fila del pie de página.</p>
+
+	<p>Desde el lado de CSS llamanos a estos elementos para aplicar fondos, colores, fuentes, etc.</p>
+
+	<h2>Anidar tablas</h2>
+	<p>Se usa si es muy necesario importar contenido de otra tabla. No se recomienda anidar tablas, pero si se hace, se pone la estructura completa de las dos tablas.</p>
+
+	<h2>Elementos para darle accesibilidad a una tabla</h2>
+	<p>Una tabla bien hecha, visualmente tiene resaltados los encabezados para relacionar y entender rapidamente los datos. Esto se puede hacer facilmente con CSS, pero para darle accesibilidad necesitamos hacer con elementos o atributos.</p>
+
+	<h3>Usar encabezados de columna y fila</h3>
+	<p>Se aplican con el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/th">th</a>, los lectores de pantalla leeran estos encabezados y los usuarios no videntes podrán hacer las misma asociaciones que cualquiera que vea la tabla.</p>
+
+	<h3>Atributo scope</h3>
+	<p><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/th#attr-scope">scope</a> se añade a los encabezados (<em>th</em>) para indicar si es un encabezado de fila o de columna, con sus valores: <em>row</em> y <em>col</em>.</p>
+	<p>Tiene otros valores como: <em>rowgroup</em> y <em>colgroup</em> para encabezados que contiene a otros.</p>
+
+	<h3>Alternativa a scope: atributos id y headers</h3>
+	<p>Se usan los atributos <a href="https://developer.mozilla.org/es/docs/Web/HTML/Global_attributes#attr-id">id</a> y <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/td#attr-headers">headers</a> para crear asociaciones entre los encabezados y sus celdas.</p>
+	<ol>
+		<li>Añadimos un id unico que represente el contenido del encabezado <em>th</em></li>
+		<li>Añadimos el atributo headers a cada elemento de celda (<em>td</em>), headers debe contener una lista de los id de los encabezados de esa celda dejando espacio.</li>
+	</ol>
+	<p>Tiene muchisimo codigo y no admite errores porque confundiría a los usuarios no videntes. El metodo con scope basta para la mayoria de tablas.</p>
+
+</body>
+</html>

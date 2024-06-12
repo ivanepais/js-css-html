@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Ubicar los elementos con las líneas de Grid</title>
+</head>
+<body>
+	<h1>Usando la ubicación basada en las líneas de Grid</h1>
+	<p>Las líneas estan numeradas tanto para las filas como para las columnas, empiezan en 1 y esto depende del <em>modo de escritura</em></p>
+
+	<h2>Ejemplo basico</h2>
+	<p>Si ponemos 3 filas y tres columnas nos dan 4 líneas para cada dimensión. Se ubican automaticamente si no le damos nosotros, una ubicación distinta a todos los elementos.</p>
+	<code>
+		<!--
+		.wrapper {
+           display: grid;
+           grid-template-columns: repeat(3, 1fr);
+           grid-template-rows: repeat(3, 100px);
+        }
+
+        <div class="wrapper">
+		  <div class="box1">One</div>
+		  <div class="box2">Two</div>
+		  <div class="box3">Three</div>
+		  <div class="box4">Four</div>
+		</div>
+    	-->
+	</code>
+	<p>En el inspector podemos activar una opción para que nos muestre las líneas de grid.</p>
+
+	<h2>Posicionar elementos de acuardo a los numeros de líneas</h2>
+	<p>El primer valor será la línea de inicio y el segundo será el de la línea final para la columna y la fila. El elemento puede tener una forma horizontal o vertical.</p>
+	<code>
+		<!--
+		.box1 {
+           grid-column-start: 1;
+           grid-column-end: 2;
+           grid-row-start: 1;
+           grid-row-end: 4;
+        }
+    	-->
+	</code>
+	<p>Los demás elementos se mueven automaticamente. Tambien podemos dejar celdas vacias, evitando las líneas que definen ese espacio.</p>
+	<code>
+		<!--
+		box2 {
+           grid-column-start: 3;
+           grid-column-end: 4;
+           grid-row-start: 1;
+           grid-row-end: 3;
+        }
+
+        .box3 {
+           grid-column-start: 2;
+           grid-column-end: 3;
+           grid-row-start: 1;
+           grid-row-end: 2;
+        }
+
+        .box4 {
+           grid-column-start: 2;
+           grid-column-end: 4;
+           grid-row-start: 3;
+           grid-row-end: 4;
+        }
+    	-->
+	</code>
+	
+	<h2>Abreviaturas para colocar elementos: <em>grid-column</em> y <em>grid-row</em></h2>
+	<p>Los valores de inicio y fin se colocarán mediante una barra (/).</p>
+	<code>
+		.box1 {
+           grid-column: 1 / 2;
+           grid-row: 1 / 4;
+        }
+	</code>
+
+	<h2>Expansion de elemetos por defecto</h2>
+	<p>Si un elemento abarca toda la fila o columna, solo tenemos que poner el valor de inicio.</p>
+	<p>Podemos replicar el ejemplo anterior con menos valores, solo con los de inicio.</p>
+	<code>
+		.box1 {
+           grid-column-start: 1;
+           grid-row-start: 1;
+           grid-row-end: 4;
+        }
+	</code>
+	<p>Con esta misma tecnica podemos dejar un espacio vacio</p>
+
+	<h2>Propiedad <em>grid-area</em></h2>
+	<p>Con esta solo propiedad podemos poner todos los valores de columna y fila en un solo renglon. Pero <em>tiene un orden</em>:</p>
+	<ol>
+		<li>grid-row-start</li>
+		<li>grid-column-start</li>
+		<li>grid-row-end</li>
+		<li>grid-column-end</li>
+	</ol>
+	<p>Inspiradas en el modo de escritura y en las relativas al flujo de texto y cajas, o sea; hacia donde va el contenido y las cajas, llamadas propiedades lógicas:</p>
+	<ul>
+		<li>block-start</li>
+		<li>block-end</li>
+		<li>inline-start</li>
+		<li>inline-end</li>
+	</ul>
+	<p>Primero definimos ambas líneas de inicio block-start e inline-start, luego ambas líneas finales block-end e inline-end.</p>
+	<code>
+		.box1 {
+           grid-area: 1 / 1 / 4 / 2;
+        }
+
+        <!--
+        .box2 {
+           grid-area: 1 / 3 / 3 / 4;
+        }
+        .box3 {
+           grid-area: 1 / 2 / 2 / 3;
+        }
+        .box4 {
+           grid-area: 3 / 2 / 4 / 4;
+        }
+		-->
+	</code>
+
+	<h2>Colocar elementos a la inversa: líneas negativas</h2>
+	<p>Tambien depende del modo de escritura y la direccion del bloque (orden aparición/visualización) y en línea (texto/contenido), la reversa en inglés empieza de derecha a izquierda. La primera es -1, la segunda es -2, etc.</p>
+	<p>Las líneas negativas no aparecen en las filas o columnas implicitas (creadas automaticamente).</p>
+	<code>
+		.box1 {
+            grid-column-start: -1;
+            grid-column-end: -2;
+            grid-row-start: -1;
+            grid-row-end: -4;
+        }
+	</code>
+	<p>Los elementos aparecen del otro lado, respecto al anterior ejemplo.</p>
+
+	<h3>Estirar los elementos a lo largo de la cuadrícula</h3>
+	<p>Podemos combinar los numero de linea positivos y negativos</p>
+	<code>
+		.item {
+           grid-column: 1 / -1;
+        }
+	</code>
+
+	<h2>Espacio entre elementos</h2>
+	<p>Los espacios entre las filas y las columnas actúan igual que en el diseño de multicol, <em>restan espacio a las filas y columnas</em> para no agrandar al contenedor.</p>
+	<p>Se usan las propiedades <em>colum-gap</em>, <em>row-gap</em> o <em>gap</em> que usa un valor las dos o podemos usar dos valores, uno para cada una.</p>
+
+	<h2>Usando la palabra clave: <em>span</em></h2>
+	<p>Con esta palabra + un numero, podemos estirar las líneas de inicio y fin al elemento.</p>
+	<code>
+		.box1 {
+           grid-column: 1;
+           grid-row: 1 / span 3;
+        }
+	</code>
+	<p><a href="https://firefox-source-docs.mozilla.org/devtools-user/page_inspector/how_to/examine_grid_layouts/index.html">Firefox Grid Highlighter</a> puede ayudar a entender las líneas y las formas de ubicación desde las herramientas para desarrollador del navegador.</p>
+	
+</body>
+</html>

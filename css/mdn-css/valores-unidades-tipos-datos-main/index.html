@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Valores y unidades</title>
+</head>
+<body>
+	<h1>Capitulo 8: valores y unidades</h1>
+	<p>Todas las propiedades de CSS tienen un conjunto de valores que admiten. En la documentacion las propiedades y los valores denotan distinto.</p>
+
+	<h2>Valor en CSS</h2>
+	<p>Un valor en CSS hacer referencia a un conjunto de subvalores admitidos por una propiedad. Hay distintos tipos de valores/unidades/tipos de datos (son sinonimos).</p>
+	<p>Hay valores que son un nombre (palabra clave), numeros (enteros, decimales, porcentajes, etc). En la especificación de las propiedades podemos ver que tipo de valores aceptan.</p>
+	<p>En la especificación/documentación de los sitios especializados, los valores aceptados por una propiedad los podemos ver entre corchetes angulares. Las propiedades no tiene estos corchetes, así podemos distinguirlas.</p>
+
+	<h2>Numeros, longitudes y porcentajes</h2>
+	<p>Hay varios tipos de valores numericos:</p>
+	<ul>
+		<li><em>integer</em>: Es un numero entero como 1200 o -200</li>
+		<li><em>number</em>: Representa a un numero decimal, puede tener o no, un punto para separar la parte entera de la decimal. Ej, 0.2, 100, -2.2, etc.</li>
+		<li><em>dimension</em>: Es un number con una unidad asociada, por ejemplo; 45deg (grados), 5s (segundos) o 10px (pixeles). Tambien incluyea <a href="https://developer.mozilla.org/es/docs/Web/CSS/length">length</a>, <a href="https://developer.mozilla.org/es/docs/Web/CSS/angle">angle</a>, <a href="https://developer.mozilla.org/es/docs/Web/CSS/time">time</a> y <a href="https://developer.mozilla.org/es/docs/Web/CSS/resolution">resolution</a>.</li>
+		<li><em>percentage</em>: Es una fracción de otro valor, ejemplo; 15%. Siempre son relativos a otra cantidad, por ejemplo, la longitud de un elemento es relativa a la longitud de su elemento padre.</li>
+	</ul>
+
+	<h3>Longitudes</h3>
+	<p><em>length</em> es el tipo numerico más frecuente, contiene unidadades como; 10px (pixeles) o 30em. Hay longitudes dos tipos de longitudes: relativa y absoluta, por ejemplo, px es absoluta y em es relativa.</p>
+
+	<h4>Unidades de longitud absoluta</h4>
+	<p>No son relativas a nada, siempre tienen el mismo tamaño. Pueden ser cm (centimetros), mm (milimetros), Q (Cuartos de milimetros), in (pulgadas), pc (picas), pt (puntos) y px (pixeles).</p>
+	<p>La mayoria se usa en textos impresos, salvo px que se usa en pantalla.</p>
+
+	<h4>Unidades de longitud relativa</h4>
+	<p>Son valores relativos a algo más, puede ser al tamaño de letra del un elemento principal o al tamaño de la ventana gráfica del navegador. Posee la ventaja de que los elementos con unidad relativa, escalen en relación a todo lo demas.</p>
+	<ul>
+		<li><em>em</em>: Tamaño de letra del elemento padre (a veces estos heredan tamaño del <em>elemento html (raiz)</em>) si tiene <em>font-size</em> o el tamaño de la fuente del propio elemento, en el caso de otras propiedades, como <em>width</em>.</li>
+		<li><em>ex</em>: Altura x (horizonal) de la fuente del elemento.</li>
+		<li><em>ch</em>: Ancho del "glifo" 0 de la letra del elemento.</li>
+		<li><em>rem</em>: Tamaño de la letra del elemento raíz.</li>
+		<li><em>lh</em>: Altura de la línea del elemento.</li>
+		<li><em>vw</em>: 1% del ancho de la ventana grafica del navegador.</li>
+		<li><em>vh</em>: 1% del alto de la ventan grafica.</li>
+		<li><em>vmin</em>: 1% de la dimensión más pequeña de la ventana grafica.</li>
+		<li><em>vmax</em>: 1% de la dimensión más grande de la ventana.</li>
+	</ul>
+
+	<h4>Rem vs em</h4>
+	<p>rem se usa para tamaño de fuente de los elementos y em se usa para dimensionar elementos.</p>
+	<code>
+		<!--
+			html {
+			  font-size: 16px;
+			}
+
+			.box {
+			  font-size: 1.5rem;
+			  width: 2em; 
+			}
+
+			.box2 {
+	          padding: 1em;
+			}
+		 -->
+	</code>
+
+	<h4>Porcentajes</h4>
+	<p>Se establecerá en relación con otro valor. Por ejemplo, si establecemos font-size en % a un elemento, será un % del font-size de un elemento padre. Si le damos un porcentaje para width, será un porcentaje del atributo width del elemento padre.</p>
+	<code>
+		<!--
+			.wrapper {
+			  width: 400px;
+			  border: 5px solid rebeccapurple;
+			}
+
+			.px {
+			  width: 200px;
+			}
+
+			.percent {
+			  width: 40%;
+			}
+
+			li {
+			  font-size: 80%;
+			}
+		 -->
+	</code>	
+
+	<h4>Numeros</h4>
+	<p>Algunas propiedades aceptan numeros sin ningun tipo de propiedad, por ejemplo, <em>opacity</em> acepta como valores 0 y 1.</p>
+	<code>
+		<!--	
+			.box {
+			  opacity: 0.6;
+			}
+		 -->
+	</code>	
+
+	<h2>Colores</h2>
+	<p>Hay muchas formas de especificar los colores, con palabras claves o funciones, etc. El sistema de color estadar es de 24 bits, permite 16,7 millores de colres distintos a partir de una combinacion de diferentes canales de rojo, verde y azul con 256 valores diferentes por canal.</p>
+
+	<h3>Palabras claves</h3>
+	<p>Hay una multitud de palabras claves para especificar colores.</p>
+	<code>
+		<!--
+			.box {
+			  background-color: cornflowerblue;
+			}
+		 -->
+	</code>	
+
+	<h3>Hexadecimales RGB</h3>
+	<p>Son codigos que empiezan con un hastag(#) seguido de seis cifras hexadecimales, cada cifra puede tomar 16 valores que se encuentran entre 0 y la f (que representa el 15). Cada <em>par</em> de cifra representa uno de los canales (rojo, verde, azul) que nos permite especificar los 256 colores por canal.</p>
+	<code>
+		<!--	
+			.box {
+			  background-color: #F2F2F2;
+			}
+
+			.box2 {
+			  background-color: #c55da1;
+			}
+		 -->
+	</code>		
+
+	<h3>RGB y RGBA</h3>
+	<p>Un color RGB es una funcion, rgb (); tiene tres parametros que representa los colores rojo, verde y azul. Cada canal se representa por un numero decimal entre 0 y 255.</p>
+	<p>Los colores RGBA funcionan como el anterior pero agrega un canal alfa de color que controla la opacidad su valor se establece entre 0 y 1 (trasparente/opaco). Los valores intermedios son diferentes niveles de trasparencia. Notación: despues de la coma se deja un espacio se pone un punto y el valor. A diferencia de la propiedad opacity, un color RGBA solo aplica al elemento que especificas y no a todo el contenedor. Ej: si se lo aplicas a un fondo solo va a ser trasparente ese fondo y no el contenido/texto.</p>
+	<code>
+		<!-- 
+			.box {
+			  background-color: rgb(2, 121, 139);
+			}
+
+			.box2 {
+			  background-color: rgba(2, 121, 139, .3);
+			}
+		-->
+	</code>
+
+	<h3>HSL y HSLA</h3>
+	<p>Es una funcion como rgb pero en lugar de los valores para rojo, verde y azul, HSL admite valores de matriz, saturacion y luminosidad. <strong>Matriz:</strong> tono base del color, su valor va de 0 y 360 que representa un angulo en torno a una rueda de colores. <strong>Saturación:</strong> es la intensidad del color, toma un valor entre 0 (tono gris) y 100% (max saturación). <strong>Luminosidad:</strong> es la claridad o brillo del color, su valor está entre 0 (negro) y 100% (blanco). Tiene su canal alfa con la funcion HSLA que controla la opacidad del elemento.</p>
+	<p>Los colores por funciones (RGB y HSL) tiene la capacidad de admitir el canal alfa sin especificar la función para este canal y viceversa.</p>
+	<code>
+		<!-- 
+			.box {
+			  background-color: hsl(188, 97%, 28%);
+			}
+
+			.box2 {
+			  background-color: hsla(188, 97%, 28%, .3);
+			}
+		-->
+	</code>	
+
+	<h2>Imagenes</h2>
+	<p>Se usa cuando este tipo de dato es valido en una propiedad. Se puede usar la funcion url() o poner un degradado. Estos son los estandarizados pero hay otros si se consulta la documentación.</p>
+	<code>
+		<!--
+			.image {
+			  background-image: url(star.png);
+			}
+
+			.gradient {
+			  background-image: linear-gradient(90deg, rgba(119,0,255,1) 39%, rgba(0,212,255,1) 100%);
+			}
+		 -->
+	</code>	
+
+	<h2>Position</h2>
+	<p>Representa un conjunto de coordenadas 2d que se utiliza para colocar un elemento. Puede tomar palabras claves: top, right, button, left y center; alinea el elemento en los limites de la caja, salvo center. Position puede tener dos valores: el primero es para el eje x (horizontal) y el segundo para el eje y (vertical). El elemento se empieza a mover desde la esquina inferior izq.</p>
+	<code>
+		<!--
+			.box {
+			  height: 300px;
+			  width: 400px;
+			  background-image: url(star.png);
+			  background-repeat: no-repeat;
+			  background-position: right 40px;
+			}
+		 -->
+	</code>	
+
+	<h2>Cadenas e identificadores</h2>
+	<p>Las palabras claves que se usan como valores para las distintas propiedades se llaman identificadores, las escribimos sin comillas. Una cadena es un texto que se escribe entre comillas que se usa para identificar el contendio que generamos.</p>
+	<code>
+		<!--
+			.box {
+				background-color: blue;
+			}
+
+			.box::after {
+				content: "cadena de palabras para generar un texto"
+			}
+		 -->
+	</code>	
+
+	<h2>Funciones</h2>
+	<p>Este valor es un bloque de codigo reutilizable para ejecutar varias veces una tarea repetitiva. Tambien las hay en CSS, ya hemos visto rgb(), hsl() y url().</p>
+	<p>La funcione calc() permite hacer calculos para sacar valores que no se pueden describir con palabras claves o simples que no podemos saber de antemano, sobre todo cuando hay elementos relacionados unos con otros.</p>
+	<code>
+		<!--	
+			.box {
+			  width: calc(20% + 100px);
+			}
+		 -->
+	</code>	
+
+	<h2>Conclusión</h2>
+	<p>Cada propiedad tiene una lista definida de valores que admite y cada valor tiene una definicion que explica sus subvalores permitidos.</p>
+</body>
+</html>

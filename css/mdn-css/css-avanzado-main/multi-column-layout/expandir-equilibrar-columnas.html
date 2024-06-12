@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Expandir y equilibrar columnas</title>
+</head>
+<body>
+	<h2>Expandir elemento por las columnas</h2>
+	<p>Con la regla <span>column-span: all</span> para expandir cualquier elemento dentro del contenedor multicol. Solo hay dos valores: <em>none</em> y <em>all</em>, no se puede determinar un cantidad de columnas.</p>
+	<p>Los elementos que se expanden, cortan el borde (si tienen estilo, se ve claramente), padding, margen, de las demás columnas.</p>
+	<code>
+		.container {
+		  column-width: 200px;
+		}
+		h2 {
+		  column-span: all;
+		}
+
+		<!--
+			<div class="container">
+			  <p>Veggies es bonus vobis, proinde vos postulo</p>
+
+			  <h2>A heading</h2>
+
+			  <p>Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame.</p>
+			            
+			  <p>Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water.</p>
+			</div>
+		-->
+	</code>	
+
+	<p>Para el segundo ejemplo:</p>
+	<code>
+		<!--
+			.container {
+			  column-width: 200px;
+			}
+			h2 {
+			  column-span: all;
+			}
+
+			<div class="container">
+			  <p>Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth.</p>
+
+			  <article>
+			    <h2>A heading</h2>
+
+			    <p>Parsley shallot courgette tatsoi pea sprouts.</p>
+			            
+			    <p>Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi.</p>
+			  </article>
+			</div>
+		-->
+	</code>
+	<p>El marcado de HTML utiliza <em>article</em></p>
+
+	<p>En el tercer ejemplo un problema con el estilo y el titulo expandido y nos corta el borde.</p>
+	<code>
+		<!--
+			.container {
+			  width: 500px;
+			  column-width: 200px;
+			}
+			h2 {
+			  column-span: all;
+			}
+		-->
+	</code>
+
+	<h2>Rellenar y equilibrar columnas</h2>
+	<p>Las columnas estan equilibradas cuando tiene la misma cantidad de contenido. El llenado y equilibrio entra en juego cuando la cantidad de contenido no coincide con la cantidad de espacio proporcionado.</p>
+	<p>El valor predeterminado de la propiedad <em>column-fill</em> es <em>balance</em>, para que las columnas esten lo más balanceadas posibles. En documentos de paged media (libros, pdf) solo se equilibrará el ultimo fragmento.</p>
+	<p>El segundo valor es <em>balance-all</em>, intenta equilibrar todas las columnas en contextos fragmentados (paged media) y no solo el ultimo fragmento.</p>
+	<p>Cuando tenemos una imagen en medio, va a una columna y el contenido se acoplará en las siguientes.</p>
+	<p>El tercer valor es <em>auto</em>, las columnas se rellenarán secuencialmente, puede dejar espacio vacio en algunas columnas.</p>
+	<code>
+			.container {
+			  column-width: 150px;
+			  column-fill: balance;
+			  height: 250px;
+			}
+			<!--
+			<div class="container">
+			  <img src="../overflow/image.jpg" alt="balloons">
+
+			  <p>Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh</p>
+
+			  <p>Gumbo beet greens corn soko endive gumbo gourd.</p>
+			</div>
+		-->
+	</code>
+
+	<p>El segundo valor:</p>
+	<code>
+		.container {
+		  column-width: 150px;
+		  column-fill: auto;
+		  height: 250px;
+		}
+	</code>
+	
+</body>
+</html>

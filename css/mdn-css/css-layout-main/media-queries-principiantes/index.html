@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Media Queries para principianes - CSS</title>
+</head>
+<body>
+	<h1>Media Queries para principiantes</h1>
+	<p>CSS Media Query permite aplicar estilo mediante una regla con una serie de condiciones, que si son ciertas -en el navegador/dispositivo- cambia el diseño de la página.</p>
+	<p>Las media queries son fundamentales en el diseño responsivo ya que permiten adaptar el diseño según el tamaño de la ventana gráfica del navegador que depende del ancho fisico del dispositivo.</p>
+	<p>Tambien pueden detectar las funciones del dispositivo que está usando el usuario. Por ejemplo, si esta usando la pantalla tactil en lugar del mouse.</p>
+	<p>En este apartado se aprenderá la sintaxis y ejemplos practicos para hacer responsiva una página.</p>
+
+	<h2>Conceptos basicos de un Media Query</h2>
+	<p>La sintaxis más simple de un media query se ve así:</p>
+	<code>
+		<!--
+			@media media-type and (media-feature-rule) {
+			  /* CSS rules go here */
+			}
+		 -->
+	</code>
+	<p>Primero va el tipo de query (<em>media-type</em>), segundo va el tipo de prueba/test (<em>media-feature-rule</em>) que debe pasar el navegador/disposito del usuario; adentro ponemos una declaración que debe cumplirse para que se aplique otro CSS que es el ultimo componente de un query.</p>
+
+	<p><em>Consisten en:</em></p>
+	<ul>
+		<li><em>Media type</em> (tipo de medio): le dice al navegador para qué tipo de medio es el código (ej, impresión (print) o pantalla (screen)).</li>
+		<li><em>Media expresion</em> (expresion de medio): es una regla/prueba/condición que debe pasar el navegador para que se aplique el código de CSS (es lo que viene despues).</li>
+		<li><em>CSS rules</em> (reglas de CSS): se aplicarán si pasa la prueba para el tipo de medio.</li>
+	</ul>
+
+	<h3>Media type</h3>
+	<p>Los tipos de medios se refiere a dónde se va aplicar la condición y el estilo de CSS:</p>
+	<ul>
+		<li><em>all</em>: Aplica para ventana gráfica e impresión código.</li>
+		<li><em>print</em>: Para imprimir/aplicar código.</li>
+		<li><em>screen</em>: Para la ventana gráfica.</li>
+	</ul>
+	<p>Antes de estos, se pone <em>@media</em> para que sean aceptados.</p>
+	<p>Estos valores son opcionales, si no indicamos ninguno; el media query se aplica a todos los tipos de medios.</p>
+	<p>En su momento habia más de estos tipos pero quedaron absoletos con el avance en la especificación.</p>
+	<p>Un tipo de media/medios se refiere a dónde se vuelca el contenido: una página web, audio, video, etc.</p>
+	<code>
+		<!--
+			@media print {
+			  body {
+			    font-size: 12pt;
+			  }
+			}
+		 -->
+	</code>
+
+	<h3>Media feature rules</h3>
+	<p>Son funciones multimedia, cuando el usuario las activa, podemos cambiar el CSS que se especifica debajo de estas. Son parecidas a una declaración de CSS, tienen propiedad y valor.</p>
+
+	<h4>Ancho y alto</h4>
+	<p>Las funciones <em>width</em> y <em>height</em> (exactas) así como <em>min-width</em>, <em>max-width</em> y <em>min-height</em>, <em>max-height</em> (rango) son las principales que usamos para hacer diseños responsivos si la usamos con el tipo de media <em>screen</em> porque se refiere al ancho o alto de la ventana del navegador.</p>
+	<p>Por ejempo, podemos poner un media query que tome como medio la pantalla y agregamos como propiedad, que si llega a un ancho exacto de 600px para que cambie el color de la fuente del body. Debemos usar el condicional <em>and</em> entre medio.</p>
+	<code>
+		<!--
+			@media screen and (width: 600px) {
+			  body {
+			    color: red;
+			  }
+			}
+
+			@media screen and (max-width: 600px) {
+			  body {
+			    color: blue;
+			  }
+			}
+		 -->
+	</code>
+
+	<p>Tambien podemos hacerlo para cierto rango en donde usamos min y max. Por ejemplo, el máximo actúa como un techo y el minimo como un piso. A fines practicos son los más usados para el diseño responsivo.</p>
+	<p>En MDN se puede revisar todas las <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries#media_features">media queries</a> que hay, su compatibilidad y cuales fueron desechadas.</p>
+
+	<h4>Orientación</h4>
+	<p>Es una función multimedia para los dispositivos moviles que nos permite cambiar el CSS si el dispositivo está en modo vertical u horizontal</p>
+	<p>Los valores son <em>portrait</em> que ser refiere a la posición vertical porque el alto es mayor que el ancho y <em>landscape</em> que es la posición horizontal, su ancho es mayor que el alto.</p>
+	<p>En diseño, la vista de escritorio es horizontal; mientras que la vista en los navegadores movil es vertical. Desde las herramientas de desarrollador se puede emular estos tipos de vista.</p>
+	<code>
+		<!--
+			@media (orientation: landscape) {
+			  body {
+			    color: rebeccapurple;
+			  }
+			}
+		 -->
+	</code>
+
+	<h4>El uso de pointing devices</h4>
+	<p>Cuando los usuarios pasan el mouse/puntero por encima de los elememtos, podemos aplicar estilo. Los dispositivos moviles incluyen soporte para estos perifericos.</p>
+	<p>En la especificación más avanzada se incluyen 3 valores: <em>fine</em> para los mouse y trackpad que son punteros precisos en areas pequeñas, <em>coarse</em> que describe a un puntero grueso como puede ser nuestro dedo en una pantalla tactil y <em>none</em> cuando el dispositivo no este navegando con un puntero y lo haga con el teclado o un comando de voz.</p>
+	<code>
+		<!--
+			@media (hover: hover) {
+			  body {
+			    color: rebeccapurple;
+			  }
+			}
+		 -->
+	</code>
+
+	<h2>Lógica en los media queries</h2>
+	<p>Su usan para crear media queries más complejos al combinar estas condiciones con varios media features así lograr distintos escenarios para aplicar estilo.</p>
+
+	<h3>Operador lógico "and"</h3>
+	<p>Por ejemplo, si probamos las funciones <em>min-width</em> y <em>orientation</em>, se tienen que cumplir las dos condiciones para que la fuente del body tenga color azul. Las condiciones son que ventana gráfica tenga como minimo 600px y que el dispositivo este en modo horizontal. Vemos que hay dos <em>"and"</em>, uno para conectar con el tipo de media y el otro para las funciones.</p>
+	<code>
+		<!--
+			@media screen and (min-width: 600px) and (orientation: landscape) {
+			  body {
+			    color: blue;
+			  }
+			}
+
+		 -->
+	</code>	
+
+	<h3>Operador Lógico "or"</h3>
+	<p>Se representa con una <em>coma</em>, podemos crear un media query más complejo con varios conjuntos de condiciones que pueden cumplirse. En este caso, solo hace falta que se cumpla uno de ellos para que se aplique el CSS.</p>
+	<p>Si separamos el ejemplo anterior, el texto será azul si la ventana gráfica tiene un minimo de 600px o si el dispositivo está en posición horizontal.</p>
+	<p>Vemos que se repite el tipo de medio a los lados de la coma/"or", seguidos de "and" y la función multimedia.</p>
+	<code>
+		<!--
+			@media screen and (min-width: 600px), screen and (orientation: landscape) {
+			  body {
+			    color: blue;
+			  }
+			}
+		 -->
+	</code>
+
+	<h3>Operador lógico "not"</h3>
+	<p>El operador <em>"not"</em> invierte las condiciones que ponemos para que cambie el CSS. Vemos que "not" se ubican antes del tipo de medio.</p>
+	<p>En el ejemplo, lo contrario a <span>orientacion: landscape;</span> es portrait, la pantalla tiene que ser vertical para que cambie el color de texto del body.</p>
+	<code>
+		<!--
+			@media not all and (orientation: landscape) {
+			  body {
+			    color: blue;
+			  }
+			}
+		 -->
+	</code>
+
+	<h2>Cómo elegir los breakpoints</h2>
+	<p>Se refiere a dónde ubicar un media query. Cuando se comenzó a usar media queries para el diseño responsivo, los desarrolladores los usaban para detectar el ancho de pantalla de los dispositivos moviles. Creaban una lista de resoluciones exactas en el media query así adaptar el diseño del escritorio a los moviles.</p>
+	<p>Pero con el paso del tiempo hay muchisimos dispositivos no solo moviles, sino tambien de escritorio con distinto ancho fisico. Entonces, se cambió el enfoque: cambiar el diseño dónde el contenido comenzaba a romperse, colapsarse contra el ancho de pantalla o cuando las líneas de texto se volvian demasiado largas, etc.</p>
+	<p>Este es el punto donde hay que usar un media query, para cambiar el diseño a uno mejor para el espacio que hay disponible. No importa las dimensiones exactas, se adapta por rangos.</p>
+	<p>En las herramientas para desarrolladores hay una para el diseño responsivo que nos guia por dónde poner los media queries. Podemos ajustar la ventana gráfica para ver en que ancho mejoraría el contenido o cuando ser rompe el diseño.</p>
+
+	<h2>Haciendo nuestro primer diseño responsivo</h2>
+	<p>Para hacer un diseño responsivo, hay dos enfoques: empezar haciendo un diseño de escritorio y despues agregar media queries (puntos de interrupción) para mover los elementos a medida que se va reduciendo la ventana gráfica, o comenzamos un diseño de movil para que los elementos se agranden y acomoden a un espacio mayor a medida que se amplia la ventana del navegador. Este ultimo enfoque es el que seguiremos.</p>
+	<p>La vista de los dispositivos más pequeños suelen ser una sola columna de contenido, como aparecen en el flujo normal. Solo hay que ordenar bien las fuentes para que sean legibles.</p>
+	<p>La practica será un diseño simple para practicar el diseño de una columna/movil. En un diseño profesional se aplica más estilo pero sigue el mismo enfoque.</p>
+
+	<h3>Practica: Diseño de movil simple</h3>
+	<p>El primer paso es poner una fuente legible dentro del contenido para que sea comprensible para los lectores de pantalla, es importantisimo para la accesibilidad.</p>
+	<p>En el código sin modificar vemos que el <em>body</em> está centrado ocupa el 90% de la ventana gráfica, con el margen está centrado horizontalmente con espacio vertical. Se aplica distinto estilo para los <em>links</em>, uno para los de navegación en los que se les saca la decoración (subrrayado) y los puntos de la lista, después se les agrega sus respectivas pseudoclases. Otro para los de la página/relacionados en donde tambien se les saca los puntos de lista. Todo esto como caracteristicas destacadas.</p>
+	<code>
+		<!--
+			* {
+			  box-sizing: border-box;
+			}
+
+			body {
+			  width: 90%;
+			  margin: 2em auto;
+			  font: 1em/1.3 Arial, Helvetica, sans-serif;
+			}
+
+			a:link,
+			a:visited {
+			  color: #333;
+			}
+
+			nav ul,
+			aside ul {
+			  list-style: none;
+			  padding: 0;
+			}
+
+			nav a:link,
+			nav a:visited {
+			  background-color: rgba(207, 232, 220, 0.2);
+			  border: 2px solid rgb(79, 185, 227);
+			  text-decoration: none;
+			  display: block;
+			  padding: 10px;
+			  color: #333;
+			  font-weight: bold;
+			}
+
+			nav a:hover {
+			  background-color: rgba(207, 232, 220, 0.7);
+			}
+
+			.related {
+			  background-color: rgba(79, 185, 227, 0.3);
+			  border: 1px solid rgb(79, 185, 227);
+			  padding: 10px;
+			}
+
+			.sidebar {
+			  background-color: rgba(207, 232, 220, 0.5);
+			  padding: 10px;
+			}
+
+			article {
+			  margin-bottom: 1em;
+			}
+		 -->
+	</code>	
+
+	<p>Así como está funciona bien en los dispositivos moviles, podemos chequearlo con el <em>modo responsivo</em> de las herramientas para desarrolladores. Cuando reducimos la ventana, el diseño no se rompe porque está en columna por defecto pero para escritorio no funciona, sobra demasiado espacio.</p>
+	<code>
+		<!--
+			<body>
+			  <div class="wrapper">
+			    <header>
+			      <nav>
+			        <ul>
+			          <li><a href="">About</a></li>
+			          <li><a href="">Contact</a></li>
+			          <li><a href="">Meet the team</a></li>
+			          <li><a href="">Blog</a></li>
+			        </ul>
+			      </nav>
+			    </header>
+
+			    <main>
+
+			      <article>
+			        <div class="content">
+			          <h1>Veggies!</h1>
+			          <p>…</p>
+			        </div>
+			        <aside class="related">
+			          <p>…</p>
+			        </aside>
+			      </article>
+
+			      <aside class="sidebar">
+			        <h2>External vegetable-based links</h2>
+			        <ul>
+			          <li>…</li>
+			        </ul>
+			      </aside>
+
+			    </main>
+
+			    <footer><p>&copy;2019</p></footer>
+			  </div>
+			</body>
+		 -->
+	</code>	
+
+	<h4>Nuestro primer media query</h4>
+	<p>La clave para ubicarlo es cuando estamos usando el modo responsivo:</p>
+	<ol>
+		<li><strong>Reducimos la ventana al minimo</strong>: A medida que estiramos, los elementos se van expandiendo. Al principio los vemos amontonados pero cuando se muestren por completo, ahí es cuando preparamos nuestro primer media query porque al seguir estirando vemos que nos sobrará un montón de espacio.</li>
+		<li><strong>Agregando un media query</strong>: usamos <em>min-width</em> con la unidad <em>em</em> por si el usuario agranda el tamaño del texto, el media query se activará cuando la ventana sea más grande así no se compactan los elemento por haber agrandado el texto. La unidad em multiplica el tamaño de la fuente del HTML (16px), entonces, <span>40*16 = 640px</span>. Quiere decir que el diseño cambiará cuando la ventana tenga 640px de ancho.</li>
+	</ol>
+	<code>
+		<!--
+			@media screen and (min-width: 40em) {
+			  article {
+			    display: grid;
+			    grid-template-columns: 3fr 1fr;
+			    column-gap: 20px;
+			  }
+
+			  nav ul {
+			    display: flex;
+			  }
+
+			  nav li {
+			    flex: 1;
+			  }
+			}
+		 -->
+	</code>
+
+	<p>Cuando agrandemos la ventana del navegador, los elementos van a ir pasando en el orden que esten en el HTML. Llenan el espacio vacio horizontal y pasan a ser como una espacie de columna. Primero aparecen los elementos que están dentro del <em>header</em> como un <em>nav</em> dentro de este una lista de items, etc. Después aparecen los que están dentro del <em>main</em> como <em>article</em>, divs y parrafos. Siguen los <em>aside</em>, el main contiene a casi todos estos elementos menos al header y al <em>footer</em> que es el último. Aunque puede cambiar el orden de algún elemento secundario.</p>
+
+	<p>Con el codigo modificado: Cuando la ventana se agrande y haya espacio vacio, agregaremos grid con dos columnas para el articulo (por eso tiene un tamaño de proporción más grande) y los elementos dentro de él como el <em>aside</em>. Agregamos flexbox para que los botones de navegación tomen un sentido lineal y no en bloque. Cuando agregamos más columnas beneficiamos a los usuarios con pantalla más grande.</p>
+
+	<p>En este punto combinamos el diseño de flujo normal, con grid y flexbox para entender como usar los media queries. Pero si a nosotros en un proyecto personal simple nos alcanza con usar flex o grid que son responsivos por defecto no nos haria falta usar media queries y complicarnos la vida.</p>
+
+	<p>Ahora con otro media query agremamos otros elementos cuando el minimo de ventana sea más grande: Agregamos un main con un grid de 2 columnas y un footer. En 1120px se mostrará el nuevo diseño. Eliminamos el margen inferior de <em>article</em> para que las dos barras laterales se alineen entre sí y agregamos un borde superior en el <em>footer</em>. En general, estas configuraciones hacen que el diseño se vea bien. Es bueno notar que tenemos dos cuadrículas, podemos verlas con el inspector, vemos dos aside juntos porque uno pertenece a la cuadrícula del article y el otro a la cuadrícula que formamos con <em>main</em> que es la tercera columna dejo de estar abajo como un bloque. Otra cosa que ayuda del inspector es activar y desactivar las propiedades para visualizar los cambios.</p>
+	<code>
+		<!--
+			@media screen and (min-width: 70em) {
+			  main {
+			    display: grid;
+			    grid-template-columns: 3fr 1fr;
+			    column-gap: 20px;
+			  }
+
+			  article {
+			    margin-bottom: 0;
+			  }
+
+			  footer {
+			    border-top: 1px solid #ccc;
+			    margin-top: 2em;
+			  }
+			}
+		 -->
+	</code>
+
+	<p>Cuando el HTML se hace más complejo nos viene bien recordar como se <a href="">estructura una web basica</a>, sobre todo cuando hay muchos elementos dentro de otros. Cuando avancemos en el diseño y hagamos nuestros proyectos es recomendable hacer un boceto del diseño responsivo para detectar en dónde va cada elemento principal y secundario. Además tener un cuenta los <a href="">selectores de CSS</a> para usar los metodos flex, grid, etc.</p>
+
+	<h2>La etiqueta meta de la ventana gráfica en HTML</h2>
+	<p>Existe para controlar cómo los navegadores de los dispositivos moviles representan el contenido del sitio. Es necesaria porque estos navegadores mienten sobre el ancho de su ventana gráfica, no representa el ancho fisico de la pantalla. Lo hacen para los sitios no responsivos, disponen su ancho en 980px (generalmente) y luego reducen el contenido mostrado para ajustarlo a la pantalla.</p>
+	<code>
+		<!--
+			<meta name="viewport" content="width=device-width,initial-scale=1" />
+		 -->
+	</code>
+
+	<p>El problema está en que tienen un piso minimo de 980px de ancho para mostrar el contenido. Si configuramos un media query menor que eso como lo hicimos en todos los ejemplos, no se mostrarán las versiones moviles que configuramos.</p>
+	<p>El código de la etiqueta que tenemos que configurar quiere decir que "no muestre el contenido desde 980px, renderizelo desde el ancho de pantalla real del dispositivo".</p>
+	<p>En el capitulo anterior y en el el siguiete <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag">The viewport meta tag</a> hay más detalles sobre como funciona esta etiqueta y otras funciones que tiene.</p>
+
+	<h2>Son indispensables los media queries</h2>
+	<p>Como se explicó antes, Flex, Grid y el diseño en multicolumna son responsivos por naturaleza sin tener que crear un media query. Si estos diseños pueden crear todo lo que necesitamos y el tamaño de los elementos se ven bien en el movil o en el modo receptivo, no hace falta un media query. Si se combianan los metodos modernos de diseño con media queries, puede mejorar muchisimo la experiencia de un sitio.</p>
+	<code>
+		<!--
+			<ul class="grid">
+			  <li>
+			    <h2>Card 1</h2>
+			    <p>…</p>
+			  </li>
+
+			  <li>
+			    <h2>Card 2</h2>
+			    <p>…</p>
+			  </li>
+			</ul>
+
+			.grid {
+			  list-style: none;
+			  margin: 0;
+			  padding: 0;
+			  display: grid;
+			  gap: 20px;
+			  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+			}
+
+			.grid li {
+			  border: 1px solid #666;
+			  padding: 10px;
+			}
+		 -->
+	</code>
+
+	<p>En este nuevo ejemplo y el anterior combinamos el diseño normal, con grid y media queries; lo que los diferencia es la forma en que algunos elementos estan diseñados, por ejemplo, un diseño de cartas con filas y columnas (dos direcciones) queda mejor con grid. En los articulos de cada metodo de diseño se puede ver para cuales cosas es mejor uno u otro. Debes experimentar cual funciona mejor para el diseño y el contenido dle sitio.</p>
+</body>
+</html>

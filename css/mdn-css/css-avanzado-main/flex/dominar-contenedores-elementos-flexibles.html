@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Dominar los contenedores y elementos flexibles - CSS</title>
+</head>
+<body>
+	<h1>Dominar el contenedor flexible</h1>
+	<p>Flexbox es unidireccional, coloca los elementos en una fila <em>o</em> en una columna, no ambos a la vez. Sin embargo, con una tecnica se puede envolver los elementos en nuevas filas y nuevas columnas.</p>
+
+	<h2>Creando un contenedor flex</h2>
+	<p>Se necesitan para envolver los elementos que haya dentro de éste.</p>
+	<p>Un contenedor tiene por defecto la propiedad <em>flex-wrap</em> en <span>no-wrap</span>, que si hay muchos elementos desbordarán el contenedor porque no bajan a una línea nueva. Si queremos que se ajusten cuando cambia el tamaño de ventana o contenedor, debemos usar el valor <em>wrap</em>; todo depende de lo que necesite el diseño.</p>
+	<p>Tambien se puede usar la forma abreviada <em>flex-flow</em> con pares de valores entre <em>row</em>, <em>column</em>, <em>wrap</em> y <em>no-wrap</em>.</p>
+	<p>Por ejemplo, podemos tener <em>elementos</em> en <em>fila</em> con una base en px determinada, con la capacidad de crecer y reducirse; con flex wrap, los elementos empiezan una nueva fila cuando no tienen espacio para ubicarse en la anterior. Para la ultima fila, los elementos que queden, ocuparan todo el espacio; <span>siempre que tengan factor de crecimiento</span>.</p>
+	<code>
+    <!-- 
+      <div class="box">
+        <div>One</div>
+        <div>Two</div>
+        <div>Three</div>
+        <div>Four</div>
+        <div>Five</div>
+        <div>Six</div>
+        <div>Seven</div>
+        <div>Eight</div>
+        <div>Nine</div>
+        <div>Ten</div>
+      </div>
+    
+
+    .box {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .box>* {
+        flex: 1 1 160px;
+    }
+    -->
+  </code>
+
+	<p>Con las <em>columnas</em> pasa los mismo, pero con el alto de éstas; <span>empiezan</span> a ubicarse uno debajo de otro y cuando no haya espacio en este sentido, los nuevos elementos <span>hacen</span> otra <span>columna al lado</span>. Los articulos que queden en la ultima columna, ocuparán todo el espacio si tienen factor de crecimiento en flex-grow.</p>
+	<code>
+    <!-- 
+		.box {
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    .box>* {
+        flex: 1 1 80px;
+    }
+    -->
+	</code>
+
+	<h2>Contenedor y la propiedad flex-direction</h2>
+	<p>Podemos establecer una dirección en reversa para las filas con <em>row-rever</em> (las líneas empiezan de izquierda a derecha) y para las columnas con <em>column-reverse</em> (las columnas empiezan de abaja hacia arriba).</p>
+	<code>  
+    <!--   
+		.box {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+    }
+    .box>* {
+        flex: 1 1 160px;
+    }
+    -->
+    </code>
+
+    <h2>Entendiendo el diseño unidireccional</h2>
+    <p>O tambien llamado dimensional, los elementos se ubicarán en horizontal o vertical seguidamente, en flexbox; no hay forma de hacer que un elemmento pueda ubicarse en una línea que quisieramos. Se debe a que los elementos actuan/muestran sobre el eje principal (<em>main-axis</em>).</p>
+    <p>Para que los elementos se puedan colocar a nuestro gusto en una fila o columnas deberiamos usar <em>Grid</em>. Es la diferencia tecnica clave entre flex y grid, visualmente, podemos entenderlo de otras formas.</p>
+    <code>
+      <!-- 
+    	.box {
+        display: grid;
+        grid-template-columns: repeat(auto-fill,minmax(160px, 1fr));
+      }
+      -->
+    </code>
+
+    <h2>Creando cuadrícula con flexbox</h2>
+    <p>Si se asigna porcentajes a los elementos flexibles ya sea en <em>flex-basis</em> o agregando ancho a los elementos con la propiedad <em>width</em> y dejando flex-basis en auto. Se puede ver una especie de cuadricula pero sin las cualidades de Grid.</p>
+    <code>  
+      <!--  
+      <div class="box">
+        <div>One</div>
+        <div>Two</div>
+        <div>Three</div>
+        <div>Four</div>
+        <div>Five</div>
+        <div>Six</div>
+        <div>Seven</div>
+        <div>Eight</div>
+        <div>Nine</div>
+        <div>Ten</div>
+      </div>
+
+    	.box {
+        width: 500px;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .box>* {
+          flex: 0 0 33.3333%;
+      }
+    -->
+	  </code>
+
+    <p>Flex-grow y flex-shrink en 0 para que los elementos sean inflexibles, luego agregamos porcentajes para dar flexibilidad. Está manera centrará los elementos en eje secundario.</p>
+
+    <h2>Crear espacios entre los elementos</h2>
+    <p>Necesitamos espacios que no se creen en los bordes del contenedor, solo entre los elmentos. Lo hacemos usando margenes negativos aplicados al contenedor. Tambien necesitamos doble contenedor, para la caja que </p>
+    <p>Con la propiedad <em>gap</em> los espacios se crean entre los bordes de los elementos.</p>
+    <code>
+      <!-- 
+    	.wrapper {
+          border: 2px dotted rgb(96, 139, 168);
+          width: 500px;
+        }
+
+        .box {
+          display: flex;
+          flex-wrap: wrap;
+          margin:-10px;
+        }
+      
+      .box>* {
+        flex: 1 1 160px;
+        margin: 10px;
+      }
+      -->
+    </code>
+
+    <h2>Elementos contraidos</h2>
+    <p>Un elementos flexibles con la propiedad <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/visibility">visibility</a> configurada en <em>collapse</em>, hace que se convierta en un <em>elemento contraido</em>, se deja de ver pero deja un soporte para mantener estable el tamaño del eje secundario de los demás elementos.</p>
+    <p>Si el contenedor tiene una fila, los elementos se contraen o descomprimen para cambiar el tamaño del eje principal del contenedor pero garantiza que no tendrá ningun efecto en el tamaño vertical/altura de los elementos para no afectar al resto de la pagina.</p>
+    <p>El ajuste de la línea flexible se vuelve a hacer despues de contraerse, por lo que el tamaño del eje secundario con varias líneas puede cambiar o no.</p>
+    <p>Es util para aplicar JavaScript a los elementos flexibles para mostrar/ocultar contenido.</p>
+    <code>  
+          <!--
+          <div class="box">
+            <div>One</div>
+            <div>Two</div>
+            <div class="hide">Three
+                <br>has
+                <br>extra
+                <br>text
+            </div>
+          </div>
+
+          .box {
+            display: flex;
+          }
+          .box>* {
+            flex: 1 1 200px;
+          }
+          .hide {
+            visibility: collapse;
+          }
+        -->
+    </code>
+
+    <p>Tenemos un contenedor flexible no envuelto en otro contenedor, el tercer elemento tiene más contenido que los demas; pero está configurado con la propiedad <span>visibility: collapse;</span> el contenedor tendrá un soporte para la altura requierida así mostrar el elemento.</p>
+    <p>Si pone el valor <em>visible</em>, el elemento desaparece  y el espacio se redistribuye entre los demás elementos no desbordados. La altura del contenedor no cambiará. En los navegadores tipo chrome, el valor collapse es tratada como hidden (oculta).</p>
+    <p>En los contenedores de varias líneas, la envoltura se vuelve a hacer despues de colapsar/desbordarse. El navegador vuelve a realizar el ajuste para tener en cuenta el nuevo espacio que ha dejado el elemento colapsado en la dirección en línea.</p>
+    <p>Los elementos puede terminar en una línea nueva a la que comenzarion, dado que se muestran/ocultan.</p>
+    <code>
+          <!--
+          .box {
+            display: flex;
+            flex-wrap: wrap;
+          }
+          .box>* {
+            flex: 1 1 auto;
+          }
+          .hide {
+            visibility: collapse;
+          }
+
+        <div class="box">
+                <div>One</div>
+                <div>Add more text to this box to make it grow</div>
+          <div class="hide">Three
+              <br>has
+              <br>extra
+              <br>text
+          </div>
+          <div>Four</div>
+          <div>Five</div>
+          <div>Six</div>
+          <div>Seven</div>
+          <div>Eight</div>
+          <div>Nine</div>
+          <div>Ten</div>
+        </div>
+          -->
+    </code>
+    <p>Puede ver que el estiramiento cambia de fila según la ubicación del elemento contraído. Si agregamos contenido, los elementos se estiran y los demás se acomodan en otras filas.</p>
+
+    <h3>Diferencia entre visibility: hidden y display: none</h3>
+    <p>Si para ocultar un elemento ponemos <span>display: none;</span>, el elemento se elimina de la estructura del sitio, los <em>counters</em> lo ignoran y las <em>transitions</em> no se ejecutan.</p>
+    <p>Si usamos <span>visibility: hidden</span>, mantiene la caja/elemento en la estructura haciendo que sea parte del diseño.</p>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Diseños comunes en Grid</title>
+</head>
+<body>
+	<h1>Diseño comunes con grid</h1>
+	<p>Veremos tecnicas que se pueden aplicar para conseguir algunos diseños con grid, aunque tambien, hay más de una forma de lograr los diseños; se elige la más util para nuestros propositos.</p>
+
+	<h2>Diseño responsivo de 1 a 3 columnas con <em>grid-template-areas</em></h2>
+	<p>La mayoría de los sitios tienen <em>barras laterales</em>, <em>barra de navegación</em>, <em>contenido principal</em> y un <em>pié de página</em>.</p>
+	<p>Para dispositivos moviles con pantalla pequeña, todos los elementos estarán en un diseño de una columna. A medida que la pantalla de un dispositivo sea más grande, se agregarán columnas y los elementos se desplazarán en ellas.</p>
+	<p>Si lo hacemos en grid necesitamos un contenedor con todos estos elementos dentro.
+	<p>En el HTML vemos que el contenedor es un div que tiene los elementos <em>header</em> y <em>nav</em> por separado, la <em>lista</em> con los links se extienden en línea. El elemento <em>article</em> conteniene al encabezado y al parrafo. Seguido de un <em>aside</em>, un <em>div</em> para la publicidad y un <em>footer</em> al final.</p>
+  <code>
+    <!--
+        <div class="wrapper">
+          <header class="main-head">The header</header>
+
+          <nav class="main-nav">
+            <ul>
+              <li><a href="">Nav 1</a></li>
+              <li><a href="">Nav 2</a></li>
+              <li><a href="">Nav 3</a></li>
+            </ul>
+          </nav>
+
+          <article class="content">
+            <h1>Main article area</h1>
+            <p>
+            </p>
+          </article>
+
+          <aside class="side">Sidebar</aside>
+
+          <div class="ad">Advertising</div>
+
+          <footer class="main-footer">The footer</footer>
+        </div>
+    -->
+  </code> 
+
+	<h3>Diseño de 1 columna</h3>
+	<p>Usamos <em>grid-template-areas</em> para diagramar el posicionamiento de los elementos, los ponemos todos uno debajo de otro para formar una columna. Con <em>grid-area</em> para nombrar un area que ocuparan los elementos, estos lo usamos <span>fuera de cualquier query</span> para reutilizarlos.</p>
+
+	<code>
+		.wrapper {
+      display: grid;
+      gap: 20px;
+      grid-template-areas:
+        "header"
+        "nav"
+        "content"
+        "sidebar"
+        "ad"
+        "footer";
+    }
+
+    <!--
+    .main-head {
+      grid-area: header;
+    }
+    .content {
+      grid-area: content;
+    }
+    .main-nav {
+      grid-area: nav;
+    }
+    .side {
+      grid-area: sidebar;
+    }
+    .ad {
+      grid-area: ad;
+    }
+    .main-footer {
+      grid-area: footer;
+    }
+    -->
+	</code>
+
+	<p>Mantenemos el <em>orden de fuente</em> (código fuente/origen) y el <em>orden visual</em> será tal cual aparezcan en la fuente. No usamos <em>grid-template-columns</em> para crear pistas o filas/columnas. Como tenemos una columna, si es necesario creará una fila para el elemento que lo necesite.</p>
+
+	<h3>Diseño de 2 columnas</h3>
+	<p>Agregamos un <em>media query</em> para adaptar el diseño a pantallas más grandes, expandiendo la cuadrícula ya que tienen más espacio.</p>	
+	<code>
+		@media (min-width: 500px) {
+      <!--
+      .wrapper {
+        grid-template-columns: 1fr 3fr;
+      -->
+        grid-template-areas:
+          "header  header"
+          "nav     nav"
+          "sidebar content"
+          "ad      footer";
+          <!--
+      }
+      nav ul {
+        display: flex;
+        justify-content: space-between;
+      }
+    -->
+    }
+	</code>
+	<p>Creamos dos columnas, la segunda es más grande para que el contenido principal pueda verse mejor. Necesitamos de <em>display: flex</em> para que la barra de navegación se coloque horizontalmente. Ahora hay menos filas que antes y hay elementos que se extienden por las dos columnas.</p>
+
+	<h3>Diseño de 3 columnas</h3>
+	<p>Agregamos un media query para diseñar tres columnas. Ahora la columna del media será la más grande, el <em>espacio disponible</em> se divide en 6: 1fr para las columnas laterales y 4fr para el contenido principal. Cambiamos el diseño de la barra de navegación con <em>flex-direction: column</em> que se mostrará columna lateral izquierda.</p>
+	<code>
+		@media (min-width: 700px) {
+      <!--
+      .wrapper {
+        grid-template-columns: 1fr 4fr 1fr;
+      -->
+        grid-template-areas:
+          "header header  header"
+          "nav    content sidebar"
+          "nav    content ad"
+          "footer footer  footer";
+          <!--
+      }
+      nav ul {
+        flex-direction: column;
+      }
+    -->
+    }
+
+	</code>
+
+	<p>Todo este diseño con grid puede ser muy util en la creación de prototipos para definir la ubicación de todos los elementos muy facilmente.</p>
+
+	<h2>Diseño de 12 columas responsivas</h2>
+	<p>Podemos diseñar una página con 12 o 16 columnas, todas con la dimension de 1fr que tienen una línea de inicio llamada <em>col-start</em>.</p>	
+	<code>
+		.wrapper {
+      display: grid;
+      grid-template-columns: repeat(12, [col-start] 1fr);
+      gap: 20px;
+    }
+	</code>
+	<p>Se combina con la ubicación en línea, todas las líneas tienen el mismo nombre, al lado ponemos numero inicio y la cantidad que se expande.</p>
+	<code>
+		.item1 {
+      grid-column: col-start / span 3;
+    }
+    <!--
+    .item2 {
+      grid-column: col-start 6 / span 4;
+      grid-row: 1 / 3;
+    }
+    .item3 {
+      grid-column: col-start 2 / span 2;
+      grid-row: 2;
+    }
+    .item4 {
+      grid-column: col-start 3 / -1;
+      grid-row: 3;
+    }
+  -->
+	</code>
+	<p>A los elementos secundarios los colocamos sobre las líneas. Tambien podemos evitar el uso del nombre y poner solo el numero de linea de columna o fila. Por otro lado, se prefiere el uso de <em>span</em>.</p>
+
+	<p>Algunos detalles: en ningún momento usamos la propiedad <em>grid-template-rows</em> grid lo hace para evitar que los elementos se coloquen en una misma fila.</p>
+
+	<h2>Posicionando elementos en las 12 columnas</h2>
+	<p>Usamos una estructura basica en html como un header, una barra de navegación, contenido principal, etc. El diseño se adaptará a las pantallas con media queries.</p>
+	<code>
+		.wrapper {
+      display: grid;
+      grid-template-columns: repeat(12, [col-start] 1fr);
+      gap: 20px;
+    }
+    <!--
+    <div class="wrapper">
+      <div class="item1">Start column line 1, span 3 column tracks.</div>
+    </div>
+  -->
+	</code>
+
+	<p>Para pantallas estrechas, los elementos permaneceran en orden de origen/codigo fuente; uno debajo de otro, dado que solo es un diseño en una columna.</p>
+
+	<code>
+		.wrapper > * {
+      grid-column: col-start / span 12;
+    }
+  </code>
+	<p>Los elementos del contenedor se ubicarán de acuerdo a la regla: <em>Todos los elementos del html se ubicarán en el contenedor a partir de la columna col-start hasta la columna 12</em>. Con esto evitamos usar un query para las pantallas moviles y todo estará dentro del contenedor.</p>
+
+	<p>Para el primer query <em>no recurrimos a crear otras columnas</em>, solo nos atenemos a ubicar los elementos en las líneas.</p>
+	<code>
+		@media (min-width: 500px) {
+      .side {
+        grid-column: col-start / span 3;
+        grid-row: 3;
+      }
+      <!--
+      .ad {
+        grid-column: col-start / span 3;
+        grid-row: 4;
+      }
+      .content,
+      .main-footer {
+        grid-column: col-start 4 / span 9;
+      }
+      nav ul {
+        display: flex;
+        justify-content: space-between;
+      }
+    -->
+    }
+	</code>
+
+	<p>Para el segundo query, seguimos con lo mismo; colocar los elementos entre las líneas.</p>
+	<code>
+		@media (min-width: 700px) {
+      .main-nav {
+        grid-column: col-start / span 2;
+        grid-row: 2 / 4;
+      }
+      <!--
+      .content {
+        grid-column: col-start 3 / span 8;
+        grid-row: 2 / 4;
+      }
+      .side {
+        grid-column: col-start 11 / span 2;
+        grid-row: 2;
+      }
+      .ad {
+        grid-column: col-start 11 / span 2;
+        grid-row: 3;
+      }
+      .main-footer {
+        grid-column: col-start / span 12;
+      }
+      nav ul {
+        flex-direction: column;
+      }
+    -->
+    }
+	</code>
+	<p>En el inspector de grid, si marcamos para ver las líneas, vemos como está repartido el diseño entre ellas.</p>
+
+	<p>Con todo esto, <em>vemos que en CSS no hay una sola manera de hacer las cosas</em>. Usamos el metodo que nos parezca más facil, que tenga menos código, que sea eficiente en terminos de mantenimiento.</p>
+	<p>El primer metodo (tres columnas que se adaptaban las espacio disponible con la unidad fr) tiene menos codigo y ademas es más entendible lo que hace mucho más facil del desarrollo y mantenimiento. Pero presenta una desventaja a la hora de poner o sacar otros elementos, es menos modular que el segundo metodo.</p>
+
+	<h2>Lista de productos con posición automatica</h2>
+	<p>Muchos elementos de la web pueden ser "tarjetas": listado de productos, galeria de imagenes, etc. Con grid se puede crear facilmente sin agregar media queries, tambien se puede agrega flexbox para completar el diseño.</p>
+	<P>Desde el HTML una <em>lista no ordenada</em> (ul) envolverá todas las cartas, osea, será el contenedor grid para todas éstas. Cada elemento <em>list item</em> (li) envolverá todas las partes de una carta: un encabezado (h2), dos <em>div</em> que envolverá al texto (p) y otro para el enlace (a) para hacer click a una accion (comprar, mostrar, etc).</P>
+  <code>
+    <!--
+        <ul class="listing">
+          <li>
+            <h2>Item One</h2>
+            <div class="body">
+              <p>The content of this listing item goes here.</p>
+            </div>
+            <div class="cta">
+              <a href="">Call to action!</a>
+            </div>
+          </li>
+        </ul>
+    -->
+  </code>
+
+	<p>El contenedor tendrá columnas variables (flexibles o indefinidas) con un minimo de 200px y un maximo segun el espacio disponible, además se autocompletará.</p>
+	<code>
+		.listing {
+      list-style: none;
+      margin: 2em;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+	</code>
+	<p>Si todo está en un contenedor grid, no necesitamos un media query; ya que grid es responsivo por naturaleza.</p>
+
+	<p>Las cartas tendrán el siguiente estilo:</p>
+	<code>
+		.listing li {
+      border: 1px solid #ffe066;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+    }
+	</code>
+	<p>El contenedor es grid: solo los elementos <em>li</em> se muestran en cuadrícula. Pero los elementos secundarios de cada carta (h2 y los dos divs) se acomodará con <em>flex</em> en dirección de columna.</p>
+
+	<p>Ahora necesitamos ordanar las cartas por dentro. El div que contiene al enlace:</p>
+	<code>
+		.listing .cta {
+      margin-top: auto;
+      border-top: 1px solid #ffe066;
+      padding: 10px;
+      text-align: center;
+    }
+	</code>
+	<p>Con <em>margin-top: auto</em> empujamos el link hacia la parte de abajo de la carta.</p>
+
+	<p>el div que contiene el texto tiene un espacio para alejarlo de los bordes:</p>
+	<code>
+		.listing .body {
+      padding: 10px;
+    }
+	</code>
+
+	<p>Las cartas van en un dirección por eso usamos flexbox.</p>
+
+	<h2>Prevenir vacios en el contenedor grid</h2>
+	<p>Hasta ahora, si tenemos tarjetas con mucho contenido serán muy altas. Podemos hacer que abarquen más columas para ser más anchas.</p>
+	<p>Al elemento más alto le agregamos la propiedad <em>grid-column-end: span 2</em> para que ocupe dos columnas.</p>
+	<code>
+		.listing .wide {
+      grid-column-end: span 2;
+    }
+	</code>
+
+	<p>Esto genera espacios no deseados en el contenedor, por eso le agregaremos al propiedad <em>grid-auto-flow: dense</em> para cambiar el orden de la cuadrícula, el valor dense hace que elementos llenen esos espacios.</p>
+	<code>
+    <!--
+		.listing {
+      list-style: none;
+      margin: 2em;
+    -->
+      display: grid;
+      gap: 20px;
+      grid-auto-flow: dense;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    <!--
+    }
+
+    .listing .wide {
+      grid-column-end: span 2;
+    }
+  -->
+  </code>
+	<p>Visualmente cambia el orden de los elementos, si no importa la lógica en éstos; no hay problema. Es una tecnica que puede ser usada en los CMS.</p>
+</body>
+</html>

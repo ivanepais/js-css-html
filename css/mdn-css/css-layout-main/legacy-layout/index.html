@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index.css">
+	<title>Métodos de diseño heredados - CSS</title>
+</head>
+<body>
+	<h1>Métodos de diseño heredados</h1>
+	<p>Para actualizar una página que tiene código antiguo, debemos entender como funcionaban los métodos de diseño que se usaban antes de Multicol, Flex y Grid.</p>
+
+	<h2>Diseño en cuadrícula antes de Grid</h2>
+	<p>Los metodos de diseño heredados (<em>legacy layout</em>) son un conjunto de técnicas que se usaban para crear una cuadrícula antes de que existiese Grid. Hoy en día, Grid se usa junto a los demás metodos de diseño moderno; pero de vez en cuando encontrará un sistema de cuadrícula antigua que tendrá que actualizar. Además este conocimiento nos servirá para crear código alternativo para navegadores antiguos que no soportan los métodos modernos, si la ídea es que sea accesible para la mayoría de personas y dispositivos.</p>
+	<p>Con los métodos antiguos se creaba una cuadrícula a base de elementos separados que eran alineados de tal forma de dar aspecto visual de cuadrícula.</p>
+
+	<h2>Diseño de dos columnas</h2>
+	<p>Cree un nuevo HTML para usar el siguiente código</p>
+	<p>Cada columna necesita un elemento exterior que contenga su contenido, en este caso hay divs, pero tambien se puede usar article, section o aside. Aplicaremos el siguiente CSS:</p>
+	<p>En el CSS aplicamos un body que ocupará el 90% de ancho de la ventana gráfica hasta alcanzar el máximo de 900px, al superarlo, se centrará (margin: 0 auto). Los hijos ocuparán el 100% del ancho (donde este ubicados, acá es en el body) que es como funcionan normalmente estos elementos de bloque (h1, div).</p>
+	<code>
+		<!--
+			<h1>2 column layout example</h1>
+			<div>
+			  <h2>First column</h2>
+			  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus
+			    aliquam dolor, eu lacinia lorem placerat vulputate. Duis felis orci</p>
+			</div>
+			
+			<div>
+			  <h2>Second column</h2>
+			  <p>Nam vulputate diam nec tempor bibendum. Donec luctus augue eget malesuada
+			    ultrices. Phasellus turpis est, posuere sit amet dapibus ut, facilisis sed</p>
+			</div> 
+
+			body {
+			  width: 90%;
+			  max-width: 900px;
+			  margin: 0 auto;
+			}
+			
+			div:nth-of-type(1) {
+			  width: 48%;
+			}
+
+			div:nth-of-type(2) {
+			  width: 48%;
+			}       
+		 -->
+	</code>		
+
+	<p>Pero como son columnas queremos que esten un al lado del otro, entonces, le damos un valor de ancho menor al total del que ocupan normalmente. Si le damos 48% y 48% a cada uno nos sobra 4% del ancho del body para un espacio entre las columnas. Con la pseudo clase <em>:nth-of-type</em> seleccionamos los divs de acuerdo a su posicion. Usamos porcentaje para los anchos para que el diseño sea responsivo en función de la ventana del navegador, hace que las columnas se achiquen en tamaños de pantalla pequeños.</p>
+	<p>Lo que sigue es agregar la propiedad float para terminar el diseño de columas antiguo.</p>
+
+	<code>
+		<!--
+			div:nth-of-type(1) {
+			  width: 48%;
+			  float: left;
+			}
+
+			div:nth-of-type(2) {
+			  width: 48%;
+			  float: right;
+			}
+		 -->
+	</code>
+
+	<h2>Cuadrícula en diseño heredado</h2>
+	<p>Se usaban los <em>floats</em> para hacer flotar una columna junto a otra para crear una ilusión de cuadrícula. Tambien se usan conceptos más avanzados de <a href="">flotantes y limpieza</a> de ellos de los que hemos aprendido en su introducción.</p>
+	<p>El tipo de cuadrícula más facil de crear se hacia con un ancho fijo: calculando cuánto ancho total queremos que tenga el diseño, cuántas columnas y cuánto espacio entre ellas. Otra opción era hacer una cuadrícula con columnas responsivas de acuerdo al tamaño o ancho de pantalla/ventana, se calculan los anchos porcentuales para las columnas y el espacio entre ellas.</p>
+	<code>
+		<!--
+			<div class="wrapper">
+			  <div class="row">
+			    <div class="col">1</div>
+			    <div class="col">2</div>
+			    <div class="col">3</div>
+			    <div class="col">4</div>
+			    <div class="col">5</div>
+			    <div class="col">6</div>
+			    <div class="col">7</div>
+			    <div class="col">8</div>
+			    <div class="col">9</div>
+			    <div class="col">10</div>
+			    <div class="col">11</div>
+			    <div class="col">12</div>
+			  </div>
+			  <div class="row">
+			    <div class="col span1">13</div>
+			    <div class="col span6">14</div>
+			    <div class="col span3">15</div>
+			    <div class="col span2">16</div>
+			  </div>
+			</div>
+		 -->
+	</code>
+
+	<p>Crearemos ambos diseños con una cuadrícula de 12 columnas porque era adaptable al ser divisible por 6, 4, 3 y 2.</p>
+
+	<h3>Cuadrícula de ancho fijo</h3>
+	<p>Usamos un archivo para practicar. Sin CSS, vemos que solo hay numeros debajo de otros, con CSS haremos que algunos de estos numeros sean filas.</p>
+	<p>El objetivo es convertir el código anterior en una cuadrícula de 2 filas con 12 columnas: En la imágen, la fila superior muestra el tamaño de las columnas individuales y la segunda fila muestra los diferentes tamaños de las áreas en la cuadrícula.</p>
+	<code>
+		<!--
+			* {
+			  box-sizing: border-box;
+			}
+
+			body {
+			  width: 980px;
+			  margin: 0 auto;
+			}
+
+			.wrapper {
+			  padding-right: 20px;
+			}
+
+		 -->
+	</code>
+
+	<p>En el CSS, al contenedor <em>.wrapper</em> le damos un ancho de 980px con un padding-right 20px. Con la propiedad box-sizing: border-box; se restan las propiedades que agregemos al ancho total (el navegador hace los calculos automaticamente). Nos queda 960px para las columnas y el espacio entre ellas. Ademas centramos el body con margin: 0 auto que es valido para cualquier elemento.</p>
+	<p>Ahora en el div con la clase <em>.row</em> hacemos separar la cuadrícula con:</p>
+	<code>
+		<!--
+			.row {
+			  clear: both;
+			}
+		 -->
+	</code>
+
+	<p>Como tenemos dos de estas clases las separa, no necesitamos llenar cada fila con elementos que formen 12 columnas. Las filas qeudarán separadas y no interferirán.</p>
+	<p>Como los espacios entre columnas tiene 20px de ancho, crearemos un margen del lado izquierdo para compensar. Como tenemos 12 columnas, son 12 espacios de 20px; 12 x 20 = 240.</p>
+	<p>Nos quedan 720px para nuestras columnas, si lo dividimos por 12 (columnas), nos quedan 60px para cada columna.</p>
+	<p>Con la clase <em>.col</em> haremos flotar cada columna hacia la izquierda con un margen de 20px para formar un espacio, tendran un ancho de 60px como habiamos previsto.</p>
+	<code>
+		<!--
+			.col {
+			  float: left;
+			  margin-left: 20px;
+			  width: 60px;
+			  background: rgb(255, 150, 150);
+			}
+		 -->
+	</code>
+
+	<p>Si ahora vemos el archivo, nos damos cuenta que se dimensionaron las columnas con un color rojo y como los div hacian de fila.</p>
+	<code>
+		<!--
+			/* Two column widths (120px) plus one gutter width (20px) */
+			.col.span2 { width: 140px; }
+			/* Three column widths (180px) plus two gutter widths (40px) */
+			.col.span3 { width: 220px; }
+			/* And so on… */
+			.col.span4 { width: 300px; }
+			.col.span5 { width: 380px; }
+			.col.span6 { width: 460px; }
+			.col.span7 { width: 540px; }
+			.col.span8 { width: 620px; }
+			.col.span9 { width: 700px; }
+			.col.span10 { width: 780px; }
+			.col.span11 { width: 860px; }
+			.col.span12 { width: 940px; }
+		 -->
+	</code>
+
+	<p>Para la segunda fila hacemos que los contenedores abarquen dos columnas: calculamos el ancho de la cantidad de columnas más los espacios entre ellas. En esta fila un contenedor abarca dos columnas. Por eso llevan dos clases distintas <em>.col span</em> y dar estilo a dos elementos. Si agregamos divs <em>.row</em> podemos ver como funcionan los demás estilos, por ejemplo, la clase <em>.col span8</em> abarcará 8 columnas y su ancho será todas estas columnas más los espacios.</p>
+	<code>
+		<!--
+			<div class="row">
+			  <div class="col span8">13</div>
+			  <div class="col span4">14</div>
+			</div>
+		 -->
+	</code>
+
+	<h3>Cuadrícula responsiva heredada</h3>
+	<p>Si queremos una cuadricula responsiva o flexible tenemos que convertir el ancho en px a porcentaje, tiene una ecuación: ancho en px del <em>elemento</em> / ancho px del <em>contenedor</em>.</p>
+	<code>
+		<!--
+			target / context = result
+
+			60 / 960 = 0.0625
+		 -->
+	</code>	
+
+	<p>Movemos la coma decimal del resultado hacia la derecha, tantos lugares según el denominador.</p>
+	<code>
+		<!--
+			20 / 960 = 0.02083333333
+		-->
+	</code>
+
+	<p>Tambien hacemos lo mismo con el ancho del espacio entre columnas: en este caso, el <em>gap</em> se divide por el ancho que queda para todas las columnas (960) que es el contenedor para todas las columnas. El margen izquierdo de <em>.col</em> y el padding derecho de <em>.wrapper</em> son los gap, y su valor es el resultado de esta división.</p>
+
+	<h4>Ejemplo de cuadrícula responsiva heredada</h4>
+	<p>En inglés se denomina <em>fluid grid</em>, hacemos una copia del archivo modificado para agregar las propiedades con el calculo de porcentajes.</p>
+	<code>
+		<!--
+			body {
+			  width: 90%;
+			  max-width: 980px;
+			  margin: 0 auto;
+			}
+
+			.wrapper {
+			  padding-right: 2.08333333%;
+			}
+		 -->
+	</code>
+
+	<p>Cambiamos el valor en px a porcentaje del <em>.wrapper</em>, con la propiedad <span>max-width: 980px</span> evitamos que el diseño sea demasiado ancho, de esta manera tiene un techo.</p>
+	<p>Actualizamos los elementos <em>.col</em> con porcentajes.</p>
+	<p>Tambien actualizamos <em>.col span</em>, los calculos de conversion están realizados.</p>
+	<code>
+		<!--
+			.col {
+			  float: left;
+			  margin-left: 2.08333333%;
+			  width: 6.25%;
+			  background: rgb(255, 150, 150);
+			}
+		 -->
+	</code>	
+
+	<p>Ahora si reducimos o agrandamos la ventana del navegador vemos como la dimensión de las columnas se adaptan.</p>
+	<code>
+		<!--
+			/* Two column widths (12.5%) plus one gutter width (2.08333333%) */
+			.col.span2 { width: 14.58333333%; }
+			/* Three column widths (18.75%) plus two gutter widths (4.1666666) */
+			.col.span3 { width: 22.91666666%; }
+			/* And so on… */
+			.col.span4 { width: 31.24999999%; }
+			.col.span5 { width: 39.58333332%; }
+			.col.span6 { width: 47.91666665%; }
+			.col.span7 { width: 56.24999998%; }
+			.col.span8 { width: 64.58333331%; }
+			.col.span9 { width: 72.91666664%; }
+			.col.span10 { width: 81.24999997%; }
+			.col.span11 { width: 89.5833333%; }
+			.col.span12 { width: 97.91666663%; }
+		 -->
+	</code>
+
+	<h3>Usando la función calc() para convertir px en %</h3>
+	<p>La funciones <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/calc">calc()</a> permite hacer calculos y ecuaciones simples, acepta enteros, decimales, porcentajes y hasta unidades de longitud (px, em, rem, etc). Incluso se puede operar con diferentes unidades, que se puede usar para ubicar un elemento operando con diferentes unidades que tienen los otros elementos.</p>
+	<code>
+		<!--
+			.col.span4 {
+			  width: calc((6.25% * 4) + (2.08333333% * 3));
+			}
+		 -->
+	</code>
+
+	<p>Calc() usa la jerarquia de operaciones como se enseñan en primaria: primero se opera la multi/divi, después sum/res. Podemos usar los parentesis entre los operadores matematicos para evitar que se opere todo junto. Haremos calculos anteriores pere más facil.</p>
+	<code>
+		<!--
+			.col.span2 { width: calc((6.25% * 2) + 2.08333333%); }
+			.col.span3 { width: calc((6.25% * 3) + (2.08333333%*2)); }
+			.col.span4 { width: calc((6.25% * 4) + (2.08333333%*3)); }
+			.col.span5 { width: calc((6.25% * 5) + (2.08333333%*4)); }
+			.col.span6 { width: calc((6.25% * 6) + (2.08333333%*5)); }
+			.col.span7 { width: calc((6.25% * 7) + (2.08333333%*6)); }
+			.col.span8 { width: calc((6.25% * 8) + (2.08333333%*7)); }
+			.col.span9 { width: calc((6.25% * 9) + (2.08333333%*8)); }
+			.col.span10 { width: calc((6.25% * 10) + (2.08333333%*9)); }
+			.col.span11 { width: calc((6.25% * 11) + (2.08333333%*10)); }
+			.col.span12 { width: calc((6.25% * 12) + (2.08333333%*11)); }
+
+		 -->
+	</code>	
+
+	<p>Si queremos calcular el ancho de una columna que abarque a otras, tenemos que multiplicar su ancho en % (en este caso <em>.col</em>6,25%) por las columnas que toma sumado por el porcentaje del espacio entre columnas a la derecha ( del <em>.wrapper</em> y <em>.col</em> ), multiplicado por la cantidad de espacios/canales entre medio.</p>
+
+	<h3>Cuadrículas semanticas y no semanticas</h3>
+	<p>La <a href="https://developer.mozilla.org/en-US/docs/Glossary/Semantics">semantica</a> hace referencia a la información o descripción de una cosa como la importancia, sentido y significado que tiene. En desarrollo web es parecido, marca las etiquetas que son impresindibles para la estructura de un documento, informan al navegador y a los motores de busqueda sobre el contenido de las etiquetas; importantes para la <a href="https://developer.mozilla.org/es/docs/Web/Accessibility">accesibilidad</a> (acceso al contenido web sin importar la condición fisica, social, económica de las personas) y el <a href="https://developer.mozilla.org/es/docs/Glossary/SEO">SEO</a> (tecnicas para posicionar el sitio en los buscadores). Cada etiqueta se usa para lo que fue hecha. La semantica, la accesibilidad y el SEO son practicas fundamentales para el desarrollo web.</p>	
+
+	<p>A las etiquetas semanticas las podríamos llamar como descriptivas del contenido, las etiquetas no semanticas no describen al contenido, no tienen significado.</p>
+	<p>En el uso de clases de CSS (nacen de los desarrolladores) pasa algo parecido, usamos clases semanticas para describir al contenido, ej: <em>.nav-bar</em> y clases no semanticas para describir visualmente al contenido o el estilo, ej: <em>.span6</em> decimos que el elemento se va a expandir. Lo notamos en sus respectivos nombres, en general se prefiere la primera opción.</p>
+	<code>
+		<!--
+			.content {
+			  width: calc((6.25% * 8) + (2.08333333% * 7));
+			}
+		 -->
+	</code>	
+
+	<h3>Compensar contenedores en la cuadrícula heredada</h3>
+	<p>Para agregar margenes al contenedor (<em>.wrapper</em> tiene margin left) de la cuadrícula debemos hacer calculos en porcentajes: ancho de las columnas <em>.col</em> sumando la multiplicación entre el espacio/canal por una cantidad.</p>
+	<p>Usamos la regla en un contenedor para agregar un espacio a la izquierda de una columna</p>
+	<code>
+		<!--
+			.offset-by-one {
+			  margin-left: calc(6.25% + (2.08333333% * 2));
+			}
+
+			or
+			
+			.offset-by-one {
+			  margin-left: 10.41666666%;
+			}
+
+			in html
+			<div class="col span6">14</div>
+
+			or 
+
+			<div class="col span5 offset-by-one">14</div>
+		 -->
+	</code>
+
+	<h3>Limitaciones en la cuadrícula heradada</h3>
+	<p>Como las columnas estan flotando, si tenemos demasiadas dado al ancho que tenemos, van a caer a la siguiente fila y perderán la forma de cuadrícula.</p>
+	<p>El contenido de los elementos puede desbordar si soprepasa su ancho. Acá se presenta el mayor problema, la altura del elemento no se expande con el contenido, hay que dimensionarla.</p>
+
+	<h2>Cuadrícula flexible heredada</h2>
+	<p>Otra forma de cuadrícula se llama <em>flex grid</em> usando <span>display: flex</span>, dado que flexbox es responsivo y se adapta al contenido puede parecer una buena opción.</p>
+	<p>Si al HTML anterior le agregamos display: flex en el contenedor (<em>.row</em>) de las filas:</p>
+	<code>
+		<!--
+			body {
+			  width: 90%;
+			  max-width: 980px;
+			  margin: 0 auto;
+			}
+
+			.wrapper {
+			  padding-right: 2.08333333%;
+			}
+
+			.row {
+			  display: flex;
+			}
+
+			.col {
+			  margin-left: 2.08333333%;
+			  margin-bottom: 1em;
+			  width: 6.25%;
+			  flex: 1 1 auto;
+			  background: rgb(255, 150, 150);
+			}
+		 -->
+	</code>
+
+	<p>Conservamos el flotante, tenemos los mismos problemas anteriores. Agregamos <em>flex</em> que es la propiedad abreviada para <em>flex-grow</em>, <em>flex-shrink</em> y <em>flex-basis</em> que determinan el crecimiento, decrecimiento y tamaño de los elementos flexibles en función del espacio disponible, no importa si hay poco o mucho. Se usa en los hijos/items del contenedor (<em>.col</em>).</p>
+	<p>El valor 1 en grow y shrink hace que se ajusten proporcionadamente al espacio cuando este se reduce o aumenta. El valor auto en basis hace que se tome como ancho de base el que habiamos puesto para despues aumetarlo o disminuirlo cuando se ajuste la ventana del navegador.</p>
+	<p>Usar flex con flotantes no nos evita tener que calcular los porcentanjes anteriores.</p>
+
+	<p>Sistema de cuadrícula de terceros</p>
+	<p>Algunas empresas o proyectos comunitarios tienen sus propias herramientas gratuitas para hacer CSS, llamadas <em>frameworks</em>. Es código que ayuda a resolver problemas o hacen cosas más facil o rapido que las herramientas nativas que nos proporciona CSS. Especialmente un framework es una herramienta que determina una forma de hacer las cosas, un metodo o marco.</p>
+	<p>Hay algunos muy populares como <a href="https://getbootstrap.com/">Bootstrap</a> y <a href="https://get.foundation/">Foundation</a> que incluyen su sistema de cuadrícula. Tambien puede buscar en la web, frameworks para grid o cuadrículas independientes o con preprocesadores (CSS no nativo).</p>
+	<p>Usaremos un sistema de cuadrícula independiente llamado <a href="http://getskeleton.com/">skeleton</a>, en el archivo <em>skeleton.css</em> podemos ver el estilo que se aplica a las clases del HTML.</p>
+	<code>
+		<!--
+			<link href="normalize.css" rel="stylesheet" />
+			<link href="skeleton.css" rel="stylesheet" />
+		 -->
+	</code>
+
+	<p>Con CSS GRID nativamente se ha dejado de usar estos frameworks independientes, por eso lo vemos en diseño heredado pero nos sirve para ver las diferencias de hay entre estos sistemas.</p>
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Estilo a las listas con CSS</title>
+	<link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+	<h1>Capitulo 2: Estilo a las listas</h1>
+	<p>Las listas son como cualquier texto pero hay detalles y buenas practicas que hay que conocer.</p>
+
+	<h2>Conociendo las listas de HTML</h2>
+	<p>Hay tres tipos de listas: ordenadas (<a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/ol">ol</a>), desordenadas (<a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/ul">ul</a>) y las descriptivas (<a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/dl">dl</a>), esta tiene un encabezado/titulo (<em>dt</em>) y el parrafo (<em>dd</em>). Con las herramientas de desarrollador del navegador podemos ver como vienen predefinidas:</p>
+	<ul>
+		<li>Las listas ul y ol tienen un <a href="https://developer.mozilla.org/es/docs/Web/CSS/margin">margin</a> superior e inferior de 16px (1em) y un <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding-left">padding-left</a> de 40px (2.5em) que hace ver a la lista más alejada del borde que un parrafo u otros elementos, creando un espacio fuera (<em>margin</em>) y dentro (<em>padding</em>) de su caja.</li>
+		<li>los renglones (<em>li</em>) no tiene valores de espacio como margin, border y padding.</li>
+		<li>La lista <em>dl</em> tiene un margin superior e inferior pero no tiene <a href="https://developer.mozilla.org/es/docs/Web/CSS/padding">padding</a>.</li>
+		<li>El parrafo (dd) de la lista descriptiva tiene un <em>margin-left</em> de 40px (2.5em).</li>
+		<li>Un parrafo cualquiera tiene un <em>margin</em> superior e inferior de 16px (1em).</li>
+	</ul>
+	<p><span>Las unidades <em>em</em> actuan con respecto al valor del tamaño de letra del mismo elemento</span>.</p>
+
+	<h2>Manejar el espaciado de la lista</h2>
+	<p>Al diseñar listas es necesario que estas mantengan los mismos espacios verticales/top-bottom (tambien llamado ritmos verticales) que el resto de los elementos como parrafos e imagenes y el mismo espaciado horizontal/left-right entre uno y otro.</p>
+	<p>Ejemplo para el texto y su espaciado:</p>
+	<ul>
+		<li>Como estilo general tomamos la etiqueta raíz <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/html">HTML</a> y se establece un tipo de letra y tamaño para todo el sitio que van a heredar los demas elementos.</li>
+		<li>Seleccionamos el titulo secundario, todas las listas y los parrafos para establecer su tamaño de fuente, así tendran el mismo espaciado superior e inferior que mantendrá el <em>ritmo vertical</em> constante.</li>
+		<li>Despues tomamos los renglones de las listas y los parrafos generales con un mismo interlineado (<a href="https://developer.mozilla.org/es/docs/Web/CSS/line-height">line-height</a>) para mantener un mismo espaciado con un ritmo vertical consistente.</li>
+		<li>Ahora aplicamos el interlineado <em>line-height</em> para las listas descriptivas (<em>dl</em>) en su titulo (dt) y su parrafo (dd). Despues aplicamos negrita para el titulo y aumentamos el margen de abajo para su parrafo separandolo de los siguientes elementos, que es el mismo espacio entre los titulos y todos los parrafos, así mantenre la consistencia visual.</li>
+		<p>En resumen: para mantener el ritmo vertical consistente primero hacemos reglas para la fuente y los interlineados para todos los elementos en general y despues aplicamos estilo detallados para cada elemento.</p>
+	</ul>
+
+	<p>Para esto necesitamos los mismos valores en <em>font-size</em> y <em>line-height</em>.</p>-
+
+	<code>
+		<!--
+			/* General styles */
+
+				html {
+				  font-family: Helvetica, Arial, sans-serif;
+				  font-size: 10px;
+				}
+
+				h2 {
+				  font-size: 2rem;
+				}
+
+				ul,
+				ol,
+				dl,
+				p {
+				  font-size: 1.5rem;
+				}
+
+				li,
+				p {
+				  line-height: 1.5;
+				}
+
+				/* Description list styles */
+
+				dd,
+				dt {
+				  line-height: 1.5;
+				}
+
+				dt {
+				  font-weight: bold;
+				}
+		 -->
+	</code>
+
+	<h2>Estilo específicos de las listas.</h2>
+	<p>Propiedades especificas para personalizar las listas ordenadas (<a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/ol">ol</a>) y no ordenadas (<a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/ul">ul</a>).</p>
+	<ul>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/list-style-type">list-style-type</a>: Las viñetas/iconos al comienzo del renglon pueden ser circulares, cuadradas para una lista no ordenada. Números, letras o números romanos para una lista ordenada.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/list-style-position">list-style-position</a>: Establece si las viñetas aparecen afuera o adentro al comienzo del renglón.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/list-style-image">list-style-image</a>: Imagen personalizada para las viñetas</li>
+	</ul>	
+
+	<h2>Estilo de la viñeta</h2>
+	<p>La propiedad que vimos antes, <em>list-style-type</em> permite establecer el tipo de viñeta, como por ejemplo: el valor <span>upper-roman</span> que muestra numeros romanos en mayús. El valor <span>upper-alpha</span> muestras las primeras letras del alfabeto en mayús. Hay muchos más ejemplos en la documentación.</p>
+	<code>
+		<!--
+			ol {
+			  list-style-type: upper-roman;
+			}
+		 -->
+	</code>	
+
+	<h2>Posición de la viñeta</h2>
+	<p>La propiedad <em>list-style-position</em> puede mostrar las viñetas un poco más adentro o afuera del renglón. Por ejemplo, su valor <span>inside</span> muestra las viñetas dentro del renglon interrumpiendo el texto, es un poco desprolijo.</p>
+	<code>
+		<!--
+			ol {
+			  list-style-type: upper-roman;
+			  list-style-position: inside;
+			}
+		 -->
+	</code>	
+
+	<h3>Imagen personalizada como viñeta</h3>
+	<p>Podemos hacerlo con la propiedad <a href="https://developer.mozilla.org/es/docs/Web/CSS/list-style-image">list-style-image</a> con el valor <em>url()</em> aunque es limitada en cuanto al control de la posición, tamaño, etc. Es conveniente usar la propiedad <a href="https://developer.mozilla.org/es/docs/Web/CSS/background">background</a> que se detallo en la sección <a href="https://developer.mozilla.org/es/docs/Learn/CSS/Building_blocks"></a>Diseño de cajas.</p>
+	<p>Siguiendo con el ejemplo del comienzo, para las listas no ordenadas <em>ul</em> reducimos el <em>padding-left</em> (desplazamiento del contenido dentro de la caja) de 40px a 20px. n esta misma regla sacamos las viñetas.</p>
+	<p>En otra regla tomamos la <em>ul</em> con <em>li</em> y le ponemos el mismo padding-left para que las líneas de texto se vean consistentes con las listas ordenadas y descriptivas para insertar imagenes de fondo.</p>
+	<p>Vamos a usar la propiedad <em>background</em> para controlar la las viñetas un una lista no ordenada. Tendremos en cuenta las siguientes propiedades:</p>
+	<ul>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/background-image">background-image</a>: Con su valor <em>url()</em> ponemos la dirección donde esta la imagen que usaremos como viñeta.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/background-position">background-position</a>: Podemos decidir en que lugar va a aparecer el elemento que seleccionamos. Usa las coordenadas x (horizontal), y (vertical) que empiezan en la parte superior izquierda de una caja. Por ejemplo, la posición <em>0 0</em> es justo el comienzo de un elemento.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/background-size">background-size</a>: Determina el tamaño de la imagen de fondo. Queremos que las viñetas sean de la misma altura que el renglón más o menos. El <em>padding-left</em> de <span>20px</span> que hemos puesto sirve para que entre esta viñeta personalizada. Elegimos <span>1.6rem 1.6rem</span> para el tamaño vertical y horizontal.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/background-repeat">background-repeat</a>: Tiene un valor por defecto que repite las imagenes de fondo, entonces le ponemos <span>no-repeat</span> para obtener una sola copia de la imagnen.</li>
+	</ul>
+	<code>
+		<!--
+			ul {
+			  list-style-image: url(star.svg);
+			}
+
+			ul {
+			  padding-left: 2rem;
+			  list-style-type: none;
+			}
+
+			ul li {
+			  padding-left: 2rem;
+			  background-image: url(star.svg);
+			  background-position: 0 0;
+			  background-size: 1.6rem 1.6rem;
+			  background-repeat: no-repeat;
+			}
+		 -->
+	</code>		
+
+	<h2>Propiedad abreviada para el estilo de listas</h2>
+	<p>La propiedad <a href="https://developer.mozilla.org/es/docs/Web/CSS/list-style">list-style</a> permite usar los valores de propiedad type, image y position. No hay orden y se puede usar uno, dos o los tres; estas tiene su valor por defecto que se pondrá cuando no determinemos una. Son los valores <span>disc</span>, <span>nome</span> y <span>outside</span> de las propiedades <em>type</em>, <em>image</em> y <em>position</em>.</p>
+	<code>
+		<!--
+			ul {
+			  list-style-type: square;
+			  list-style-image: url(example.png);
+			  list-style-position: inside;
+			}
+		 -->
+	</code>	
+	<p>Es reemplazable por:</p>
+	<code>
+		<!--
+			ul {
+			  list-style: square url(example.png) inside;
+			}
+		 -->
+	</code>
+
+	<h2>Numeración de las listas</h2>
+	<p>Para las listas ordenadas podemos tener numeros diferente numeración, que empieze inversamente o que sean letras del alfabeto; se puede lograrlo con una serie de atributos en la etiqueta de apertura del elementos <em>ol</em>.</p>
+	<h3>Atributo Start</h3>
+	<p>Después de <em>ol</em> podemos usar <span>start="x"</span> para empezar la lista con la numeración distinta de 1.</p>
+	<h3>Atributo Reversed</h3>
+	<p>Empieza la lista contando de mayor a menor, siguiendo con el ejemplo: <span>start="x reversed</span>.</p>
+	<h3>Atributo Value</h3>
+	<p>Se usa en los renglones (<em>li</em>) para poner los numeros que quisieramos, por ejemplo: <span>li value="x"</span>.</p>
+	<code>
+		<!--
+			<ol start="4">
+			  <li>Toast pita, leave to cool, then slice down the edge.</li>
+			  <li>
+			    Fry the halloumi in a shallow, non-stick pan, until browned on both sides.
+			  </li>
+			</ol>
+
+			<ol start="4" reversed>
+			  <li>Toast pita, leave to cool, then slice down the edge.</li>
+			  <li>
+			    Fry the halloumi in a shallow, non-stick pan, until browned on both sides.
+			  </li>
+			</ol>
+
+			<ol>
+			  <li value="2">Toast pita, leave to cool, then slice down the edge.</li>
+			  <li value="4">
+			    Fry the halloumi in a shallow, non-stick pan, until browned on both sides.
+			  </li>
+			</ol>
+		 -->
+	</code>	
+
+	<h2>Contadores de CSS</h2>
+	<p>Son herramientas avanzadas para la personalización de en las numeraciones y las listas, aunque complejos. Puedes consultarlos:</p>
+	<ul>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/@counter-style">@counter-style</a>.</li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/counter-increment">@counter-increment</a>.</li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/counter-reset">@counter-reset</a>.</li>
+	</ul>
+</body>
+</html>

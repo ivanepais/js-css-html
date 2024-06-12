@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index/style-index.css">
+	<title>Contenido de audio y video - HTML</title>
+</head>
+<body>
+	<h1>Contenido de audio y video</h1>
+	<p>Ademas de imagenes, la web se nutre de audios y videos. Podemos agregar nuestro contenido multimedia o incrustar a nuestra página videos publicos de otros sitios.</p>
+
+	<h2>Audio y video en la web</h2>
+	<p>Antes de <em>HTML5</em> se necesitaba de tecnologias de terceros (privadas) como <a href="https://en.wikipedia.org/wiki/Adobe_Flash">Flash</a> (Adobe) y <a href="https://en.wikipedia.org/wiki/Microsoft_Silverlight">Silverlight</a> (Microsoft), pero tenían ciertos problemas como señalaba <a href="">Steve Jobs sobre Flash</a>.</p>
+
+	<h3>Incrustar un video de forma simple y compatible</h3>
+	<p><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/video">video</a> nos permite inscrustar video desde nuestros archivos.</p>
+	<p>Dentro de la etiqueta de apertura usaremos los siguientes atributos:</p>
+	<ul>
+		<li><em>src</em>: Toma la ruta donde está el video.</li>
+		<li><em>controls</em>: Activa los controles del video (play/pause, anterior/siguiente). Se puede contruir otra interfaz con <a href="https://developer.mozilla.org/es/docs/Web/API/HTMLMediaElement">JavaScript API</a> pero es más avanzado. Solo se escribe controls, no tiene valor.</li>
+	</ul>
+	<p>Para agregar compatibilidad con navegadores que no soporten HTML5 video, se pone un parrafo advirtiendo que el navegador no es compatible y abajo se provee el enlace que lleva al video.</p>
+
+	<h3>Agregar compatibilidad con distintos formatos de video</h3>
+	<p>Por cuestiones de patente cada navegador soporta diferentes formatos de archivos (la extensión que vemos al final del nombre de archivo):</p>
+	<ul>
+		<li>Un WebM contiene paquetes Ogg Vorbis audio con VP8/VP9 video. Soportados por Firefox y Chrome.</li>
+		<li>Un MP4 Contiene paquetes AAC o audio MP3 con videos H.264. Soportados por Safari e Internet explorer.</li>
+	</ul>
+	<p>Se usan para comprimir los archivos de audio y video volviendolos manejables (sin comprimir son muy grandes) y los navegadores tienen diferentes <a href="https://developer.mozilla.org/es/docs/Glossary/Codec">Codecs</a> para convertir el audio y video en binario y viceversa</p>
+
+	<p>Al ejemplo anterior le agregaremos más elementos y atributos:</p>
+	<ul>
+		<li>Ahora la ruta del video va a ir en el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/source">source</a> usado para agregar soporte de video (tambien audio e imagenes) en distintos formatos y el atributo <em>type</em> usado para que el navegador reconozca la extensión del video.</li>
+	</ul>
+
+	<h3>Agregar más caracteristicas al reproductor</h3>
+	<p>Al reproductor de video de HTML5 le podemos agregar más funciones mediante atributos:</p>
+	<ul>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/video#attr-width">width</a> y <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/video#attr-height">height</a>: Se puede cambiar el ancho y alto nativo que tenía el video a cambio de afectar su proporción.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/video#attr-autoplay">autoplay</a>: Reproduce automaticamente el video (o audio) al entrar a la página, puede causar molestia en los usuarios.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/video#attr-loop">loop</a>: El audio o video se reproducirá una y otra vez al finalizar, tambien podría causar molestias.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/video#attr-muted">muted</a>: Mutea el video de forma predeterminada.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/video#attr-poster">poster</a>: Su valor será la dirección de una imagen de nuestros archivos, se mostrará como portada del video.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/video#attr-preload">preload</a>: Dispone de tres valores para el buffer de video (cantidad de video descargado cuando está en pausa).</li>
+			<ul>
+				<li><em>none</em>: no almacena video/audio para la reproducción</li>
+				<li><em>auto</em>: Almacena el archivo multimedia cuando no está reproduciendo.</li>
+				<li><em>metadata</em>: Almacena solo los metadatos del archivo.</li>
+			</ul>
+	</ul>
+	<code>
+		<!--
+			<video controls width="400" height="400"
+			  autoplay loop muted
+			  poster="poster.png">
+			  <source src="rabbit320.mp4" type="video/mp4">
+			  <source src="rabbit320.webm" type="video/webm">
+			  <p>Your browser doesn't support HTML5 video. Here is a <a href="rabbit320.mp4">link to the video</a> instead.</p>
+			</video>
+		-->
+	</code>
+	
+	<h3>Elemento audio</h3>
+	<p><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/audio">audio</a> funciona de la misma manera que <em>audio</em> con diferencia en los formatos (usaremos .ogg y .mp3) y algunos atributos que no funcionan como <em>width/height</em> y <em>poster</em>.</p>
+	<p>Con <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/source">source</a> y <em>src</em> proveemos de distintos formatos para la mayoria de navegadores.</p>
+	<code>
+		<!--
+			<audio controls>
+			  <source src="viper.mp3" type="audio/mp3">
+			  <source src="viper.ogg" type="audio/ogg">
+			  <p>Your browser doesn't support HTML5 audio. Here is a <a href="viper.mp3">link to the audio</a> instead.</p>
+			</audio>
+
+		 -->
+	</code>
+	
+	<h2>Agregar texto a un audio o video</h2>
+	<p>Muchas personas no quieren o no pueden escuchar un audio/video en ciertos momentos.</p>
+	<p>Pueden ser por cuestiones de salud o por cuestiones del entorno ruidoso o por cuestiones de lenguaje.</p>
+	<p>Entonces, podríamos ofrecer una transcripción a texto de las palabras que se pronuncian en el audio/video.</p>
+	<p>Podemos usar el formato <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API">WebVTT</a> y el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/track">track</a></p>
+	<p>WebVTT es un tipo de archivo para escribir cadenas de texto junto con metadatos en cual determinamos el tiempo exacto que queremos que se muestre la transcripción.</p>
+	<p>Se puede usar para:</p>
+	<ul>
+		<li><em>subtitles</em>: Para las personas que no entienden el idioma original del audio.</li>
+		<li><em>captions</em>: Traducción de sincronizada de dialogos o descripciones de sonidos/echos significativos.</li>
+		<li><em>timed descriptions</em>: Texto convertido a audio para personas con discapacidad visual.</li>
+	</ul>
+	<code>
+		<!--
+			WEBVTT
+			1
+			00:00:22.230 -- 00:00:24.606
+			This is the first subtitle.
+
+			2
+			00:00:30.739 -- 00:00:34.074
+			This is the second.
+		 -->
+	</code>
+	
+	<p>Siguiendo con el ejemplo del video, usamos <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/track">track</a> con tres atributos: <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/track#attr-kind">kind</a> en el que describimos el motivo del archivo WebVTT, <em>src</em> para poner la ruta donde se encuentra la transcripción y por ultimo <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/track#attr-srclang">srclang</a> para poner el idioma de la transcripción.</p>
+	<p>Debemos mensionar que son utiles para el SEO, puedes revisar el articulo <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Adding_captions_and_subtitles_to_HTML5_video">transcripciones para video en HTML5</a> de MDN.</p>
+	
+</html>

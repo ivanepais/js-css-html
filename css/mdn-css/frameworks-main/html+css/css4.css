@@ -1,0 +1,308 @@
+/*
+	|| RESPONSIVE DESING		
+		responsive web desing (RWD) es un conjunto de practicas que permite que las páginas web modifiquen su diseño y apariencia para adaptarse a diferentes anchos de pantalla de los dispositivos.
+		
+		media query:
+		Nos permiten ejecutar una series de pruebas/test que aplicarán CSS de manera selectiva cuando se cumplen los requisitos.
+		Se puede agregar multiples (breakpoints) media queries dentro de la hoja de estilo para modificar todo el diseño o parte de él, para que se adapte mejor a los distintos tamaño de pantalla.
+		Una practica comun es crear un diseño de una columna en la que los elementos se ven mientras te desplazas hacia abajo para dispositivos moviles de pantalla estreche (smartphones, tablets, etc). Luego probar/testear resoluciones más grandes e implementar un diseño de varias columnas cuando el usuario dispone de suficiente ancho de pantalla.
+		
+		imágenes responsivas:
+
+			img,
+			picture,
+			video {
+			  max-width: 100%;
+			}
+		
+		responsive font:
+		Cambiar en el tamaño de la fuente cuando se aplica <em>media queries</em>.
+		Para tamaño de fuente grande en resoluciones de ventana grandes.
+			
+			h1 {
+			  font-size: 2rem;
+			}
+
+			@media (min-width: 1200px) {
+			  h1 {
+			    font-size: 4rem;
+			  }
+			}
+		
+		font scale to viewport:
+		1vw es el 1% del ancho de la ventana del navegador. Si cambiamos el ancho, cambia el tamaño de la fuente.
+		La unidad vw pierde la capacidad de hacer zoom al estar relacionada con la ventana gráfica.
+		
+		solución:
+		Implica usar la funcion calc(), si a un valor con em o rem, le sumamos otro valor con vw; se puede usar el zoom, ademas la fuente va a agrandarse a medida que lo haga el ancho de la ventana del navegador.
+			
+			h1 {
+			  font-size: 6vw;
+			  font-size: calc(1.5rem + 3vw);
+			}
+		No necesitamos media queries para hacerla responsiva gradualmente.
+
+		Texto responsivo al ancho:
+
+			.item {
+				width: fit-content;  //soporte con problemas
+			}
+			
+			o 
+
+			.item {
+				width: fit-content;  
+				block-size: fit-content; 
+			}
+
+			white-space: // mayor soporte, fallback/legacy
+			Maneja el espacio en blanco y el ajuste de las líneas dentro de un elemento.
+			valores: cambia la estetica o presentación del texto en la caja.
+			normal, nowrap, pre, pre-wrap, pre-line, break-spaces. Todas tienen distintas caracteristicas, responsivas y no responsivas, etc.
+
+				div {
+				  max-width: 100px;
+				  width: 100px;
+				  white-space: break-word;
+				}
+				
+				<div>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum numquam quas odit maiores corrupti, quo amet, exercitationem error veniam tempore voluptates nisi sequi. Eveniet tempora officiis pariatur ab provident rerum.
+				</div>
+
+			división de palabras dentro de si mismas:
+			
+			Propiedades:
+			
+			overflow-wrap: Se aplica a los elementos en línea. las palabras son responsivas pero puede afectar el ancho del elemento/caja.
+			Valores: normal, anywhere, break-word.
+				
+				.item {
+				  overflow-wrap: anywhere;
+				}
+
+				.item {
+				  overflow-wrap: break-word; // buen soporte
+				}
+			
+			hyphens (guiones): divide las palabras cuando el texto se ajusta a varias líneas. Puede evitar la división de guiones, dividir con guiones, etc.			
+			Las reglas de separación de sílabas son específicas del idioma. En HTML, el idioma está determinado por el atributo lang, y los navegadores dividirán con guiones solo si este atributo está presente y el diccionario de guiones apropiado está disponible.
+			Valores: none, normal, auto.
+
+				.hyphens {
+				  hyphens: auto;
+				}
+
+			word-break:
+			Configura los saltos de línea para que no desborden.
+			Valores: normal, break-all, keep-all.
+
+				.item {
+				  word-break: break-all;
+				}
+
+		ancho responsivo al contenido/texto:
+
+			.item {
+				width: max-content; // todo el contenido determina el ancho.
+			}
+
+			.item {
+				width: min-content; // la palabra más larga determina ancho de la caja.
+			}
+
+		etiqueta meta:
+		Dice que debe establecer su ancho respecto al ancho del dispositivo y ademas escalar el documento al 100%. De esta manera se logra optimizar la página para moviles.
+		
+			meta name="viewport" content="width=device-width,initial-scale=1" />
+		
+		Se hizo de está manera porque los primeros smartphones mentian sobre el ancho en la ventana gráfica de sus navegadores porque la mayoria de las páginas no se adaptaban a pantallas estrechas, entonces, mostraban la web de escritorio ampliada para que el usuario se desplaze y haga zoom para usar sus funciones.
+		El problema que sucede cuando no configuramos la etiqueta meta anterior, es que en los puntos donde se introduce un media query (breakpoints) para modificar el diseño no funcionará en los dispositivos moviles. Si ponemos un media query que modifique el diseño a partir de una resolución de 480px pero los navegadores moviles están seteados a 980p (da una vista ampliada del sitio como lo hacian antes los moviles, dado su pantalla estrecha), nunca hace efecto. En cambio si configuramos la etiqueta meta, el query funcionará.
+
+
+	|| MEDIA QUERIES
+		Permite aplicar estilo mediante una regla con una serie de condiciones, que si son ciertas -en el navegador/dispositivo- cambia el diseño de la página adaptándola a distintos tamaños de pantalla.
+		Tambien pueden detectar caracteristicas/funciones del dispositivo que está usando el usuario. 
+		
+		sintaxis:
+
+			@media media-type and (media-feature-rule) {
+			   CSS rules go here
+		
+		1° va el tipo de query (media-type)
+		2° va el tipo de prueba/test (media-feature-rule) que debe pasar el navegador/disposito del usuario. 
+		3° adentro ponemos una declaración que debe cumplirse
+		4° CSS que se aplicará a un cuando se cumpla la condición.
+		
+		Media type:
+		Los tipos de medios se refiere a dónde se va aplicar la condición y el estilo de CSS:
+			
+			all: Aplica para ventana gráfica e impresión código.
+			print: Para imprimir/aplicar código.
+			screen: Para la ventana gráfica.	
+
+		*Antes de estos, se pone @media para que sean aceptados.
+		*Estos valores son opcionales, si no indicamos ninguno; el media query se aplica a todos los tipos de medios.
+			
+		Media feature rules:
+		Son funciones multimedia, cuando el usuario las activa, podemos cambiar el CSS que se especifica debajo de estas.
+		
+		funciones responsivas:
+
+		width, height; min-width, max-width y min-height, max-height:
+		Si las usamos en -screen- afecta a la ventana del navegador.
+			
+			@media screen and (width: 600px) {
+			  body {
+			    color: red;
+			  }
+			}
+		
+			@media screen and (max-width: 600px) {
+			  body {
+			    color: blue;
+			  }
+			}
+
+		El mínimo actúa como un piso y el máximo un techo. 
+		
+		Orientación:
+		Función multimedia para los dispositivos moviles que nos permite cambiar el CSS si el dispositivo está en modo vertical u horizontal
+		portrait: es la posición vertical, su alto es mayor que el ancho.
+		landscape:  es la posición horizontal, su ancho es mayor que el alto.
+				
+			@media (orientation: landscape) {
+			  body {
+			    color: rebeccapurple;
+			  }
+			}
+			
+		La vista de escritorio es horizontal, la vista en los navegadores movil es vertical.
+
+		
+		puntero:
+		Si los usuarios pasan el mouse/puntero por encima de los elememtos, podemos aplicar estilo.
+			
+			@media (hover: hover) {
+			  body {
+			    color: rebeccapurple;
+			  }
+			}
+
+		valores avanzados: 
+			fine: para los mouse y trackpad que son punteros precisos en areas pequeñas. 
+			coarse: que describe a un puntero grueso como puede ser nuestro dedo en una pantalla tactil.
+			none: cuando el dispositivo no este navegando con un puntero y lo haga con el teclado o un comando de voz.
+	
+		Lógica:
+			
+			and: se tienen que cumplir las dos condiciones.
+
+				@media screen and (min-width: 600px) and (orientation: landscape) {
+					body {
+					   color: blue;
+					}
+				}
+
+				El primer and para conectar el tipo y el segundo para conectar los operadores lógicos. 
+			
+			or: solo hace falta que se cumpla uno de ellos para que se aplique el CSS.
+			Se representa con una coma, podemos crear un media query más complejo con varios conjuntos de condiciones que pueden cumplirse.	
+				
+				@media screen and (min-width: 600px), screen and (orientation: landscape) {
+			  		body {
+			    		color: blue;
+			  		}
+				}
+
+				el texto será azul si la ventana gráfica tiene un minimo de 600px o si el dispositivo está en posición horizontal.
+
+			not:
+			invierte las condiciones que ponemos para que cambie el CSS. 
+
+				@media not all and (orientation: landscape) {
+			  		body {
+			    		color: blue;
+			  		}
+				}
+
+				Vemos que "not" se ubican antes del tipo de media.
+				lo contrario a orientacion: landscape;  es portrait, la pantalla tiene que ser vertical para que cambie el color de texto del body.
+		
+		Ubicar los breakpoints:
+		Hay que usar un media query para cambiar el diseño a uno mejor cuando haya espacio disponible. No importa las dimensiones exactas, se adapta por rangos.
+		En las herramientas para desarrolladores hay simulador de dispositivos para el diseño responsivo.
+		
+		Metodos para el diseño responsivo:
+		1° Empezar haciendo un diseño de escritorio y despues agregar queries para mover los elementos a medida que se va reduciendo la ventana gráfica.
+		2° Comenzamos un diseño de movil para que los elementos se agranden y acomoden a un espacio mayor a medida que se amplia la ventana del navegador. Este es el más seguido.
+		   La vista de los dispositivos más pequeños suelen ser una sola columna de contenido, como aparecen en el flujo normal. Solo hay que ordenar bien las fuentes para que sean legibles y centrar algunos elementos.
+		
+
+	|| LEGACY LAYOUT
+		Los nuevos metodos de diseño están diseñados para convivir con el código viejo o heredado, ya que los sobreescribe, sin causar problemas.
+		En dónde hay código heredado, podemos ir agregando nuevos metodos de diseño sin afectar el código viejo, es la parte más importante para mantener los metodos antiguos y modernos.
+		Tambien se podría usar queries que contengan un diseño moderno con propiedades que no son aceptadas en navegadores antiguos.
+
+
+	|| SUPPORTS BROWSERS
+		En caso de querer dar soporte a navegadores antiguos necesitamos de propiedades fallbacks o respaldo que son las que soportan esos navegadores. 
+		A los fallbacks los colocamos antes de las propiedades más avanzadas.
+
+
+	|| Conversión de diseño
+
+		Float y clear:
+		Las propiedades float y clear no hacen efecto cuando los elementos se convierten en cuadrículas
+
+		Display inline-block:
+		Los elementos de tabla perderan este comportamiento si se convierten en elementos flexibles o de cuadrícula. Ademas si teníamos cajas anonimas para arreglar la estructura de la tabla no se van a crearse o aparecer.
+
+		Display table:
+		Los elementos de tabla perderan este comportamiento si se convierten en elementos flexibles o de cuadrícula. Ademas si teníamos cajas anonimas para arreglar la estructura de la tabla no se van a crearse o aparecer.
+
+		Diseño de multiple columna:
+		Se puede usar de respaldo cuando el contenedor tenga algunas propiedades de columnas que luego se convertiran en cuadrícula.
+
+		Usar Flexbox como respaldo para Grid:
+		Si convertimos un contenedor flexible en uno de cuadrícula, se ignorarán las propiedades de flexbox. Flexbox es más compatible que Grid en navegadores antiguos pero hay algunas inconsistencias que notará en estos navegadores.	
+
+		*Las propiedades usadas para los navegadores antiguos pueden afectar a las propiedades usadas para navegadores modernos que se suele solucionar con queries.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/

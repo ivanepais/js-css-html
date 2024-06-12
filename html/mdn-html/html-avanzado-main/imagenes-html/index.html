@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Imagenes en HTML</title>
+</head>
+<body>
+	<h1>Imagenes en HTML</h1>
+	<p>Una web con solo texto es aburrida, por suerte se pueden poner imagenes y otro tipo de contenido multimedia. Son usadas para finas didacticos como dar al usuario una pista sobre el contenido, esquemas/resumen de información; puede ser más facil describir algo con una imagen que con palabras. Tambien son usadas para fines esteticos: las podemos encontrar en los encabezados de la web, de fondo en un titulo de algún articulo para la apariencia de la web,</p>
+
+	<h2>Poner una imagen en una página web</h2>
+	<p>Se utiliza el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/img">img</a> junto con el atributo <em>src</em> (source) en el cual debemos poner la ruta donde se encuentra la imagen.</p>
+	<p>Debemos recordar como se navegaba por la jerarquia de archivos para colocar las rutas adecuadamente.</p>
+	<p>Se recomienda tener una carpeta solo con las imagenes por temas de <em>SEO</em>.</p>
+	<p>No se recomienda poner imagenes de otros sitios por cuestión de copyright (a menos que tenga una licencia que permita el uso) y funcionalidad (las pueden borrar, cambiar, mover) que no sean las de nuestro proyecto, o sea, que esten en el mismo servidor que nuestro HTML.</p>
+
+	<h3>Texto alternativo</h3>
+	<p>El atributo <em>alt</em> es otro etiqueta de apertura del elemento <em>img</em>. Debe ser una descripción de la imagen, en caso de que no se pueda mostrar o cuando la página tarde en cargar el sitio completo.</p>
+	<p>Se incluye este atributo por <em>cuestiones de accesibilidad</em>, los lectores de pantalla de usuarios invidentes leen este atributo. Tambien se usa por <em>cuestiones de funcionalidad</em>, hay usuarios que desactivan las imagenes para reducir el uso de datos, otros usuarios aun usan navegadores de solo texto, solo verán la descripción. Los motores de busqueda pueden hacer coincidir el texto alternativo con las consultas de busqueda.</p>
+	<p>¿Qué se deberia escribir en el atributo alt? Depende de la imagen o preguntarse qué se pierde si la imagen no aparece.</p>
+	<ul>
+		<li><strong>Decoración</strong>: Para imagenes decorativas se debería usar CSS, con HTML solo deberiamos utilizar imagenes informativas. Pero si las hay, no hay que poner el atributo alt.</li>
+		<li><strong>Contenido</strong>: En la imagen informativa se describe un texto alternativo breve que resuma su contenido.</li>
+		<li><strong>Enlace</strong>: Al poner una imagen dentro de un enlace se debe seguir los tips para dar un texto claro a la imagen y describir la imagen con alt.</li>
+		<li><strong>Texto</strong>: No deberias usar imagenes con textos/parrafos </li>
+	</ul>
+	<p>En el apartado de accesibilidad de HTML en MDN, hay una <a href="https://developer.mozilla.org/es/docs/Learn/Accessibility/HTML#html_y_accesibilidad">guía de texto alternativo</a>.</p>
+
+	<h3>Anchura y altura</h3>
+	<p>Los atributos <em>width</em> y <em>height</em> se usan para determinar el ancho y alto de una imagen desde el HTML. Pero esta tecnica no se debería aplicar, una buena practica es editar la imagen con un programa (como <a href="https://www.gimp.org/">gimp</a> u otro más simple) para conseguir un tamaño ideal para evitar usar muchas datos. Pero esto se ampliará más adelante.</p>
+	<p>Usar estos atributos no reducen el tamaño del archivo, solo esconde su tamaño.</p>
+
+	<h3>Título de imagenes</h3>
+	<p>Con el atributo <em>title</em> podemos agregar un titulo a la imagen, éste saldrá cuando el usuario pase el cursor sobre ella. Este funcionamiento ocasiona problemas de accesibilidad por eso no se tiene en cuenta.</p>
+	<p>La información que puede estar en title se puede poner como texto en un parrafo. Aunque hay etiquetas que cumplen esta función, como lo son: <em>figure</em> y figcaption</p>
+	
+	<code>
+		<!--
+		    <img src="images/dinosaur.jpg"
+		     alt="La cabeza y el torso de un esqueleto de dinosaurio; tiene una cabeza grande con dientes largos y afilados"
+		     width="400"
+		     height="341"
+		     title="Exposición de un T-Rex en el museo de la Universidad de Manchester.">
+
+		    Imagen con enlace:
+			<a href="https://developer.mozilla.org/">
+		  	 <img src="mdn-logo-sm.png" alt="MDN"></a>
+		  	 title="Logo del navegador Mozilla Firefox".
+			</a>
+		 -->
+	</code>	
+	
+	<h3>Agregar pie de imagen</h3>
+	<p><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/figure">figure</a> hace de contenedor para la imagen y para <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/figcaption">figcaption</a> que es el pie de imagen, en el que vamos a escribir el contexto de la imagen o otra descripción que necesite.</p>
+	<p>Figcaption y alt no deberian decir lo mismo, porque si la imagen no se muestra (por tardar en cargar), aparecerá el mismo texto.</p>
+	<p>Por otro lado, el elemento figure puede actuar de contenedor independiente para algo que:</p>
+	<ul>
+		<li>Expresa un significado en forma compacta y facil de entender.</li>
+		<li>Se pueda poner en cualquier lado de la página.</li>
+		<li>Proporciona información esencial que da apoyo a la página.</li>
+	</ul>
+	<p>Se aplica como contenedor de varias imagenes, un fragmente de código, audio, video, una tabla o a cualquier otra cosa.</p>
+	<code>
+		<!--
+			<figure>
+			  <img src="images/dinosaur.jpg"
+			  alt="La cabeza y el torso de un esqueleto de dinosaurio; tiene una cabeza grande con dientes largos y afilados" 
+			  width="400"
+			  height="341">
+			  <figcaption>
+			  Exposición de un T-Rex en el museo de la Universidad de Manchester.
+			  </figcaption>
+			</figure>
+		 -->
+	</code>
+
+
+	
+</body>
+</html>

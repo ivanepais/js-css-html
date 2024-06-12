@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Estilo a enlaces - CSS</title>
+	<link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+	<h1>Capitulo 3: Estilo a los enlaces</h1>
+	<p>Hay que tener en cuenta algunas <a href="https://developer.mozilla.org/es/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements#%c2%bfqu%c3%a9_es_una_pseudoclase">pseudoclases</a> que se usan para los links, hay una lista que puedes revisar. Tambien puedes repasar como <a href="https://developer.mozilla.org/es/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks#primer_acercamiento_a_urls_y_rutas">manejar los enlaces</a> hacia archivos locales y hacia la web.</p>
+
+	<h2>Los estados en un enlace</h2>
+	<p>Pueden diseñarse usando las siguientes pseudoclases</p>
+	<ul>
+		<li><strong>Link (no visitado)</strong>: Estado predeterminado de un enlace, se pone con la pseudoclase <a href="https://developer.mozilla.org/es/docs/Web/CSS/:link">:link</a>.</li>
+		<li><strong>Visited</strong>: Cuando un enlace fue clickeado cambia de color, se puede hacer eso con <a href="https://developer.mozilla.org/es/docs/Web/CSS/:visited">:visited</a>.</li>
+		<li><strong>Hover</strong>: Cuando a un enlace se le pasa el cursor, se lo remarca para distinguirlo con <a href="https://developer.mozilla.org/es/docs/Web/CSS/:hover">:hover</a>, puede cambiar colores, la forma del cursor, etc.</li>
+		<li><strong>Focus</strong>: Si un elemento o enlace tiene foco, el usuario puede usar la tecla <span>tab</span> para llegar a él. Se hace con <a href="https://developer.mozilla.org/es/docs/Web/CSS/:focus">:focus</a>.</li>
+		<li><strong>Active</strong>: El enlace puede cambiar de apariencia o color cuando se hace click, se puede ver en un enlace que tenga esta pseudoclase <a href="https://developer.mozilla.org/es/docs/Web/CSS/:active">:active</a> si se mantiene apretado el click. A diferencia de <em>:visited</em> que se activa despues del click, <em>:active</em> funciona al momento.</li>
+	</ul>
+
+	<h2>Enlaces predeterminados</h2>
+	<p>Por defecto vienen:</p>
+	<ul>
+		<li>Subrayados</li>
+		<li>Los no visitados (<em>:link</em>) se ven azul.</li>
+		<li>Los visitados (<em>:visited</em>) se ven violetas.</li>
+		<li>Al pasar por arriba un enlace (<em>:hover</em>), el cursor cambia de forma.</li>
+		<li>Si tiene foco (<em>:focus</em>) se ve un contorno alrededor del link apretando <span>tab</span> y así se va cambiando (Windows).</li>
+		<li>Los activos (<em>:active</em>) se ponen de color rojo (se distingue si se mantiene apretado el click derecho).</li>
+	</ul>
+	<p>Para el formateo de enlaces se recomienda:</p>
+	<ul>
+		<li>Subrayar los enlaces, pero no otros elementos; sino, destacarlos de otra forma</li>
+		<li>Aplicar <em>:hover</em> para resaltarlos de alguna manera.</li>
+	</ul>
+	<p>Los estilos por defecto se pueden cambiar usando:</p>
+	<ul>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/color">color</a> para el texto.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/cursor">cursor</a> para el tipo del cursor (no se recomienda deshabilitarlo).</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/outline">outline</a> es el contorno del texto, similar a un borde. Es ayuda de accesibilidad, no se recomienda desactivarlo.</li>
+	</ul>
+
+	<h2>Creando enlaces</h2>
+	<p>En la hoja de CSS hay que seleccionar al enlace y escribir una pseudoclase (si se desea).</p>
+	<p>El orden de los pseudoclases importa, así un enlace va tomando la caracteristica de estas y puede funcionar correctamente.</p>
+	<p>El orden es el siguiente: <strong>L</strong> (<em>:link</em>). <strong>V</strong> (<em>:visited</em>). <strong>F</strong> (<em>:focus</em>). <strong>H</strong> (<em>:hover</em>). <strong>A</strong> (<em>:active</em>).</p>
+	<code>
+		<!--
+			body {
+			  width: 300px;
+			  margin: 0 auto;
+			  font-size: 1.2rem;
+			  font-family: sans-serif;
+			}
+
+			p {
+			  line-height: 1.4;
+			}
+
+			a {
+			  outline: none;
+			  text-decoration: none;
+			  padding: 2px 1px 0;
+			}
+
+			a:link {
+			  color: #265301;
+			}
+
+			a:visited {
+			  color: #437a16;
+			}
+
+			a:focus {
+			  border-bottom: 1px solid;
+			  background: #bae498;
+			}
+
+			a:hover {
+			  border-bottom: 1px solid;
+			  background: #cdfeaa;
+			}
+
+			a:active {
+			  background: #265301;
+			  color: #cdfeaa;
+			}
+		 -->
+	</code>		
+
+	<h2>Iconos en los enlaces</h2>
+	<p>Primero tenemos que usar un <a href="https://developer.mozilla.org/es/docs/Learn/CSS/Building_blocks/Selectors#selectores_de_atributo">selector de atributo</a> que es <em>href</em> con una palabra que tenga, en este caso: <em>"html"</em>. Utilizamos la propiedad abreviada <a href="https://developer.mozilla.org/es/docs/Web/CSS/background">background</a>, su valor <em>url()</em> para insertar la dirección de la imagen; usamos <em>no repeat</em> para que aparezca una sola copia y luego especificamos una posición adecuada para la imagen como 100% y 0 (derecha superior) o right top.</p>
+	<p>Para el tamaño de la imagen usamos <a href="https://developer.mozilla.org/es/docs/Web/CSS/background-size">background-size</a> con 16px de ancho y alto.</p>
+	<code>
+		<!--
+			a[href^="http"] {
+			  background: url("external-link-52.png") no-repeat 100% 0;
+			  background-size: 16px 16px;
+			  padding-right: 19px;
+			}
+		 -->
+	</code>		
+	
+	<h2>Aspecto de botón en un enlace</h2>
+	<p>La pseudoclase <em>:hover</em> se puede usar para señalar (si se desea) distintos elementos en la web como parrafos o listas, etc.</p>
+	<p>Otra cosa comun es dar a los enlaces forma de botón, para un menu de naveción que contiene una lista de enlaces con botones.</p>
+	<code>
+		<!--
+			body,
+			html {
+			  margin: 0;
+			  font-family: sans-serif;
+			}
+
+			.container {
+			  display: flex;
+			  gap: 0.625%;
+			}
+
+			a {
+			  flex: 1;
+			  text-decoration: none;
+			  outline: none;
+			  text-align: center;
+			  line-height: 3;
+			  color: black;
+			}
+
+			a:link,
+			a:visited,
+			a:focus {
+			  background: palegoldenrod;
+			  color: black;
+			}
+
+			a:hover {
+			  background: orange;
+			}
+
+			a:active {
+			  background: darkred;
+			  color: white;
+			}
+		 -->
+	</code>	
+
+	<p>Propiedades interesantes que se pueden usar:</p>
+	<ul>
+		<li>Utilizamos <a href="https://developer.mozilla.org/es/docs/Web/CSS/display">display</a> para cambiar el comportamiento de los elementos <em>a</em> y <em>li</em>.</li>
+		<li>En la 2da regla se elimina el padding de la lista <em>ul</em> y se establece un ancho de 100% del espacio para que entren los botones.</li>
+		<li>En la 3ra regla, los renglones que se comportan en bloque por defecto, cambiamos su comportamiento a en línea con <em>display</em> para que entren en el espacio creado anteriormente; con el valor <em>inline</em>.</li>
+		<li>Para los enlaces: Le sacamos el subrayados y el contorno por defecto. Los links se muestran en línea pero queremos que los elementos consecutivos solo ocupen una línea sin separase y tambien queremos dimensionarlos y eso los conseguimos con <em>inline-block</em>.</li>
+		<li>Para la dimension de los enclaces: Llenamos todo <em>ul</em> con botones del mismo tamaño y un <em>margin</em> (espacio) enter ellos, sin hueco en el borde derecho, lo hacemos con <em>width</em> en 19.5% y <em>margin-right</em> con 0.625%. Pero como suma 100.625% y se desborda lo correguimos con una siguiente regla: <span>li:last-child a</span> con margin-right en 0 que toma el ultimo <em>li</em> para eliminar el margen. Para la altura del boton, usamos <em>line-height</em> en 3 con el texto centrado.</li>
+	</ul>
+	<p>En el código del HTML, las lineas de la lista estan juntas es porque los elementos en bloque crean espaciado en la página, como se recomienda para el valor <em>inline-block</em> en <a href="https://css-tricks.com/fighting-the-space-between-inline-block-elements/">CSS-Tricks</a>.</p>
+
+
+</body>
+</html>

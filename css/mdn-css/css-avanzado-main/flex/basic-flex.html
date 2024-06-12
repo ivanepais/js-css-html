@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Flex basico - CSS</title>
+</head>
+<body>
+	<h2>Flex direction</h2>
+	<p>Basicamente, cada dirección tiene dos ejes. Eje principlay y eje vertical.</p>
+	<ul>
+		<li>Row: el eje principal es la direción en línea y el vertical es la direccion en bloque.</li>
+		<li>Column: el eje principal es la dirección en bloque y el vertical es la dirección en línea.</li>
+	</ul>
+
+	<p>Tambien tienen la ubicación dónde empiezan o terminan los elementos (start/end).</p>
+
+
+	<h2>Flex abreviada</h2>
+	<p>La abreviatura <span>flex: 1;</span> o <span>flex: 2;</span> es como si usará <em>flex: 1 1 0</em> o <em>flex: 2 1 0;</em> para los valores flex grow (crecimiento), shrink (reducción) o basis (tamaño). Los elementos pueden crecer o reducirse a partir de una base flexible de 0.</p>
+
+	<p>El valor <em>auto</em> indica que los elementos toman el tamaño establecido en ellos mismo o si no tienen, su contenido determinará su tamaño.</p>
+
+	<p>El valor <em>0</em> indica que va a ignorar el tamaño "auto" de los elementos (por contenido o por su ancho definido) así comparte todo el espacio disponible (del contenedor) proporcionalmente.</p>
+
+	<p>Otras:</p>
+	<ul>
+		<li><em>flex: initial</em> resetea a los valores iniciales que son <em>flex: 0 1</em>, cero para crecimiento, uno para reducción y <em>auto</em> para la base de los valores anteriores.</li>
+
+		<li><em>Flex: auto</em> es <em>flex: 1 1 auto</em>, los elementos pueden crecer y reducirse.</li>
+
+		<li><em>Flex: none</em> es <em>Flex: 0 0 auto</em> se distribuyen en el contenedor utilizando el tamaño mismo de los elementos, debido al valor auto.</li>
+	</ul>
+
+	<h2>Alinear elementos flexibles</h2>
+	<p>A donde empiezan o terminan los elementos, está determinado por la propiedad <em>writting-mode</em>.</p>
+	<p>Las propiedades para alinear los elementos flexibles van en el contenedor flexible. Los ejes (main/principal; cross/secundario) son importantes, cambian respecto a si hacemos una fila/row (main es horizontal y cross es vertical) o una columna/column (main es vertical y cross es horizontal).</p>
+	<p>Para el eje secundario usamos las propiedades <em>align-items</em> y para el eje principal <em>justify-content</em>.</p>
+</body>
+</html>

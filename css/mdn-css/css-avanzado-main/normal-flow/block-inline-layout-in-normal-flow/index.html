@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../../style-index/style-index.css">
+	<title>Disposición de elementos en bloque y en línea en Normal Flow - CSS avanzado</title>
+</head>
+<body>
+	<h1>Elementos en bloque y en línea en Normal Flow</h1>
+	<p>Los elementos en bloque y en linea tienen su propio contexto de formato: en bloque y en línea, determinan su comportamiento.</p>
+	
+	<h2>Contexto de formato en bloque</h2>
+	<p>Los elementos en bloque tienen dos direcciones: block-direction (como aparecen las cajas) y inline-direction (direción hacia donde fluye el contenido).<p>
+	<p>El modo de escritura determina la dirección en la que los elementos fluyen por la página. En el modo de escritura horizontal-tb, los bloques aparecen uno debajo de otro y su contenido va de izquierda a derecha.</p>
+	<p>En modo de escritura vertical, los elementos en bloque aparecen de uno al lado de otro y su contenido va de arriba hacia abajo.</p>
+
+	<h2>Comportamientos de los elementos block e inline</h2>
+	<p>Los margenes crean una separación, tienen <em>margin</em> arriba y abajo (top y bottom) por defecto; si establecemos <span>margin: 0;</span> elimina los margen en los cuatro lados, se juntarán las cajas.</p>
+	<p>El contenido de los elementos en bloque ocupará todo el espacio que haya en el contenedor del bloque, hacia donde fluya la dirección de este. Los elementos de bloque apareceran uno debajo de otro, si incluso definimos un ancho para que entro otro al lado, en el contenedor de del bloque.</p>
+
+	<h3>Margenes superpuestos</h3>
+	<p>Cuando se toquen el margen inferior y el margen superior de elementos de bloques continuos, se sobre pone un solo margen; el qeu sea mayor entre estos dos.</p>
+	<p>Por ejemplo, un mismo elemento puede aparecer dos veces seguidas en el html (como un parrafo) y puede tener asignado margin top y bottom, igualmente ganará el más grande.</p>
+	<p>Se verifica en el inspector de código, en el panel de tercer panel, donde podemos ver los valores que toman los diferentes metodos de diseño y el model box.</p>
+
+	<h2>Contexto de formato de elementos en línea</h2>
+	<p>Se muestran uno tras otro en la dirección de contenido que disponga el modo de escritura que se esté usando. Si en un "renglon" no hay espacio, bajan a una línea nueva.</p>
+	<p>Solo le podemos dar altura, si cambiamos el tamaño de fuente para su contenido.</p>
+
+	<h2>Propiedad display y normal flow</h2>
+	<p>La propiedad <em>display</em> define como se comportan las cajas exteriormente y cualquier caja que tenga interiormente.</p>
+	<p>Display define el tipo de <em>visualización exterior</em> que determina como se comporta la caja con respecto a las demás cajas dentro de ese mismo contexto de formato; el tipo de <em>visualización interior</em> que determina como se comportan las cajas/elementos dentro de este elemento.</p>
+	<p>Por ejemplo: <span>display: flex;</span> tiene visualización externa en bloque y visualización interna flexible. Los elementos internos tambien tendran visualización interna y externa. Estos elementos internos participan del flujo normal, son en bloque o en línea según el elemento; a menos que se cambie la visualización.</p>
+	<p>Mientras la visualización externa sea en bloque, un elemento participará del normal flow y se comportará como tal, por ejemplo, grid o flex.</p>
+	<p>Podemos cambiar el tipo de visualización y comportamiento de cualquier elemento usando la propiedad <em>display</em>.</p>
+	
+</body>
+</html>

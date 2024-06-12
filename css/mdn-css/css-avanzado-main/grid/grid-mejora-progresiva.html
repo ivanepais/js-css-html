@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Grid y la mejora progresiva</title>
+</head>
+<body>
+	<h1>Usar Grid en producción</h1>
+	<p>No es necesario usar grid en todo, tampoco en nada. Se comienza mejorando cosas con cuadrícula de a poco. La sobreescritura de otros metodos de diseño funciona bien con grid.</p>
+
+	<h2>Flotantes</h2>
+	<p>Solian usarse para crear un diseño de columnas multiples. Si sobreescribe estas columnas, no hay problema dado que grid ignora los flotantes que encuentre; grid tiene prioridad.</p>
+
+	<p>Por ejemplo, usaremos grid para crear un contenedor media (img/video con texto) y hay código viejo que no podemos remover; al mismo tiempo creamos un contenedor grid, solo los secundarios se mostrarán como cuadrícula. A uno de ellos, si lo alineamos con <em>self-align</em> funciona.</p>
+	<code>
+    <!--
+		* {box-sizing: border-box;}
+
+    img {
+        max-width: 100%;
+        display: block;
+    }
+    
+    .media {
+        border: 2px solid #f76707;
+        border-radius: 5px;
+        background-color: #fff4e6;
+        max-width: 400px;
+      -->
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-template-areas: "img content";
+        margin-bottom: 1em;
+    <!--
+    }
+
+    .media::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    .media .text {
+        padding: 10px;
+        align-self: end;
+    }
+
+    /* old code we can't remove */
+    .media .image {
+  -->
+
+        float: left;
+        width: 150px;
+        margin-right: 20px;
+
+    <!--
+    }
+    -->
+    <div class="media">
+      <div class="image">
+        <img src="https://via.placeholder.com/150x150" alt="placeholder" />
+      </div>
+      <div class="text">
+        This is a media object example. I am using floats for older browsers and
+        grid for new ones.
+      </div>
+    </div>
+
+    -->
+	</code>
+	<p>El elemento <em>.media .image</em> que era un flotante, ahorá está dentro de un contenedor grid y funciona perfecto. La ventaja de no eliminar el código antiguo es que funcionará en navegadores que no soporten grid.</p>
+
+	<h3>Usando media queries</h3>
+	<p>El código antiguo o heredado no es un problema para los navegadores modernos, tampoco si lo sobreescribimos con metodos nuevos. Pero hay situaciones más complejas:</p>
+
+	<p>En el siguiente código, es un conjunto de cartas con elementos <em>flotantes</em>; en el marcado del html tenemos un div que actua como contenedor de la lista no ordenada, está lista será contenedor de las cartas. En el css tenemos ancho calculado para cada carta, espacio dado con margin y margen negativo a los costados (izq, der/horizontal) en el contenedor.</p>
+	<code>
+    <!--
+		.wrapper ul {
+      overflow: hidden;
+      margin: 0 -10px;
+      padding: 0;
+      list-style: none;
+    }
+    .wrapper li {
+      float: left;
+      width: calc(33.333333% - 20px);
+      margin: 0 10px 20px 10px;
+    }
+
+    <div class="wrapper">
+      <ul>
+        <li class="card">
+          <h2>One</h2>
+          <p>We can use CSS Grid to overwrite older methods.</p>
+        </li>
+
+        <li class="card">
+          <h2>Two</h2>
+          <p>We can use CSS Grid to overwrite older methods.</p>
+        </li>
+      </ul>
+  -->
+	</code>
+	<p>Los flotantes tienen un problema cuando agregamos más elementos, el diseño se rompe; no mantienen un orden.</p>
+	<p>Si aplicamos grid en el contenedor como hicimos antes y creamos columnas no funciona el ancho. Si aplicamos un ancho automatico cambia los flotantes en los navegadores antiguos.</p>
+
+	<p>La solución es usando un media query para los navegadores modernos, ya que los flotantes funcionaban. Aplicamos la regla <em>@supports</em> que consultará la compatibilidad del navegador con la propiedad display: grid. Estas consultas son perfectamente soportadas en los navegadores modernos.</p>
+	<code>
+		@supports (display: grid) {
+      .wrapper ul {
+        display: grid;
+        <!--
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin: 0;
+      }
+      .wrapper li {
+        width: auto;
+        min-height: auto;
+        margin: 0;
+      }
+    -->
+    }
+
+	</code>
+
+	<p>Establecemos una altura y ancho minima en automatico para las cartas (li), no estan los margenes positivos ni negativos y el espacio entre las cartas se reemplaza por gap.</p>
+
+	<p>En resumen: <em>Cuando no funciona reescribir los metodos antiguos con metodos modernos, dejamos el metodo antiguo y usamos un query para aplicar metodos modernos.</em></p>
+
+	<h2>Metodo display: inline-block</h2>
+	<p>Se usa para reemplazar al metodo de flotantes para crear cuadrículas dado que genera problemas.</p>
+	<p>El efecto que tiene es que los bloques se disponen en línea, uno al lado de otro, creando un efecto de cuadrícula.</p>
+	<p>Usamos el código anterior, el contenedor (ul) y las cartas (li):</p>
+	<code>
+    <!--
+		.wrapper ul {
+      margin: 0 -10px;
+      padding: 0;
+      list-style: none;
+    }
+    -->
+    .wrapper li {
+      display: inline-block;
+      vertical-align: top;
+      width: calc(33.333333% - 20px);
+      margin: 0 10px 20px 10px;
+    }
+	</code>
+	<p>En inline-block se utilizó vertical-align pero cuando sobreescribamos este metodo con grid no funcionará.</p>
+	<code>
+    <!--
+		@supports (display: grid) {
+      .wrapper ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin: 0;
+      }
+    -->
+      .wrapper li {
+        width: auto;
+        margin: 0;
+      }
+
+      <!--
+          <div class="wrapper">
+            <ul>
+              <li class="card">
+                <h2>One</h2>
+                <p>We can use CSS Grid to overwrite older methods.</p>
+              </li>
+              
+              <li class="card">
+                <h2>Two</h2>
+                <p>We can use CSS Grid to overwrite older methods.</p>
+                <p>We can use CSS Grid to overwrite older methods.</p>
+              </li>
+            </ul>
+          </div>
+      -->
+    }
+	</code>
+	<p>Mejoramos el ancho y los espacios</p>
+
+	<h2>La especificación y otras anulaciónes</h2>
+	<p>La especificación de grid detalla las anulaciones a otros metodos de diseño.</p>
+	<ul>
+		<li>Para <a href="https://drafts.csswg.org/css-grid/#grid-containers">Grid Containers</a>.</li>
+		<li>Para <a href="https://drafts.csswg.org/css-grid/#grid-items">Grid Items</a>.</li>
+		<li>Para <a href="https://drafts.csswg.org/css-grid/#grid-item-display">Items Display</a>.</li>
+	</ul>
+
+	<h3>Grid sobre otros metodos</h3>
+	<p>Un elemento secundario con display: inline-block se puede sobrescribir con grid.</p>
+	<p>Si tenemos display: table en un diseño heredado y display: table-cell para elementos secundarios, podemos usar display: grid para sobrescribirlos.</p>
+	<p>Tambien podemos sobrescribir un diseño flotante, una alineación vertical y un diseño de multiple columna.</p>
+</body>
+</html>

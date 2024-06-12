@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../style-index.css">
+    <title>Introducción al diseño - CSS</title>
+</head>
+<body>
+    <h1>Capitulo 1: Introducción al diseño en CSS</h1>
+    <p>Las siguientes tecnicas de diseño nos permiten controlar dónde se ubican los elementos de las páginas web en relación con su flujo de diseño normal (como se ven por defecto) sin hacer cambios.</p>
+    <ul>
+        <li><a href="https://developer.mozilla.org/es/docs/Learn/CSS/CSS_layout/Normal_Flow">Flujo normal</a></li>
+        <li><a href="https://developer.mozilla.org/es/docs/Web/CSS/display">Propiedad Display</a></li>
+        <li><a href="https://developer.mozilla.org/es/docs/Learn/CSS/CSS_layout/Flexbox">Flexbox</a></li>
+        <li><a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_Grid_Layout">Grid</a></li>
+        <li><a href="https://developer.mozilla.org/es/docs/Learn/CSS/CSS_layout/Floats">Floats</a></li>
+        <li><a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_Positioning">Posicionamiento</a></li>
+        <li>Diseño de tablas</li>
+        <li>Diseño en multiples columnas</li>
+    </ul>
+    <p>Cada técnica tiene sus usos, al entenderlas sabrás cual aplicar.</p>
+
+    <h2>Flujo normal</h2>
+    <p>Es el estilo que aplica por defecto el navegador al escribir el HTML sin modificar el CSS. Cada elemento tiene un estilo que aplica el navegador y se puede ver con el inspector de este mismo.</p>
+    <p>Los elementos que aparecen <em>uno debajo de otro</em> se denominan <em>en bloque</em>. Los elementos que aparecen <em>uno al lado de otro</em> son <em>en linea</em>. Los articulos sobre el <a href="https://developer.mozilla.org/es/docs/Learn/CSS/Building_blocks/The_box_model">Box-Model</a> y sobre las <a href="https://developer.mozilla.org/es/docs/Learn/CSS/Building_blocks/Handling_different_text_directions">Direcciones del texto</a> ayudan a comprender mejor toda esta parte del curso.</p>
+
+    <h3>Comportamiento y visualización de los elementos en CSS</h3>
+    <p>Entran en juego diferentes propiedades como <em>display</em> (visualización y comportamiento de la caja) y <em>writing-mode</em> (visualización y comportamiento del texto)que modifican completamente los elementos.</p>
+    <p>Por defecto las cajas en bloque y en línea se comportan distinto, por ejemplo: El bloque forzará un salto de línea porque por dejecto un elemento ocupa todo el espacio si no se le da un ancho debido a que su display es block. En cuanto a su writting-mode es horizontal-tb, quiere decir que su texto va en horizontal y aparece uno debajo de otro. La caja en línea forzará un salto de línea cuando ocupe todo el ancho, no funcionan las propiedades <em>width</em> y <em>height</em>, dado a que su display es inline y su writting-mode es horizontal-tb.</p>
+
+    <h3>Cambiando la presentación de los elementos con CSS</h3>
+    <p>Ya vimos algunos de una forma basica para comprender como funciona la cosa. Aquí y más adelante se explicarán detalladamente metodos como:</p>
+    <ul>
+        <li><strong>Display</strong>: Sus valores como <em>block</em>, <em>inline</em>, cambian el comportamiento de los elementos en el flujo normal (<em>normal flow</em>). Tambien activa nuevos metodos de diseño a traves de los valores: <a href="https://developer.mozilla.org/es/docs/Learn/CSS/CSS_layout/Grids">CSS Grid</a> y <a href="https://developer.mozilla.org/es/docs/Learn/CSS/CSS_layout/Flexbox">Flexbox</a>.</li>
+        <li><strong>Floats</strong>: Mueve elementos dentro de su caja como puede ser un <span>span</span> dentro de un parrafo.</li>
+        <li><strong>Position</strong>: Puede controlar precisamente los elementos para ubicarlos en cualquier lado del sitio.</li>
+        <li><strong>Diseño de tabla</strong>: Con el valor <em>table</em> de la propiedad display podemos hacer que los elementos se comporten como una <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/table">tabla</a> de HTML.</li>
+        <li><strong>Diseño en multiples columnas</strong>: Divide el contenido de una caja en <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Columns">columnas</a>.</li>
+    </ul>
+
+    <h2>Display</h2>
+    <p>Como vimos al principio, en el flujo normal se utiliza la propiedad display con valores block e inline para algunos elementos así cambiar su comportamiento y como afecta a los elementos.</p>
+    <p>Un elemento con display: <em>block</em> son elementos que se mostrarán uno debajo de otro (encabezados, parrafos) y los que tiene valor <em>inline</em> se mostrarán uno al lado de otro (enlaces, cursiva, negrita) al menos como viene por defecto.</p>
+    <p>Pero se puede cambiar aplicando otro valor de <em>display</em> o invertir sus valores.</p>
+    <p>Los valores más importantes de display son <em>grid</em> y <em>flex</em> que se explicaran a lo largo de este curso.</p>
+    <p>Otro apartado importante es la distincion entre los tipos de visualizacion: externa e interna, la primera es el comportamiento que adquiere la caja con los valores de display como <em>block</em> o <em>inline</em>, etc. La segunada es el espacio que ocupa la caja y su contenido en la ventana del navegador.</p>
+
+    <h2>Flexbox</h2>
+    <p>El uso de flexbox está pensado para ordenar las cosas en forma de columas o filas nunca las dos juntas, se indica con <span>display: flex</span>. Los hijos de los elementos que tengan esta función heredan este comportamiento y tambien agrega propiedades y valores nuevos al elemento padre. Como la propiedad <a href="https://developer.mozilla.org/es/docs/Web/CSS/flex-direction">flex-direction</a> que permite hacer una fila o columna y <a href="https://developer.mozilla.org/es/docs/Web/CSS/align-items">align-items</a> que establece donde se ubican los sub elementos. Sus valores son <em>row</em> (hace una columna) y <em>stretch</em> (estira los elementos) como su elemento padre.</p>
+    <p>En la <a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_Flexible_Box_Layout">guía sobre flexbox</a> se muestran más valores con sus definiciones y usos.</p>
+    <p>Tambien hay propiedades para los elementos flexibles para cambiar su comportamiento, expandirse o contraerse.</p>
+    <p>Por ejemplo, si le añadimos flex a todos, pero no con display sino con la <span>propiedad</span> <a href="https://developer.mozilla.org/es/docs/Web/CSS/flex">flex</a> con un valor 1. Ocuparán todo el espacio horizontal. Se usa para cambiar el tamaño y llenar el espacio disponible.</p>
+    <code>
+        <!--
+            <div class="wrapper">
+              <div class="box1">One</div>
+              <div class="box2">Two</div>
+              <div class="box3">Three</div>
+            </div>
+            
+            .wrapper {
+              display: flex;
+            }
+
+            .wrapper > div {
+              flex: 1;
+            }
+         -->
+    </code>
+
+    <h2>Grid: diseño en cuadricula</h2>
+    <p>Podemos ordenar los elementos en forma de columas y filas a diferencia de flexbox. Se aplica con la propiedad <em>display: grid</em>, posee un contenedor al que se le aplica este metodo y elementos secundarios. Las propiedades <a href="https://developer.mozilla.org/es/docs/Web/CSS/grid-template-rows">grid-template-rows</a> se ubica en el contenedor y sirve para crear filas, con dos valores crean dos filas con un tamaño elegidos. Tambien con <a href="https://developer.mozilla.org/es/docs/Web/CSS/grid-template-columns">grid-template-columns</a> en el contenedor, podemos crear columnas; tres valores forman tres columnas con el tamaño que determinemos. Los elementos dentro de este contenedor se van a ubicar automaticamente de izquierda a derecha, todo esto sin propiedades para los elementos secundarios.</p>
+    <p>Para ubicar los elementos en la fila y columna que se desea hay que usar propiedades como <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column">grid-column</a>, por ejemplo, si creamos 3 columnas en el contenedor, a un elemento secundario podemos ubicarlo en la columna 3 con un tamaño. Con <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row">grid-row</a> a este mismo elemento lo podemos ubicar en la fila 2 con cierto tamaño.</p>
+    <p>Puedes aprender más en la <a href="https://developer.mozilla.org/es/docs/Learn/CSS/CSS_layout/Grids">guía sobre grid</a>.</p>
+    <code>
+        <!--    
+            <div class="wrapper">
+              <div class="box1">One</div>
+              <div class="box2">Two</div>
+              <div class="box3">Three</div>
+              <div class="box4">Four</div>
+              <div class="box5">Five</div>
+              <div class="box6">Six</div>
+            </div>
+            
+            .wrapper {
+              display: grid;
+              grid-template-columns: 1fr 1fr 1fr;
+              grid-template-rows: 100px 100px;
+              gap: 10px;
+            }
+
+            .box1 {
+              grid-column: 2 / 4;
+              grid-row: 1;
+            }
+
+            .box2 {
+              grid-column: 1;
+              grid-row: 1 / 3;
+            }
+
+            .box3 {
+              grid-row: 2;
+              grid-column: 3;
+            }
+         -->
+    </code> 
+
+    <h2>Floats</h2>
+    <p>Se utiliza para desplazar un elemento del flujo normal y ubicarlo en alguna parte de la ventana del navegador.</p>
+    <p>No se utiliza con display, solo con la propiedad <a href="https://developer.mozilla.org/es/docs/Web/CSS/float">float</a> en la regla que vas a utilizar para un elemento. Tiene cuatro valores para establecer la flotación a los lados de otros elementos: left, right, none, inherit (heredar propiedades del padre).</p>
+    <p>En los articulos <a href="https://developer.mozilla.org/es/docs/Learn/CSS/CSS_layout/Floats">propiedades float y clear</a> y <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Legacy_Layout_Methods"></a> podemos aprender como se usaba antes de que aparesca el metodo flexbox.</p>
+    <code>
+        <!--
+            <h1>Simple float example</h1>
+
+            <div class="box">Float</div>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam</p>
+
+            .box {
+              float: left;
+              width: 150px;
+              height: 150px;
+              margin-right: 30px;
+            }
+         -->
+    </code> 
+
+    <h2>Posicionamiento</h2>
+    <p>Se usa para mover elementos desde su ubicación por defecto en el flujo normal hacia otra posición, es una propiedad que se puede usar sin display. No se utiliza para crear diseños principales, sino, para acomodar elementos especificos.</p>
+    <p>Pero hay tecnicas para crear diseños con <a href="https://developer.mozilla.org/es/docs/Web/CSS/position">position</a>.</p>
+    <p>Hay 5 tipos de posicionamiento:</p>
+    <ul>
+        <li><strong>Estático</strong>: Es el valor por defecto en cada elemento.</li>
+        <li><strong>Relativo</strong>: Permite mover elementos solo respecto a su flujo normal, puede superponerse con otros elementos.</li>
+        <li><strong>Absoluto</strong>: Saca los elementos del flujo normal, para poder moverlo al borde del <em>html</em> (o de su elemento padre más próximo) para crear elementos de diseño complejo como paneles ocultos en la página que aparecen con un botón.</li>
+        <li><strong>Fijo</strong>: Similar al absoluto, el elemento se pega al borde del html pero no a otro elemento. Se puede crear un menú de navegación porque siempre se verá en la pagina.</li>
+        <li><strong>sticky</strong>: Puede hacer que un elemento esté estatico que se desplazará cuando se mueva la pantalla.</li>
+    </ul>
+
+    <h3>Ejemplos de posicionamiento</h3>
+    <p>A a un elementos de bloque le aplicamos un CSS normal</p>
+
+    <h4>Relativo</h4>
+    <p>A un parrafo que es un elementos de bloque le agregamos la propiedad <em>position: relative</em> y para moverlo usamos propiedades como <em>top</em> y <em>left</em> que lo va a empujar desde arriba y desde la izquierda, por eso, el resultado es que se movió hacia abajo a la derecha.</p>
+
+    <h4>Absoluto</h4>
+    <p>Si hacemos lo mismo pero con el valor <em>absolute</em> de position vemos que este bloque se separa por completo del diseño normal. Las propiedades top y left si van hacia arriba y a la izquierda. En el articulo extendido de <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Positioning">position</a> podemos ver como se usan en contenedores.</p>
+
+    <h4>Fijo</h4>
+    <p>Los desplazamientos son en relacion con a ventana gráfica del navegador por eso el valor <em>fixed</em> sigue el movimiento de la página. Las propiedades top y left son solo para ubican un elemento fixed en algún lugar del sitio.</p>
+
+    <h4>Sticky</h4>
+    <p>Respeta su posicionamiento por defecto que le da el flujo normal pero cuando movemos la página, se va a desplazar.</p>
+    <code>
+        <!--
+            <h1>Positioning</h1>
+
+            <p>I am a basic block level element.</p>
+            <p class="positioned">I am a basic block level element.</p>
+            <p>I am a basic block level element.</p>
+
+            body {
+              width: 500px;
+              margin: 0 auto;
+            }
+
+            p {
+              background-color: rgb(207, 232, 220);
+              border: 2px solid rgb(79, 185, 227);
+              padding: 10px;
+              margin: 10px;
+              border-radius: 5px;
+            }
+            
+            .positioned {
+              position: relative;
+              top: 30px;
+              left: 30px;
+            }
+            
+            .positioned {
+              position: absolute;
+              top: 30px;
+              left: 30px;
+            }
+    
+            .positioned {
+              position: fixed;
+              top: 30px;
+              left: 30px;
+            }
+
+            .positioned {
+              position: sticky;
+              top: 30px;
+              left: 30px;
+            }
+
+         -->
+    </code>     
+
+    <h2>Diseño de tablas</h2>
+    <p>Se usa para mostrar datos en filas y columnas, mucho tiempo atras se podía usar para diseñar páginas que requierian de columnas y filas para agrupar contenido, pero ocupaba mucho código y no era flexible. Ahora se puede usar para crear cosas especificas cuando un sitio admite navegadores antiguos.</p>
+    <p>Por ejemplo, podemos hacer un formulario: Todo el código va a estar agrupado en la etiqueta <em>form</em>, los datos de entrada (<em>input</em>) tiene su nombre (<em>label</em>) que van dentro de un div. Puede tener un parrafo explicativo.</p>
+    <p>El CSS basico consta de espacios para el form, los campos con margin en 0 (arriba y abajo) y auto (centra horizontalmente), el ancho de los campos estan definidos, etc. El CSS para el diseño de tablas tiene que ver con <a href="https://developer.mozilla.org/es/docs/Web/CSS/display#specifications">display</a> en los elementos form (<em>table</em>), div (<em>table-row</em>) para una fila, label e input (<em>table-cell</em>) para las celdas; para el parrafo que sigue despues del formulario tiene el valor <em>table-caption</em> para el titulo/descripción de la tabla.</p>
+    <code>
+        <!--
+            <form>
+              <p>First of all, tell us your name and age.</p>
+              <div>
+                <label for="fname">First name:</label>
+                <input type="text" id="fname" />
+              </div>
+
+              <div>
+                <label for="lname">Last name:</label>
+                <input type="text" id="lname" />
+              </div>
+
+              <div>
+                <label for="age">Age:</label>
+                <input type="text" id="age" />
+              </div>
+            </form>
+            
+            html {
+              font-family: sans-serif;
+            }
+
+            form {
+              display: table;
+              margin: 0 auto;
+            }
+
+            form div {
+              display: table-row;
+            }
+
+            form label,
+            form input {
+              display: table-cell;
+              margin-bottom: 10px;
+            }
+
+            form label {
+              width: 200px;
+              padding-right: 5%;
+              text-align: right;
+            }
+
+            form input {
+              width: 300px;
+            }
+
+            form p {
+              display: table-caption;
+              caption-side: bottom;
+              width: 300px;
+              color: #999;
+              font-style: italic;
+            }
+         -->
+    </code> 
+
+    <h2>Diseño de columnas</h2>
+    <p>Podemos acomodar el contenido en columnas, aunque para la web leer en columnas no es comodo, pero puede tener alguna utilidad. Se hace mediante contenedores que en HTML le damos una clase, en CSS usamos las propiedades <a href="https://developer.mozilla.org/es/docs/Web/CSS/column-count">column-count</a> que divide el contenido en la cantidad de columnas indicadas y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-width">column-width</a> la cantidad de columnas dependera del ancho del contenedor.</p>
+    <code>
+        <!--
+            <div class="container">
+              <h1>Multi-column Layout</h1>
+
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus</p>
+
+              <p>Nam vulputate diam nec tempor bibendum. Donec luctus augue eget malesuada</p>
+            </div>  
+
+            .container {
+              column-width: 200px;
+            }
+
+         -->
+    </code>     
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index/style-index.css">
+	<title>Marcado de tablas - HTML</title>
+</head>
+<body>
+	<h1>Marcado de tablas</h1>
+	<p>Con HTML podemos crear tablas de datos, nos brinda elementos para hacer celdas, filas, encabezados; tambien metodos para que se puede abarcar multiples celdas o filas. </p>
+	
+	<h2>¿Que es una tabla?</h2>
+	<p>Es un conjunto de datos distribuidos en filas y columnas, conocidos como <em>datos tabulados</em>. Permite ver, buscar y comparar datos con rapidez, el conjunto de datos permiet hacer algun tipo de conexión entre lo que se representa.</p>
+
+	<h3>Dar estilo a una tabla</h3>
+	<p>Por defecto tienen un estilo minimo que les da el navegador pero para hacerlas más efectivas se puede <a href="https://developer.mozilla.org/es/docs/Learn/CSS/Building_blocks/Styling_tables">aplicar estilo a las tablas con CSS</a>.</p>
+
+	<h3>Cuando no usar una tabla</h3>
+	<p>No se debe usar para crear diseños web y volcar el contenido en ella. La confusión viene porque una web y una tabla tienen cabecera, filas y columnas para introducir contenido y pie de página.</p>
+	<p>Las tablas tiene menos capacidad para dar accesibilidad para los usuarios, no tienen la estructura necesaria para hacer una web. Ademas, las tablas no son responsivas por defecto, necesitan medidas adicionales para que se adapten al tamaño del contenido y pantalla.</p>
+
+	<h2>Elementos para crear una tabla</h2>
+	<p>El contenido de la tabla esta delimintado por el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/table">table</a>. Para crear una celda dentro de la tabla se usa el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/td">td</a>, es la unidad más pequeña de una tabla. Si queremos crear una <em>fila</em> tenemos que tener varios elementos td.</p>
+	<p>Para deliminar una fila ("detener su crecimiento"), agrupamos todos los elementos td en el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/tr">tr</a>.</p>
+	<p>Para hacer encabezados semantica (SEO) y visualmente a algunos elmentos usamos <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/th">th</a>, se usan para distinguir o destacar la información y hacer una conexión con los datos.</p>
+
+	<h2>Agrupar datos en filas o columnas</h2>
+	<p>Se usan para categorizar los datos.</p>
+	<p>En los encabezados de las filas usamos el <strong>atributo</strong> <em>rowspan</em>. Para las columnas <em>colspan</em>. Necesitan de un valor que será un numero natural, este determina cuantas celdas abarcará el encabezado fila o columna.</p>
+
+	<h2>Elementos para aplicar estilo a las columnas</h2>
+	<p>Necesitamos <em>colgroup</em> para agrupar los elementos de la columnas y usamos <em>col</em> con el <span>atributo style</span> para darle estilo a todas estas columnas y no repetir una por una.</p>
+	<p><em>Funcionamiento de colgroup y col</em>: Podemos ubicarlos al principio de la tabla, despues de crear todas las columnas; porque colgroup contiene la cantidad de columnas que estan representadas por col, que es solo una etiqueta de apertura. En ella va el atributo style.</p>
+	<p>Por ejemplo, si tenemos dos columnas, hay dos col y si solo queremos aplicar un estilo a todos los elementos de la segunda columnas, se lo aplicamos al segundo col.</p>
+
+</body>
+</html>

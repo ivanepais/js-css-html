@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Dar compatibilidad a flexbox</title>
+</head>
+<body>
+	<h2>Historia de flexbox</h2>
+	<p>El metodo flexbox a lo largo de su historia, fue cambiando la forma en que se aplicaba, esto se da por el avance de la especificación a lo largo de los años.</p>
+	<p>Se usaba el metodo de los <em>prefijos</em> para probar y experimentar con las nuevas tecnologias.</p>
+	<p>Por ejemplo, <a href="https://www.w3.org/TR/2009/WD-css3-flexbox-20090723/">en 2009</a>; para crear un contendor flexible se utilizaba la propiedad <em>display: box</em> junto con prefijos como <em>box-*</em> para otras propiedades.</p>
+	<p>En <a href="https://www.w3.org/TR/2012/WD-css3-flexbox-20120322/">2012 se actualizo la especificación</a> y para crear un contenedor habia que aplicar la propiedad <em>display: flexbox</em>; junto con otros prefijos como podemos ver en la documentación de ese tiempo.</p>
+	<p>Finalmente se estandarizo la propiedad <em>display: flex</em> para crear un contenedor flexible.</p>
+
+	<h2>Problemas comunes</h2>
+	<p>La mayoria de los problemas se daban porque se ponia codigo experimental en sitios en producción, cada <a href="https://github.com/philipwalton/flexbugs">flexbugs</a> tiene una solución.</p>
+	<p>Por ejemplo, un contenedor debia tener el prefijo y las propiedades correspondiente para cada navegador web. Ahora, si queremos dar compatibilidad para navegadores antiguos, debemos poner estás propiedades y al final incluir la propiedad moderna que aceptan todos los navegadores.</p>
+	<code>
+		<!-- 
+		.wrapper {
+           display: -webkit-box;
+           display: -webkit-flex;
+           display: -ms-flexbox;
+           display: flex;
+        }
+    	-->
+	</code>
+	<p>En el sitio <a href="https://autoprefixer.github.io/">Autoprefixer</a> podemos ver los prefijos que necesitan los navegadores antiguos. En el sitio <a href="https://caniuse.com/#feat=flexbox">Can I Use</a> podemos ver la compatibilidad que tienen las propiedades en todos los navegadores del mercado, ademas información adicional.</p>
+
+	<h2>Tecnicas de Fallback para flexbox</h2>
+	<p>Para cada propiedad moderna que no este ampliamente soportada por todos los navegadores ya sea por tiempo o por implementación de estos; debemos usar otra propiedad de reemplazo antes, que si sea ampliamente soportada por todos los navegadores.</p>
+	<p>Los navegadores ignorán las propieades que no entienden y aplican las que si.</p>
+	<p>Cuando queremos dar soporte a navegadores muy antiguos, podemos reemplazar un metodo de diseño moderno por uno más antiguo, sobreescribiendolos.</p>
+
+	<h3>Elementos flotantes</h3>
+	<p>La especificación de flexbox define que sucede si usamos otro metodo de diseño que despues se convertirá en un elemento flexible.</p>
+	<p>Dice que por ejemplo: "Flotar y limpiar un elemento no lo saca del flujo normal de diseño cuando se convierta en un elemento flexible".</p>
+
+	<code>
+		<!--
+		<div class="box">
+		  <div class="item">Item 1</div>
+		  <div class="item">Item 2 has more text in it and therefore will be taller than item one. In the flex version both should stretch to the same height.</div>
+		</div>
+
+		.box {
+           display: flex;
+        }
+
+        .item {
+           float: left;
+           width: 150px;
+           flex: 1;
+        }
+    	-->
+	</code>
+
+
+	<p>Un <em>navegador antiguo</em> ignorará el metodo moderno y leerá un metodo antiguo, mientras que <em>un navegador moderno</em> que soporta metodos modernos, lee e ignora un metodo antiguo. Así lo determina la especificación de las tecnologias modernas de diseño.</p>
+
+	<h3>Display inline-block</h3>
+	<p>Una vez que un elemento con <em>display: inline-block</em> se convierta en un elemento flexible, no se aplica el comportamiento anterior.</p>
+	<code>
+		<!--
+		.box {
+           display: flex;
+        }
+
+        .item {
+           display: inline-block;
+           width: 150px;
+           flex: 1;
+        }
+        -->
+	</code>
+
+	<h3>Display table-</h3>
+	<p>Las propiedades de tabla son utiles para respaldo dado que permiten diseñar en fila y columna, alineación vertical que funcionan hasta en IE8.</p>
+	<p>Usar la propiedad <em>display: table-cell</em> hace que un elemento de HTML se convierta en una celda de tabla. Crea cajas anonimas que no puedes darle estilo.</p>
+	<p>Si a un contenedor de elementos le damos <em>display: flex</em>, las celdas de tabla se convierten en elementos fleibles normales.</p>
+	<code>
+		<!--
+		.box {
+           display: flex;
+        }
+
+        .item {
+           display: table-cell;
+           width: 150px;
+           flex: 1;
+        }
+    	-->
+	</code>
+
+	<h3>Alineación vertical</h3>
+	<p>La propiedad <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/vertical-align">vertical-align</a> sirve junto con <em>display: inline-block</em> y <em>display: table-cell</em> con <em>display: inline-</em>. Como con los demas metodos, al aplicar flexbox al contenedor de elementos, ignorará las propiedades anteriores y podemo seguir usando las propiedades de flexbox.</p>
+	<code>
+		<!--
+		.box {
+           display: flex;
+        }
+ 
+        .item {
+           display: inline-block;
+           vertical-align: top;
+           width: 150px;
+           flex: 1;
+        }
+    	-->
+	</code>
+
+	<h2>Usar queries para comprobar una propiedad</h2>
+	<p>Podemos usar <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@supports">feature queries</a> para detectar si el navegador soporta ciertas propieades, si es afirmativo, aplicará el código CSS que especifiquemos despues.</p>
+	<p>Podemos agregar condiconales <em>and</em>, <em>or</em> y <em>not</em> como podemos ver en esta guía sobre <a href="https://hacks.mozilla.org/2016/08/using-feature-queries-in-css/">queries en CSS</a>.</p>
+	<code>
+
+		@supports (display: flex) {
+             /* code for supporting browsers */
+        }
+	</code>
+
+	<code>
+		@supports (display: flex) or (display: -webkit-box) {
+             /* code for supporting browsers */
+       }
+	</code>
+
+	<h2>Conclusion</h2>
+	<p>Las tecnicas anteriores se usan en el caso de que flexbox no sea admitido, pero como ya tiene mucho tiempo y está estandarizado en los navegadores, se puede usar en producción. Basicamente se trata de poner elementos en línea usando diferentes tecnicas.</p>
+	<p>El código heredado de flexbox sirve conocer y detectar código antiguo.</p>
+
+</body>
+</html>

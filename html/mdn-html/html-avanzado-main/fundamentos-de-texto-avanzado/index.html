@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index/style-index.css">
+	<title>Fundamentos de texto avanzado - HTML</title>
+</head>
+<body>
+	<h1>Marcado de texto avanzado</h1>
+	<p>Existen una variedad de elementos para el marcado de texto que podemos usar para las citas, código de programación, subíndices, superaíndices e información de contacto para los visitantes del sitio.</p>
+
+	<h2>Citas</h2>
+	<p>Hay citas que se pueden marcar dentro de los parrafos o un elemento en bloque, llamadas <em>citas en línea</em> y hay citas que son un elemento en bloque directamente, llamadas (<em>citas en bloque</em>).</p>
+
+	<h3>Blockquote: cita en bloque</h3>
+	<p>El elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/blockquote">blockquote</a> tiene dentro de su etiqueta de apertura el atributo <em>cite</em> en el que va el texto. La cita empezará en una linea nueva como todos los elementos de bloque.</p>
+	<code>
+		<!--
+			<blockquote	cite="https://developer.mozilla.org/es/docs/Web/HTML/Element/blockquote">
+			<p> indica que el texto al que delimita es una cita ampliada. </p>
+			</blockquote>
+		 -->
+	</code>
+	
+	<h3>Elemento q: cita en línea</h3>
+	<p>El elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/q">q</a> tambien posee el atributo <em>cite</em>. Va dentro de un parrafo u otro elemento en bloque, la cita de mostrará dentro de ellos sin hacer un salto de línea.</p>
+	<code>
+		<!--
+			 <q cite="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/q"> utiliza en para citas breves que no requieren saltos de párrafo.</q>
+		 -->
+	</code>
+	
+	<h3>Elemento cite: titulo del autor</h3>
+	<p>El elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/cite">cite</a> se usa para dar el autor de una frase, el nombre del libro, material o recurso que se uso para la cita. Su aspecto aspecto por defecto se suele mejorar con <em>CSS</em>, es un elemento en línea.</p>
+	<code>
+		<!--
+			<cite>página de MDN</cite>
+		 -->
+	</code>	
+	
+	<h2>Abreviaturas</h2>
+	<p>El elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/abbr">abbr</a> se usa para escribir una abreviatura, dentro de su etiqueta de apertura está el atributo <em>title</em> que se usa para poner el significado completo de esta. El texto de title se ve cuando pasamos el cursor por encima de la abreviatura.</p>
+	<code>
+		<!--
+			<abbr title="Lenguaje de marcado de hipertexto">HTML</abbr> 
+		 -->
+	</code>	
+	
+	<h2>Marcar información de contacto</h2>
+	<p>Con el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/address">adress</a> incluimos toda la información de contacto que puede necesitar un cliente/visitante, como el nombre de la empresa, ubicación telefono, mail de contacto o enlaces.</p>
+	<p>Podemos escribir todo dentro de un parrafo o usar una lista no ordenada para lograr otra visualización.</p>
+	<code>
+		<!--
+			<address>
+			  <p>Dirección de contacto:</p>
+			  <ul>
+			    <li>Tel: 01234 567 890</li>
+			    <li>Email: me@grim-north.co.uk</li>
+			  </ul>
+			</address>
+		 -->
+	</code>
+	
+	<h2>Superíndice y subíndice</h2>
+	<p>Los elementos <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/sup"></a> y <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/sub"></a> se usan para marcar superíndices y subíndices en fechas, fórmulas quimicas, ecuaciones matematicas para que sean visualmente correctas.</p>
+	<code>
+		<!--
+			<p>Si x<sup>2</sup> es 9, x debe ser igual 3 o -3.</p>
+
+			<p>
+			  La fórmula química de la cafeína es
+			  C<sub>8</sub>H<sub>10</sub>N<sub>4</sub>O<sub>2</sub>.
+			</p>
+		 -->
+	</code>
+	
+	<h3>Marcar código de programación</h3>
+	<p>Se usan una serie de elementos de HTML para que el código pueda ser presentados sin conflictos con el lenguaje de programación en el editor de texto.</p>
+	<ul>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/code">code</a>: Se usa para escribir el código</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/pre">pre</a>: Se usa para poder usar espacios en el elemento code, por lo tanto encerrará a este elemento. Son espacios que tendría cualquier lenguaje, de lo contrario el navegador ignoraría los espacios.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/var">var</a>: Para resaltar los nombres de las variables.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/kbd">kdb</a>: Para marcar combinaciones de teclado que tengan algun efecto como copiar, pegar, seleccionar todo el texto.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/samp">samp</a>: Para marcar la respuesta que da una terminal, consola de un lenguaje de programación; pueden dar errores, caracteristicas, descripciones, instrucciones, etc.</li>
+	</ul>
+	<code>
+		<!--
+			<pre>
+			<code>
+			var for = document.querySelector('p');
+
+			for.onclick = function() {
+			  alert('¡Guau!, ¡deja de apretar!');
+			}
+			</code>
+			</pre>
+
+			<code>&lt;font&gt;</code>
+
+			<var>for</var>
+
+			<kbd>Ctrl</kbd>/<kbd>Cmd</kbd>
+
+			<pre>
+			$ <kbd>ping mozilla.org</kbd>
+			<samp>
+			PING mozilla.org (63.245.215.20): 56 bytes de datos
+			64 bytes de 63.245.215.20: icmp_seq=0 ttl=40 time=158.233 ms
+			</samp>
+			</pre>
+		 -->
+	</code>
+	
+	<h2>Marcar horas y fechas</h2>
+	<p>Para que el navegador reconozca una fecha (dia/mes/año en cualquier combinación) se usa el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/time">time</a>. Tambien funciona para las horas, minutos y segundo.</p>
+	<p>Dentro de la etiqueta de apertura se encuentra el atributo <em>datatime</em> en el que ponemos un formato de fecha u horario para que la maquina lo reconozca. Dentro de las dos etiquetas va la fecha u horario para que el usuario la puede ver.</p>
+	<code>
+		<!--
+			 Fecha simple estándar 
+			<time datetime="2016-01-20">20 Enero 2016</time>
+
+			Solo año y mes 
+			<time datetime="2016-01">Enero 2016</time>
+
+			 Solo mes y día 
+			<time datetime="01-20">20 Enero 2016</time>
+
+			 Solo tiempo, horas y minutos 
+			<time datetime="19:30">19:30</time>
+
+			¡También puedes hacer segundos y milisegundos!
+			<time datetime="19:30:01.856">19:30:01.856</time>
+
+			Fecha y hora
+			<time datetime="2016-01-20T19:30">7.30pm, 20 Enero 2016</time>
+
+			Fecha y hora con desplazamiento de zona horaria
+			<time datetime="2016-01-20T19:30+01:00"
+			  >7.30pm, 20 Enero 2016 es 8.30pm en Francia</time>
+
+			Llamar a un número de semana específico
+			<time datetime="2016-W04">La cuarta semana de 2016</time>
+		 -->
+	</code>	
+</body>
+</html>

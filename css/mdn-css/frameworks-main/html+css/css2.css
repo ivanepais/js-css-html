@@ -1,0 +1,1024 @@
+/*
+	|| Box Model
+
+		Caja en bloque:
+			Fuerza un salto de linea al llegar al final de la linea.
+			Se extenderá en la dirección de la linea para rellenar todo el espacio disponible que haya en su contenedor, la mayoría de las veces, la caja será tan ancha y ocupara todo el espacio como su contenedor.
+			Respetan las propiedades width y height.
+			Las propiedades padding, margin y border separan la caja de otros elementos.
+
+		Caja en linea:
+			No fuerza un salto de linea al llegar al final de la linea.
+			Las propiedades width y height no funcionan por defecto (solo cambiando su tipo de visualización). Aunque con padding se puede agrandar la caja desde adentro pero se superponen los otros elementos, si hay y dependiendo de cuanto sea el padding.
+			Las propiedades padding, margin y border <em>verticales</em> no alejan a otras cajas en linea.
+			Las propiedades padding, margin y border <em>horizontales</em> si alejan a otras cajas en linea.
+
+		Partes de una caja:
+			Contenido (content box): area que muestra el contenido (texto, img, vid), puede modificarse con las propiedades width y height.
+			Relleno (padding box): espacio en blanco alrededor del contenido, se modifica con la propiedad padding.
+			Borde (border box): envuelve y limita la caja, puede modificarse con border.
+			Margen (margin box): espacio en blanco entre la caja y los otros elementos, se usa para separarlos. Se modifica con margin.
+			
+			*Se calculan desde su borde.
+			*El espacio ocupado de los elementos en línea está determinada por la propiedad line-height
+
+		Modelos de caja:
+			Estándar: suma todo y no cálcula automaticamente el ancho y alto de la caja.
+			Alternativo: box-sizing: border-box; resta las demás propiedades de la caja al ancho y alto total.
+	
+		Margin:
+			Buenas practicas:
+			Margenes automáticos para centrar elementos con margin-left: auto; mueve la caja hacia el margen derecho (al agrandar el margen izquierdo). 
+			Con margin-right: auto; muevo todo el elemento hacia la izquierda y con las dos declaraciones centramos el elemento o la caja.</p>
+			Siempre que no se use flexbox.
+
+			Malas practicas:
+			Eliminar el margin y el padding: Con margin: 0; y padding: 0; se juntan todos los elementos y no se pueden distinguir. Peor es la situación si usan un selector universal porque van a tener que ir elemento a elemento para cambiar estas propiedades.
+			Centrar elementos con margin 0 auto: Puede desaparecer el espacio/separación vertical si hay otros elementos antes en la cascada.</p>
+			Usar margin 0 y padding 0 en el body: El primero por que todos los navegadores tienen por defecto un margin 8px (a todos los lados) se puede ver en inspeccionar elemento y los hace desaparecer. El segundo no tiene sentido porque no hay padding por defecto.
+			
+			Colapso de margin
+			Si hay dos elementos cuyo margen se tocan, el margen que se sobrepone es el más grande. Un problema común es cuando queremos crear espacios y no se asigna el que le decimos, lo más probable es que haya un colapso de margen.
+			Otros casos:
+				Dos márgenes negativos colapsarán y se usará el valor más pequeño (el más alejado de cero).
+				Si un margen es negativo, su valor se restará del total.
+		
+
+	|| Backgrounds y Borders:
+		
+		Background-color:
+		Define el color de fondo de cualquier elemento/caja en CSS, el color se va a aplicar por debajo del contenido y del padding. Los valores de color pueden ser todos los que permite esta propiedad.
+				.box {
+				  background-color: #567895;
+				}
+		
+		Background-image
+		Permite poner una imagen de fondo a un elemento o caja (lo mas utilizado). De forma predeterminada una imagen grande no se ajusta a la caja, mientras que una imagen pequeña se repite hasta llenar la caja. Además si le aplicamos un color de fondo a la imagen, ésta va a quedar por encima del color.
+				.b {
+				  background-image: url(star.png);
+				  background-color: blue;
+				}
+		
+		Background-repeat
+		Se usa para controlar el comportamiento repetitivo de las imágenes de fondo. Los valores son: no-repeat (evita que el fondo se repita), repeat-x (repite el fondo horizontalmente), repeat-y (repite el fondo verticalmente), repeat (repite el fondo de forma vertical y horizontal).
+				.box2 {
+					background-image: url(star.png);
+					background-repeat: repeat-x;
+				}
+
+		Background-size
+		Se usa para dimensionar las imágenes de fondo, usa tipo de valores de medida como longitud (px) y porcentaje (%). También tiene valores de palabra clave como: <strong>cover</strong> (el navegador agrandará la imagen para que cubra toda la caja, sin que se pierda su relación de aspecto, que se recorte la imagen). Por eso es probable que parte de la caja quede sin cubrir. También está <strong>contain</strong>: el navegador hará que la imagen cubra toda la caja a costa de cortar la imagen, perdiendo su relación de aspecto.
+				.box {
+				  background-image: url(balloons.jpg);
+				  background-repeat: no-repeat;
+				  background-size: 100px 10em;
+				}
+
+				.box {
+					background-image: url(star.png);
+					background-repeat: repeat;
+					background-size: cover;
+				}        			
+
+		Gradient: degradado
+		Es un tipo de imagen que se puede usar como fondo, se establece usando background-image con el valor linear-gradient o radial-gradient.
+				.a {
+				  background-image: linear-gradient(105deg, rgba(0,249,255,1) 39%, rgba(51,56,57,1) 96%);
+				}
+
+		Bordes
+		Por lo general se usa la propiedad abreviada borde para poner el ancho, estilo y color en una sola linea. Pero para diseños más creativos se puede usar cada lado del borde de manera diferente.
+				.box {
+				  border: 1px solid black;
+				}
+
+				.box2 {
+				  border-top: 1px solid black;   
+				}
+
+				box3 {
+					border-top-width: 1px;
+					border-top-style: solid;
+					border-top-color: black;  
+				}		
+		
+		Border-radius: esquinas redondeadas
+		Aplica sobre la esquina de la caja, distinto a border que solo aplica a los lados.
+				.box {
+				  border-radius: 10px;
+				}
+				
+				.box2 {
+				  border-top-right-radius: 1em 10%;
+				}
+	
+
+	|| Writing Mode, Display, Propiedades fisicas y lógicas
+		
+		La propiedad writing-mode cambia la dirección en bloque y en línea (o vertical u horizontal) de los elementos.
+		Mientras que display cambia el diseño/disposición de los elementos interiormente (diseño) y exteriormente (interacción).
+		El flujo físico es el que se usa para las coordenadas top, right, bottom y left en distintas propiedades como margin, padding, etc. Entonces, las coordenadas estan atadas a los lugares fisicos de las cajas de css tomo puede ser un top. 
+		El flujo lógico depende desde donde empiezan y terminan los elementos en los modos de escritura, por eso se utiliza <em>block/inline</em> con <em>start/end</em> que sirven para cualquier modo de escritura así no tendrás que ajustar nada y escribir menos código.
+	 
+	
+	|| Propiedades y valores lógicos
+		Estas van a reemplazar a las propiedades width y height (valores horizontales) en los modos de escritura como horizontal-tb, vertical-rl y lr porque width y height no se ajustan al contenido en los modos mencionados. Y a otros valores más.
+
+		inline-size:
+		Se refiere al tamaño de la dimension inline (texto/contenido dentro de la caja), va a extender o encoger las lineas de texto/contenido. Reemplaza a width.
+
+		block-size:
+		Se refiere al tamaño de la caja, reemplaza a height. En resumen son la altura y la anchura que se usan en estos modos de escritura pero refiriéndose a las dos dimensiones.
+			.box {
+			  inline-size: 150px;
+			}
+	
+		margin-block-start:
+		Margen de inicio del bloque. Reemplaza a margin,.
+
+		padding-inline-start:
+		Es relleno va a aplicar al inicio de la dimension en linea (al inicio de las lineas de texto). Reemplaza a padding-left.
+
+		border-block-end:
+		El borde se va a aplicar al final del bloque.
+		Las propiedades físicas quedan ligadas a sus direcciones físicas, mientras que las propiedades lógicas cambian con el modo de escritura.
+
+		block-start:
+		Reemplaza a la propiedad top.
+
+		inline-end:
+		Reemplaza a la propiedad right.
+
+		block-end:
+		Reemplaza a la propiedad bottom.
+
+		inline-start:
+		Reemplaza a la propiedad left. Si estamos en el modo de escritura horizontal-tb, el texto empieza por izquierda y termina por derecha, entonces, tiene sentido que esta propiedad reemplacé a left.
+			
+			.box {
+			  inline-size: 200px;
+			  writing-mode: horizontal-tb;
+			}
+
+			.logical {
+			  margin-block-start: 20px;
+			  padding-inline-end: 2em;
+			  padding-block-start: 2px;
+			  border-inline-end: 10px dotted rebeccapurple;
+			  border-block-end: 1em double orange;
+			}
+
+			.physical {
+			  margin-top: 20px;
+			  padding-right: 2em;
+			  padding-top: 2px;
+			  border-bottom: 1em double orange;
+		
+		*Son propiedades que no tienen aun un amplio soporte.
+	
+	
+	|| Desbordamiento/overflowing
+		Se aplicarán propiedades para controlar el contenido dentro de los elementos, evitando la perdida datos.
+
+		Propiedad overflow
+		Controlamos como se comporta el desborde de contenido. 
+
+		Valor predeterminado:
+		<em>visible</em>.
+
+		Ocultar:
+		<em>hidden</em> hace que los datos se pierdan para el usuario.
+		
+		Barra de desplazamiento:
+		<em>scroll</em> agrega una barra de desplazamiento horizontal y vertical a la caja. 
+
+		Barras de desplazamiento cuando sean necesarias:
+		<em>auto>/em>
+
+		Propiedad <em>overflow-y: 
+		<em>scroll</em> agrega una barra de desplazamiento vertical. 
+		
+		Propiedad overflow-x: 
+		<em>scroll</em> agrega una barra horizontal, aunque no es recomendada para las palabras largas, 
+		es mejor investigar <em>"word-break"</em> y <em>"overflow-wrap"</em>. 
+
+		Dos valores en la propiedad overflow:
+		Representan a overflow-x y overflow-y.
+		
+			.box {
+			  border: 1px solid #333333;
+			  width: 200px;
+			  height: 100px;
+			  overflow-y: scroll;
+			}
+
+		Block Formatting contentext:
+		Cuando se usa overflow, la caja se convierte en un bfc que es como otro html superpuesto; tiene reglas de comportamiento de diseño en bloque.
+ 
+
+	|| Valores y unidades
+		
+		Numeros:
+			integer: Es un numero entero como 1200 o -200
+			number: Representa a un numero decimal, puede tener o no, un punto para separar la parte entera de la decimal. Ej, 0.2, 100
+			percentage: Es una fracción de otro valor, ejemplo; 15%. Son relativos a otra cantidad o elemento padre.
+			
+		Longitudes:
+
+			length: 
+			Contiene unidadades como 10px (pixeles) o 30em. 
+			
+			Absolutas: 
+			Son valores relativos a algo más, puede ser al tamaño de letra del un elemento principal o al tamaño de la ventana gráfica del navegador. Posee la ventaja de que
+			los <em>elementos<em> con unidad relativa, <em>escalen</em> en relación a todo lo demas.
+			
+			Relativas: 
+			Siempre tienen el mismo tamaño. Pueden ser cm (centimetros), mm (milimetros), Q (Cuartos de milimetros), in (pulgadas), pc (picas), pt (puntos) y px (pixeles).
+				em: Al tamaño de letra del elemento padre (a veces estos heredan tamaño del <em>elemento html (raiz)</em>) si tiene <em>font-size</em> o el tamaño de la fuente del propio elemento, en el caso de otras propiedades, como <em>width</em>.
+				rem: Al tamaño de la letra del elemento raíz.
+				vw: 1% del ancho de la ventana grafica del navegador.</li>
+				vh: 1% del alto de la ventan grafica.
+
+				Rem vs Em:
+				rem se usa para tamaño de fuente de los elementos y em se usa para dimensionar elementos.
+					html {
+					  font-size: 16px;
+					}
+
+					.box {
+					  font-size: 1.5rem;
+					  width: 2em; 
+					}
+
+					.box2 {
+					  padding: 1em;
+					}
+
+		Porcentajes:
+		Se establecerá en relación con otro valor. Por ejemplo, si establecemos font-size en % a un elemento, será un % del font-size de un elemento padre. 
+		Si le damos un porcentaje para width, será un porcentaje del atributo width del elemento padre.
+			.wrapper {
+			  width: 400px;
+			  border: 5px solid rebeccapurple;
+			}
+
+			.percent {
+			  width: 40%;
+			}
+		
+		Palabras claves:
+		Multiples propiedades admiten estas palabras como valores, tambien llamados identificadores, con comillas (texto de contenido) y sin comillas (palabras).
+			.box {
+				background-color: blue;
+			}
+
+			.box::after {
+				content: "cadena de palabras para generar un texto"
+			}
+
+		Funciones:
+		Hay propiedades que admiten la función calc(), el resultado será el valor aplicado.
+
+		Imágen:
+		La propiedad backgroun-image admite la función url() para pasar un archivo de imagen como valor.
+		Está propiedad tambien admite las funciones linear-gradient() y radiant-gradient para crear imágenes degradadas.
+			.image {
+			  background-image: url(star.png);
+			}
+
+			.gradient {
+			  background-image: linear-gradient(90deg, rgba(119,0,255,1) 39%, rgba(0,212,255,1) 100%);
+			}
+		
+
+	|| Colores:
+		El sistema de color estadar es de 24 bits, permite 16,7 millores de colres distintos a partir de una combinacion de diferentes canales de rojo, verde y azul con 256 valores diferentes por canal.
+
+		Palabras claves:
+			.box {
+			  background-color: cornflowerblue;
+			}
+		
+		Hexadecimales RGB:
+		Empiezan con un hastag(#) seguido de seis cifras hexadecimales, cada cifra puede tomar 16 valores que se encuentran entre 0 y la f (que representa el 15). 
+		Cada <em>par</em> de cifra representa uno de los canales (rojo, verde, azul) que nos permite especificar los 256 colores por canal.
+			.box {
+			  background-color: #F2F2F2;
+			}
+
+		RGB y RGBA:
+		Un color RGB es una funcion, rgb (); tiene tres parametros que representa los colores rojo, verde y azul.
+		Cada canal se representa por un numero decimal entre 0 y 255.
+		RGBA agrega un canal alfa de color que controla la opacidad su valor se establece entre 0 y 1 (trasparente/opaco), con un punto antes del numero final.
+		Este solo aplica al elemento que especificas y no a todo el contenedor.
+			.box {
+			  background-color: rgb(2, 121, 139);
+			}
+
+			.box2 {
+			  background-color: rgba(2, 121, 139, .3);
+			}
+		
+		HSL y HSLA:
+		Es una funcion como rgb pero en lugar de los valores para rojo, verde y azul, HSL admite valores de matriz, saturacion y luminosidad.
+		Matriz: Tono base del color, su valor va de 0 y 360 que representa un angulo en torno a una rueda de colores.
+		Saturación: Es la intensidad del color, toma un valor entre 0 (tono gris) y 100% (max saturación).
+		Luminosidad: Es la claridad o brillo del color, su valor está entre 0 (negro) y 100% (blanco).
+		Su canal alfa con la funcion HSLA que controla la opacidad del elemento.
+			.box {
+			  background-color: hsl(188, 97%, 28%);
+			}
+
+			.box2 {
+				background-color: hsla(188, 97%, 28%, .3);
+			}  
+			
+		Canal alfa:
+		RGB y HSL tiene la capacidad de admitir el canal alfa sin especificar la función para este canal y viceversa.
+
+	
+	|| Determinar el tamaño de los elementos
+		El tamaño por defecto de una caja es el tamaño de contenido: el ancho será la palabra más larga y el alto se ajusta a la cantidad de palabras/contenido.
+		
+		Tamaño natural o intrínseco:
+		Tienen un tamaño por defecto antes de que los redefinamos. Por ejemplo: una imagen tiene un ancho y un alto cuando se crea, esto es intrínseco. Si no cambiamos esos dos valores se mostrará con su tamaño natural. 
+		Un div no tiene tamaño natural, se extenderá por todo el ancho del contenedor y no tiene altura, pero si agregamos un texto, la altura se adaptará y será su tamaño <em>intrínseco</em> pero no el ancho.
+
+		Tamaño especifico o extrínseco:
+		Cuando asignamos un tamaño a un elemento (debemos ajustar el contenido) se llama tamaño <em>extrínseco</em>.
+		Podemos usar las propiedades height (alto) y width (ancho) en un elementos, pero se recomienda dar ancho y no alto para dejar que el contenido determine la altura.
+			
+			Uso de porcentajes:
+			Es un valor de longitud, relativo al tamaño intrínseco natural del elemento o al tamaño extrínseco dado por nosotros . 
+				
+				en width:
+				Si le damos un ancho en porcentaje dependera del tamaño de su <em>contenedor padre<em>, sin ancho dado por nosotros, ocuparía el total del espacio en horizontal por tratarse de un elemento de bloque.	
+					.box {
+						border: 5px solid darkblue;
+						width: 50%;
+					}    
+
+				margin y padding:
+				Se calcula a partir del tamaño en linea (espacio horizontal) del elemento (lo determina el contenido).
+					.box {
+					  border: 5px solid darkblue;
+					  width: 300px;
+					  margin: 10%;
+					  padding: 10%;
+					}		
+
+		Tamaño mínimo y máximo:
+		Se usa para cantidades variables de contenido, puede ser algo que manipule el usuario o se vaya generando automaticamente.
+		Un tamaño minimo que funcionará como piso (a partir de ahí crecerá con el contenido) y un tamaño maximo que funcionará como un techo (el contenido tendrá un espacio máximo).
+			
+			min-height: altura mínima
+			Podemos usarlo para una caja que tendrá contenido variable y necesitamos una altura predeterminada
+				
+				<div class="wrapper">
+				  <div class="box"></div>
+				  <div class="box">etc.</div>
+				</div>
+
+				.box {
+				  border: 5px solid darkblue;
+				  min-height: 150px;  //altura max.
+				  width: 200px;
+				  padding: 5px;	//espacio para el contenido.
+				}				
+
+			max-width: 100%; ancho máximo
+			Podemos usarlo para reducir el tamaño de las imagenes si no hay espacio para su tamaño intrínseco, nos aseguramos que no será mayor al ancho de la caja. 
+			No se agrandará más del 100%, lo que evita que se pixele.
+			Funcionará con otros elementos reemplazados, como <video> o <iframe>.	
+				.box {
+				  width: 200px;
+				}
+				.minibox {
+				  width: 50px;
+				}
+				.width {
+				  width: 100%;
+				}
+				.max {
+				  max-width: 100%;
+				}
+				
+				<div class="wrapper"> //contenedor con tres cajas.
+
+					// el ancho mínimo van hacia las img.
+
+					<div class="box"><img src="star.png" alt="star" 
+					class="width"> 
+					</div>
+
+					// la subcaja contiene a cada img.
+
+					<div class="box"><img src="star.png" alt="star" 
+					class="max">
+					</div>
+
+					<div class="minibox"><img src="star.png" alt="star" 
+					class="max">
+					</div>
+				
+				</div>
+
+	* Se hace para que las imagenes se adapten a dispositivos pequeños.
+	Pero las imagenes deben tener el tamaño adecuado para cada situación.
+	A los dispositivos moviles les puede costar mucho dinero descargar imagenes grandes.
+	Reducir el tamaño intrínseco con CSS no evita que se descargue completamente.
+	Si la img es más o menos proporcional a la caja se ajustará bien. Si se agranda más de su tamaño perderá resolución, que no es lo ideal.
+	
+		Valores de ventana gráfica:
+		Es el area visible dentro del navegador, esta tiene un tamaño.
+			
+			vw:
+			Se usa para al ancho. 1vw es 1% del ancho visible o del área visible.
+
+			vh:
+			Se usa para la altura. 1vh es 1% de la altura del área visible.
+ 
+			Puede usarse para diseñar un elemento a pantalla completa y que se vea antes del resto del contenido
+			100vh empuja el resto del contenido por debajo de la ventana grafica.
+ 
+	* Las cajas se adaptan si las palabras o el contenido superan el ancho intrínseco o extrínseco de un contenedor.
+
+
+	|| Imágenes, media y formularios
+		
+		Elementos de reemplazo:
+		Las imagenes, los videos y otros elementos de media (object, elementos de formulario, audio, canvas, etc) no son una caja, son elementos de reemplazo, actúan como bloque pero no se pueden aplicar otras propiedades del model box.
+		CSS no puede afectar el diseño interno, solo su posición
+			
+			Imágenes:
+
+			Con la etiqueta <img> podemos poner una imagen embebida/suelta por la página.
+			De acuerdo a la situación la podemos dimensionarla con los atributos height y width, con la propiedad max-
+				<img class=""
+				 src=""
+				 alt=""
+				>
+			
+			Imagen con enlace:
+				<a href="https://developer.mozilla.org/">
+					<img src="mdn-logo-sm.png" alt="MDN">
+					title="Logo del navegador Mozilla Firefox".
+				</a>
+
+			Con la propiedad background-image: url(); podemos poner una imagen de fondo de un contenedor con 
+				<div class="box"></div> 
+				.box {
+				  height: 300px;
+				  width: 400px;
+				  background-image: url(star.png);
+				}
+
+				<div class="box image"></div>
+				.image {
+				  background-image: url(star.png);
+				}
+
+			Imagenes con ancho max:
+				.box {
+				  width: 200px;
+				}
+
+				.max {
+				  max-width: 100%;
+				}
+				
+				<div class="wrapper"> //contenedor con tres cajas.
+
+					// el ancho mínimo van hacia las img.
+
+					<div class="box"><img src="star.png" alt="star" 
+					class="max"> 
+					</div>
+
+					// la subcaja contiene a cada img.
+
+
+		object-fit:
+		La propiedad se aplica a los elementos de reemplazo (img, vid, etc).
+
+		El elemento de reemplazo se puede dimensionar para que se ajuste a una caja de varias maneras:
+		Si aplicamos  max-width: 100% a una img con un relación de aspecto muy grande, el contenedor puede cortar la imágen.
+
+		Una imágen que es más pequeña que la caja:
+		No es problema, se puede arreglar con position.		
+
+		Puede arreglar una imagen que es más grande que la caja:
+		Podemos aplicar max-width: 100%;
+		
+		Valores: 
+			cover: 
+			Cortará la imagen sin cambiar su relación de aspecto (no se estira/deforma) para que entre en la caja sin dejar espacio sobrante. 
+			
+			contain:
+			La imagen se mostrará completa sin cambiar su relación de aspecto pero se verá un sobrante de espacio en la caja si es de distinto tamaño intrínseco.
+			
+			fill:
+			Llenará la caja pero no mantendrá la relación de aspecto, se estira o deforma.
+
+				.box {
+				  width: 200px;
+				  height: 200px;
+				}
+
+				img {
+				  height: 100%; // La imágen toma 100% de la caja contenedora "div/.box"
+				  width: 100%;
+				}
+
+				.cover {
+				  object-fit: cover;
+				}
+
+				.contain {
+				  object-fit: contain;
+				}
+
+				<div class="wrapper">
+				  <div class="box"><img src="balloons.jpg" alt="balloons" 
+				  class="cover"></div>
+
+				  <div class="box"><img src="balloons.jpg" alt="balloons" 
+				  class="contain"></div>
+				</div>
+
+	*Para evitar descargar muchos o mantener el sitio ligero siempre es mejor una adecuada relación de aspecto para las imágenes según el sitio/situación.
+	
+	
+	|| Elementos de reemplazo en metodos de diseño moderno:
+		Como puede ser flex o grid, las imágenes se ubicarán en el incio  del contenedor flex o del área de cuadrícula. 
+		En cambio, los elementos normales se rellenan el contenedor.
+		
+		Para que no se comporten de forma extraña o rompan el diseño debemos aplicar:
+			img {
+			  width: 100%;	
+			  height: 100%;
+			}
+		La imágen toma 100% de la caja/elemento flexible o de cuadrícula.
+
+
+	|| Aplicar CSS a elementos de formulario:
+		
+		input:
+		Define campos de formulario de texto, selectores de hora y tambien de colores.
+		 
+		textarea:
+		Permite un espacio para texto en multilínea.
+
+		fieldset y legend:
+		Son elementos para contener y etiquetar partes de formularios.
+		
+		Mediante un selector de atributos (elemento-html [atributo]) podemos dar algo de estilo a los formularios para que sea coherente con nuestro diseño. 
+		Le damos bordes, relleno (padding), margin, colores, tamaño, etc.
+			
+			input[type="text"],
+			input[type="email"] {
+			  border: 2px solid #000;
+			  margin: 0 0 1em 0;
+			  padding: 10px;
+			  width: 100%;
+			}
+
+			input[type="submit"] {
+			  border: 3px solid #333;
+			  background-color: #999;
+			  border-radius: 5px;
+			  padding: 10px 2em;
+			  font-weight: bold;
+			  color: #fff;
+			}
+
+			input[type="submit"]:hover {
+			  background-color: #333;
+			}
+
+			<form>
+			  <div>
+				  <label for="name">Name</label>
+				  <input type="text" id="name">
+			  </div>
+
+			  <div>
+				  <label for="email">Email</label>
+				  <input type="email" id="email">
+			  </div>
+
+			  <div class="buttons"><input type="submit" value="Submit">
+			  </div>
+			</form>
+
+
+	|| Normalizar elementos de formulario:
+		Los formularios se presentan distinto en los navegadores, para una experiencia homogénea
+			
+			button,
+			input,
+			select,
+			textarea {
+			  font-family: inherit;
+			  font-size: 100%;
+			  box-sizing: border-box;
+			  padding: 0;
+			  margin: 0;
+			}
+
+			textarea {
+			  overflow: auto;
+			}
+
+	
+	|| Depurar CSS:
+
+		Problemas de especificidad:
+		En el inspector de código de los navegadores vemos las reglas en conflicto.
+		En el segundo panel vemos las reglas de CSS, debemos fijarnos cual regla más especifica se está aplicando.
+
+		Propieadades y valores incompatibles:
+		Los navegadores ignoran lo que no entienden, si la propiedad o valor no es compantible con el navegador, el CSS no se aplicará. Las DevTools tienen un icono triangular de precausion en la pestaña de las reglas y declaraciones de CSS.
+		Tambien podemos mirar las tablas de compatibilidad que cada propiedad tiene en la documentación.
+
+		Caso de prueba reducido del problema:
+		Mostrar el problema en codigo reducido lo más simple posible sin contenido y estilo complejo. Sacar el codigo problematico del diseño para que solo muestre este codigo o caracteristica.
+			
+			Copiamos el todo el HTML del codigo fuente, CSS y JS relevante
+			Si eliminar JS no soluciona el problema, no lo incluyas. Si hace desaparecer el problema, elimina la mayor cantidad de JS que puedas; deja solo las causas del problema.
+			Elimina cualquier HTML que no contribuya al problema, como elementos principales.
+			Elimina cualquier CSS que no afecte al problema.
+
+	*Alejarse del problema del problema puede ayudar a encontrar la solución que no estabamos evaluando.
+
+	
+	|| Estilo a las fuentes:
+
+		Propiedades que afectan al estilo/aspecto de las fuentes:
+			
+			color:
+			Para la letra o el texto.
+
+			font-family:
+			Aspecto o forma de la letra para un elemento.
+			Se combinan fuentes seguras para la web: Arial, Courier New, Georgia, Times New Roman, Verdana, Trebuchet MS; con fuentes predeterminadas o genericas: serif, sans-serif, monospace, cursive, fantasy; y fuentes web o especiales
+				
+				p {
+				   font-family: "Trebuchet MS", Verdana, sans-serif;
+				}
+
+			font-size:
+			Tamaño de la letra. Si aplicamos un valor en rem depende del font-size prederterminado del HTML (16px).
+			Si aplicamos un valor en em dependerá del font-size de su elemento contenedor, si no tiene una definida; está heredada.
+			El valor em se usa para dimensionar elementos que necesiten variar de tamaño y el valor rem se usa para font-size de los elementos.
+				
+				*Si aplicamos 10px al font-size del documento, los calculos son más sensillos:
+
+					html {
+						font-size: 10px;
+					}	
+
+					h1 {
+						font-size: 2.6rem;
+					}		
+
+					p {
+						font-size: 1.4rem;
+						color: red;
+						font-family: Helvetica, Arial, sans-serif;	
+					}
+			
+			font-style:
+			Aspecto visual de la letra: normal, italic, oblique.
+
+			font-weight:
+			Peso o grueso de la letra: normal, bold, lighter, bolder, 100-900;
+
+			text-transform:
+			Aspecto visual para todo el texto.
+
+				none: Impide la transformación.
+				uppercase: Pone todo el texto en mayus.
+				capitalize: Transforma las letras iniciales de cada palabra en el texto.
+				full-width: Transforma los caracteres para cada uno quede dentro de una caja de ancho fijo, similar a una fuente monoespaciada. Permite la alineacion de caracteres occidentales con los asiáticos.
+			
+			text-decoration:
+			Se usa para los subrayado.
+
+				none: Desactiva la decoración presente del texto.
+				underline: Subraya el texto.
+				overline: Proporciona una linea arriba del texto.
+				line-through: Coloca un tachado sobre el texto.
+
+			text-shadow:
+			Aplica sombras al texto. Admite valores en unidad de longitud, en este orden:
+				
+				Desplazamiento horizontal:
+				Desplazamiento vertical:
+				Radio de desenfoque:
+				Color: 
+
+					text-shadow: 1px 1px 1px red;
+
+			Sombas multiples:
+			Se pueden aplicar separando con una coma el grupo de valores que define cada sombra individual. Todo a un solo elemento.
+			
+				text-shadow: -1px -1px 1px #aaa,
+				 0px 4px 1px rgba(0,0,0,0.5),
+				 4px 4px 5px rgba(0,0,0,0.7),
+				 0px 0px 7px rgba(0,0,0,0.4); 
+
+
+		Propiedades que afectan a la disposición del texto en su conjunto:
+			
+			text-align:		
+
+				left: Alinea el texto por la izquierda.
+				right: Alinea el texto por la derecha.
+				center: Centra el texto.
+				justify: Varía los espacios entre las palabras para que todas las líneas de texto tengan el mismo ancho.
+				se puede combianar con la propiedad hyphens: auto; por ejemplo.
+
+			line-height (interlineado):
+			Toma unidades de longitudes y tambien puede tomar un valor sin unidades que actúa como multiplicador de <em>font-size</em> para determinar la altura entre líneas, es la mejor opción
+		
+			letter-spacing (espaciado entre letras) y word-spacing (espaciado entre palabras):
+			Son utilies para lograr algun efecto o para aumentar la visibilidad de algun tipo de letra condensada.
+
+				html {
+				  font-size: 10px;
+				}
+
+				p {
+				  font-size: 1.5rem;
+				  color: red;
+				  font-family: Helvetica, Arial, sans-serif;
+				  line-height: 1.6;
+				  letter-spacing: 1px;
+				}
+
+
+	|| Estilo a las listas:
+		Tienen un propiedades predeterminadas por cada navegador, por ejemplo: 
+		Es necesario que estas mantengan los mismos espacios verticales/top-bottom (tambien llamado ritmos verticales) que el resto de los elementos como parrafos e imagenes y el mismo espaciado horizontal/left-right entre uno y otro.
+		
+			Las listas ul y ol tienen:
+			margin: top y bottom de 16px (1em).
+			padding-left: 40px (2.5em).
+			Los renglones (li): no tienen margin, border y padding.
+		
+			La lista dl:
+			Tiene un margin top y bottom pero no tiene padding.
+			El parrafo (dd) de la lista descriptiva tiene un margin-left de 40px (2.5em).
+		
+		Un parrafo cualquiera tiene un margin superior e inferior de 16px (1em).
+		
+		Personalizar elementos li:
+		Propiedades especificas para personalizar las listas ordenadas (ol) y no ordenadas (ul).	
+
+			Estilo: dibujo de las viñetas
+			Por ejemplo, podemos poner numeros romanos.
+				list-style-type: upper-roman;
+
+			Posición:
+			Puede mostrar las viñetas un poco más adentro o afuera del renglón
+				list-style-position: inside;
+
+			Imagen personalizada:
+				1er metodo: es limitado en cuanto al posicionamiento, tamaño, etc.
+	  				list-style-image: url(star.svg)
+
+	  			2do metodo: utilizar la propiedad background y crear espacios con las propiedades del model box.
+					ul {
+					  padding-left: 2rem;
+					  list-style-type: none;
+					}
+
+					ul li {
+					  padding-left: 2rem;
+					  background-image: url(star.svg);
+					  background-position: 0 0;
+					  background-size: 1.6rem 1.6rem;
+					  background-repeat: no-repeat;
+					}
+
+			numeración de lista:
+			Para las listas ordenadas e items podemos usar unos atributos:
+
+				start:
+				Comenzamos la lista con un numero elegido.
+					<ol start="4">
+
+				reversed:
+				Podemos hacer una lista de menor a mayor
+					<ol start="5" reversed>
+
+				value:
+				Se aplican en li para poner los numeros que quisiéramos.
+					<li value="2">
+
+	
+	|| Ritmo:
+		Las propiedades que afectan a la disposición del texto deben ser coherentes en todo el sitio.
+		 	
+		 	1° Tomamos el HTML y se establece un tipo de letra y tamaño para todo el sitio que van a heredar los demas elementos.
+			2° Tomamos el titulo secundario, todas las listas y los parrafos para establecer su tamaño de fuente, así tendran el mismo espaciado superior e inferior.
+			3° Aplicamos el interlineado line-height para las listas descriptivas (dl) en su titulo (dt) y su parrafo (dd).
+			   Aplicamos negrita para el titulo y aumentamos el margen de abajo para su parrafo separandolo de los siguientes elementos, 
+			   Será el mismo espacio entre los titulos y todos los parrafos.
+
+			Ejemplo:
+
+				html {
+				  font-family: Helvetica, Arial, sans-serif;
+				  font-size: 10px;
+				}
+
+				h2 {
+				  font-size: 2rem;
+				}
+			
+				ul,
+				ol,
+				dl,
+				p {
+				  font-size: 1.5rem;
+				}
+
+				li,
+				p {
+				  line-height: 1.5;
+				}
+				
+				// Listas descriptivas
+
+				dd,
+				dt {
+				  line-height: 1.5;
+				}
+
+				dt {
+				  font-weight: bold;
+				}
+	
+				// Estilos particulares:
+		
+				p {
+				  font-size: 1.5rem;
+				  color: red;
+				  font-family: Helvetica, Arial, sans-serif;
+				  line-height: 1.6;
+				  letter-spacing: 1px;
+				}
+
+
+	|| Estilo a los enlaces:
+				
+		Por defecto vienen:
+		Subrayados
+		Los no visitados (:link) se ven azul.
+		Los visitados (:visited) se ven violetas.
+		Al pasar por arriba un enlace (:hover), el cursor cambia de forma.
+		Si tiene foco (:focus) se ve un contorno alrededor del link apretando tab y así se va cambiando (Windows).
+		Los activos (:active) se ponen de color rojo (se distingue si se mantiene apretado el click derecho).
+		
+		Cambiar estilo por defecto:
+		Usando las propiedades: color, cursor, outline.
+
+		Se recomienda:
+		Subrayar los enlaces, pero no otros elementos; sino, destacarlos de otra forma</li>
+		Aplicar :hover para resaltarlos de alguna manera.
+
+		Aplicar estilo:
+		Se tieen que seguir el orden: 
+		L(:link), V (:visited), F (:focus), H (:hover), A (:active).
+			
+			a {
+			  outline: none;
+			  text-decoration: none;
+			  padding: 2px 1px 0;
+			}
+
+			a:link {
+			  color: #265301;
+			}
+
+			a:visited {
+			  color: #437a16;
+			}
+
+			a:focus {
+			  border-bottom: 1px solid;
+			  background: #bae498;
+			}
+
+			a:hover {
+			  border-bottom: 1px solid;
+			  background: #cdfeaa;
+			}
+
+			a:active {
+			  background: #265301;
+			  color: #cdfeaa;
+			}
+
+		Icono al costado en los enlaces: 
+		Pueden usarse para señalar un sitio externo/una acción.	
+			a[href^="http"] {
+			  background: url("external-link-52.png") no-repeat 100% 0;
+			  background-size: 16px 16px;
+			  padding-right: 19px;
+		
+		Aspecto de botón en un enlace:
+			.container {
+			  display: flex;
+			  gap: 0.625%;
+			}
+
+			a {
+			  flex: 1;
+			  text-decoration: none;
+			  outline: none;
+			  text-align: center;
+			  line-height: 3;
+			  color: black;
+			}
+
+			a:link,
+			a:visited,
+			a:focus {
+			  background: palegoldenrod;
+			  color: black;
+			}
+
+			a:hover {
+			  background: orange;
+			}
+
+			a:active {
+			  background: darkred;
+			  color: white;
+			}
+		
+		Enlaces con imagen en nav:
+
+			<nav class="container">
+			  <a href="#"><img src="mdn-logo-sm.png" alt="MDN"></a>
+			  <a href="#"><img src="mdn-logo-sm.png" alt="MDN"></a>
+			  <a href="#"><img src="mdn-logo-sm.png" alt="MDN"></a>
+			  <a href="#"><img src="mdn-logo-sm.png" alt="MDN"></a>
+			  <a href="#"><img src="mdn-logo-sm.png" alt="MDN"></a>
+			</nav>
+
+	|| Fuentes web:
+		Es una función de CSS que adminte archivos de fuentes para no depender de las fuentes del sistema.
+		
+		1° Declaramos @font-face, usamos la propiedad font-family para nombrar la fuente y la propiedad src con la funcion url() y la dirección donde se encuentra nuestra fuente.
+		2° Declaramos el HTML y usamos font-family para dar una listas de fuentes, poniendo el nmbre de @font-face y otras fuentes para personalizar el sitio.
+			Para usar este metodo hay que tener en cuenta que:
+			
+			@font-face {
+			  font-family: "myFont";
+			  src: url("myFont.woff2");
+			}
+
+			html {
+			  font-family: "myFont", "Bitstream Vera Serif", serif;
+			}
+
+		Los navegadores adminte diferentes formatos de letras, por ejemplo, los modernos adminten WOFF/WOFF2 (Web Open Font Format 1 y 2). Las versiones antiguas de IE admiten EOT (Embedded Open Type).
+		Elegimos dos tipos de letra, una para encabezados (puede ser de tipo Display o Slab serif) y otra para parrafos (menos llamativa y comoda para leer como sans), no importa el formato (TTF o OTF).
+		puede tener varias versiones de una misma fuente (como thin, regular, normal, bold, etc) y archivo de licencia,
+			
+			Ejemplo:
+			
+			html {
+			  font-size: 10px;
+			  margin: 0;
+			  font-family: sans-serif;
+			}
+			
+			h1 {
+			  font-size: 3.6rem;
+			  color: #0084ff;
+			  font-family: 'rubik';
+			  font-weight: normal;
+			  font-style: normal;
+			 }
+		
+		Para una misma fuente vemos hay versiones con distinta extensión por ejemplo: .ttf, .woff, .woff2 que se necesitan para tener compatibilidad con los navegadores.
+		Tambien tiene una hoja de estilo CSS que contiene el código de la propiedad @font-face que se necesita.
+
+		Ejemplo 2:
+
+		@font-face {
+			  font-family: "zantrokeregular";
+			  src: url("zantroke-webfont.woff2") format("woff2"), url("zantroke-webfont.woff")
+			      format("woff");
+			  font-weight: normal;
+			  font-style: normal;
+		
+		Se pone la ruta y el tipo de archivo para compatibilidad. Vemos que podemos poner varias declaraciones separadas por comas.
+
+*/			
+	

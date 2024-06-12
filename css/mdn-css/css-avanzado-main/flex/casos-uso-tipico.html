@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Casos de uso típico | Flex - CSS</title>
+</head>
+<body>
+	<h1>Casos de uso típico de Flexbox</h1>
+	<p>Casos dónde flexbox tiene más sentido que otros metodos de diseño.</p>
+
+	<h2>Elegir flexbox</h2>
+	<p>Debemos tenerlo en cuenta cuando tenemos que poner elementos en una sola dirección o en fila/columna, controlar su tamaño y espacios entre ellos.</p>
+	<p>Tambien cuando debemos tener una alternativa a Grid y tener los elementos alíneados que puede cambiar en un futuro cuando se puede alinear cajas en normal layout.</p>
+
+	<h2>Navegación</h2>
+	<p>Para mostrar una lista de elementos en una barra horizontal.</p>
+	<p>Cuando ponemos elementos en fila, por defecto se colocan una trás otra, encimados y nos sobrará espacio. Debemos decidir que hacer con ese espacio.</p>
+	<p>Debemos usar las propiedades de alineación o podemos hacerlos crecer (absorbiendo ese espacio).</p>
+
+	<h3>Distribuir espacio por fuera de los elementos</h3>
+	<p>Usamos la propiedad <em>justify-content</em> para los elementos en fila. Tiene distintos valores como <em>space-between</em>, <em>space-around</em>, <em>space-evely</em>, <em>flex-start</em>, <em>flex-end</em> y <em>center</em>.</p>
+	<code>
+		<!--
+		<nav>
+		  <ul>
+		    <li><a href="#">Page 1</a></li>
+		    <li><a href="#">Page 2</a></li>
+		    <li><a href="#">Page 3 is longer</a></li>
+		    <li><a href="#">Page 4</a></li>
+		  </ul>
+		</nav>
+
+		nav ul {
+  			display: flex;
+  			justify-content: space-between;
+		}
+		-->
+	</code>	
+	<p>Esto se vio en la alineación de elementos.</p>
+
+	<h3>Hacer que los elementos absorban el espacio libre</h3>
+	<p>Para permitir que los elementos crezcan y se reduzcan entre sí.</p>
+	<p>Se ve cuando controlamos los elementos sobre el eje principal.</p>
+	<p>Por ejemplo, asignando <span>flex: 1 1 auto;</span> o su forma abreviada <em>flex: auto;</em> crecerán y reducirán en, flex-basis en auto determina el tamaño inicial de acuerdo al contenido de cada elemento. El más grande tomará más espacio, logicamente.</p>
+	<code>
+		<!-- 		
+		nav ul {
+  			display: flex;
+		}
+
+		nav li {
+  			flex: auto ;
+		}
+		-->
+	</code>
+	<p>Vemos que el elemento que tenga más contenido ocupa más espacio para que éste entre sin salto de línea.</p>
+
+	<p>De otra forma, si aplicamos <span>flex: 1 1 0</span> o su forma abreviada <span>flex: 0;</span></p>
+	<code>
+		<!--
+		nav ul {
+  			display: flex;
+		}
+
+		nav li {
+  			flex: 0;
+		}
+		-->
+	</code>
+
+	<p>Vemos que todos tienen el mismo tamaño porque flex-basis está en 0, significa que a todos se le asigna el mismo espacio libre. Por esto un contenido grande se mueve a otra línea.</p>
+
+	<h2>Navegación dividida</h2>
+	<p>La que vimos en las distintas alineaciones, usamos margin auto para desplazar un grupo de elementos hacia un lado de la barra de navegación.</p>
+	<code>
+		<!--
+		<nav>
+		  <ul>
+		    <li><a href="#">Page 1</a></li>
+		    <li><a href="#">Page 2</a></li>
+		    <li><a href="#">Page 3 is longer</a></li>
+		    <li class="push-right"><a href="#">Page 4</a></li>
+		  </ul>
+		</nav>
+
+		nav ul {
+          display: flex;
+          margin: 0 -10px;
+        }
+
+        nav li {
+          margin: 0 10px;
+        }
+
+        .push-right {
+          margin-left: auto;
+        }
+		-->
+	</code>
+
+	<p>En este ejemplo se agregan margenes entre los elementos para crear espacio entre ellos y un margen negativo para que los elementos se queden en los bordes derecho e izquierdo. Se hacen así hasta que las propiedades de <em>box-aligment</em> se puedan aplicar a flex.</p>
+
+	<h2>Centrar elementos</h2>
+	<p>En este ejemplo tenemos altura y anchura en el contenedor, lo que nos permite alinear los elementos en el eje principal y secundario.</p>
+
+	<code>
+		<!-- 
+		<div class="box">
+		  <div></div>
+		</div>
+
+		.box {
+           display: flex;
+           align-items: flex-start;
+           justify-content: center;
+        }
+
+        .box div {
+           width: 100px;
+           height: 100px;
+        }
+    	-->
+	</code>
+
+	<p>En un futuro, no necesitaremos convertir un contenedor comun, en un contenedor flexible para alinear a sus elementos dentro; cuando las propiedades de <em>box-aligment</em> se implementen para los elementos en bloque.</p>
+
+	<h2>Empujar footer hacia abajo en una tarjeta</h2>
+	<p>Grid y Flexbox se usan para diseñar los elementos internos de las cartas, si tenemos contenido variable se estirará hasta la altura del area del contenedor grid o flex.</p>
+
+	<h3>Diseñar una tarjeta con flex</h3>
+	<p>Debemos tener en cuenta las propiedades para el contenedor, y las propiedades que se aplican a los elementos</p>
+	<p>Con display hacemos al contenedor flexible, le aplicamos una direccion para que se convierta en columna, que se combinará con la propiedad flex de los elementos. El valor <em>auto</em> en basis detemina que el tamaño de la carta depende de la cantidad de contenido (la línea más ancha determina el ancho).</p>
+
+	<code>
+		<!-- 
+		.card {
+           display: flex;
+           flex-direction: column;
+        }
+
+        .card .content {
+           flex: 1 1 auto;
+        }
+
+        <div class="cards">
+		  <div class="card">
+		    <div class="content">
+		      <p></p>
+		    </div>
+		    <footer>Card footer</footer>
+		  </div>
+
+		  <div class="card">
+		    <div class="content">
+		      <p></p>
+		    </div>
+		    <footer>Card footer</footer>
+		  </div>
+		</div>
+    	-->
+	</code>
+
+	<p>Vemos por la diferencia de contenido en las dos cajas, el primer footer queda más arriba. Establecemos el area de contenido en <span>flex: 1 1 0</span> o <span>flex: 1;</span> que es su abreviada. El elemento se crece o se reduce a partir de una base 0 (ignora el contenido/su tamaño). Como es el único elemento que puede crecer, ocupa todo el espacio disponible y empuja al footer hacia abajo.</p>
+
+	<!--
+	<p>Con flex-flow:</p>
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+
+	<h3>Diseñar una tarjeta con Grid</h3>
+	<p></p>
+	-->
+
+	<h2>Combinar flex con imagenes, videos, etc</h2>
+	<p>Tomamos un objeto multimedia y lo colocamos a un lado de un texto. Lo podemos ver en muchos partes de un sitio, como una caja de comentarios o donde haya una imagen y una descripción al costado. Usamos <em>display: flex</em> para armar un contenedor con estos dos elementos.</p>
+	<code>	
+		<!--
+		.media {
+  			display: flex;
+  			align-items: flex-start;
+		}
+
+		.media .content {
+  			flex: 1;
+  			padding: 10px;
+		}
+
+		.image img {
+  			max-width: 100px;
+		}
+
+		<div class="media">
+		  <div class="image"><img src="MDN.svg" alt="MDN logo"></div>
+		    <div class="content">This is the content of my media object.</div>
+		</div>
+		-->
+	</code>
+	<p>En el ejemplo vemos que usamos en el contenedor una alineación en el eje secundario y para el elemento parrafo usamos <em>flex: 1</em> para que pueda crecer y ocupar todo el espacio.</p>
+
+	<p>Agregamos un ancho maximo para que la imagen no crezca demasiado, además como no cambiamos su tamaño con flex, posee flex-basis en auto, no puede crecer pero si reducirse: <span>flex: 0 1 auto</span>.</p>
+
+	<p>Tambien podemos permitir que ambos lados crezcan y se reduzcan en proporción,  si ponemos <span>flex: 1</span> crecen y se reducen desde la base 0, los dos toman el mismo espacio libre.</p>
+
+	<p>Tambien le podemos dar diferentes factores de crecimiento al parrafo y a la imagen</p>
+	<code>		
+		.image {
+  			flex: 1;
+		}
+	</code>
+	<p>Desde flex 1 hasta incrementear a flex 3. </p>
+
+	<code>
+		.media .content {
+           flex: 3;
+           padding: 10px;
+        }
+
+        .image {
+           flex: 1;
+        }
+	</code>	
+
+	<p>En resumen, hay diferentes configuraciones de flex que si queremos que los elementos de flex sean proprocionaleo (flex-basis 0) o distintos por contenido (flex-basis auto), como diferentes tamaños de crecimiento y decrecimiento.</p>
+
+	<h3>invertir la imagen o el objeto multimedia</h3>
+	<p>Con la propiedad flex direction en <em>row-reverse</em>.</p>
+	<code>
+		<!--
+		.media {
+           display: flex;
+           align-items: flex-start;
+        }
+
+        .media.flipped {
+           flex-direction: row-reverse;
+        }
+
+        .media .content {
+           flex: 1;
+           padding: 10px;
+        }
+    	-->
+	</code>
+
+	<h2>Controles o botones de formularios</h2>
+	<p>Como los formularios requieren muchos elementos de html, debemos alinearlos y flexbox es una buena idea.</p>
+	<code>
+		<!--
+		<form class="example">
+		  <div class="wrapper">
+		    <input type="text" id="text">
+		    <input type="submit" value="Send">
+		  </div>
+		</form>
+
+		.wrapper {
+  			display: flex;
+		}
+
+		.wrapper input[type="text"] {
+  			flex: 1 1 auto;
+		}
+		-->
+	</code>
+	<p>Tenemos los botones imput y buttom en un contenedor flex. Despues hacemos que imput crezca, mientras que buttom no. El campo crecerá a medida que cambie el tamaño de la ventana.</p>
+
+	<code>
+		<!--
+		.wrapper {
+  			display: flex;
+
+		}
+
+		.wrapper input[type="text"] {
+  			flex: 1 1 auto;
+		}
+
+		<form class="example">
+		  <div class="wrapper">
+		    <label for="text">Label</label>
+		    <input type="text" id="text">
+		    <input type="submit" value="Send">
+		  </div>
+		</form>
+		-->
+	</code>
+	<p>Ponemos un label o un icono a la izquierda, ahora el campo de entrada de datos flexible tiene menos espacio.</p>
+	<p>Puede ser bueno crear una biblioteca para el diseño de los formularios de un sitio.</p>
+
+	<h2>Conclusión</h2>
+	<p>Hay muchas otras opciones dónde usar flexbox, piense como debe ser la presentación de los elementos en el sitio, si deben estirarse, contraerse, usar distintos tamaños base. Tambien combinarlos con otros metodos de diseño para lograr la presentación deseada.</p>
+
+</body>
+</html>

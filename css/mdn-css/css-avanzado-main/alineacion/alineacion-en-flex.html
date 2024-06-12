@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Box Alignment en Flex</title>
+</head>
+<body>
+	<h1>Alineación en flex</h1>
+	<p>La especificación <em>Box Alignment</em> explica como funcionan las alineaciones en todos los metodos de diseño, lo que incluye a flexbox. Los detalles se especifican en <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Alignment">CSS Box Alignment</a>.</p>
+
+	<h2>Un ejemplo</h2>
+	<p>Los elementos se alinean en el <em>eje principal</em> con <em>justify-content</em> y para alinear elementos en el <em>eje transversal</em> (corta al eje primario) se usa <em>align-content</em>.</p>
+	<code>
+		.box {
+		  display: flex;
+		  align-items: flex-start;
+		  justify-content: space-between;
+		}
+
+		.box :first-child {
+		    align-self: center;
+		}
+	</code>
+	<p>Flex está atado a los modos de escritura, estos modifican y cambian el comportamiento de los ejes.</p>
+
+	<h2>Los ejes y flex-direction</h2>
+	<p>Podemos cambiar el eje pricipal configurando <em>flex-direction</em> a <em>column</em>, por defecto viene con el modo de escritura en ingles que muestra el contenido de izquierda a derecha; que sería <em>flex-direction: row</em>.</p>
+	<ul>
+		<li>El <em>eje principal</em> sigue a <em>flex-direction</em> que sigue a <em>justify-content</em>.</li>
+		<li>El <em>eje transversal</em> corta al principal y alineará los elementos con <em>align-content</em>, <em>align-self/content/items</em>.</li>
+	</ul>
+
+	<h3>No exite la propiedad <em>justify-self</em> en Flexbox</h3>
+	<p>Flexbox trata el contenido en conjunto, calcula el espacio necesario para los elementos y el espacio sobrante para distribuirlos. La propiedad <em>justify-content</em> controla como se usa el espacio sobrante.</p>
+	<p>En el eje transversal tenemos espacio para <em>align-self</em> para mover los elementos desde el principio hasta el final.</p>
+	<p>La propiedad <em>justify-self</em> no tiene sentido en flex ya que siempre tratamos de mover </p>
+
+	<h2>Alineación y auto margenes</h2>
+	<p>Si queremos dividir elementos para crear una <em>navegación dividida</em> podemos usar <em>auto margin</em> que absorverá todo el espacio disponible en su dimension, así es como se hacia para el centrado de bloque; poniendolo en ambos lados (absorviendo el espacio al costado), empujando la caja al centro. Fue remplazado por flex.</p>
+	<p>Si establecemos auto margin a un elemento empuja hacia un lado los elementos que siguen a este. Cuando no hay espacio disponible para el margen automatico, flex actúa de la misma manera; reduciendo espacio para que entre todos los elementos.</p>
+	<code>
+		.box {
+		  display: flex;
+		}
+
+		.push {
+		    margin-left: auto;
+		}
+
+		<!--
+			<div class="box">
+			  <div>One</div>
+			  <div>Two</div>
+			  <div>Three</div>
+			  <div class="push">Four</div>
+			  <div>Five</div>
+			</div>
+		-->
+	</code>
+	<p>A partir del cuarto elemento son empujados hacia la izquierda</p>
+
+	<h2>Propiedades para crear espacios</h2>
+	<p>Son <em>row-gap</em>, <em>column-gap</em> y <em>gap</em> como abreviada.</p>
+
+	<h3>Crear espacios de tamaño fijo entre elementos</h3>
+	<p>En el <em>eje principal</em>, la propiedad <em>column-gap</em> crea espacios de tamaño fijo entre elementos adyacentes (a los lados).</p>
+	<p>En el <em>eje transversal</em>, la propiedad <em>row-gap</em> crea espacio en las lineas adyacentes, debe haber <em>flex-wrap</em>.</p>
+	<code>
+		<!--
+			.box {
+			  display: flex;
+			  flex-wrap: wrap;
+			  row-gap: 10px;
+			  column-gap: 2em;
+			}
+
+			.box > * {
+			  flex: 1;
+			}
+
+			<div class="box">
+			  <div>One</div>
+			  <div>Two</div>
+			  <div>Three</div>
+			  <div>Four</div>
+			  <div>Five</div>
+			  <div>Six</div>
+			</div>
+		-->
+	</code>
+	
+</body>
+</html>

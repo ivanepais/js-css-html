@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Desbordamiento en multicol - CSS</title>
+</head>
+<body>
+	<h1>Desbordamiento en diseño de multicolumna</h1>
+	<p>Puede suceder dentro de las columnas y cuando hay más contenido que espacio en el contenedor.</p>
+
+	<h2>Desbordamiento dentro de las cajas de columnas</h2>
+	<p>Cuando el tamaño del elemento (dentro de columna) es mayor que la columna. Por ejemplo, una imagen es más ancha que una columna. El contenido no se recorta, se desborda</p>
+	<p>La solución es seguir el estandar para las imagenes, <span>max-width: 100%;</span>.</p>
+	<code>
+			.container {
+			  column-width: 150px;
+			}
+		<!--
+			<div class="container">
+			  <p>Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.</p>
+			  
+			  <img src="image.jpg" alt="balloons">
+
+			  <p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
+			</div>
+		-->
+	</code>
+
+	<p>Solución:</p>
+	<code>
+		<!-- 
+			.container {
+			  column-width: 150px;
+			}
+			img {
+			    max-width: 100%;
+			}
+		-->
+	</code>
+
+	<h2>Más columnas de las que caben en el contenedor</h2>
+	<p>Las formas en que se manejan las columnas desbordadas depende si el documento es fragmentado (pdf, libros, etc) o si es continuo (un sitio web, audio, video).</p>
+	<p>En <em>medios fragmentados</em>, despues de que se llenen las columnas de una página, las columnas se moveran a una nueva página. En <em>medios continuos</em>, las columnas se desbordarán hacia la dirección en línea (texto/contenido) y el navegador pondrá una barra horizontal.</p>
+	<p>Ejemplo, el contenedor tiene un ancho definido y hay más texto que espacio para crear columnas; obtenemos columnas creadas fueras del contenedor.</p>
+	<p>En una futura version de especificación podría haber columnas que aparezcan abajo cuando no haya espacio horizontal.</p>
+	<code>
+		<!-- 
+			.container {
+			  column-width: 200px;
+			  height: 180px;
+			}
+		-->
+	</code>	
+
+	<h2>Uso de media quieries verticales</h2>
+	<p>Se nos presenta el problema de que cuando hay muchisimas columnas, la ventana del navegador no puede abarcar todas; entonces, para leer hay que desplazarse arriba o abajo, en este sentido no es responsivo.</p>
+	<p>Por ejemplo, podemos verificar la altura de la ventana con un media query, antes de aplicar las propiedades de multicol</p>
+	<code>
+		@media (min-height: 300px) {
+  			.container {
+    		column-width: 200px;
+  		  	}
+  		}
+
+  		<!--
+			<div class="container">
+			  <p>Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.</p>
+
+			  <p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
+  		-->
+  </code>
+  	<p>Cuando tengamos una altura minima de 300px, los contenedores serán de 200px. Así facilitaremos la lectura del contenido.</p>
+	
+</body>
+</html>

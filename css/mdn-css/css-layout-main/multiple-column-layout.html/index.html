@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index.css">
+	<title>Diseño multicolumna - CSS</title>
+</head>
+<body>
+	<h1>Diseño Multicolumna</h1>
+	<p>Es un metodo para dividir las columnas como las que podemos ver en un diario.</p>
+
+	<h2>Ejemplo basico</h2>
+	<p>Tiene un div como contenedor, un titulo y dos parrafos.</p>
+
+	<h3>Diseño de tres columnas</h3>
+	<p>Nuestro div se puede convertir en un contenedor de columna multiple usando dos propiedades: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-count">column-count</a> o <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-width">column-width</a>. La propiedad <em>column-count</em> toma un valor que será la cantidad de columnas en las que se dividirán los parrafos porque es el contenido del elemento en el que usamos la propiedad.</p>
+	<p>El ancho de las columnas se adaptarán al tamaño de la ventana del navegador.</p>
+	<code>
+		<!--
+			.container {
+			  column-count: 3;
+			}
+		 -->
+	</code>	
+
+	<h3>Usando column-width</h3>
+	<p>Establecemos un ancho y a partir de eso crea columnas, dependiendo de cuantas entren en el contenedor/espacio. Ninguna columna tendra un ancho menor al declarado, pero si el ancho del contenedor es menor que el ancho de la columna; se crea una sola columna más pequeña que el contenedor. Cuando sobra espacio se reparte entre las columnas que tendrán más ancho de lo indicado.</p>
+	<code>
+		<!--
+			.container {
+			  column-width: 200px;
+			}
+		 -->
+	</code>
+
+	<h2>Agregando estilos a las columnas</h2>
+	<p>Las columnas divididas no se pueden diseñar individualmente: cambiarles el tamaño, fondo o color de texto, etc.</p>
+	<p>Solo podemos cambiar la forma de las columnas con las propiedades: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-gap">column-gap</a> y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-rule">column-rule</a>.</p>
+	<p>Con <em>column-gap</em> cambiamos el espacio entre las columnas usando un valor de longitud (% o px), tambien se puede usar con flexbox, grid y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Alignment">box-alignment</a>. Con <em>column-rule</em> agregamos el ancho, estilo y color de la línea que separa a las columna; es una propiedad abreviada. Esta propiedad ocupa el espacio que creó column-gap, si quiere más espacio deberá aumentar esta.</p>
+	<p>Por ejemplo, si queremos 10px a cada lado de las columnas; tenemos que agregar <span>column-gap: 25px;</span> 5px para la línea entre las columnas y se reparten 10px a cada lado de las columnas.</p>
+	<code>
+		<!--
+			.container {
+			  column-count: 3;
+			  column-gap: 20px;
+			  column-rule: 4px dotted rgb(79, 185, 227);
+			}
+		 -->
+	</code>
+
+	<h2>Columnas expansivas</h2>
+	<p>Con <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-span">column-span</a> podemos hacer que un elemento se extienda sobre todas las columnas. Para hacer esto, este elemento divide al contenido de las columnas y continua después. Nuestro elemento se convierte en un <a href="https://developer.mozilla.org/es/docs/Web/Guide/CSS/Block_formatting_context">BFC</a> que se sale del flujo normal y crea su propio mini HTML que funciona aparte y sigue el diseño de bloques.</p>
+	<p>No es posible que este elemento expansivo solo ocupe algunas columnas, es todas o ninguna.</p>
+	<p>A un elemento le aplicamos <span>column-span: all;</span>, generalmente se usa con una clase, etc.</p>
+
+	<h2>Columnas y fragmentación del contenido</h2>
+	<p>Para que haya varias columnas el contenido del contenedor mulicolumna debe romperse.</p>
+
+	<h3>Fragmentación de cajas</h3>
+	<p>Con el siguiente ejemplo de practica, podemos ver que al dividir el contenido de un conetenedor nos puede traer un problema en la experiencia de lectura: el texto se puede ver cortado.</p>
+	<code>
+		<!--
+			<div class="container">
+			  <div class="card">
+			    <h2>I am the heading</h2>
+			    <p>
+			      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus
+			      aliquam dolor, eu lacinia lorem placerat vulputate. Duis felis orci,
+			    </p>
+			  </div>
+
+			  <div class="card">
+			    <h2>I am the heading</h2>
+			    <p>
+			      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus
+			      aliquam dolor, eu lacinia lorem placerat vulputate. Duis 
+			    </p>
+			  </div>
+		 -->
+	</code>	
+
+	<p>En este ejemplo, cuando creamos el contenedor multicolumna que divide cada divs y no solamente los parrafos. Con CSS se transforma los divs en cartas, ademas de agregar espacio entre ellas. El problema está que corta mal las cajas y dificulta la lectura.</p>
+	<code>
+		<!-- 
+		.container {
+		  column-width: 250px;
+		  column-gap: 20px;
+		}
+
+		.card {
+		  background-color: rgb(207, 232, 220);
+		  border: 2px solid rgb(79, 185, 227);
+		  padding: 10px;
+		  margin: 0 0 1em 0;
+		}
+		-->
+	</code>
+
+	<h3>Usando la propiedad break-inside</h3>
+	<p>Para controlar los cortes en el contenido de las columnas y en otras situaciones, usamos la especificación de CSS: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fragmentation">Fragmentación</a>.</p>
+	<p>Con la propiedad <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/break-inside">break-inside</a> establecemos como deben comportarse los saltos de página o región dentro de una caja. Decidimos si se deben romper o si lo evitamos.</p>
+	<p>Agregamos en la clase <span>.card</span>, el valor <em>avoid</em> que evita cualquier ruptura; es el contenedor/div del titulo y el parrafo.</p>
+	<code>
+		<!-- 
+			.card {
+			  break-inside: avoid;
+			  page-break-inside: avoid;
+			  background-color: rgb(207, 232, 220);
+			  border: 2px solid rgb(79, 185, 227);
+			  padding: 10px;
+			  margin: 0 0 1em 0;
+			}
+		-->
+	</code>
+
+	<h3>Usando break-before y break-after</h3>
+	<p>Tambien existen rupturas antes y despues de un elemento señalado mediante una clase. Se puede ver en el apartado de fragmentación en CSS.</p>
+	<p>Funciona entre los cuadros a nivel bloque, dividimos el diseño/la hoja de documento antes o después de un elemento con <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/break-before">break-before</a> o <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/break-after">break-after</a>.</p>
+	<p>Tienen valores en comun para el diseño en multicolumna, para los saltos de páginas en un documento de lectura, para regiones (experimental). Tambien valores genericos y globales.</p>
+
+	<p>Las propiedades <em>break-before</em>, <em>break-inside</em> y <em>break-after</em> son posibles puntos de ruptura para un elemento en la página y tienen este orden de prioridad cuando se aplican valroes.</p>
+
+	<p>Si queremos que en una hoja de impresión se corte para usar una hoja nueva en cierto elemento usamos el valor <span>break-before: page</span>.</p>
+	<p>Otro uso es querer evitar que los encabezados terminen como ultimo en una página de documento o columna, entonces, usamos: <span>break-after: avoid</span>.</p>
+
+	<h2>Elementos fragmentados anidados</h2>
+	<p>Si tenemos un diseño multicolumna en un <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Paged_Media">documento de lectura/impresión</a> es posible querer controlar los saltos de las páginas pero no de las columnas o viceversa.</p>
+	<p>El valor <em>page</em> fuerza una ruptura antes o despues como vimos. Esto es solo en el contexto de impresión.</p>
+	<p>El valor <em>column</em> forzaría un ruptura antes o despues pero solo en el contexto multicolumna, lo mismo para el valor <em>avoid-column</em> que evita que el elemento se corte.</p>
+
+	<h3>Otros valores para medios páginados</h3>
+	<p>Como en un libro o una revista, hay páginas a la izquierda y a la derecha, entonces, podríamos forzar un salto de página hacia uno de estos lados. Tomamos un elemento y usamos break-before o break-after con el valor <em>right</em> por ejemplo.</p>
+	<p>Tambien hay valores como <em>recto</em> o <em>verso</em> que tiene que ver con la dirección de lectura de los idiomas.</p>
+
+	<h2>Propiedades orphans y widows</h2>
+	<p>Las propiedades <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/orphans">orphans</a> y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/widows">widows</a> determinan cuantas líneas deben quedar/mostrase al principio (widows) o al final (orphans) de un salto de página o corte de una columna. De ahí su significado, huerfanos y viudas refiriendose a las líneas de texto restantes.</p>
+	<p>Por ejemeplo, si queremos evitar que quede una sola línea al final de una columna, usamos <em>orphans</em> que es la primera línea de un parrafo que aparece sola al final de una página con el resto del parrafo en la otra página. Debe agregarse al contenedor de elementos.<p>
+	<p>Y para controlar cuantas línea queremos que queden después de un salto usamos <em>widows</em>.</p>
+	<p>Estas solo funcionan para las líneas de parrafos, para los encabezados usamos las propiedades break que vimos anteriormente si están en la parte superior o inferior.</p>
+	
+	<h2>Propiedad Box Decoration</h2>
+	<p>Con <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-decoration-break">box-decoration-break</a> controlamos una caja/contenedor que se corta o fragmenta. El valor es <em>slice</em> por defecto que es la caja se corte por la mitad, junto con su contenido. Cuando una caja se corta y queremos que se vea lo más estetica posible usamos <em>clone</em> para que las dos mitades se encuadren con su borde aplicado, así logramos que no se vean cortadas.</p>
+</body>
+</html>

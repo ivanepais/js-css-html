@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index/style-index.css">
+	<title>Graficos vectoriales - HTML</title>
+</head>
+<body>
+	<h1>Graficos vectoriales</h1>
+	<p>Son muy utiles ya que tienen un tamaño pequeño y son responsivos, se adaptan al cambiar el tamaño de su entorno y no se pixelan</p>
+
+	<h2>¿Que son los graficos vectoriales?</h2>
+	<p>Existen dos tipos de imagenes:</p>
+	<ul>
+		<li><strong>Imagenes ráster</strong>: Estan compuestas por una cuadrícula de pixeles, contiene información que muestra exactamente dónde se colocará cada pixel y exactamente de que color debe ser. Los más populares incluyen un mapa de bits (<em>.bmp</em>), PNG (<em>.png</em>), JPEG(<em>jpg</em>), GIF (<em>.gif</em>).</li>
+		<li><strong>Imagenes vectoriales</strong>: Estan compuestas por algoritmos, código (se pueden programar manualmente) para que la computadora determine como se debe representar la imagen. Su formato es el <a href="https://developer.mozilla.org/es/docs/Glossary/SVG">SVG</a>.</li>
+	</ul>
+
+	<p>La diferencia se ve cuando se amplian los dos tipos de imagenes, las tipo raster pierden calidad frente a las vectoriales.</p>
+
+	<h2>Que es SVG</h2>
+	<p><a href="https://developer.mozilla.org/es/docs/Web/SVG">SVG</a> es un lenguaje basado en <a href="https://developer.mozilla.org/es/docs/Glossary/XML">XML</a> que es un lenguaje de marcado como HTML. Todos ellos son de marcado pero con elementos diferentes.</p>
+	<p>Con <em>SVG</em> marcamos gráficos, no contenido. Por ejemplo con el elemento <a href="https://developer.mozilla.org/es/docs/Web/SVG/Element/circle">circle</a> se dibuja un circulo.</p>
+	<p>Tambien incluyen funciones: <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix">feColorMatrix</a> (transforma colores usando una matriz/paleta colores), <a href="https://developer.mozilla.org/es/docs/Web/SVG/Element/animate">animate</a> (anima partes del grafico), <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mask">mask</a> (aplica una mascara sobre la parte superior de la imagen).</p>
+	<p>Dentro de la etiqueta de apertura y cierre del SVG se ponen elementos y atributos con valores para representar la imagen.</p>
+	<p>Crear un SVG escribiendo el código se puede complicar demasiado. Profesionalmente se usan programas/editores de graficos vectoriales como <em>Inkscape</em>  (libre/gratuito, codigo abierto) o <em>Illustrator</em> (Adobe).</p>
+	
+	<code>
+		<!--
+		<svg version="1.1"
+		     baseProfile="full"
+		     width="300" height="200"
+		     xmlns="http://www.w3.org/2000/svg">
+		  <rect width="100%" height="100%" fill="black" />
+		  <circle cx="150" cy="100" r="90" fill="blue" />
+		</svg>
+		-->
+	</code>
+	
+	<p>Un archivo SVG es más avanzado tecnologicamente que un JPEG por lo tanto tiene ventajas y desventajas:</p>
+	<p><em>Ventajas</em>:</p>
+	<ul>
+		<li>Tiene código, con ello ventaja en materia de SEO.</li>
+		<li>Se puede agregar CSS (estilo) y JavaScript (interactividad/funciones).</li>
+		<li>Desventajas</li>
+	</ul>
+
+	<p><em>Desventajas</em>:</p>
+	<ul>
+		<li>Un SVG complejo demanda mucha potencia grafica</li>
+		<li>Puede ser más dificil de crear que un JPEG</li>
+		<li>No suele ser compatible con navegadores antiguos. Revisar en la web <a href="https://caniuse.com/">Can I Use?</a>.</li>
+	</ul>
+
+	<p>Por su parte las imagenes rasterizadas son mejores para imagenes complejas, como fotos.</p>
+	<p>En este sitio puede aprender a <a href="http://tavmjong.free.fr/INKSCAPE/MANUAL/html/Web-Inkscape.html">preparar SVG para la web</a>.</p>
+
+	<h2>Agregar SVG en el HTML</h2>
+	<p>Se puede hacer de diferentes maneras</p>
+
+	<h3>Una forma rapida: elemento img</h3>
+	<p>Necesitamos un archivo <em>.svg</em> que va a ir en el atributo <em>src</em>, con alt (texto alternativo) y podemos agregar el ancho y alto.</p>
+	<p>Este metodo tiene pros y contras:</p>
+	<p>pros:</p>
+	<ul>
+		<li>Es un metodo ya conocido, tambien atributos y valores.</li>
+		<li>Puede convertir el elemento img que contiente el SVG en un enlace con a. La imagen será un link.</li>
+		<li>El navegador guarda el cache, serán más rapidas las cargas.</li>
+	</ul>
+
+	<p>contras:</p>
+	<ul>
+		<li>No puede usar JavaScript en el SVG porque está en img y no en su propio elemento.</li>
+		<li>para aplicar CSS debe incluir estilo en el codigo del SVG.</li>
+		<li>No puede usar pseudoclases.</li>
+	</ul>
+	<code>
+		<!--
+			<img
+		    src="equilateral.svg"
+		    alt="triangle with all three sides equal"
+		    height="87"
+		    width="100" />
+		-->
+	</code>	
+
+	<h3>Solución a los problemas de compatibilidad en los navegadores antiguos.</h3>
+	<p>Para navegadores que no admiten SVG, por ejemplo, el navegador de android 2.3 o IE 8 y anteriores.</p>
+	<p>En el elemento imagen ponemo la ruta del archivo SVG en <em>src</em> para navegadores antiguos y en el atributo <em>srcset</em>, ponemos el mismo svg para navegadores modernos.</p>
+	<p>Si bien es el mismo elemento con la misma imagen, son atributos distintos, el navegador aceptará el primero que entienda.</p>
+	<code>
+		<!--
+			<img src="equilateral.png" alt="triangle with equal sides" srcset="equilateral.svg">
+		 -->
+	</code>	
+	
+	<p>Puede usar SVG como imagen de fondo para un elemento del HTML, aunque no se podra usar JavaScript dado que usaremos la propidedad <em>background</em> de CSS.</p>
+	<p>Para navegadores antiguos usamos un imagen convensional para el fondo <span>background: url ("fallback.png")</span>. Para navegadores modernos usaremos un archivo svg y la propiedad <span>background-image: url ("image.svg")</span>.</p>
+	<code>
+		<!--
+			background: url("fallback.png") no-repeat center;
+			background-image: url("image.svg");
+			background-size: contain;
+		 -->
+	</code>
+	
+	<p>Si la imagen SVG no carga, puede ser que sea un <a href="https://developer.mozilla.org/es/docs/Web/SVG/Tutorial/Getting_Started#a_word_on_webservers">problema con  servidor y las imagenes SVG</a>.</p>
+
+	<h3>Agregando codigo SVG en el HTML: elemento svg</h3>
+	<p>Podemos crear un SVG con codigo y este pegarlos o escribirlo directamente en el documento HTML.</p>
+	<p><em>Ventajas</em>:</p>
+	<ul>
+		<li>Ahorra una solicitud HTTP que puede reducir los tiempos de carga.</li>
+		<li>Podemos usar clases o id's para aplicarles estilo con CSS</li>
+		<li>Podemos usar interacciones como <em>:focus</em> y animaciones de CSS.</li>
+		<li>Podemos convertir SVG en enlace, envolviendo la imagen en el elemento a.</li>
+	</ul>
+
+	<p><em>Desventajas</em>:</p>
+	<ul>
+		<li>Si usamos el SVG en distintos lugares, requerirá muchos recursos y mantenimiento.</li>
+		<li>El codigo SVG aumentará el tamaño del documento HTML.</li>
+		<li>No puede almacenar cache ya que la imagen es representada a traves de un código y no un archivo grafico. No reduciría timpos de carga.</li>
+		<li>Puede incluir un respaldo (fallback: propiedades de respaldo para compatibilidad en navegadores) en un elemento <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/foreignObject">foreingObject</a> aunque se descargaran las imagennes de respaldo.</li>
+	</ul>
+	<code>
+		<!--
+			<svg width="300" height="200">
+			    <rect width="100%" height="100%" fill="green"/>
+			</svg>
+		 -->
+	</code>
+
+	<h3>Incrustar un SVG con iframe</h3>
+	<p>Como podiamos insertar otras páginas con iframe, podemos insertar un documento SVG.</p>
+	<p>Usamos dos atributos <em>src</em> uno con un archivo SVG para navegadores modernos y otro con un .PNG para navegadores antiguos.</p>
+	<p>No es el mejor metodo para poner un SVG en una web.</p>
+
+	<p><em>desventajas</em>:</p>
+	<ul>
+		<li>La propiedad/archivo de respaldo solo funciona si el navegador carece de soporte para iframe.</li>
+		<li>No puede usar JavaScript a menos que el SVG y página activa/actual tengan el mismo <a href="https://developer.mozilla.org/en-US/docs/Glossary/Origin">Origin</a>.</li>
+	</ul>
+	<code>
+		<!--
+			<iframe src="triangle.svg" width="500" height="500" sandbox>
+			<img src="triangle.png" alt="Triangle with three unequal sides" />
+			</iframe>
+		 -->
+	</code>
+
+</body>
+</html>

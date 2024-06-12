@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Ordenar items en flexbox - CSS</title>
+</head>
+<body>
+	<h1>Orden de los elementos en Flex</h1>
+	<p>Podemos cambiar el orden ddel contenido, tanto en Flex como en Grid; aunque trae consecuencias de accesibilidad.</p>
+
+	<h2>Invertir la visualización de los elementos</h2>
+	<p>Se cambia con <em>flex-direction</em> o con la propiedad abreviada <em>flex</em>, usando los valores <em>row-reverse</em> y <em>column-reverse</em>. Solo tienen efecto visualmente, mientras que para los lectores de pantalla, el orden será el original.</p>
+	<p>Estos valores guardan relación con los modos de escritura (solo usados para motivos artisticos/estilo), en el inicio y fin donde aparece el contenido. Si los elementos flexibles fueran enlaces y si podemos navegar con la tecla tabulación, el orden será el que aparece en el codigo fuente y no el de visualización.</p>
+	<p>No se deben usar para solucionar problemas con el orden del codigo fuente, siempre debemos tener en cuenta que el orden del código fuente es el orden logico del documento.</p>
+
+	<h2>Propiedad order</h2>
+	<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/order">order</a> además de invertir el orden, puede tomar elementos individuales y cambiarlos de lugar. Está diseñada para distribuir los elementos en <em>grupos ordinales</em>.</p>
+	<p>A los elementos se les asigna un número entero que representa su grupo, los valores más bajos van primero. Mas de un elemento puede tener el mismo numero de orden (se colocan seguidos, de menor a mayor orden del código fuente).</p>
+	<p>Por defecto tienen un valor 0, los que tengan un numero mayor, aparecerán despues de estos.</p>
+	<p>Podemos usar negativos para dejar elementos primeros y a los demás no le asignamos ningun orden.</p>
+	<code>
+		<!--
+		<div class="box">
+            <div><a href="#">1</a></div>
+            <div><a href="#">2</a></div>
+            <div><a href="#">3</a></div>
+            <div><a href="#">4</a></div>
+            <div><a href="#">5</a></div>
+        </div>
+
+        .box {
+          display: flex;
+          flex-direction: row;
+        }
+        .box :nth-child(1) { order: 2; }
+        .box :nth-child(2) { order: 3; }
+        .box :nth-child(3) { order: 1; }
+        .box :nth-child(4) { order: 3; }
+        .box :nth-child(5) { order: 1; }
+
+        .box {
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: row;
+        }
+
+         <div class="active"><a href="#">3</a></div>
+        .active {
+            order: -1;
+            flex: 1 0 100%;
+        }
+		 -->
+	</code>	
+
+	<p>Con respecto a la accesibilidad, <em>order</em> solo cambia el orden visualmente, no puede modificar el HTML original.</p>
+	<p>Podría presentar algunos conflictos:</p>
+	<ul>
+		<li><a href="https://tink.uk/flexbox-the-keyboard-navigation-disconnect/">Flexbox vs. Teclado</a></li>
+		<li><a href="https://adrianroselli.com/2015/10/html-source-order-vs-css-display-order.html">Orden del HTML vs. Oden del CSS</a></li>
+		<li><a href="https://alastairc.uk/2017/06/the-responsive-order-conflict/">Order vs. Focus link</a></li>
+	</ul>
+	
+	<h2>Casos de uso de la propiedad order</h2>
+	<p>Puede ocurrir en diseños  en los que, es util, que el orden logico y de lectura (al mismo tiempo) de los elementos flexibles estén separados del orden visual.</p>
+	<p>Por ejemplo, en unos cuadros que tengan de notificaciones/noticias con un diseño que muestre una fecha, un encabezado y luego un contenido.</p>
+	<p>La fecha será un elemento flexible, con valor de order negativo, subimos la fecha por encima del encabezado.</p>
+	<code>
+		<!--
+		<div class="wrapper">
+        <div class="card">
+            <h3>News item title</h3>
+            <div class="date">1 Nov 2017</div>
+            <p>This is the content of my news item. Very newsworthy.</p>
+        </div>
+
+        <div class="card">
+            <h3>Another title</h3>
+            <div class="date">6 Nov 2017</div>
+            <p>This is the content of my news item. Very newsworthy.</p>
+        </div>
+
+        .card {
+            display: flex;
+            flex-direction: column;
+        }
+        .date {
+                order: -1;
+                text-align: right;
+            }
+		 -->
+	</code>
+
+	<p>Este es un pequeño ajuste dentro de un contenedor flexible que no pretende cambiar el orden de los demas elementos del sitio. La mejor practica es mantener el orden logico, de lectura y tabulación. Tampoco se recomienda usar orden en elementos que se puedan navegar usando el teclado, como son los links.</p>
+</body>
+</html>

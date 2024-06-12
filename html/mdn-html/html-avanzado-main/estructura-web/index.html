@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index/style-index.css">
+	<title>Estructura de una página web - HTML</title>
+</head>
+<body>
+	<h1>Estructura de una página web</h1>
+	<p>La estructura de una página web depende de unos elementos de bloque que van a representar a un encabezado, un menú de navegación, el contenido principal, tambien un contenido secundario, un pie de página y más elementos que se usan para diseñar una web.</p>	
+
+	<h2>Partes basicas de una web</h2>
+	<p>Son las partes que toda web debe tener a menos que este mal estructurada, sea para mostrar video/contenido multimedia, un juego o proyecto artistico.</p>
+	<dl>
+		<dt>Encabezado</dt>
+		  <dd>Visualmente es una franja superior en horizontal que ocupa todo el ancho de la página. Puede tener un titulo, logotipo o un lema. Es una parte que no suele cambiar</dd>
+
+		<dt>Barra de navegación</dt>
+		  <dd>Son los enlaces a las secciones principales del sitio formada por un menú con botones, enlaces o pestañas. Por cuestiones de diseño algunos prefieren que esten junto al encabezado, pero otros por cuestiones de accesibilidad prefieren que esten separados para que los lectores de pantalla puedan reconocer ambos elementos. Tampoco suele variar.</dd>
+
+		<dt>Contenido principal</dt>
+		  <dd>Visualmente toma gran parte de la pantalla porque posee la mayor cantidad de contenido. Suele cambiar de página en página, a veces hay un articulo, otras veces hay un video. Puede tener todo tipo de contenido como noticias, productos, un juego; depende del sitio.</dd>
+
+		<dt>Barra lateral</dt>
+		  <dd>Suele incluir enlaces, articulos relacionados con el principal, publicidad, un menú de navegación secundario, etc.</dd>
+
+		 <dt>Pie de página</dt>
+		  <dd>Es la parte inferior de la página, tiene una fuente pequeña para detallar cuestiones legales, copyright o información de contacto. Tambien es usada para contener enlaces de acceso rapido al contenido destacado por cuestiones de <a href="https://developer.mozilla.org/es/docs/Glossary/SEO">SEO</a> que generalmente usan las empresas grandes.</dd>
+	</dl>
+
+	<h2>Elementos de HTML para estructurar el contenido</h2>
+	<p>Son los elementos adecuados que se usan para representar las partes basicas de una web. Los elementos semanticos describen su contenido para los navegador, motores de busqueda o usuarios no videntes que usan lectores de pantalla. Se describirán son los indispensables, más adelanate veremos más, pero en la <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element">referencia de HTML de MDN</a> figuran todos detalladamente.</p>
+
+	<p><strong>Encabezado</strong>: Representado por el <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/header">header</a>, son las ayudas introductorias o de navegación que se introducen en la parte superior de la web mediante iconos, enlaces, botones. No debe confundirse con los encabezados de titulo (<em>h1-h6</em>), ni estos con la etiqueta <em>title</em> que figura en el <em>head</em> del documento.</p>
+
+	<p><strong>Menú de navegación</strong>: Representado por <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/nav">nav</a>, dentro suele haber una lista no ordenada con los enlaces a las diferentes secciones de la web. Pueden ubicarse en el encabezado o debajo de él.</p>
+
+	<p><strong>Contenido principal</strong>: Representado por el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/main">main</a>, agrupa el contenido principal de una página, debe haber uno por página y no debe estar anidado en ningún otro elemento. Generalmente contiene a otros elementos como:
+
+	<ul>
+	 <li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/article">article</a> se usa para articulos de revista/periodisticos, posteos en bloq o plataforma, tarjetas de producto y otros elementos parecidos. La idea es que se use para elementos que puedan entenderse individualmente a pesar de pertenecer a un grupo, una tarjeta con la descripción de un producto o un articulo de un blog se entienden por si solos.</li>
+
+	 <li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/section">section</a> agrupa contenido que se desarrolla a partir de un titulo o tema con un encabezado, despues pueden seguir articulos que desarrollan temas relacionados. Podemos dividir articulos en distintas secciones o viceversa. Tambien es usado para agrupar comandos/funciones/botones que no tienen otro elemento para representarlos como puede ser una lista de resultados que da un buscador.</li>
+
+	 <li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/div">div</a> es elemento no semantico usado para propositos que no disponen de una etiqueta especifica y para aplicar CSS. Si se quiere mantener un sitio orientado a la semantica, usarlo con cuidado.</li>
+	</ul>
+
+	<p><strong>Barra lateral</strong>: Representado por el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/aside">aside</a> presenta información adicional con enlaces a modo de referencia del contenido principal o contenido parecido.</p>
+		
+	<p><strong>Pie de página</strong>: Representado por el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/footer">footer</a>, generalmente contiene enlaces a las secciones más importantes o información relacionada con el autor del sitio, información legal, etc.</p>
+
+	<h3>Elementos no semánticos</h3>
+	<p>Cuando no existe elementos para agrupar cierto tipo de contenido se puede usar los elementos no semánticos.</p>
+	<p>Existen elementos no semanticos en bloque y en línea como <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/div">div</a> y <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/span">span</a>, generalmente se usan con el atributo <em>class</em> para llamarlos desde el CSS dandole estilo o desde JS aportandole funcionalidad.</p>
+	
+	<code>
+		<!--
+			<!DOCTYPE html>
+			<html>
+			  <head>
+			    <meta charset="utf-8" />
+
+			    <title>El título de mi página</title>
+			    <link
+			      href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Sonsie+One"
+			      rel="stylesheet"
+			      type="text/css"
+			    />
+			    <link rel="stylesheet" href="style.css" />
+
+			     las tres siguientes líneas son un truco para obtener elementos semánticos de HTML5 que funcionan en versiones de Internet Explorer antiguas 
+			    	[if lt IE 9]>
+			     	 <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+			    	<![endif]
+			  </head>
+
+			  <body>
+			     Aquí empieza el encabezado principal que se mantendrá en todas las páginas del sitio web 
+
+			    <header>
+			      <h1>Encabezado</h1>
+			    </header>
+
+			    <nav>
+			      <ul>
+			        <li><a href="#">Inicio</a></li>
+			        <li><a href="#">Nuestro equipo</a></li>
+			        <li><a href="#">Proyectos</a></li>
+			        <li><a href="#">Contacto</a></li>
+			      </ul>
+
+			       Un formulario de búsqueda es una forma no-lineal de hacer búsquedas en un sitio web.
+
+			      <form>
+			        <input type="search" name="q" placeholder="Buscar" />
+			        <input type="submit" value="¡Vamos!" />
+			      </form>
+			    </nav>
+
+			     Aquí está el contenido principal de nuestra página
+			    <main>
+			       Contiene un artículo 
+			      <article>
+			        <h2>Título del artículo</h2>
+
+			        <p>
+			          Lorem ipsum dolor sit amet, consectetur
+			        </p>
+
+			        <h3>Subsección</h3>
+
+			        <p>
+			          Donec ut librero sed accu vehicula 
+			        </p>
+
+			        <p>
+			          Pelientesque auctor nisi id magna consequat sagittis.
+			        </p>
+
+			        <h3>Otra subsección</h3>
+
+			        <p>
+			          Donec viverra mi quis quam pulvinar at malesuada arcu rhoncus.
+			        </p>
+
+			        <p>
+			          Vivamus fermentum semper porta.
+			        </p>
+			      </article>
+
+			       el contenido aparte también se puede anidar dentro del contenido principal 
+			      <aside>
+			        <h2>Relacionado</h2>
+
+			        <ul>
+			          <li><a href="#">Oh, me gusta estar junto al mar</a></li>
+			          <li><a href="#">Oh, me gusta estar junto al mar</a></li>
+			          <li><a href="#">Aunque en el norte de Inglaterra</a></li>
+			          <li><a href="#">Nunca deja de llover</a></li>
+			          <li><a href="#">Oh, bueno...</a></li>
+			        </ul>
+			      </aside>
+			    </main>
+
+			     Y aquí está nuestro pie de página principal que se utiliza en todas las páginas de nuestro sitio web 
+
+			    <footer>
+			      <p>©Copyright</p>
+			    </footer>
+			  </body>
+			</html>
+		-->
+	</code>
+	
+	<h2>Planear un sitio web</h2>
+	<p>Se pensar en el contenido de un sitio web, todas las páginas que se necesita y la forma de disponer las conexiones entre ellas para producir la mejor experiencia de usuario a los visitantes. Se lo conoce como <a href="https://developer.mozilla.org/es/docs/Glossary/Information_architecture">Arquitectura de la información</a>, se lo utiliza en proyectos grandes.</p>
+	<p>Para un sitio pequeño podemos planificar una web apuntando lo que necesitamos en un papel.</p>
+	<p>Por ejemplo:</p>
+	<ol>
+		<li>Habrá <em>varios elementos en común</em> en muchas o en todas las páginas del sitio (según los elementos), como un menú de navegación, pie de página, etc. Piense en que necesita el sitio y anota lo que debería tener en común todas las páginas.</li>
+			<ul>
+				<li>Caracteristicas comunes del sitio: titulo, logotipo, contacto, derechos de autor, terminos y condiciones, politicas de privacidad, seleccion de idioma y politicas de accesibilidad.</li>
+			</ul>
+		<li>Dibuja el esquema o el diseño de la página como las partes principales</li>
+			<ul>
+				<li>Un encabezado, un area de contenido principal, barras laterales (opcional) y un pie de página.</li>
+			</ul>
+		<li>Ahora, haz una lista completa con todo el resto de contenidol que no sea común en todas las páginas, relacionada con la tematica del sitio.</li>
+		<li>Ordenar el contenido anterior en grupos para conectar que partes podrían ir juntas en las diferentes páginas.</li>
+			<ul>
+				<li>Haz categorias y pone los elementos que deberián en cada una.</li>
+			</ul>
+		<li>Esquematiza un mapa de tu sitio, dibuja un globo para cada página del sitio y dibuja lineas que identifiquen el flujo de datos entre las distintas páginas. La página de inicio estará en el y enlazará con el resto de las páginas. Tambien puedes hacer notas para el diseño de los elementos.</li>
+			<ul>
+				<li>El mapa tiene que mostrar la página de inicio con todo su contenido, así con las demás páginas.</li>
+			</ul>
+	</ol>
+
+
+</body>
+</html>

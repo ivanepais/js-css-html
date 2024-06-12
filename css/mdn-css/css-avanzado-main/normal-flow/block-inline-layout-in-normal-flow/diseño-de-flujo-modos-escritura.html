@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../../style-index/style-index.css">
+	<title>Diseño de flujo y modos de escritura - CSS</title>
+</head>
+<body>
+	<h2>Anidación de modos de escritura</h2>
+	<p>Cuando a un elemento/caja anidada tiene un modo de escritura distinto al de su padre:</p>
+	<ul>
+		<li>Un elemento en línea se mostrará como si tuviera <span>display: inline-block</span>.</li>
+		<li>un elemento en bloque creará un nueva <em>BFC</em>, a su vez, éste determina que la visualizacion interna del elemento estará fuera del flujo.</li>
+	</ul>
+
+	<h2>Elementos de reemplazo (img, video, etc)</h2>
+	<p>No cambian su orientación/visualización por el modo de escritura. Los elementos que controlan un formulario que tienen texto, deben coincidir con el modo de escritura de uso.</p>
+	
+</body>
+</html>

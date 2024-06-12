@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Entendiendo z-index y los contextos de apilamiento - CSS</title>
+</head>
+<body>
+	<h1>z-index y los contextos de apilamiento</h1>
+	<p>Como el elemento <em>HTML</em> es capaz de crear el contexto de diseño inicial para poder aplicar el diseño en bloque y en línea en los elementos, tambien puede crear el <em>contexto de apilamiento inicial</em> que nos permite verlos y ubicarlos en orden. Así como tambien habia propiedades para crear diferentes contextos de diseño, hay propiedades que crean otros <em>contextos de apilamiento</em>.</p>
+
+	<h2>Conceptos en un contexto de apilamiento</h2>
+	<p>Una <strong>jerarquia</strong> de apilamiento es la estructura que generan todos los elementos del HTML, formado por elementos hermanos y padre/hijo. Existen los <strong>niveles</strong> en una jerarquia, por ejemplo, elementos hermanos es un nivel y si hay hijos de uno de ellos pasa a ser el segundo nivel. Podemos identificar el <strong>orden de renderización</strong> (visualización) imaginando un numero de versión, los hermanos y/o padre serían un numero entero y los hijos serían los decimales.</p>
+	<p>Estos niveles en el html pueden transformarse en nuevos <em>contextos de apilamiento</em> si se les aplica la propiedad correspondiente para crear otro apilamiento, veremos cuales propiedades crean nuevos apilamientos y como se comportarán/ordenarán los elementos.</p>
+	
+	<h2>Propiedades que crean contextos de apilamiento</h2>
+	<p>Un contexto de apilamiento es formado, en cualquier lugar del documento, por cualquier elemento que:</p>
+	<ul>
+		<li>Sea el elemento raíz (HTML).</li>
+		<li>Tenga <a href="https://developer.mozilla.org/es/docs/Web/CSS/position">position</a> (relative o absulute, fixed o sticky) y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/z-index">z-index</a> con un valor distinto de cero.</li>
+		<li>Un item <a href="https://developer.mozilla.org/es/docs/Web/CSS/flex">flex</a> o Grid con un valor z-index distinto de "auto", que tenga como padre a un elemento con <span>display: flex | inline-flex</span> o display: grid | inline-block</li> 
+		<li>Elementos con un valor de <a href="https://developer.mozilla.org/es/docs/Web/CSS/opacity">opacity</a> menor de "1".</li>
+		<li>Elementos con un valor <a href="https://developer.mozilla.org/es/docs/Web/CSS/transform">transform</a> distinto de "none".</li>
+		<li>Elementos con un valor <a href="https://developer.mozilla.org/es/docs/Web/CSS/mix-blend-mode">mix-blend-mode</a> distinto de "normal".</li>
+		<li>Elementos con un valor <a href="https://developer.mozilla.org/es/docs/Web/CSS/filter">filter</a> distinto de "none".</li>
+		<li>Elementos con un valor <a href="https://developer.mozilla.org/es/docs/Web/CSS/perspective">perspective</a> distinto de "none".</li>
+		<li>Elementos con un valor <a href="">isolation</a> distinto de "isolate".</li>
+	</ul>
+
+	<h2>Orden y comportamiento de los elementos en los apilamientos</h2>
+	<p>Desde el documento HTML podemos ver la estructura de los elementos hermanos, padre/hijos para identificar los contextos de apilamiento por separado. Debemos recordar tambien que los valores position absolute y relative sirven para colocar elementos sobre otros, no siempre es necesario z-index.</p>
+	<p>Desde los siguientes apartados del 1 al 3 veremos el orden basico de los elementos. Del 4 al 6 veremos que en general los elementos padres posicionados con z-index se ordenan junto con sus hermanos en el contexto de apilamiento inicial (HTML) y los elementos hijos se ordenan entre ellos porque tienen el contexto de su padre, pero habrá algunas particularidades.</p>
+	
+	<h3>Apilando sin z-index</h3>
+	<p>El apilamiento de los elementos siempre es de abajo hacia arriba. Cuando ninguno tiene z-index, el orden es:</p>
+	<ol>
+		<li>Fondo y borde del elemento raíz (HTML).</li>
+		<li>Cualquier elemento en bloque del flujo normal.</li>
+		<li>Elementos <em>position</em> siguiendo su orden en el HTML (los ultimos que aparecen en el HTML se superponen a los primeros).</li>
+	</ol>
+
+	<h3>Apilamiento con Float</h3>
+	<p>Si tenemos un bloque flotante, el orden se modifica y se agregará los elementos en línea. El flotante se colocará entre los elementos no posicionados y posicionados.</p>
+	<ol>
+		<li>Fondo y borde del elemento raíz (HTML).</li>
+		<li>Cualquier elemento en bloque del flujo normal.</li>
+		<li>Bloques <em>flotantes</em>.</li>
+		<li>Elementos en línea del flujo normal.</li>
+		<li>Elementos <em>position</em> siguiendo su orden en el HTML (los ultimos que aparecen en el HTML se superponen a los primeros).</li>
+	</ol>
+
+	<h3>Agregando z-index</h3>
+	<p>La propiedad <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/z-index">z-index</a> permite acomodar el orden de las cajas cuando el contenido web está siendo renderizado, subimos o bajamos la posición de la caja en el eje z dependiendo del valor entero (numero positivo o negativo) que le demos.</p>
+	<p>Z-index solo funciona cuando creamos un nuevo contexto de apilamiento en un elemento y un ejemplo es usando <em>position + z-index</em>. Se usa si queremos un orden diferente en los elementos a como vienen predeterminados, visualmente los elementos se alejarán o acercarán de nosotros. una capa con un numero mayor se renderizará encima de las capas con números menores.</p>
+	<p>Las capas se enumeran de las siguientes maneras:</p>
+	<ul>
+		<li>Abajo: Elemento más lejanos al observador.</li>
+		<li>...</li>
+		<li>Capa -3</li>
+		<li>Capa -2</li>
+		<li>Capa -1</li>
+		<li>Capa 0: Capa de renderización inicial/por defecto, cuando los elementos no tienen z-index.</li>
+		<li>Caja 1</li>
+		<li>Caja 2</li>
+		<li>Caja 3</li>
+		<li>...</li>
+		<li>Arriba: Elemento más cercano al observador.</li>
+	</ul>
+	<p>Si varios elementos comparten el mismo valor de z-index, se situarán en esa capa pero se ordenarán con las reglas basicas anteriores sin z-index.</p>
+
+	<h3>Ejemplo 1: z-index solo en elementos hijos</h3>
+	<p>Si los elementos hijos tienen z-index y su padre no, estos se ordenarán en el contexto de apilamiento inicial.</p>
+
+	<h3>Ejemplo 2: Los contextos de apilamiento de padre/hijo son diferentes</h3>
+	<p>Los elementos hijos tiene su propio contexto: se ordenan entre ellos, los de afuera no interfieren y se superponen visualmente a su padre. Si el elemento padre tiene z-index se ordenará en su propio contexto y se moverá junto a sus hijos.</p>
+
+	<h3>Ejemplo 3: Manejar multiples menus en cascada</h3>
+	<p>Para solucionar solucionar la superposicion en los menús multinivel se hace mediante un script del lado del cliente (<a href="https://developer.mozilla.org/es/docs/Learn/JavaScript">Js</a> y otros framework) o del lado del servidor (<a href="https://developer.mozilla.org/es/docs/Learn/Server-side/First_steps">Node.js</a> por ejemplo) para subir de nivel u ocultar elementos padres/hermanos para que sus superponer a los elementos hijos y que no queden abajo de otro menú.</p>
+</body>
+</html>

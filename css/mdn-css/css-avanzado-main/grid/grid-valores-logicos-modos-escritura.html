@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Grid, valores lógicos y modos de escritura</title>
+</head>
+<body>
+	<h1>Grid, valores lógicos y modos de escritura</h1>
+	<p>Veremos como qué son y como afectan los modos de escritura a los distintos metodos de diseño y la diferencia de sus propiedades lógicas frente a las propiedades fisicas.</p>
+
+	<h2>Propiedades y valores físicos y lógicos</h2>
+	<p>Las palabras top, botoom, left y right son <em>valores fisicos</em> que <em>corresponde a los lados o ubicación de la caja/elemento</em> que tienen más sentido en el <em>metodo de diseño normal</em>. Por ejemplo, la izquierda siempre será la izquierda; no importa la ubicación, ni donde empieze el elemento ni el modo de escritura.</p>
+	
+	<p>Las palabras como block-start/block-end e inline-start/inline-end son <em>valores lógicos</em> que <em>corresponde a hacia dónde fluye el elemento y su contenido</em>, el valor <em>start</em> no hace referencia a un lugar fisico, sino que, <span>el elemento puede iniciar estar en cualquier lado</span>. y tiene más sentido en los <em>metodos de diseño moderno</em> que reemplazan a las anteriores:</p>
+
+	<h2>Valores y propiedades lógicas</h2>
+    <p>Estas van a reemplazar a las propiedades width y height (valores horizontales) en los modos de escritura como horizontal-tb, vertical-rl y lr porque width y height no se ajustan al contenido en los modos mencionados. Y a otros valores más.</p>
+
+    <h3>inline-size</h3>
+    <p>Se refiere al tamaño de la dimension inline (texto/contenido dentro de la caja), va a extender o encoger las lineas de texto/contenido. Reemplaza a width.</p>
+
+    <h3>block-size</h3>
+    <p>Se refiere al tamaño de la caja, reemplaza a height. En resumen son la altura y la anchura que se usan en estos modos de escritura pero refiriéndose a las dos dimensiones.</p>
+
+    <h3>margin-block-start</h3>
+    <p>Margen de inicio del bloque. Reemplaza a margin</p>
+
+    <h3>padding-inline-start</h3>
+    <p>Es relleno va a aplicar al inicio de la dimension en linea (al inicio de las lineas de texto).Reemplaza a padding-left.</p>
+
+    <h3>border-block-end</h3>
+    <p>El borde se va a aplicar al final del bloque.</p>
+    <p>Las propiedades físicas quedan ligadas a sus direcciones físicas, mientras que las propiedades lógicas cambian con el modo de escritura.</p>
+
+    <h3>block-start</h3>
+    <p>Reemplaza a la propiedad top.</p>
+
+    <h3>inline-end</h3>
+    <p>Reemplaza a la propiedad right.</p>
+
+    <h3>block-end</h3>
+    <p>Reemplaza a la propiedad bottom.</p>
+
+    <h3>inline-start</h3>
+    <p>Reemplaza a la propiedad left. Si estamos en el modo de escritura horizontal-tb, el texto empieza por izquierda y termina por derecha, entonces, tiene sentido que esta propiedad reemplacé a left.</p>
+
+    <h3>Consejo</h3>
+    <p>Si no usas flexbox ni grid, puedes usar las propiedades convencionales.</p>
+
+	<h2>Ejemplos fisicos y lógicos</h2>
+	<p>Si usamos <em>position: absolute</em> en un elemento, lo tenemos que mover con las propiedades fisicas:</p>
+	<code>
+		    .container {
+           position: relative;
+        }
+        .item {
+           position: absolute;
+           top: 20px;
+           left: 30px;
+        }
+	</code>
+	<p>el elemento se coloca a 20 píxeles desde la parte superior y a 30 píxeles desde la izquierda del contenedor.</p>
+	<p>Las propiedades fisicas pueden ser un problema cuando necesitemos un sitio que soporte idiomas que tengan otra dirección de texto.</p>
+	<p>En el siguiente ejemplo, el primer párrafo tiene la alineación de texto establecida a la izquierda, el segundo no tiene establecida la propiedad de alineación de texto. Si <em>agregamos dir="rtl" al elemento html</em>, cambia el modo de escritura predeterminado en inglés de ltr (de izquierda a derecha lo invierte).</p>
+	<!-- <img src="#"> -->
+	<p>El primer párrafo permanece de izquierda a derecha, debido a que se dejó el valor de alineación de texto. El segundo, sin embargo, cambia de dirección y el texto va de derecha a izquierda.</p>
+
+	<h2>Block e inline</h2>
+	<p>Con las propiedades lógicas dejamos de ver el mundo como de izquierda a derecha y de arriba hacia abajo como lo haciamos con las propiedades fisicas.</p>
+	<p><em>Necesitamos un nuevo punto de referencia</em>, así que usamos los <em>ejes de bloque y de línea</em> como haciamos en las en flex y las alineaciones. Comenzamos a ver el diseño en terminos de bloque y en línea.</p>
+
+    <h2>writing-mode y nuevos metodos de diseño</h2>
+    <p>Si aplicamos a un contenedor <em>writing-mode</em> distinto de <em>horizontal-tb</em> podemos cambiar su orientación, ya no es solo para un titulo, u otro elemento.</p>
+    <p>Ahora bien, writing-mode no solo es la orientación del texto sino tambien, como van fluyendo los bloques y hacia donde apunta/inicia el texto de las líneas.</p>
+
+    <h3>writing-mode</h3>
+    <p>Sus valores son:</p>
+    <ul>
+        <li>horizontal-tb</li>
+        <li>vertical-rl</li>
+        <li>vertical-lr</li>
+        <li>sideways-rl</li>
+        <li>sideways-lr</li>
+    </ul>
+    <p>Estos dos ultimos solo funcionan en firefox.</p>
+
+    <code>
+      <!--
+          <div class="wrapper">
+            <p style="writing-mode: horizontal-tb">
+              I have writing mode set to the default <code>horizontal-tb</code>
+            </p>
+            <p style="writing-mode: vertical-rl">
+              I have writing mode set to <code>vertical-rl</code>
+            </p>
+          </div>
+
+       -->
+    </code>
+
+    <h2>writing-mode en grid</h2>
+    <p>Cambiar el modo de escritura significa cambiar donde están los bloques y las líneas.</p>
+
+    <h3>writing-mode por defecto</h3>
+    <p>Usa <em>horizontal-tb</em>, la cuadrícula coloca los elementos desde arriba a la izquierda y el desplazamientos es hacia la derecha; llenando las celdas en este sentido, <em>se ordenan horizontalmente</em>. El contenedor se muestra horizontalmente y aparecen uno debajo de otro.</p>
+    <code>
+        <!--
+        .wrapper {
+           display: grid;
+           grid-template-columns: repeat(3, 100px);
+           grid-template-rows: repeat(2, 100px);
+           gap: 10px;
+        }
+        
+        <div class="wrapper">
+          <div class="item1">Item 1</div>
+          <div class="item2">Item 2</div>
+          <div class="item3">Item 3</div>
+          <div class="item4">Item 4</div>
+          <div class="item5">Item 5</div>
+        </div>
+        -->
+    </code>
+
+    <h3>Cambiando el writing-mode</h3>
+    <p>Si ponemos <em>vertical-lr</em> los elementos se ordenan verticalmente en columna y los contenedores se muestran verticalmente y aparecen uno al lado de otro.</p>
+    <code>
+        .wrapper {
+           writing-mode: vertical-lr;
+           display: grid;
+           <!--
+           grid-template-columns: repeat(3, 100px);
+           grid-template-rows: repeat(2, 100px);
+           gap: 10px;
+         -->
+        }
+    </code>
+    <p>Todo esto porque cambia el eje de bloque (contenedor) y el eje en línea (elementos)</p>
+
+    <h2>Valores lógicos para alinear elementos</h2>
+    <p>Si usamos alineación para writing-mode en vertical-lr, aplicamos los valores <em>start</em> y <em>end</em> de la misma manera cuando las aprendimos.</p>
+
+    <code>
+        <!--
+        .wrapper {
+          writing-mode: vertical-lr;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: repeat(3, 100px);
+          gap: 10px;
+        }
+        -->
+        .item1 {
+          grid-column: 1 / 4;
+          align-self: start;
+        }
+        <!--
+        .item2 {
+          grid-column: 1 / 3;
+          grid-row: 2 / 4;
+          align-self: start;
+        }
+
+        .item3 {
+          grid-column: 3;
+          grid-row: 2 / 4;
+          align-self: end;
+          justify-self: end;
+        }
+      -->
+    </code>
+    <p>El valor <em>start</em> coloca a los elementos en la parte superior y el valor <em>end</em> en la parte inferior del contenedor. Lo que cambia es su posicionamiento en las lineas.</p>
+
+    <h2>Ubicación automatica y writing-mode</h2>
+    <p>El orden de ubicación automatica depende del eje en línea, pero podemos cambiar la ubicación usando las propiedades correspondientes a las líneas y a las areas.</p>
+
+    <h2>Ubicación en línea y writing-mode</h2>
+    <p>Sin importar en que modo nos encontremos, la <em>línea 1</em> es la de inicio y la <em>línea -1</em> es la del final.</p>
+
+    <h3>Ubicación en línea de izquierda a derecha</h3>
+    <p>Es el valor por defecto, <em>horizontal-tb</em>. Los elementos comienzan en una línea y terminan en otra. La línea 1 está arriba a la izquierda y la línea -1 a la derecha.</p>
+    <code>
+        <!--
+        .wrapper {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: repeat(2, 100px);
+          gap: 10px;
+        }
+        
+        .item1 {
+          grid-column: 1;
+        }
+      -->
+        .item2 {
+          grid-column: -1 / -3;
+        }
+        <!--
+        .item3 {
+          grid-column: 1 / 3;
+          grid-row: 2;
+        }
+      -->
+    </code>
+
+    <h3>Ubicación en línea de derecha a izquierda</h3>
+    <p>Usamos la propiedad <em>direction</em> con el valor <em>rtl</em> en el contenedor. La línea 1 está arriba a la derecha y la línea -1 al lado izquierdo.</p>
+    <code>
+        
+        .wrapper {
+          direction: rtl;
+          display: grid;
+        <!--
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: repeat(2, 100px);
+          gap: 10px;
+        -->
+        }
+        <!--
+        .item1 {
+          grid-column: 1;
+        }
+      -->
+        .item2 {
+          grid-column: -1 / -3;
+        }
+        <!--
+        .item3 {
+          grid-column: 1 / 3;
+          grid-row: 2;
+        }
+        -->
+    </code>
+    <p>Sirve más que nada para contenido de texto.</p>
+
+    <h3>El orden usando grid-area</h3>
+    <p>Su orden es:</p>
+    <ul>
+        <li>grid-row-start</li>
+        <li>grid-column-start</li>
+        <li>grid-row-end</li>
+        <li>grid-column-end</li>
+    </ul>
+    <p>Que de izquierda a derecha sería:</p>
+    <ul>
+        <li>top</li>
+        <li>left</li>
+        <li>bottom</li>
+        <li>right</li>
+    </ul>
+    <p>Es lo contrario a las agujas del reloj, podemos recordar que grid-area usa los inicios y despues los finales.</p>
+    <p>Al reves de los valores que se aplican en las propiedades de las cajas, por ejemplo; margin top, right, bottom y left.</p>
+
+    <h2>Modos de escritura mixtos y grid</h2>
+    <p>Podemos usarlos creativamente para poner un encabezado o una barra de navegación con links en vertical.</p>
+    <code>
+        <!--
+        .wrapper {
+          display: grid;
+          grid-gap: 20px;
+          grid-template-columns: 1fr auto;
+          font: 1em Helvetica, Arial, sans-serif;
+        }
+      -->
+        .wrapper nav {
+          writing-mode: vertical-lr;
+        }
+        <!--
+        .wrapper ul {
+          list-style: none;
+          margin: 0;
+          padding: 1em;
+          display: flex;
+          justify-content: space-between;
+        }
+        .wrapper a {
+          text-decoration: none;
+        }
+
+          <nav>
+            <ul>
+              <li><a href="">Link 1</a></li>
+              <li><a href="">Link 2</a></li>
+              <li><a href="">Link 3</a></li>
+            </ul>
+          </nav>
+      -->
+   </code>
+   <p>Tenemos una cuadrícula con divs como elementos secundarios con dos columnas, una para el contenido y otra para la barra de navegación que se auto ajusta en el espacio sobrante.</p>
+
+   <h2>Valores fisicos y grid</h2>
+   <p>Hay cosas que todavia podemos hacer con las valores fisicos para aplicar margenes automaticos en grid y flex para crear grupos de elementos y empujarlos hacia la <em>izquierda</em> y <em>derecha</em> que son lugares fisicos de las cajas/contenedores.</p>
+
+   <h3>Propiedades lógicas para todo</h3>
+   <p>Sobre todo las usamos en los nuevos metodos de diseño, para alinear o colocar elementos. Pero tambien podemos combinarlas con las propiedades que se aplican al model box como son <em>margin</em>, <em>padding</em>, <em>border</em>, etc; teniendo en cuenta que <span>no cambiarán con respecto del modo de escritura</span>.</p>
+   <p>Como vimos las propiedades fisicas tienen su equivalente en las propiedades lógicas y que son ampliamente soportadas en los navegadores modernos.</p>
+
+</body>
+</html>

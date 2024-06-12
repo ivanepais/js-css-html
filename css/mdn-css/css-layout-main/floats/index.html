@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index.css">
+	<title>Floats</title>
+</head>
+<body>
+	<h1>Capitulo 5: Floats</h1>
+	<p>Originalmente se creo para hacer flotar imagenes dentro de bloques de texto pero con el paso del tiempo se convirtio en una herramienta para hacer diseños multicolumna hasta que aparecieron Flexbox y Grid. Desde entonces se volvio a usar para su proposito original.</p>
+
+	<h2>Un float basico</h2>
+	<p>La propiedad <a href="https://developer.mozilla.org/es/docs/Web/CSS/float">Float</a> permite que cualquier elemento flote a los lados de un contenedor, generalmente al costado de textos.</p>
+	<p>Comportamiento del float: inicia a la izquierda de su elemento padre (body) -en este caso- y cualquier contenido que esté por debajo (en el flujo normal) se envolverá, vemos rodean al flotante.</p>
+	<p>Es lo que vemos en el documento original que solo tiene diseñada una caja con un div.</p>
+	<p>Si agregamos la propiedad <span>float: left;</span> ponemos la caja que estaba arriba del parrafo a su costado y si agregamos <span>margin-right: 15px;</span> alejamos el flotante del parrafo.</p>
+	<p>Se dice que los floats se salen del flujo normal porque no podríamos aplicar un margen al parrafo para alejarlo de la caja flotante, por eso lo hicimos al revés y además que el float se ve por encima de los elementos normales. Las cajas siguientes siguen detrás del flotador, es como si sus líneas fueran cortadas. Para verlo agregamos <span>margin: 15px;</span> al flotante y <span>background-color: skyblue</span> y <span>color: white;</span> al parrafo.</p>
+	<code>
+		<!--
+			<h1>Simple float example</h1>
+
+			<div class="box">Float</div>
+
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam</p>
+			<p>dolor, eu lacinia lorem placerat vulputate. Duis felis orci, pulvinar id metus</p>
+
+			.box {
+			  float: left;
+			  margin-right: 15px;
+			  width: 150px;
+			  height: 100px;
+			  border-radius: 5px;
+			  background-color: rgb(207, 232, 220);
+			  padding: 1em;
+			}
+		 -->
+	</code>	
+
+	<h2>Limpiando floats</h2>
+	<p>Con la propiedad <a href="https://developer.mozilla.org/es/docs/Web/CSS/clear">clear</a> limpiamos el float de los elementos normales, el efecto es que se mueve el elemento normal.</p>
+	<p>Acepta los valores:</p>
+	<ul>
+		<li><em>right</em>: Limpia el float a su derecha.</li>
+		<li><em>left</em>: Limpia el float a su izquierda</li>
+		<li><em>both</em>: Limpia cualquier float, a la izquierda o derecha.</li>
+	</ul>
+	<p>Para practicar agregamos al segundo parrafo en el HTML, la clase <em>.cleared</em> y en CSS, la regla <span>clear: left;</span> así mueve el flotante a su izquierda y vemos que el parrafo deja de envolverse al float.</p>
+	<code>
+		<!--
+			.cleared {
+			  clear: left;
+			}
+		 -->
+	</code>
+
+	<h2>Limpiando cajas</h2>
+	<p>Si tenemos en una misma caja un float grande y un parrafo corto, hay tres formas de limpiar el float; la ultima que veremos es la más eficiente.</p>
+	<p>Primero modificamos nuestro documento: Con un div envolvemos la el flotante y el parrafo, tendra clase <em>.wrapper</em> (envolver). El objetivo es envolver al flotante y al texto, no funciona usando <em>clear</em> en el segundo elemento, se ve se corta el color.</p>
+
+	<h3>Usar el hack clearfix</h3>
+	<p>Se crea un pseudo elemento <span>::after</span> despues del contenedor <em>.wrapper</em> con varias propiedades:</p>
+	<ul>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/content">Content</a>: Usada en pseudo elementos para llenar de contenido el nuevo elemento.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/clear">Clear</a>: Usada en floats para limpiar elementos, lo vimos arriba.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/CSS/display">Display</a>: Es para el tipo visualización de los elementos.</li>
+	</ul>
+	<code>
+		<!--
+			.wrapper::after {
+			  content: "";
+			  clear: both;
+			  display: block;
+			}
+		 -->
+	</code>
+	<p>El contenido está vacio, limpiamos el elemento normal a los lados y hacemos que este nuevo elemento se comporte como un bloque. Entonces, debajo del float y el parrafo se crea un nuevo elemento que es limpiado.</p>
+
+	<h3>Usando overflow</h3>
+	<p>La propiedad <a href="https://developer.mozilla.org/es/docs/Web/CSS/overflow">overflow</a> se usa para tratar el contenido desbordado de un contenedor. En el contenedor <em>.wrapper</em> con el valor <span>auto</span> de overflow que muestra barras de desplazamiento  para el contenido desbordado si es necesario.</p>
+	<code>
+		<!--
+			.wrapper {
+			  background-color: rgb(79, 185, 227);
+			  padding: 10px;
+			  color: #fff;
+			  overflow: auto;
+			}
+		 -->
+	</code>
+	<p>El overflow crea un bloque en el contenedor que tiene a nuestro float y por detras queda el fondo de color, de esta manera podemos envolver al float y al parrafo.</p>
+
+	<h3>Usando la regla display: flow-root</h3>
+	<p>Es la mejor manera de resolver el problema es usando<em>flow-root</em> en el contenedor, creará un bloque que envuelve los elementos para que no sobresalgan en la parte inferior.</p>
+	<p>Un <strong>BFC</strong> (block formatting context) o contexto de formato en bloque crea un pequeño diseño para que un elemento padre (es .wrapper el del ejemplo) pueda abarcar el tamaño que toman los elementos hijos como son el flotante y el parrafo. Fue lo que aplicamos en los ultimos dos metodos. Se hace especialmente cuando un elemento flotante interactua con elementos de bloque.</p>
+	<code>
+		<!--
+			.wrapper {
+			  background-color: rgb(79, 185, 227);
+			  padding: 10px;
+			  color: #fff;
+			  display: flow-root;
+			}
+		 -->
+	</code>
+</body>
+</html>

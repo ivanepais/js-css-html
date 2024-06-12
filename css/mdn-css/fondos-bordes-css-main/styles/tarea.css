@@ -1,0 +1,49 @@
+/*
+tarea 1: 
+Fondos y bordes 1
+
+En esta tarea, queremos que agregue un fondo, un borde y un estilo simple al encabezado de una página:
+
+     Dale al cuadro un borde negro sólido de 5 px, con esquinas redondeadas de 10 px.
+     Agregue una imagen de fondo (use la URL globos.jpg) y ajústela para que cubra el cuadro.
+     Dale a <h2> un color de fondo negro semitransparente y haz que el texto sea blanco.
+
+El ejemplo terminado debería parecerse a la imagen de abajo. 
+
+.box {
+    border: 5px solid black;
+    border-radius: 10px;
+    background-image: url(baloons.jpg);
+    background-size: contain; 
+  
+}
+
+h2 {
+    color: white;
+    background-color: transparent;
+  
+}
+
+tarea 2:
+
+En esta tarea, queremos que agregue imágenes de fondo, un borde y algún otro estilo a una caja decorativa:
+
+     Dale al cuadro un borde azul claro de 5px y redondea la esquina superior izquierda 20px y la esquina inferior derecha 40px
+     El encabezado utiliza la imagen star.png como imagen de fondo, con una sola estrella centrada a la izquierda y un patrón repetitivo de estrellas a la derecha.
+     Asegúrese de que el texto del encabezado no se superponga a la imagen y de que esté centrado; necesitará utilizar técnicas aprendidas en lecciones anteriores para lograr esto.
+    
+    .box {
+        border: 5px solid skyblue;
+        border-radius: 20px 40px;
+
+    }
+
+    h2 {
+        background-image: url(star.png), url(star.png);
+        background-position: center left, center right;
+        background-repeat: no-repeat, repeat-y;
+        text-align: center;
+    }
+
+*/
+

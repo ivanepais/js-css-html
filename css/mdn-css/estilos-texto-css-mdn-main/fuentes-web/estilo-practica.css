@@ -1,0 +1,61 @@
+/* Typography */
+
+@font-face {
+    font-family: 'rubik';
+    src: url('fonts/rubik-medium-webfont.woff2') format('woff2'),
+         url('fonts/rubik-medium-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'inter';
+    src: url('fonts/inter-regular-webfont.woff2') format('woff2'),
+         url('fonts/inter-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+/* General setup */
+
+html {
+  font-size: 10px;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+body {
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+
+h1 {
+  font-size: 3.6rem;
+  color: #0084ff;
+  font-family: 'rubik';
+  font-weight: normal;
+  font-style: normal;
+ }
+
+h2 {
+  font-size: 2.8rem;
+  color: #fdb250;
+  font-family: 'rubik';
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+p {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  word-spacing: 0.2rem;
+  font-family: 'inter';
+  font-weight: normal;
+  font-style: normal;
+
+}

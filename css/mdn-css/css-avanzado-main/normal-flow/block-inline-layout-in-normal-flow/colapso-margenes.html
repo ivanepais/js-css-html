@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../../style-index/style-index.css">
+	<title>Dominar colapso de margenes</title>
+</head>
+<body>
+	<h1>Dominar colapso de margenes</h1>
+	<p>Los margenes superior e inferior de los bloques a veces se combinan (colapsan) en un solo margen que será el más grande entre estos dos.</p>
+	<p>Ocurren en tres casos:</p>
+	<ul>
+		<li><strong>Hermanos adyacentes</strong>: Se colapsan, excepto cuando el ultimo elemento/hermano tienen que ser <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clear">limpiado</a> por intervención de un flotante.</li>
+		<li><strong>No hay contenido que separe a los padres y descendientes</strong>: Si no hay border, padding, bfc, etc; el margen colapsado termina fuera del elemento padre.</li>
+		<li><strong>Bloques vacios</strong>: Si no hay border, padding, inline content, etc; para separar los margenes, entonces, colapsarán.</li>
+	</ul>
+
+	<p>Algunos detalles a tener en cuenta</p>
+	<ul>
+		<li>Los colapso de margenes más complejos (+2 margenes), ocurren cuando se combinan los casos anteriores.</li>
+		<li>Las reglas descritas se aplican a los margenes que son 0, el margen de un elemento descendiente termina fuera de su padre; ya sea que el margen del padre sea 0 o no.</li>
+		<li>Cuando hay margentes negativos, el tamaño del margen colapsado es el resultado de la suma del margen positivo más grande y del margen negativo más pequeño (más negativo).</li>
+		<li>Cuando todos los margenes son negativos, el tamaño del margen colapsado es el margen más pequeño (más negativo). Se aplica tanto a elementos adyacentes como a anidados.</li>
+		<li>El colapso de margenes solo es relevante en la dirección vertical.</li>
+	</ul>
+
+</body>
+</html>

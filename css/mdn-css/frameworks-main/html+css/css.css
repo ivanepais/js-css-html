@@ -1,0 +1,614 @@
+/*
+|| CSS
+
+	|| Cascada, Especificidad, Important! y Layers (capas de CSS):
+		
+		En la cascada, las reglas más especificas se sobreponen a las
+		menos especificas sin importar el orden en la hoja de estilo.
+		Puede haber reglas que compiten por dar estilo a un 
+		mismo elemento con algunas propiedades. 
+		La única forma de anular una declaración !important 
+		es incluir otra declaración !important.
+
+		    <p class="better">This is a paragraph.</p>
+            <p class="better" id="winning">One selector to rule them all!</p>
+                
+             #winning {
+                background-color: red;
+                border: 1px solid black;
+            }
+                    
+            .better {
+                background-color: gray;
+                border: none !important;
+            }
+                    
+            p {
+              	background-color: blue;
+                color: white;
+                padding: 5px;
+            } 
+
+		Las capas de cascada funcionan con at-rule <em>@layer</em>.	
+		Cuando declaramos CSS en capas en cascada, 
+		el orden de precedencia (importancia al aplicar estilo)
+		está determinado por el orden en que se declaran las capas. 
+		Los estilos CSS declarados fuera de cualquier capa 
+		se combinan, en el orden en que se declaran esos estilos, 
+		en una capa sin nombre, como si fuera la última capa declarada.
+
+		Los estilos con capas !important tienen 
+		prioridad sobre los estilos !important declarados en capas
+		posteriores, nuevamente, sin importar la especificidad.
+
+		La especificidad entre capas no importa, pero la especificidad 
+		entro de una sola capa sí lo es.
+
+
+		    <p id="addSpecificity">
+            A paragraph with a border and background
+            </p>    
+
+            @layer firstLayer, secondLayer;
+
+            p {  0-0-1 
+                background-color: red;
+                color: grey !important;
+                border: 5px inset purple;
+            }
+          	
+          	p#addSpecificity {  1-0-1 
+                border-style: solid !important;
+            }
+
+           	@layer firstLayer {
+            	#addSpecificity {  1-0-0 
+                    background-color: blue;
+                    color: white !important;
+                    border-width: 5px;
+                    border-style: dashed !important;
+                }
+            }
+
+            @layer secondLayer {
+                p#addSpecificity { 1-0-1 
+                    background-color: green;
+                   	color: orange !important;
+                    border-width: 10px;
+                   	border-style: dotted !important;
+                }
+            } 
+
+
+	|| Herencia (inheritance): 
+       
+        A los elementos que estén dentro de otro se le aplicarán
+        las mismas propiedades, pero a otros no. No se heredaran
+        propiedades si el elemento hijo tiene las suyas.
+		
+		Ej: La propiedad de color es una propiedad heredada. 
+		Por lo tanto, el valor de la propiedad de color se aplica
+		a los <em>hijos directos</em> y también a los hijos indirectos:
+		los <em>hijos inmediatos</em> li y los que están dentro de la
+		primera lista anidada.
+
+		En la especificación de las propiedades se ve cual tiene herencia. 
+		En el inspector de código podemos ver las propiedades heredadas
+		en cada elemento.
+
+		Valores:
+		    
+		    inherit
+            Permitido en todas las propiedades CSS. 
+            Hace que el elemento al cual se aplica tome el valor
+            calculado de la propiedad de su elemento padre 
+            Si hay un elemento hijo con la misma especificidad 
+            se aplicará las que tenga definida y en orden a la 
+            cascada.
+
+            initial
+            Se puede aplicar a un elemento seleccionado tenga 
+            el mismo valor que esté establecido para esa
+            propiedad en la hoja de estilo por defecto del 
+            navegador. Fuerza la utilización del valor inicial 
+            de la propiedad para el elemento seleccionado.
+
+            unset
+            Este valor restablece la propiedad a su condición
+             natural, si no es heredable, será inicial.
+
+            revert
+            Este valor actuá como el valor unset (restablece valor natural) 
+            en muchos casos. También puede establecer los valores de 
+            estilo del navegador.
+
+            all
+            Es una propiedad que puede tomar los valores anteriores 
+            para restablecer el estilo que tenia el elemento antes
+            de hacer cambios (funciona para casi todos las propiedades
+            de estilo que se tenían aplicados).
+
+            body {
+                color: green;
+            }
+                              
+            .my-class-1 a {
+                color: inherit; hereda color green de su padre
+            }
+                              
+            .my-class-2 a {
+                color: initial; hereda su color inicial del navegador
+            }
+                              
+            .my-class-3 a {
+                color: unset; hereda color del elemento principal
+            }
+            
+            .fix-this {
+                all: unset; resetea las propiedades 
+                			a su valor original 
+            }					
+
+
+	|| Selectores:
+
+		Lista de selectores:
+			h1, .special {
+			  color: blue;
+			}
+
+			h1,
+			.special {
+			  color: blue;
+			}
+		
+		Tipos de selectores:
+		De tipo/etiqueta: h1
+		De clase: .clase
+		De id: #id;
+
+		Selector de atributo
+            a[title] {
+            }
+			
+			a[href="https://example.com"]{}			
+			
+		Selectores de (:)Pseudoclases y (::)pseudoelementos
+        La pseudoclase aplican estilo a ciertos estados de un 
+        elemento según qué valor tenga la propiedad.
+        El pseudoelemento selecciona cierta parte de un elemento
+        en vez de darle estilo a todo en conjunto.
+
+            a:hover {
+            }
+
+            p::first-line {
+            }
+
+		Selector hermano adyacente:
+    	párrafo después de titulo: en un mismo nivel de jerarquía
+
+        	h1 + p {
+          	font-size: 200%;
+        	}
+		
+
+		Selectores y combinación:
+		
+		adyacente (+) e hijo (espacio):
+
+		Selecciona cualquier elemento span que se encuentre dentro 
+		de un párrafo, que esté dentro de un articulo:
+		se invoca al elemento padre espacio hijo; p span
+
+        	article p span {
+       			background-color: green;
+        	}
+
+		Selecciona cualquier p que se encuentre directamente
+		después de ul, que va directamente después de h1:
+		tiene que estar en la misma jerarquía
+
+        	h1 + ul + p {
+        		color: blue;
+        	}
+
+    	Combinación de estas dos técnicas: clase dentro de p que 
+    	venga después de h1 que se encuentre dentro de body
+
+        	body h1 + p .special {
+          		color: yellow;
+          		background-color: black;
+          		padding: 5px;
+        	}
+		
+		Seleciona hijos directos:
+
+            article > p {
+            }
+        
+        Selector universal (*):
+			*h1 {
+				}
+		
+		Selectores de atributo:
+        Los elementos/etiquetas del HTML pueden tener atributos, proporcionan 
+        un nivel de profundidad mayor para aplicar estilo.
+            
+        a (link) con el atributo title:
+
+            a[title] {
+               color: purple;
+            }
+
+        a con atributo href tiene que coincidir con 
+        el valor: "https://example.org":
+
+            a[href="https://example.org"]{
+                  color: green;
+                }
+
+        Link con href tienen que tener la palabra  "example": 
+           
+            a[href*="example"] {
+                font-size: 2em;
+            }
+
+        a con href tiene que terminar con la palabra ".org": 
+               
+         	a[href$=".org"] {
+                font-style: italic;
+            }
+
+        a con la clase que contenga "logo":
+            a[class~="logo"] {
+                padding: 2px;
+          	}
+
+
+		Selector descendiente (un espacio):
+        selecciona nodos que son descendientes (directos y no directos) del primer elemento.
+
+            li descendientes de la clase "my-things" list 
+                
+                ul.my-things li {
+                margin: 2em;
+                }
+
+   		Selector hijos directo (>):
+        selecciona nodos que son hijos directos del primer elemento
+            
+            li que son hijos de la clase "my-things" list
+
+                ul.my-things > li {
+                   margin: 2em;
+                }
+		
+		
+		Minúscula y mayúscula:
+
+        Con el carácter i después del valor del atributo
+        (ejemplo, atributo="x" i), le decimos al navegador 
+        que tome los valores escritos en mayus y minus.
+
+            a[href*="insensitive" i] {
+                color: cyan;
+            }
+
+		Que coincida/respete tal cual las mayus y minus:
+
+            a[href*="cAsE" s] {
+                color: pink;
+            }
+
+        Selector de atributos con valores de inicio y fin:
+        Por ejemplo, cuando inicia con numeral
+            
+            a[href^="#"] {
+                background-color: gold;
+            }
+
+        Cuando termina, por ejemplo; con la palabra .org, usamos:
+               
+            a[href$=".org"] {
+                color: red;
+            }
+	
+
+	|| Pseudoclase(:):
+		
+		Para Display:
+		Selecciona elementos según su estado de visualización
+
+			:fullscreen
+			Para elemento en pantalla completa
+				
+			:modal
+			Elemento que se encuentra en un estado en el que 
+			excluye toda interacción con elementos fuera de 
+			él hasta que se descarte la interacción.
+
+			:picture-in-picture
+			Elemento en modo picture-in-picture
+
+
+		Para Input:
+		se relacionan con elementos de formulario y permiten 
+		seleccionar elementos en función de los atributos HTML 
+		y el estado en el que se encuentra el campo antes y
+		después de la interacción.
+
+			:autofill
+			Coincide cuando un <input> ha sido autocompletado
+			por el navegador.
+
+			:enabled
+			Para elemento de interfaz de usuario que está en un
+			estado deactivado
+			
+			:disabled
+			Elemento de la interfaz de usuario que se encuentra en 
+			un estado deshabilitado.
+
+			:read-only
+			Representa cualquier elemento que no puede ser editado 
+			por el usuario.
+			
+			:read-write
+			Para elemento que puede ser editado por el usuario.
+			
+			:placeholder-shown
+			Para elemento input que muestra texto de ejemplo/muestra/sombra. 
+			Por ejemplo, coincidirá con el atributo/valor de muestra  
+			en los elementos <input> y <textarea>.
+
+			:default
+			Uno o más elementos de la interfaz de usuario que
+			son los predeterminados entre un conjunto de 
+			elementos.
+
+			:checked
+			Cuando elementos como casillas de verificación (checkboxes) y 
+			botones de opción están activados.
+
+			:indeterminate
+			Elementos de la interfaz de usuario cuando están
+			en un estado indeterminado
+
+			:blank
+			Elemento de input-user que está vacío, que contiene
+			una cadena vacía (string) u otra entrada nula (null input).
+
+			:valid
+			Elemento con contenido válido. Por ejemplo, un elemento
+			de entrada con el tipo 'correo electrónico' 
+			que contiene una dirección de correo electrónico 
+			formada de forma válida o un valor vacío si no se 
+			requiere el control.
+
+			:invalid
+			Elemento con contenido no válido. Por ejemplo, un elemento 
+			de entrada con el tipo 'correo electrónico' con un nombre 
+			ingresado.
+
+			:in-range
+			Se aplica a elementos con limitaciones de rango. Por ejemplo, 
+			un control deslizante (slider-control) cuando el valor seleccionado está en el
+			rango permitido.
+
+			:out-of-range
+			A elementos con limitaciones de rango. Por ejemplo, 
+			un control deslizante cuando el valor seleccionado 
+			está fuera del rango permitido.
+
+			:required
+			Cuando se requiere un elemento de formulario.
+
+			:optional
+			Cuando un elemento de formulario es opcional.
+
+			:user-invalid
+			Elemento con entrada incorrecta, pero solo 
+			cuando el usuario ha interactuado con él.
+
+
+		Para lingüística:
+		Reflejan el idioma del documento y permiten la selección
+		de elementos según el idioma o la dirección del script.
+
+			:dir()
+			Selecciona un elemento en función de su direccionalidad
+			determinada por el idioma del documento.
+
+
+			:lang()
+			Selecciona un elemento en función del idioma de su contenido.
+			
+
+		Para location (ubicación/hover):
+		Se relacionan con enlaces y elementos específicos dentro del documento actual.
+
+			:any-link
+			Si el elemento o enlace coincidiría con :enlace o :visitado.
+
+			:link
+			Enlaces que aún no han sido visitados.
+		
+			:visited
+			Enlaces que han sido visitados.
+
+			:local-link
+			Enlaces cuya URL absoluta es la misma que la URL
+			de destino. Por ejemplo, ancla enlaces a la misma página.
+
+			:target
+			Elemento que es el destino de la URL del documento.
+
+			:target-within
+			Elementos que son el destino de la URL del documento, 
+			pero también con elementos que tienen un descendiente 
+			que es el destino de la URL del documento.
+
+			:scope
+			Elementos que son un punto de referencia para que los 
+			selectores coincidan.
+
+
+		Para estados de recursos (multimedia, video, etc):
+		Se aplican a los medios que pueden estar en un estado 
+		en el que se describiría como reproducción, como un video.
+		
+			:playing
+			Cuando se está reproduciendo un elemento multimedia que es capaz de reproducirse.
+
+			:paused
+			elemento multimedia cuando este en pausa.
+
+
+		Time-dimension: 
+		Cuando algo tiene tiempo, como puede ser una pista de subtitulos
+		WebTT
+
+			:current
+			Representa el elemento o antecesor del elemento que 
+			se muestra.
+
+			:past
+			Representa un elemento que ocurre completamente 
+			antes del elemento :current.
+
+			:future
+			Representa un elemento que ocurre completamente
+			después del elemento :current.
+
+
+		DOM document tree:
+		Se relacionan con la ubicación de un elemento dentro 
+		del árbol del documento (código fuente)
+
+			:root
+			Representa un elemento que es la raíz del documento. 
+			En HTML, este suele ser el elemento <html>.
+
+			:empty
+			Elemento sin elementos secundarios que no sean
+			caracteres de espacio en blanco.
+
+			:nth-child
+			Utiliza la notación An+B para seleccionar elementos
+			de una lista de elementos hermanos.
+
+			:nth-last-child
+			Utiliza la notación An+B para seleccionar elementos 
+			de una lista de elementos hermanos, contando hacia 
+			atrás desde el final de la lista.
+
+			:first-child
+			Elemento que es el primero de sus hermanos.
+			
+			:last-child
+			Elemento que es el último de sus hermanos.
+
+			:only-child
+			Elemento que no tiene hermanos. Por ejemplo, un elemento de lista
+			sin otros elementos de lista en esa lista.
+			
+			:nth-of-type
+			Usa la notación An+B para seleccionar elementos de una lista de 
+			elementos hermanos que coinciden con un determinado 
+			tipo de una lista de elementos hermanos.
+
+			:nth-last-of-type
+			Notación An+B para seleccionar elementos de una lista 
+			de elementos hermanos que coinciden con un determinado
+			tipo de una lista de elementos hermanos que cuentan hacia atrás desde el final de la lista.
+
+			:first-of-type
+			Elemento que es el primero de sus hermanos y también coincide con un determinado selector de tipo.
+
+			:last-of-type
+			Elemento que es el último de sus hermanos y también coincide con un determinado selector de tipo.
+
+			:only-of-type
+			Elemento que no tiene hermanos del selector de tipo elegido.
+	
+
+		Para user-action:
+		Requieren cierta interacción por parte del usuario para
+		que se apliquen, como mantener el puntero del mouse
+		sobre un elemento.
+
+			:hover (flotar)
+			Usuario designa un elemento con un dispositivo señalador, 
+			como mantener el puntero del mouse sobre el elemento.
+
+			:active
+			Elemento está siendo activado por el usuario. 
+			Por ejemplo, cuando se hace clic en el elemento.
+
+			:focus
+			Cuando un elemento tiene foco.
+
+			:focus-visible
+			Elemento tiene el foco y el agente de usuario identifica 
+			que el elemento debe estar visiblemente enfocado.
+
+			:focus-within
+			elemento al que se aplica :focus, más cualquier elemento
+			que tenga un descendiente al que se aplica :focus.
+
+
+		Funcionales:
+		Aceptan una lista de selectores o una lista de selectores
+		indulgentes (aceptados) como parámetro.
+
+			:is()
+			Cualquier elemento que coincida con cualquiera de los 
+			selectores de la lista proporcionada. La lista es indulgente.
+	
+			:not()
+			Representa cualquier elemento que no esté representado por su argumento.
+
+			:where()
+			Cualquier elemento que coincida con cualquiera de los selectores 
+			de la lista proporcionada sin agregar ningún peso de especificidad. La lista es indulgente.
+
+			:has()
+			Elemento si alguno de los selectores relativos coincide cuando se ancla contra el elemento adjunto.
+
+
+	|| Pseudoelementos (::):
+		
+		::after
+
+		::backdrop
+
+		::before
+
+		::cue
+
+		::cue-region
+
+		::first-letter
+
+		::first-line
+
+		::file-selector-button
+
+		::grammar-error (experimental, aprob a futuro)
+
+		::marker
+
+		::part()
+
+		::placeholder
+
+		::selection
+
+		::slotted()
+
+		::spelling-error (experimental, aprob a futuro)
+
+		::target-text (experimental, aprob a futuro)
+
+*/

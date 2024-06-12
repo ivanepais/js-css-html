@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Fondos y Bordes en CSS</title>
+</head>
+<body>
+    <article>
+        <h1>Capitulo 4: Fondos y Bordes</h1>
+        <p>Los fondos y los bordes aportan soluciones para muchas cuestiones creativas de estilo en CSS como: imágenes de fondo, redondear esquinas o crear degradados.</p>
+
+        <h2>Estilo a los fondos: background</h2>
+        <p>Background es una propiedad abreviada que se usa para los fondos en las cajas de CSS, junto con otras propiedades.</p>
+        <code>
+            <!--                
+                .box {
+                    background: linear-gradient(
+                        105deg,
+                        rgba(255, 255, 255, 0.2) 39%,
+                        rgba(51, 56, 57, 1) 96%
+                      ) center center / 400px 200px no-repeat, url(big-star.png) center
+                      no-repeat, rebeccapurple;
+                }   
+             -->
+        </code>
+        <p>Vemos varios valores en la propiedad abreviada.</p>
+
+        <h3>Background-color</h3>
+        <p>Define el color de fondo de cualquier elemento/caja en CSS, el color se va a aplicar por debajo del contenido y del padding. Los valores de color pueden ser todos los que permite esta propiedad.</p>
+        <code>
+            <!--
+                .box {
+                  background-color: #567895;
+                }
+
+                h2 {
+                  background-color: black;
+                  color: white;
+                }
+                span {
+                  background-color: rgba(255,255,255,.5);
+                }
+             -->
+        </code>
+        <p>Coloreamos el fondo de varios elementos.</p>
+
+        <h3>Background-image</h3>
+        <p>Permite poner una imagen de fondo a un elemento o caja (lo mas utilizado). De forma predeterminada una imagen grande no se ajusta a la caja, mientras que una imagen pequeña se repite hasta llenar la caja. Además si le aplicamos un color de fondo a la imagen, ésta va a quedar por encima del color.</p>
+        <code>
+            <!--
+                <div class="wrapper">
+                  <div class="box a"></div>
+                  <div class="box b"></div>
+                </div>
+                
+                .a {
+                  background-image: url(balloons.jpg);
+                }
+
+                .b {
+                  background-image: url(star.png);
+                  background-color: blue;
+                }
+             -->
+        </code>
+        <p>Las dos cajas tienen una imagen de fondo provista por una dirección y en una, el color azúl queda por detrás de la imagen en formato png dado que mejor combinación al tener el fondo trasparente.</p>
+
+        <h3>Background-repeat</h3>
+        <p>Se usa para controlar el comportamiento repetitivo de las imágenes de fondo. Los valores son: no-repeat (evita que el fondo se repita), repeat-x (repite el fondo horizontalmente), repeat-y (repite el fondo verticalmente), repeat (repite el fondo de forma vertical y horizontal).</p>
+        <code>
+            <!--
+                <div class:"wrapper">    
+                    <div class="box"></div>
+                    <div class="box2"></div>
+                </div>
+
+                .box {
+                  background-image: url(star.png);
+                  background-repeat: no-repeat;
+                }
+
+                .box2 {
+                    background-image: url(star.png);
+                    background-repeat: repeat-x;
+                }
+             -->
+        </code>
+
+        <h3>Background-size</h3>
+        <p>Se usa para dimensionar las imágenes de fondo, usa tipo de valores de medida como longitud (px) y porcentaje (%). También tiene valores de palabra clave como: <strong>cover</strong> (el navegador agrandará la imagen para que cubra toda la caja, sin que se pierda su relación de aspecto, que se recorte la imagen). Por eso es probable que parte de la caja quede sin cubrir. También está <strong>contain</strong>: el navegador hará que la imagen cubra toda la caja a costa de cortar la imagen, perdiendo su relación de aspecto.</p>
+        <code>
+            <!--    
+                <div class="box"></div>
+                <div class="box2"></div>
+                
+                .box {
+                  background-image: url(balloons.jpg);
+                  background-repeat: no-repeat;
+                  background-size: 100px 10em;
+                }
+
+                .box {
+                    background-image: url(star.png);
+                    background-repeat: repeat;
+                    background-size: cover;
+                }               
+             -->
+        </code>
+
+        <h3>Background-position</h3>
+        <p>Permite elegir la posición en la que la imagen de fondo aparece, usa el sistema de coordenadas x (horizontal: valor positivo mueve hacia la derecha y negativo hacia la izquierda) e y (vertical: valor positivo mueve hacia abajo y negativo hacia la izquierda). El valor predeterminado es (0,0) que se escribe 0% 0% que se ubica en la esquina superior izquierda.</p>
+        <code>
+            <!--
+                .box {
+                  background-image: url(star.png);
+                  background-repeat: no-repeat;
+                  background-position: top center;
+                }
+             -->
+        </code> 
+
+        <h4>Valores de position</h4>
+        <p>Las palabras claves: top, right, left y bottom acomodan la imagen en el centro de estos lados. La palabra clave <strong>center</strong> pone la imagen en el centro de los cuatro lados.</p>
+        <p>También hay equivalencias entre valores los distintos tipos de valores: 50% es igual a center. Aunque en general se usan solo dos valores, uno para el eje x (mueve hacia derecha) y otro para el eje y (mueve hacia abajo), si los valores son negativos hacen lo contrario.</p>
+        <code>
+            <!--
+                .box2 {
+                  background-image: url(star.png);
+                  background-repeat: no-repeat;
+                  background-position: 20px 10%;
+                }
+
+                .box3 {
+                  background-image: url(star.png);
+                  background-repeat: no-repeat;
+                  background-position: 20px top;
+                }
+
+                .box 4{
+                  background-image: url(star.png);
+                  background-repeat: no-repeat;
+                  background-position: top 20px right 10px;
+                }
+
+             -->
+        </code> 
+
+        <h3>Gradient: degradado</h3>
+        <p>Es un tipo de imagen que se puede usar como fondo, se establece usando background-image con el valor linear-gradient o radial-gradient</p>
+        <p>Para lograr un degradado profesional se utilizan tres colores que combinen, se les baja el tono a alguno (para evitar una linea oscura que une los colores), dos colores no dominantes y uno dominante (como se ven el las imágenes). Se puede usar para generar el código más fácil.</p>
+        <p>También podemos cambiar la posición del degradado rotando el grado del degradado lineal, no funciona para el degradado radial.</p>
+        <code>
+            <!--
+                <div class="wrapper">
+                  <div class="box a"></div>
+                  <div class="box b"></div>
+                </div>
+
+                .a {
+                  background-image: linear-gradient(105deg, rgba(0,249,255,1) 39%, rgba(51,56,57,1) 96%);
+                }
+
+                .b {
+                  background-image: radial-gradient(circle, rgba(0,249,255,1) 39%, rgba(51,56,57,1) 96%);
+                  background-size: 100px 50px;
+                }
+             -->
+        </code> 
+
+        <h3>Multiples imágenes de fondo</h3>
+        <p>Si hay varias imágenes de fondo se van a superponer una atrás de la otra, para evitar esto se puede usar background-position para mover las que están en el fondo (todas menos la primera). Las propiedades de background que estábamos viendo, también se pueden usar varias veces para que de tal forma van a afectar a las siguientes imágenes. Se pueden poner separadas por una coma, como se ve en la imagen; el primer grupo de valores afecta a la primera imagen y el segundo grupo corresponde a la segunda imagen, así sucesivamente. Cuando hay mas elementos que propiedades que determinan comportamientos, estas adquieren un ciclo: cuando se terminan, el primero vuelve a afectar al elemento que sigue.</p>
+        <code>
+            <!--
+                background-image: url(image1.png), url(image2.png), url(image3.png),
+                  url(image4.png);
+                background-repeat: no-repeat, repeat-x, repeat;
+                background-position: 10px 20px, top right;
+             -->
+        </code> 
+
+        <h3>Background-attachment: anclaje de fondo</h3>
+        <p>Determina si la imagen de fondo se mueve cuando nos desplazamos por el contenido o queda fija.</p>
+        <p>Entran en función la barra de desplazamiento para el contenido y para la imagen de fondo.</p>
+        <p><strong>Valores:</strong> Scroll cuando desplazas la imagen de fondo también se mueve el contenido. Fixed: la imagen de fondo no se extiende con el contenido ("se recorta"), la barra de desplazamiento de la imagen también mueva el contenido como en scroll. Local: el desplazamiento de la barra de contenido también mueve la imagen de fondo (se ve molesto). Combinaciones de valores: local y scroll si hay dos imágenes, el desplazamiento por el contenido mueve la primera imagen de fondo. Scroll y local: el desplazamiento por el contenido va a mover la ultima imagen de fondo.</p>
+        <code>
+            <!--
+                
+             -->
+        </code>
+
+        <h3>Background</h3>
+        <p>Es la propiedad abreviada para usar todas las propiedades anteriores en una sola linea, aunque tienen sus condiciones. Para añadir varios fondos, primero hay que definir todas las propiedades (separadas con un espacio) para el primer fondo y luego después de una coma podemos agregar otro fondo con todas sus propiedades.</p>
+        <code>
+          <!--
+            .box {
+              background:   
+                linear-gradient(105deg, rgba(255,255,255,.2) 39%, rgba(51,56,57,1) 96%) center center / 400px 200px no-repeat,
+                url(big-star.png) center no-repeat, 
+                rebeccapurple;
+            }
+          -->
+        </code> 
+
+        <h3>Accesibilidad en los fondos</h3>
+        <p>Primero debe haber diferencias de colores entre el fondo y el contenido de texto o lo que sea, para que se puede leer el contenido sin dificultades. También debes agregar un fondo por si la imagen no se carga y se puede leer el texto (usando la cascada escribimos primero el fondo alternativo y después el fondo "verdadero" para que lo reemplacé cuando se cargue).</p>
+        <p>Los lectores no leen fondos, deben ser decorativos y no información esencial.</p>
+
+        <h2>Bordes</h2>
+        <p>Por lo general se usa la propiedad abreviada borde para poner el ancho, estilo y color en una sola linea. Pero para diseños más creativos se puede usar cada lado del borde de manera diferente.</p>
+        <p><strong>Propiedades abreviadas:</strong> border; border-width, border-style, border-color. Estas propiedades actúan sobre todos los lados de la misma manera.</p>
+        <p><strong>Propiedades individuales:</strong> border-top, border-right, border-bottom, border-left. Para ser más especifico podemos usar: border-top-width, border-top-style y border-top-color, así con los demás lados. Estas propiedades tiene condiciones lógicas relacionadas con el tipo de escritura que se vera más adelante</p>
+        <code>
+            <!--
+                .box {
+                  border: 1px solid black;
+                }
+
+                .box2 {
+                  border-top: 1px solid black;   
+                }
+
+                box3 {
+                    border-top-width: 1px;
+                    border-top-style: solid;
+                    border-top-color: black;  
+                }
+
+                box4 {
+                    background-color: #567895;
+                    border: 5px solid #0b385f;
+                    border-bottom-style: dashed;
+                    color: #fff;
+                }
+             -->
+        </code> 
+
+        <h3>Border-radius: esquinas redondeadas</h3>
+        <p>Aplica sobre la esquina de la caja, distinto a border que solo aplica a los lados. Pueden usarse valores de longitud o porcentuales. Si ponemos dos valores: el primer valor define el radio horizontal (modifica la esquina 2 y 4, siguiendo la aguja del reloj), el segundo valor define el radio vertical (modifica la esquina 1 y 3); se usan para diseños creativos. Para diseños más convencionales se usa un valor que aplica estilo a las cuatro esquinas. Aunque hay más combinaciones.</p>
+        <code>
+            <!--
+                .box {
+                  border-radius: 10px;
+                }
+                
+                .box2 {
+                  border-top-right-radius: 1em 10%;
+                }
+             -->
+        </code>
+
+        <h4>Valores de radius</h4>
+        <p>Definimos border, seguido de la esquina que vamos a modificar y por ultimo agregamos la palabra radius. Ej: border-top-left-radius, afectará solo a la esquina superior izquierda. El valor top-right cambiará la esquina superior derecha, de igual manera con bottom-left y bottom-right a las esquinas inferiores izquierda y derecha.</p>
+        <p>También podemos cambiar dos esquinas opuestas con los valores <em>border-top-left-radius</em> y <em>border-bottom-right-radius</em> que modificara las esquinas superior izquierda y la esquina inferior derecha. Lo mismo si usamos el valor <em>top-right</em> y <em>bottom-left</em> para hacerlo inversamente. Se puede usar la propiedad abreviada para obtener los mismos resultados.</p>
+        <code>
+            <!--
+                .box {
+                  border: 10px solid rebeccapurple;
+                  border-radius: 1em;
+                  border-top-right-radius: 10% 30%;
+                }
+             -->
+        </code>
+    </article>
+</body>
+</html>

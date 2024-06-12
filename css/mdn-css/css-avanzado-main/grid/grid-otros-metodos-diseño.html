@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Grid y otros metodos de diseño</title>
+</head>
+<body>
+	<h1>Grid</h1>
+	<p>Ha sido diseñado para combinarlo con otros metodos de diseño como flexbox.</p>
+
+	<h2>Grid vs. Flex</h2>
+	<p>Flex fue diseñado para el diseño en una dimension, ya sea fila o columna. Grid fue diseñado para un uso bidimensional: filas y columnas al mismo tiempo forman una cuadrícula. Comparten caracteristicas comunes</p>
+
+	<h3>Una dimensión vs. dos dimensiones</h3>
+	<p>Por ejemplo, tenemos 5 elementos en un contenedor flex, si aplicamos <em>flex-wrap</em> vemos que bajan los elementos cuando no hay espacio, pero sigue en la <em>misma dirección</em> que si no hubiesemos usado flex-wrap.</p>
+	<code>
+		<!--
+		<div class="wrapper">
+		  <div>One</div>
+		  <div>Two</div>
+		  <div>Three</div>
+		  <div>Four</div>
+		  <div>Five</div>
+		</div>
+
+		.wrapper {
+           width: 500px;
+           display: flex;
+           flex-wrap: wrap;
+        }
+        .wrapper > div {
+           flex: 1 1 150px;
+        }
+    	-->
+	</code>
+	<p>Otro detalle es que los elementos que toman más espacio no se alínean con los de la fila de arriba. Cada nueva fila flexible es independiente en el contenedor</p>
+
+	<p>Si queremos que todos los elementos se alineen fila tras fila, debemos usar el diseño bidimensional: Grid.</p>
+
+	<h3>De flex a Grid</h3>
+	<p>Al contenedor le aplicamos <em>display: grid</em> y creamos columnas en él.</p>
+	<code>
+		<!--
+		.wrapper {
+           display: grid;
+           grid-template-columns: repeat(3, 1fr);
+        }
+    	-->
+	</code>
+	<p>Solo debemos preguntarnos: si necesitamos de un diseño en fila <em>o</em> columna; o si necesitamos del diseño en fila <em>y</em> columna.</p>
+
+	<h3>Contenido fuera o diseño dentro</h3>
+	<p>Además del diseño unidimensional o bidimensional, fle y grid se distingen de otra manera.</p> 
+	<p>Flexbox funciona desde el contenido. Un ejemplo ideal es cuando queremos poner un conjunto de elementos alineados, que el contenido defina el espacio ocupado en una línea.</p>
+	<p>Grid funciona desde el diseño, crea un diseño en cuadrícula, podemos ubicar los elementos pero el tamaño de la grilla se controla a partir de propiedades. Un ejemplo ideal es cuando queremos que todos los elementos esten alíneados proporcionalmente entre fila y columna, aunque esto se puede cambiar usando las areas o las líneas de grid, variando la forma de la cuadrícula.</p>
+
+	<h3>Alineación de las cajas</h3>
+	<p>Las propiedades de <a href="">Box Alignment</a> determinan como alinear las cajas en cada metodo de diseño. <em>Se usan en el contenedor</em> de flex o grid.</p>
+	<p>Está compuesto por dos ejes para alinear el contenido: el <em>>eje en línea</em> (o principal/main axis) y el<em>eje de bloque</em> (o transversal/cross axis).</p>
+	<p>El eje en línea es el eje a lo largo del cual <span>fluyen las palabras en una oración</span> en el <em>modo de escritura</em> que se usa; para <span>inglés</span>, por ejemplo, el eje en línea es <span>horizontal</span>. El eje en bloque es el eje a lo largo del cual se <span>disponen los bloques</span>, es <span>vertical</span>, como los elementos de párrafo, y atraviesa el eje en línea.</p>
+
+	<p>Hay una excepción con la propiedad <em>flex-direction</em> porque los valores <em>row</em> y <em>column</em> cambia lo que muestran los ejes.</p>
+
+	<p>Siempre que tengamos que alinear algo en el eje principal, usamos las propiedades <em>justify</em>:</p>
+	<ul>
+		<li>justify-content</li>
+		<li>justify-items</li>
+		<li>justify-self</li>
+	</ul>
+
+	<p>En el eje secundario usamos <em>align</em>:</p>
+	<ul>
+		<li>align-content</li>
+		<li>align-items</li>
+		<li>align-self</li>
+	</ul>
+
+	<p>Con flexbox podemos centrar una caja en el eje horizontal y vertical, los elementos pueden estirarse en una de estas direcciones; gracias a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Alignment/Box_Alignment_in_Flexbox">box alignment para flexbox</a>.</p>
+
+	<p>En el ejemplo le damos al contenedor 200px de altura minima y alineamos los elementos al final del contenedor en el eje secundario pero anulamos está propiedad con <em>align-self</em> para los otros elementos.</p>
+	<code>
+		<!-- 
+		<div class="wrapper">
+		  <div class="box1">One</div>
+		  <div class="box2">Two</div>
+		  <div class="box3">Three</div>
+		</div>
+
+		.wrapper {
+           display: flex;
+           align-items: flex-end;
+           min-height: 200px;
+        }
+
+        .box1 {
+           align-self: stretch;
+        }
+
+        .box2 {
+           align-self: flex-start;
+        }
+    	-->
+	</code>
+
+	<p>Tambien se aplican para grid, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Alignment/Box_Alignment_In_Grid_Layout">Box Alignment en Grid</a>. Aplicamos en grid el mismo ejemplo.</p>
+	<code>
+		<!--
+		.wrapper {
+           display: grid;
+           grid-template-columns: repeat(3, 1fr);
+           align-items: end;
+           grid-auto-rows: 200px;
+        }
+
+        .box1 {
+           align-self: stretch;
+        }
+
+        .box2 {
+           align-self: start;
+        }
+    	-->
+	</code>
+
+	<h3>Unidad <em>fr</em> y flex-basis</h3>
+	<p>Nos permite imitar el aspecto de una cuadrícula, la unidad <em>fr</em> se combina con la funcion <em>minmax()</em>.</p>
+	<p>Responsivamente los elementos flex se van ajustando fila a fila a medida que se reduce el contenedor y si es lo suficientemente grande se acomodarán en una línea.</p>
+	<p>En cambio los elementos de grid siempre se mantienen en las misma filas y comumnas que se reducen con el contenedor.</p>
+
+	<h4>Auto-fill en grid</h4>
+	<p>Al reves de lo que hicimos anteriormente, con <em>auto-fill</em> (auto completado) y <em>auto-fit</em> (auto ajuste) podemos crear un efecto similar a flexbox pero manteniendo filas y columnas.</p>
+	<p>En el ejemplo, usamos como valor auto-fill en la función repeat y entrarán tantas columnas de 200px como entren en el contenedor.</p>
+	<code>
+		<!--
+		.wrapper {
+           display: grid;
+           grid-template-columns: repeat(auto-fill, 200px);
+        }
+    	-->
+	</code>
+
+	<h4>Elementos flexibles con la unidad <em>fr</em></h4>
+	<p>Siguiendo el mismo ejemplo, pero agregando minmax(), las columnas crecerán hasta llenar el contenedor. Creamos columnas que autocompletan el contenedor con un tamaño minimo de 200px y un tamaño máximo de 1fr (espacio sobrante que repartirá).</p>
+	<code>
+		<!--
+        .wrapper {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+    	-->
+	</code>
+	<p>Adquirimos la capacidad de crear elementos flexibles en grid, que crecen y se reducen gracias a minmax; manteniendo la cuadrícula.</p>
+
+	<p>Una <em>diferencia</em> notable en grid, es que no existe una propidad como <em>flex-basis</em> que distribuya o ajuste elementos en el contenedor.</p>
+
+
+	<h2>Elementos de grid y position absolute</h2>
+	<p>Grid soporta que un elemento hijo pueda estar posicionado absolutamenta, un contenedor grid por defecto tiene comportamiento de bloque. Como vimos, el contenedor de un elemento absoluto es el area de padding del ancestro más cercano -en este caso: contenedor grid- que debe tener position <em>distinto de sticky</em> (puede ser relative, fixed o absolute).</p>
+
+	<p>Si queremos que grid container sea contenedor de un elemento position, le podemos dar <em>position: relative</em>.</p>
+	<code>
+		<!--
+		.wrapper {
+           display: grid;
+           grid-template-columns: repeat(4, 1fr);
+           grid-auto-rows: 200px;
+           gap: 20px;
+           position: relative;
+        }
+
+        .box3 {
+        grid-column-start: 2;
+        grid-column-end: 4;
+        grid-row-start: 1;
+        grid-row-end: 3;
+        position: absolute;
+        top: 40px;
+        left: 40px;
+        }
+
+        <div class="wrapper">
+		  <div class="box2">Two</div>
+		  <div class="box3">
+		    This block is absolutely positioned. In this example the grid container is
+		    the containing block and so the absolute positioning offset values are
+		    calculated in from the outer edges of the area it has been placed into.
+		  </div>
+		</div>
+
+    	-->
+	</code>
+	<p>Vemos que el elemento se elimino del flujo normal y grid no creo otra fila para que que se acomode.</p>
+
+	<p>Si al contenedor le <em>quitamos position relative</em>, queda con la posicion por defecto <em>static</em>, el elemento absoluto toma como contenedor al viewport (todo el tamaño de la ventana del navegador) y no queda dentro del contenedor grid. no participará de la cuadrícula en terminos de tamaño, si se ubicará con los demás elementos de grid.</p>
+
+	<p>Si combinamos un elemento que tiene <em>position relative</em> con otro elemento que tiene position absolute que esté ubicado en el area del otro elemento, será tambien su contenedor.</p>
+	<code>
+		<!--
+		.wrapper {
+           display: grid;
+           grid-template-columns: repeat(4, 1fr);
+           grid-auto-rows: 200px;
+           gap: 20px;
+        }
+
+        .box3 {
+           grid-column-start: 2;
+           grid-column-end: 4;
+           grid-row-start: 1;
+           grid-row-end: 3;
+           position: relative;
+        }
+
+        .abspos {
+           position: absolute;
+           top: 40px;
+           left: 40px;
+           background-color: rgba(255, 255, 255, 0.5);
+           border: 1px solid rgba(0, 0, 0, 0.5);
+           color: #000;
+           padding: 10px;
+        }
+
+        <div class="wrapper">
+		  <div class="box3">
+		    Three
+		    <div class="abspos">
+		      This block is absolutely positioned. In this example the grid area is the
+		      containing block and so the absolute positioning offset values are
+		      calculated in from the outer edges of the grid area.
+		    </div>
+		  </div>
+		</div>
+    	-->
+	</code>
+
+	<h2>Grid y display contents</h2>
+	<p>La propiedad display contents puede hacer que subhijos de un elemento hijo de un contenedor grid, puedan comportarse como si fueran descendientes directos de grid.</p>
+	<p>En el ejemplo, tenemos una cuadrícula, el primer elemento tiene tres elementos anidados que por ahora no adquieren caracteristicas de grid.</p>
+	<code>
+		<!--
+		<div class="wrapper">
+		  <div class="box box1">
+		    <div class="nested">a</div>
+		    <div class="nested">b</div>
+		    <div class="nested">c</div>
+		  </div>
+		  <div class="box box2">Two</div>
+		  <div class="box box3">Three</div>
+		</div>
+
+		.wrapper {
+           display: grid;
+           grid-template-columns: repeat(3, 1fr);
+           grid-auto-rows: minmax(100px, auto);
+        }
+
+        .box1 {
+           grid-column-start: 1;
+           grid-column-end: 4;
+        }
+    	-->
+	</code>
+
+	<p>Si al elemento que contiene subelementos le agregamos la propiedad <em>display: contents</em>, éstos adquieren comportamiento de cuadrícula.</p>
+	<code>
+		<!--
+		.wrapper {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(100px, auto);
+        }
+
+        .box1 {
+            grid-column-start: 1;
+            grid-column-end: 4;
+            display: contents;
+        }
+    	-->
+	</code>
+	<p>Podemos hacer esto para evitar los poblemas de las <em>subgrids</em>, aunque tambien tiene un soporte parcial en la mayoría de los navegadores.</p>
+
+	<h2>Conclusión</h2>
+	<p>Podemos combinar los metodos de diseño para obtener los efectos que deseamos, sin miedo.</p>
+</body>
+</html>

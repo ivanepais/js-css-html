@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Posicionamiento con grid areas</title>
+</head>
+<body>
+	<h1>Grid areas</h1>
+	<p>El posicionamiento de elementos con grid areas se puede usar en combinación con el posicionamiento en línea o sola. Debemos ponerle un nombre a las areas.</p>
+
+	<h2>Nombrando areas</h2>
+	<p>Ya habiamos usado <em>grid-area</em> para colocar un elemento entre las líneas. Siguiendo el orden: grid-row-start, grid-column-start, grid-row-end, grid-column-end.</p>
+	<code>
+		.box1 {
+           grid-area: 1 / 1 / 4 / 2;
+        }
+	</code>
+	<p>Lo que hicimos fue definir el area especificando las líneas que la encerraban.</p>
+	<p>Tambien podemos darle un nombre para cada area, por ejemplo:</p>
+	<ul>
+		<li>header</li>
+		<li>main content</li>
+		<li>aside</li>
+		<li>footer</li>
+	</ul>
+	<p>Que define la estructura basica de una web.</p>
+	<p>Entonces, primero tomamos el elemento del html con css y le aplicamos la propiedad <em>grid-area</em> y el valor será un nombre.</p>
+	<code>
+		    .header {
+           grid-area: header;
+        }
+        <!--
+        .content {
+           grid-area: main;
+        }
+        .sidebar {
+           grid-area: side;
+        }
+        .footer {
+           grid-area: foot;
+        }
+        -->
+	</code>
+
+	<p>Por ultimo, creamos el contendor grid con sus propiedades para crear filas/columnas, etc.</p>
+	<code>
+    <!--
+		.wrapper {
+           display: grid;
+           grid-template-columns: repeat(9, 1fr);
+           grid-auto-rows: minmax(100px, auto);
+           grid-template-areas:
+               "hd hd hd hd   hd   hd   hd   hd   hd"
+               "sd sd sd main main main main main main"
+               "ft ft ft ft   ft   ft   ft   ft   ft";
+        }
+    -->
+	</code>	
+	<p>Como tenemos 9 columnas, debemos poner el nombre del area que lleva el elemento para que ocupen cada lugar. las filas se "dibujan" encerrando  todo los nombre entre comillas dobles al principio y al final, debe terminar con un punto y coma. Usamos espacios para que el diagrama este perfectamente alíneado y prolijo.</p>
+
+	<p>La ventaja de este metodo es que vemos el diseño de la cuadrícula en el contenedor, además, no necesitamos crear una regla de css para cada elemento que queremos posicionar. Así tendremos menos código en la hoja de estilo.</p>
+
+	<h2>Dejando un area vacia</h2>
+	<p>En el diagrama de la propiedad <em>grid-template-areas</em> escribimos un punto para dejar esa area/espacio vacio.</p>
+	<code>
+		.wrapper {
+		    grid-template-areas:
+               "hd hd hd hd   hd   hd   hd   hd   hd"
+               "sd sd sd main main main main main main"
+               ".  .  .  ft   ft   ft   ft   ft   ft";
+		}        
+	</code>
+	<p>Vemos que una parte del contenedor grid no está siendo ocupada por ningún elemento.</p>
+
+	<h2>Abarcar multiples celdas</h2>
+	<p>Repitiendo el nombre de un area, podemos hacer que el elemento ocupe varias líneas y tenga <em>forma rectángular</em>.</p>
+	<p>Grid template areas debe mostrar un cuadrícula completa, la cantidad de celdas (nombre de area/element) debe ser la misma en todas las filas, si queremos un espacio vacio debemos usar el punto. Además, solo se admite formas rectangulares, no en l. Si no se cumplen estás condiciones, no se mostrará la cuadricula.</p>
+
+	<h3>Redefinir grid en diferentes tamaños de pantalla</h3>
+	<p>Usando los media quieries podemos adaptar un diseño en grid a cualquier tamaño de pantalla.</p>
+	<p>Empezamos creando los nombres de las areas por fuera de los contenedores grid.</p>
+	<code>
+		.header {
+           grid-area: hd;
+        }
+        <!--
+        .footer {
+           grid-area: ft;
+        }
+        .content {
+           grid-area: main;
+        }
+        .sidebar {
+           grid-area: sd;
+        }
+        -->
+	</code>
+
+	<p>Seguido, creamos una grilla minima de una columna con todas las areas necesarias para el diseño en grid.</p>
+	<code>
+		.wrapper {
+           <!--
+           display: grid;
+           grid-auto-rows: minmax(100px, auto);
+           grid-template-columns: 1fr;
+         -->
+           grid-template-areas:
+               "hd"
+               "main"
+               "sd"
+               "ft";
+        }
+	</code>
+
+	<p>Por ultimo vamos creando queries para diferentes tamaños de pantalla y dentro creamos los contenedores con las cantidades de filas y columnas necesarias.</p>
+	<code>
+    <!--
+		@media (min-width: 500px) {
+            .wrapper {
+               grid-template-columns: repeat(9, 1fr);
+               grid-template-areas:
+                   "hd hd hd hd   hd   hd   hd   hd   hd"
+                   "sd sd sd main main main main main main"
+                   "sd sd sd  ft  ft   ft   ft   ft   ft";
+            }
+        }
+        @media (min-width: 700px) {
+            .wrapper {
+               grid-template-areas:
+                   "hd hd hd   hd   hd   hd   hd   hd hd"
+                   "sd sd main main main main main ft ft";
+            }
+        }
+      -->
+	</code>
+
+	<h2>Usar grid para diseños de interfaz de usuario</h2>
+	<p>No solo se usa para diseñar elementos principales de un sitio, sino que se puede usar para diseñar elementos pequeños. Al usar <em>grid-template-areas</em> podemos ver como va a quedar nuestro elemento en el diagrama.</p>
+
+	<h3>Objeto multimedia</h3>
+	<p>En un contendor grid podemos poner un texto con una imagen al costado. Necesitamos dos columnas, una para la imagen y otra para el texto. El espacio dado para el texto puede ser mayor al espacio dado a la imagen, lo hacemos con <em>fr</em>, puede ser 1fr y 3fr.</p>
+	<p>Tambien podemos usar un tamaño fijo en px para la imagen y 1fr para el texto. Usamos <em>grid-area</em> afuera del contenedor para definir los nombres de las areas que usarán los elementos. Dentro del contendor diagramamos con <em>grid-template-areas</em>.</p>
+	<code>
+        <!--
+		    * {
+           box-sizing: border-box;
+        }
+
+        .media {
+           border: 2px solid #f76707;
+           border-radius: 5px;
+           background-color: #fff4e6;
+           max-width: 400px;
+           display: grid;
+           grid-template-columns: 1fr 3fr;
+           grid-template-areas: "img content";
+           margin-bottom: 1em;
+        }
+
+        .media .image {
+           grid-area: img;
+           background-color: #ffd8a8;
+        }
+
+        .media .text {
+           grid-area: content;
+           padding: 10px;
+        }
+      -->
+	</code>
+
+	<p>Podemos cambiar de lugar los elementos, intercambiando de lugar los valores de las propiedades <em>grid-template-columns</em> y <em>grid-template-areas</em>, reescribiendo está parte del cógido.</p>
+	<code>
+		    .media.flipped {
+		        grid-template-columns: 3fr 1fr;
+                grid-template-areas: "content img";
+            }
+	</code>
+
+	<h2>Propiedades abreviadas de Grid</h2>
+	<p>Pueden ser complicadas de leer y entender lo que hacen, pero sirve conocerlas en caso de que nos encontremos código de otra persona escrito de ésta manera.</p>
+	<p>Permiten la configuración de muchas propiedades a la vez, pero hay que tener cuidad porque podemos restablecer/cambiar propiedades escritas anteriormente.</p>
+	<p>Son dos propiedades abreviadas para el contenedor grid:</p>
+
+	<h3><em>grid-template</em></h3>
+	<p>Con <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template">grid-template</a> podemos poner los valores correspondientes a las siguientes propiedades:</p>
+	<ul>
+		<li><em>grid-template-rows</em></li>
+		<li><em>grid-template-columns</em></li>
+		<li><em>grid-template-areas</em></li>
+	</ul>
+	<p>Afecta a las filas/columnas explicitas, las implicitas se configuran con <em>grid auto rows/colums</em>.</p>
+
+	<code>
+    <!--
+	.wrapper {
+    display: grid;
+    grid-template:
+    "hd hd hd hd   hd   hd   hd   hd   hd" minmax(100px, auto)
+    "sd sd sd main main main main main main" minmax(100px, auto)
+    "ft ft ft ft   ft   ft   ft   ft   ft" minmax(100px, auto)
+    / 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }	
+  -->
+	</code>
+	<p>Tenemos el diseño de las areas, el tamaño de cada fila y al final ponemos el tamaño de cada columna.</p>
+
+	<h3><em>grid</em></h3>
+	<p>Con esta propiedad abreviada podemos establecer, ademas de las propiedades para la cuadricula explicita; establecemos las propiedades para la cuadrícula implicita.</p>
+	<ul>
+		<li><em>grid-auto-rows</em></li>
+		<li><em>grid-auto-columns</em></li>
+		<li><em>grid-auto-flow</em></li>
+	</ul>
+	<code>
+    .wrapper {
+    <!--
+    display: grid;
+    grid:
+    "hd hd hd hd   hd   hd   hd   hd   hd" minmax(100px, auto)
+  -->
+    "sd sd sd main main main main main main" minmax(100px, auto)
+    "ft ft ft ft   ft   ft   ft   ft   ft" minmax(100px, auto)
+    / 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+	</code>
+	
+</body>
+</html>

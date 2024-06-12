@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index.css">
+	<title>Dar soporte a navegadores antiguos - CSS</title>
+</head>
+<body>
+	<h1>Dar soporte a navegadores antiguos - CSS</h1>
+	<p>Cuando usamos los metodos de diseño modernos como Flex o Grid, habrá visitantes que entren al sitio con navegadores antiguos o navegadores que no priorizen los metodos más recientes porque se enfocaron en diferentes cosas. Como la web trata de incluir a todos, debemos tratar estos casos.</p>
+
+	<h2>¿Cual es el panorama de su sitio?</h2>
+	<p>Cada sitio es distinto respecto al publico al que apunta. Debe saber la tecnologia que usan sus visitantes para decidir a qué usuario priorizar en cuestión del soporte, cual es la cantidad que visitantes que usan navegadores modernos y antiguos; o si tiene sentido dar soporte a tecnologia antigua, si su publico o servicio no lo necesita. Puede ver estadisticas con herramientas propias o de terceros como <a href="https://gs.statcounter.com/">statcounter</a>.</p>
+
+	<h2>¿Cual es el soporte para la tecnologia que va a utilizar?</h2>
+	<p>Una vez que conozca los navegadores que usan sus visitantes, puede analizar que tecnologia debe usar respecto a cuan bien es compatible en los navegadores del mercado y cual alternativa es más facil emplear para los usuarios que no dispongan de los navegadores más modernos.</p>
+	<p>El sitio <a href="https://developer.mozilla.org/es/">MDN</a> brinda una tabla sobre la compatibilidad que tienen las propiedades en los distintos navegadores y en qué versión se incluyeron.</p>
+	<p>Otro sitio que puede usar es <a href="https://caniuse.com/">Can I Use?</a> que muestra el soporte de los navegadores, estadisticas en función a la ubicación geografica de los usuario y puede vincular su cuenta de Google Analitics.</p>
+	<p>Conocer la tecnologia que tiene sus usuarios y el soporte que tiene las funciones que quiere implementar en su sitio, es todo lo que necesita para tomar decisiones sobre como dar el mejor soporte para todos.</p>
+
+	<h2>Dar soporte no significa que el sitio debe ser igual</h2>
+	<p>No es posible que el sitio tenga el mismo aspecto en todos los navegadores (modernos o antiguos) y en todos los tamaños de pantalla. Hasta es posible que un usuario este escuchando su contenido mediante los lectores de pantalla. Dar soporte a todos significa diseñar un sitio que al menos entrege una versión basica, usable y legible para navegadores antiguos y hacer uso de la accesibilidad.</p>
+	<p>Un <em>nivel basico de soporte</em> significa estructurar el contenido en el flujo de diseño normal para que la página tenga sentido, por ejemplo, ¿si eliminamos el CSS de nuestro sitio, se entiende el contenido?.</p>
+	<p>Una opción es dejar como alternativa un diseño simple para usuarios con hardware limitado o navegadores antiguos así no perder tiempo y recursos tratando de dar una versión completa de su sitio a un publico minoritario.</p>
+
+	<h2>Qué son los fallbacks en CSS</h2>
+	<p>Son propiedades alternativas o de respaldo para dar soporte a navegadores antiguos, distintas a las que usaría normalmente porque no son admitidas por estos. Con la ayuda de las tablas de compatibilidad de MDN podemos ver desde que navegador es compatible tal propiedad, función o metodo. Por ejemplo, nosotros vimos como se hacian las cuadrículas antes de CSS GRID; podríamos usar esa tecnica en navegadores antiguos.</p>
+
+	<h3>Diseños fallbacks</h3>
+	<p>Los <em>diseños fallbacks</em> es una combinación de propiedades/funciones para dar soporte tanto a navegadores antiguos como modernos.  Mediante algunas tecnicas, el navegador elige el diseño que mejor se adapta a la tecnologia que tiene el usuario.</p>
+	<p>La especificación de CSS informa que los navegadores ignoran el código que no entienden, tambien advierte qué pasa si aplicamos dos metodos de diseño a un mismo elemento. Aprendimos como hacer diseños heredados, responsivos y los últimos metodos de CSS; con todo este conocimiento podemos dar buen soporte/compatibilidad a nuestro sitio con navegadores antiguos.</p>
+	<p>Por ejemplo, si queremos un diseño de cuadrícula: a un contenedor le damos la propieadad display grid para que sus hijos transformen en una cuadrícula, y a su vez a los hijos le damos la propiedad flotante; los divs se pondran en fila. Los navegadores que soporten Grid mostrarán una cuadrícula con esta tecnologia y los navegadores que no la soporten (ignorarán el metodo Grid), mostrarán una fila de flotantes.</p>
+	<p>Generalmente, cuando usamos flotantes puede estar la propiedad <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clear">clear</a>; no tiene efecto cuando un elemento flotante se convierte en un elemento de cuadrícula.</p>
+
+	<h3>Metodos fallbacks</h3>
+	<p>Similares al ejemplo anterior, podemos elegir el que nos sienta bien de acuerdo al diseño que estamos aplicando. Lo que tratamos de hacer es poner dos propiedades que cambian el diseño a un mismo elemento por cuestiones de compatibilidad en los navegadores, primero usamos las propiedades con mucha compatibilidad en navegadores antiguos y luego propiedades modernas. Es parecido cuando se hace un diseño responsivo: primero hacemos el diseño para movil usando le flujo normal y despues aplicamos queries para un diseño en escritorio usando metodos de diseño moderno.</p>
+
+	<dl>
+		<dt>Float y clear</dt>
+		<dd>Las propiedades float y clear no hacen efecto cuando los elementos se convierten en cuadrículas</dd>
+
+		<dt>Display inline-block</dt>
+		<dd>Los elementos de tabla perderan este comportamiento si se convierten en elementos flexibles o de cuadrícula. Ademas si teníamos cajas anonimas para arreglar la estructura de la tabla no se van a crearse o aparecer.</dd>
+
+		<dt>Display table</dt>
+		<dd>Los elementos de tabla perderan este comportamiento si se convierten en elementos flexibles o de cuadrícula. Ademas si teníamos cajas anonimas para arreglar la estructura de la tabla no se van a crearse o aparecer.</dd>
+
+		<dt>Diseño de multiple columna</dt>
+		<dd>Se puede usar de respaldo cuando el contenedor tenga algunas propiedades de columnas que luego se convertiran en cuadrícula.</dd>
+
+		<dt>Usar Flexbox como respaldo para Grid</dt>
+		<dd>Si convertimos un contenedor flexible en uno de cuadrícula, se ignorarán las propiedades de flexbox. Flexbox es más compatible que Grid en navegadores antiguos pero hay algunas inconsistencias que notará en estos navegadores.</dd>
+	</dl>
+
+	<p>Las propiedades usadas para los navegadores antiguos pueden afectar a las propiedades usadas para navegadores modernos que se suele solucionar con queries.</p>
+
+	<p>Esto lo podemos ver con el ejemplo de float y grid, si agregamos más ancho porcentual a los flotantes para que se parezcan más a culumnas de una cuadrícula, se estirá para llenar el contenedor. En Float el porcentaje se calcula a partir del contenedor y en Grid se calcula a partir del area de cuadrícula. Al convertirse los tamaños cambian.</p>
+
+	<p>Para solucionar esto nos falta agregar una pieza para la compatibilidad: debemos detectar si el navegador acepta CSS Grid mediante un query <em>@supports</em> que pertenece al grupo de reglas de CSS <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule">At-rule</a>.</p>
+
+	<h3>De Grid hacia Float</h3>
+	<p>Vemos la transformación de un diseño moderno usando grid, hacia un diseño apto para navegadores antiguos que solo soporta flotantes.</p>
+	<code>
+		<!--
+			<div class="wrapper">
+			  <div class="item">Item One</div>
+			  <div class="item">Item Two</div>
+			  <div class="item">Item Three</div>
+			</div>
+
+
+			* {
+			  box-sizing: border-box;
+			}
+
+			.wrapper {
+			  background-color: rgb(79, 185, 227);
+			  padding: 10px;
+			  max-width: 400px;
+			  display: grid;
+			  grid-template-columns: 1fr 1fr 1fr;
+			}
+
+			.item {
+			  float: left;
+			  border-radius: 5px;
+			  background-color: rgb(207, 232, 220);
+			  padding: 1em;
+			}
+
+				To: 
+
+			* {
+			  box-sizing: border-box;
+			}
+
+			.wrapper {
+			  background-color: rgb(79, 185, 227);
+			  padding: 10px;
+			  max-width: 400px;
+			  display: grid;
+			  grid-template-columns: 1fr 1fr 1fr;
+			}
+
+			.item {
+			  float: left;
+			  border-radius: 5px;
+			  background-color: rgb(207, 232, 220);
+			  padding: 1em;
+			  width: 33.333%;
+			}
+		 -->
+	</code>	
+	<p>Los navegadores antiguos ignorarán grid y aceptarán los flotantes de la misma forma que los metodos modernos sobreescriben a los antiguos sin mayores inconvenientes.</p>
+
+
+	<h2>Feature queries</h2>
+	<p>Permite probar si el navegador admite algúna función/propiedad de CSS que agregemos como condición en la consulta y si es aceptada se ejecutará el código de CSS que está dentro a un elemento del sitio.</p>
+	<p>Primero usamos fallbacks para navegadores antiguos y después usamos este query para aplicar metodos modernos de diseño que admiten los navegadores modernos.</p>
+	<p>En el ejemplo, ponemos si el navegador admite Grid en la consulta para restablecer el ancho en auto de los items la cuadrícula.</p>
+	<code>
+		<!--
+			* {
+			  box-sizing: border-box;
+			}
+
+			.wrapper {
+			  background-color: rgb(79, 185, 227);
+			  padding: 10px;
+			  max-width: 400px;
+			  display: grid;
+			  grid-template-columns: 1fr 1fr 1fr;
+			}
+
+			.item {
+			  float: left;
+			  border-radius: 5px;
+			  background-color: rgb(207, 232, 220);
+			  padding: 1em;
+			  width: 33.333%;
+			}
+
+			@supports (display: grid) {
+			  .item {
+			    width: auto;
+			  }
+			}
+		 -->
+	</code>
+	<p>Ahora adaptamos grid para navegadores modernos usando un query.</p>
+
+	<h2>Flexbox en navegadores muy antiguos</h2>
+	<p>Si está en un proyecto que debe ser compatible con navegadores muy obsoletos como es el caso de Internet Explorer 10 que tiene un prefijo <em>-ms-</em> que los otros navegadores ignorarán, existe una <a href="https://css-tricks.com/old-flexbox-and-new-flexbox/">guía</a> de CSS-Tricks.</p>
+
+	<h2>Grid en IE 10 y 11</h2>
+	<p>Grid tenía un primer prototipo en IE 10, aunque distinto a una cuadrícula moderna, usa el prefijo -ms-. Tambien existe una <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/CSS_Grid_and_Progressive_Enhancement"></a> de MDN, pero si no necesita el soporte para IE o no tiene muchos visitante desde aquí, puede concentrarse en darle un diseño útil a otros navegadores.</p>
+
+	<h2>Testing en navegadores antiguos</h2>
+	<p>Es complicado testear navegadores antiguos a menos que tengas muchas maquinas virtuales para instalar los programas, pero hay herramientas de testing online como las de <a href="https://saucelabs.com/">Sauce Labs</a>. Por otro lado, Microsoft provee <a href="https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/">maquinas virtuales</a> con cada IE viejo para probar en cualquier sistema operativo.</p>
+	<p>MDN ofrece una extensa <a href="https://developer.mozilla.org/es/docs/Learn/Tools_and_testing/Cross_browser_testing">guía</a> que trata las herramientas y tecnicas de testeo.</p>
+
+</body>
+</html>

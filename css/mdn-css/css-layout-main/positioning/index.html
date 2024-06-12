@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index.css">
+	<title>Positioning - CSS</title>
+</head>
+<body>
+	<h1>Capitulo 6: Posicionamiento</h1>
+	<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">Position</a> saca elementos del flujo normal, estos se llaman elementos posicionados y podemos hacer que se comporten diferente como colocándolos uno encima del otro o fijandolos en la ventana del navegador.</p>
+
+	<h2>Introducción al posicionamiento</h2>
+	<p>Cuando queremos que un elemento de nuestra interfaz sobre otras partes de la página y/o que siempre se quede en el mismo lugar, se puede hacer con distintos tipos de posicionamiento de la propiedad <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">Position</a>.</p>
+
+	<h2>Posicionamiento static</h2>
+	<p>Es el valor por defecto en <em>position</em> de todos los elementos del flujo normal, no hay nada de especial.</p>
+	<p>Para activar los valores de position, le damos una clase al segundo parrafo en el HTML y en CSS aplicamos la propiedad position como vemos en el codigo siguiente.</p>
+	<code>
+		<!--
+			.positioned {
+			  position: static;
+			  background: yellow;
+			}
+		 -->
+	</code>
+
+	<h2>Posicionamiento relative</h2>
+	<p>Podemos sacar un elemento del flujo normal y ubicarlo en otra posicion de acuerdo a las direcciones de la caja: horizontales (izq y der) y verticales (arriba y abajo).</p>
+	<p>Para que tenga efecto debemos usarlo junto a otras propiedades que solo funcionan con <em>position</em> que son: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/top">top</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/bottom">bottom</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/left">left</a> y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/right">right</a> que aceptan como valor a unidades de longitud.</p>
+	<code>
+		<!--
+			position: relative;
+		 -->
+	</code>	
+
+	<h3>Efecto de top, bottom, left y right</h3>
+	<p>Con la regla <span>.positioned {position: relative; top: 30px; left: 30px;}</span> toma estos lados de la caja y los mueve en dirección contraria.</p>
+	<code>
+		<!--
+			top: 30px;
+			left: 30px;
+		 -->
+	</code>		
+
+	<h2>Posicionamiento absolute</h2>
+	<p>Esta vez la posición del elemento absoluto no depende del flujo normal como en <em>relative</em>, sino que depende desde donde esté su contenedor, en este caso es el <em>bloque contenedor inicial</em> tambien llamado contexto de formato de bloque (<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flow_Layout/Intro_to_formatting_contexts">BFC</a>). Lo que conservará es el efecto que tienen las propiedades <em>top</em>, <em>bottom</em>, <em>left</em> y <em>right</em>. Ademas no hay colapso de margen (que gane el margen más grande entre dos elementos). Finalmente cuando tengamos un elemento absoluto saldrá de su espacio y los otros elementos tomarán ese lugar.</p>
+	<code>
+		<!--
+			position: absolute;
+		 -->
+	</code>
+
+	<h3>Elemento contenedor</h3>
+	<p>Detrás de la idea del contenedor en <em>position</em> hay un desarrollo teorico que nos devuelve a los origenes sobre como funcionan las cajas y el diseño en CSS en profundidad: <a href="contextos-de-diseños.html">Contextos de diseño y bloques contenedores</a>.</p>
+	<p>Se pueden dar casos como el de nuestro ejemplo:</p>
+	<p>Si ningun ancestro tiene un valor de position explicito (que nosotros codeamos) tendrá por defecto el valor sticky y su contenedor será el viewport (toda la ventana grafica disponible).</p>
+	<p>Para soluciona esto podemos agregar la regla <span>position: relative;</span> nuestro ancestro y veremos que el contenedor ya no es la ventana grafica, sino, el area de padding de nuestro ancestro porque es un elemento de bloque; como vimos en <em>contextos de diseño</em> en el segundo caso.</p>
+
+	<h3>Introducción a z-index</h3>
+	<p>Establece el orden de renderización/visualizacion en la página usando el eje z de un elemento posicionado y sus descendientes o de los elementos flexibles. Para una comprensión más profunda de la propiedad <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/z-index">z-index</a> podemos ver el apartado: <a href="entendiendo-z-index.html">entendiendo z-index y los constextos de apilamiento</a>.</p>
+	<p>En este ejemplo, como ya tenemos un elemento posicionado podemos aplilar con z-index, de lo contrario no funciona. Pero antes debemos conocer el orden en que aparecen los elementos posicionados en el HTML: los que aparecen últimos se superponen a los que estaban primeros. El eje z es una línea imaginaria que va desde la pantalla hacia nosotros.</p>
+	<p>Con el siguiente código hacemos que nuestro primer parrafo tambien sea un elemento posicionado para poder usar z-index. Vemos que lo sacamos del flujo normal y se pone por debajo de nuestro segundo parrafo, se debe al orden de los elementos posicionados como está mencionado arriba.</p>
+	<code>
+		<!--
+			p:nth-of-type(1) {
+			  position: absolute;
+			  background: lime;
+			  top: 10px;
+			  right: 30px;
+			}
+		 -->
+	</code>
+
+	<p>Entonces para cambiar el orden del primer parrafo, agregamos un valor entero (positivo o negativo) a z-index para subirlo o bajarlo de capa. Si queremos ponerlo arriba de todo, vemos que solo hay por delante un elemento; entonces, le agregamos <span>z-index: 1;</span>.</p>
+	<code>
+		<!--
+			z-index: 1;
+		 -->
+	</code>	
+
+	<h2>Posicionamiento fixed</h2>
+	<p>La propiedad <span>position: fixed;</span> sale del flujo normal y el elemento flota fijamente por la ventana del navegador porque es su contenedor natural mientras su ancestro no tenga las propiedades <em>transform</em> o <em>perspective</em> con un valor distinto de none. Esto lo vimos en el apartado de contexto de diseño.</p>
+	<p>El elemento fijo se puede mover con las propiedades top, bottom, left, right como vimos antes. En el HTML de practica comentemos para desactivar el código del primer y segundo parrafo.</p>
+	<p>Para el body desactivamos la posicion relative y agregemos el siguiente codigo:</p>
+	<code>
+		<!-- 
+			body {
+			  width: 500px;
+			  height: 1400px;
+			  margin: 0 auto;
+			}
+		-->
+	</code>
+
+	<p>Su propiedad <span>margin-top: 0 auto</span> es para centrar horizontalmente el body.</p>
+	<p>Ahora agregemos <em>fixed</em> position para el <em>h1</em>, lo fijamos de la siguiente manera con este codigo:</p>
+	<p>Su propiedad propiedad <span>top: 0;</span> hace el elemento no se mueva desde esta posición. La propiedad <span>margin-top: 0;</span> es para que no tenga espacio arriba de todo (los navegadores ponen algo de espacio por defecto). Le agregamos ancho pero no alto, que se adaptará al contenido. Y un poco de padding para que el contenido del encabezado no se junte con los parrafos.</p>
+	<code>
+		<!--
+			h1 {
+			  position: fixed;
+			  top: 0;
+			  width: 500px;
+			  margin-top: 0;
+			  background: white;
+			  padding: 10px;
+			}
+		 -->
+	</code>
+
+	<p>Pero sucede que parte del contenido del primer parrafo se corta porque lo superpone nuestro elemento fijo. Lo solucionamos bajando un poco el primer parrafo con <em>margin-top</em> con una pseudoclase <a href="https://developer.mozilla.org/es/docs/Web/CSS/:nth-of-type">:nth-of-type()</a>, la p al principio es el elemento hermano seleccionado y el numero del parentesis es del primero ubicado.</p>
+	<code>
+		<!--
+			p:nth-of-type(1) {
+			  margin-top: 60px;
+			}
+		 -->
+	</code>
+
+	<h2>Posicionamiento sticky</h2>
+	<p>Con <span>position: sticky;</span> (o adhesivo) su comportamiento hace flotar en un lugar hasta que nos desplazemos por la página y se quede fijo mientras navegamos sobreponiendo a los demás elementos. Su contenedor es el area de contenido del ancestro más cercano si es block, flex o grid (inline no se tiene en cuenta). El elemento sticky solo se desplazará por todo alto o dimensión de su elemento padre (elemento de bloque, flex o grid más cercado), si es muy pequeño no se notará que se queda fijo. Con las propiedades top, bottom, left y right lo movemos hacia su lado contrario. Por ejemplo: si ponemos top 0 queda arriba de todo y si tiene más bajará.</p>
+
+	<h3>Ejemplo basico</h3>
+	<p>Se puede usar para hacer que la barra de navegación se desplace con la página y luego se mantenta en la parte superior. Usaremos otro documento de practica.</p>
+	<p>Le damos el siguiente código a .positioned, el top y left los mueve desde esta posición para que no se interponga en los otros</p>
+	<code>
+		<!--
+			.positioned {
+			  position: sticky;
+			  top: 30px;
+			  left: 30px;
+			}
+		 -->
+	</code>	
+
+	<h3>Scrolling index</h3>
+	<p>Otro uso de position sticky es crear una página de indice de desplazamiento donde los diferentes encabezados se adhieren a la parte superior. Usamos otro HTML de practica.</p>
+	<p>Le agregamos sticky a al elemento <em>dt</em> (description title) de la lista de descripcion (dl). Con un valor maximo de 0 en top, los encabezados se desplazan con el contenido (dd) y cada encabezado siguiente reemplazará al anterior. Con un margen vertical (1em) y horizontal (0).</p>
+	<code>
+		<!--
+			<h1>Sticky positioning</h1>
+
+			<dl>
+			  <dt>A</dt>
+			  <dd>Apple</dd>
+			  <dd>Ant</dd>
+			  <dd>Altimeter</dd>
+			  <dd>Airplane</dd>
+			  <dt>B</dt>
+			  <dd>Bird</dd>
+			</dl>
+
+			dt {
+			  background-color: black;
+			  color: white;
+			  padding: 10px;
+			  position: sticky;
+			  top: 0;
+			  left: 0;
+			  margin: 1em 0;
+			}
+		 -->
+	</code>
+</body>
+</html>

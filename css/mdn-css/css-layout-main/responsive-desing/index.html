@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index.css">
+	<title>Diseño Responsivo - CSS</title>
+</head>
+<body>
+	<h1>Diseño Responsivo</h1>
+	<p>El concepto <em>responsive web desing</em> (RWD), es un conjunto de practicas que permite que las páginas web modifiquen su diseño y apariencia para adaptarse a diferentes anchos de pantalla de los dispositivos. Es una idea que cambio la manera de hacer a la web multidispositivo. La resolución de pantalla no debe confundirse con el ancho de la pantalla del dispositivo que es lo que toma el navegador web.</p>
+
+	<h2>El diseño historico de los sitios web</h2>
+	<p>HTML es fundamentalmente responsivo. Si creamos una página web que contiene texto y cambiamos el tamaño del navegador o la abrimos en un dispositivo con pantalla más pequeña, el navegador redistribuirá el contenido para que se ajuste a la pantalla</p>
+	<p>Este comportamiento se llama <em>liquid layout</em>.</p>
+	<p>El problema es que las líneas de texto se extenderan tanto como sea el ancho de la pantalla, puede que no sea la forma más legible.</p>
+	<p>Una alternativa es crear un diseño de ancho fijo que establece un tamaño de los elementos en px.</p>
+	<p>Surge otro problema y es que el navegador pondrá una barra de desplazamiento horizontal para poder ver todo sitio a lo ancho y deja mucho espacio en blanco en los bordes del diseño en pantallas más grandes.</p>
+	<p>A medida que fueron avanzando los celulares, las empresas creaban sitios web especiales para estos con una denominción como: <em>m.google</em> o <em>google.mobi</em>. Esto significa que habia que desarrollar y mantener dos versiones distintas de un mismo sitio.</p>
+	<p>En estos moviles, la experiencia era muy reducida. Esto fue cambiando a medida que los moviles se volvian más potentes, entes de la llegada de los smartphones no se podia acceder a la versión de escritorio con todas las funciones del sitio.</p>
+
+	<h2>Diseño flexible antes del diseño responsivo</h2>
+	<p>Se desarrollaron varios enfoques para tratar de resolver las desventajas del <em>liquid layout</em> o del <em>ancho fijo</em> para los sitios web. En 2004, Cameron Adams escribió una publicación titulada <a href="https://www.themaninblue.com/writing/perspective/2004/09/21/">Resolution dependent layout</a>, describía un método para crear un diseño que pudiera adaptarse a diferentes anchos de pantalla. Requería el uso de <em>JavaScript</em> para detectar la resolución de la pantalla y cargar el CSS correcto.</p>
+	<p>Zoe Mickley Gillenwater fue fundamental en <a href="https://zomigi.com/blog/voices-that-matter-slides-available/">su trabajo</a> para describir, formalizar diferentes formas en que se pueden crear sitios flexibles intentando encontrar un termino medio entre llenar la pantalla o tener un tamaño completamente fijo.</p>
+
+	<h2>Diseño Responsivo</h2>
+	<p>El termino fue <a href="https://alistapart.com/article/responsive-web-design/">acuñado por Ethan Marcotte</a> y describió el uso de tres técnicas en combinación.</p>
+	<ol>
+		<li>Fue la idea de <a href="https://alistapart.com/article/fluidgrids/">Fluid Grids</a>, algo ya explorado por Gillenwater.</li>
+		<li>Después fue la idea de <a href="https://unstoppablerobotninja.com/entry/fluid-images/">Fluid Images</a> que establecía la propiedad <em>max-width</em> al <em>100%</em>. Las imágenes se reducirián si el contenedor columna fuera más chico que el tamaño intrinseco de la imágen, pero nunca crecería. La imágen se reducía para caber en el contenedor flexible, no se desbordaba ni crecia para pixelarse si crecía el contenedor por ser flexible.</li>
+		<li>Por último la clave fue <a href="https://developer.mozilla.org/es/docs/Web/CSS/Media_Queries">media queries</a>, establecen el cambio de diseño que Cameron Adams había explorado usando JavaScript, pero con CSS. En lugar de tener un diseño para todos los tamaños de pantalla, podríamos adaptar uso solo. La navegación lateral se puede reposicionar para una pantalla más pequeña o se puede mostrar una navegación alternativa.</li>
+	</ol>
+
+	<p>El diseño web responsivo no es una tecnologia aparte, es un termino que se usa para describir  el uso de un conjunto de buenas practicas para el diseño adaptativo a los distintos dispositivos en los que se va a mostrar el contenido. Esta forma de trabajar se ha convertido en predeterminada a la hora de diseñar un sitio. Los metodos de diseño de CSS modernos son intrinsecamente responsivos y hay herramientas intregradas en la plataforma web para facilitar el diseño.</p>
+
+	<p>A partir de acá veremos diferentes funciones de la plataforma web para crear un sitio responsivo.</p>
+
+	<h2>Media Query</h2>
+	<p>El diseño responsivo pudo surgir debido a los <a href="https://developer.mozilla.org/es/docs/Web/CSS/Media_Queries">media queries</a>, en 2009 se convirtio en Candidata a Recomendación y se la considero lista para su implementación en los navegadores. Los <em>media queries</em> nos permiten ejecutar una series de pruebas/test (por ejemplo, si la pantalla del usuario es mayor que un ancho determinada) se aplicará CSS de forma selectiva para mostrar un diseño adecuado al dispositivo que tiene el usuario.</p>
+	<p>En este ejemplo, el siguiente <em>media query</em> prueba si la página web se muestra como medios de contenido (y no un documento para imprimir), y además si la ventana del navegador tiene como minimo 800px de ancho. El CSS del <em>.container</em> solo se aplicará si estás dos cosas son ciertas.</p>
+	<p><span>@media screen and (min-width: 800px) {.container {margin: 1em 2em;} }</span>.</p>
+	<code>
+		<!--
+			@media screen and (min-width: 80rem) {
+			  .container {
+			    margin: 1em 2em;
+			  }
+			}
+
+		 -->
+	</code>
+
+	<p>Se puede agregar multiples media queries dentro de la hoja de estilo para modificar todo el diseño o parte de él, para que se adapte mejor a los distintos tamaño de pantalla. Los puntos donde se introducen un media query y se cambia el diseño son <em>breakpoints</em>.</p>
+	<p>Una practica comun en media query, es crear un diseño de una columna en la que los elementos se ven mientras te desplazas hacia abajo para dispositivos moviles de pantalla estreche (smartphones, tablets, etc). Luego probar/testear resoluciones más grandes e implementar un diseño de varias columnas cuando sepa que tiene suficiente ancho de pantalla. Esta practica se describe como <em>mobile first desing</em>.</p>
+
+	<h2>Flexible grids</h2>
+	<p>Los diseños responsivos no solo cambian cuando hay puntos de interrupción, tambien cambia cuando se crean cuadriculas flexibles. Significa que no hay necesidad de diseñar para todas las resoluciones existentes.</p>
+	<p>Para usar una cuadricula flexible solo se necesita agregar un punto de interrupción y cambiar el diseño en el punto donde empieza a verse mal. Por ejemplo, si las líneas se extienden demasiado o si los cuadros se superponen por falta de espacio en la pantalla.</p>
+	<p>Antes la unica opción para hacer un diseño responsivo era usar <em>floats</em>. Los diseños de flotantes flexibles se lograban dando a cada elemento un ancho maximo de 100%, ademas que habia que convertir los pixeles en porcentaje.</p>
+	<p>La formula es dividir los pixeles de nuestro elemento (de cuantos px queremos nuestra columna) contra los del contenedor: <span>elemento / contenedor</span>. En el resultado movemos el punto decimal a la derecha, dependiendo del denominador.</p>
+	<p>Este enfoque se puede encontrar en sitios viejos así que vale la pena entenderlo, puede ver el articulo <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Legacy_Layout_Methods">Legacy layout methods</a>. Aunque no se construye un sitio moderno en base a esto, se usa para entender código viejo.</p>
+	<p>En el siguiente ejemplo se muestra un diseño responsivo usando Media Queries y una cuadrícula flexible. En resoluciones estrechas, el diseño muestra las cajas apiladas una encima de otra. En resoluciones más amplias, se muestran dos columnas y no una sola.</p>
+
+	<h2>Tecnologias de diseño moderno</h2>
+	<p>Son los metodos de diseño como <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Multiple-column_Layout">Multicolumna</a>, <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox">Flexbox</a> y <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids">Grid</a> que son responsivas por defecto. Asumen que estas creando una cuadricula flexible y brindan formas más facil de hacerlo.</p>
+
+	<h3>Multicolumna</h3>
+	<p>Es el primero de estos metodos, indica en cuantas columnas se divide tu contenido. El navegador calcula el tamaño y cambiará según el tamaño de la ventana del mismo.</p>
+	<code>
+		<!--
+			.container {
+			  column-count: 3;
+			   column-width: 10em;
+			}
+		 -->
+	</code>	
+
+	<h3>Flexbox</h3>
+	<p>El siguiente en esta lista, debemos hacer que un contenedor admita elementos flexible con <span>display: flex;</span>. Los elementos flexibles son los que estan dentro que tomarán dimensión segun las propiedades <em>flex-grow</em> y <em>flex-shink</em>. Como es responsivo por defecto, todo los elementos se ubican en cualquier cantidad de espacio. El espacio es fundamental ya que a partir de este podemos hacer que un elemento ocupe más, menos o igual espacio que los restantes.</p>
+	<code>
+		<!--
+			.container {
+			  display: flex;
+			}
+
+			.item {
+			  flex: 1;
+			}
+		 -->
+	</code>	
+
+	<h3>Grid</h3>
+	<p>Es la ultima tecnologia, se basa en una cuadrícula con multiples funciones como acomodar los elementos a nuestro gusto en un o varios cuadrantes lo que nos permite crear diseños modernos facilmente. De nuevo, tenemos un contenedor en el que usamos <span>display: grid;</span> y los elementos de este armarán una cuadrícula.</p>
+	<code>
+		<!--
+			.container {
+			  display: grid;
+			  grid-template-columns: 1fr 1fr 1fr;
+			}
+		 -->
+	</code>
+
+	<h3>Imágenes responsivas</h3>
+	<p>Este enfoque de Ethan Marcotte se aplica hasta hoy en día. Se trata de tomar una imágen de un tamaño más grande del que se necesita y reducirla. En la mayoria de las hojas de estilo se encuentra: <span>img {max-width: 100;}</span>.</p>
+	<p>Hay desventajas: la imagen se muestra más pequeña de lo que es y si el tamaño es grande, un usuario gastará muchos datos. Ademas, no se puede elegir una imagen para el diseño de escritorio y otra para el diseño movil, necesitan de resoluciones diferentes. Tampoco se puede elegir qué parte de una imágen conviene más mostrar en movil para que se entienda.</p>
+	<code>
+		<!--
+			img,
+			picture,
+			video {
+			  max-width: 100%;
+			}
+		 -->
+	</code>
+
+	<p>Estos problemas se resuelven desde el HTML con los elementos <em>picture</em>, <em>img</em> y los atributos <em>srcset</em> y <em>sizes</em> para proporcionar varios tamaños con sugerencias para que el navegador detecte y elija el tamaño adecuado para el dispositivo del usuario. De esa manera puede ahorrar datos y el sitio será más eficiente.</p>
+	<p>Esto se vio en la guía de HTML para las imágenes.</p>
+
+	<h2>Tipografía responsiva</h2>
+	<p>Se trata del cambio en el tamaño de la fuente cuando se aplica <em>media queries</em>.</p>
+	<p>Por ejemplo, si a un encabezado h2 le ponemos font-size de <em>4rem</em> es el cuadruple del tamaño de fuente base (16px) que es el HTML (si es que no se cambió). Pero esto es muy grande, entonces, si solo queremos un encabezado grande en resoluciones grandes; usamos un media querie que evalua la resolucion del usuario y devuelve la fuente adecuada a la pantalla.</p>
+	<p>Se puede hacer con cualquier elemento que necesite adaptarse a diferentes tamaños de pantalla.</p>
+	<code>
+		<!--
+			html {
+			  font-size: 1em;
+			}
+
+			h1 {
+			  font-size: 2rem;
+			}
+
+			@media (min-width: 1200px) {
+			  h1 {
+			    font-size: 4rem;
+			  }
+			}
+		 -->
+	</code>
+
+	<h3>Unidades de ventana gráfica para tipografía responsiva</h3>
+	<p>Se trata de la unidad <em>vw</em>, por ejemplo, 1vw es el 1% del <em>ancho</em> de la ventana del navegador. Si cambiamos el ancho, cambia el tamaño de la fuente.</p>
+	<p>Sin embargo, usar la unidad vw pierde la capacidad de hacer zoom al estar relacionada con la ventana gráfica.</p>
+	<p>No se usa vw para el tamaño de la fuente, pero hay una solución. Implica usar la funcion <em>calc()</em>, si a un valor con <em>em</em> o <em>rem</em> le sumamos otro valor con vw; se puede usar el zoom, ademas la fuente va a agrandarse a medida que lo haga el ancho de la ventana del navegador. No necesitamos media queries para hacerla responsiva gradualmente.</p>
+	<code>
+		<!--
+			h1 {
+			  font-size: 6vw;
+			  font-size: calc(1.5rem + 3vw);
+			}
+		 -->
+	</code>
+	
+	<h3>La etiqueta Meta de la ventana gráfica</h3>
+	<p>En el HTML dentro la etiqueta head, se encuentran varias etiquetas <em>meta</em> que representan o contienen datos que no pueden estar en la parte visible de la página.</p>
+	<p>Pero hay un meta que se refiere a la ventana de los navegadores moviles, les dice que deben establecer su ancho respecto al ancho del dispositivo y ademas escalar el documento al 100%. De esta manera se logra optimizar la página para moviles.</p>
+	<code>
+		<!--
+			<meta name="viewport" content="width=device-width,initial-scale=1" />
+		 -->
+	</code>
+	
+	<p>Se hizo de está manera porque los primeros smartphones mentian sobre el ancho en la ventana gráfica de sus navegadores porque la mayoria de las páginas no se adaptaban a pantallas estrechas, entonces, mostraban la web de escritorio ampliada para que el usuario se desplaze y haga zoom para usar sus funciones. Todavía sucede con las webs antiguas que no tienen un diseño responsivo.</p>
+	<p>El problema que sucede cuando no configuramos la etiqueta meta anterior, es que en los puntos donde se introduce un media query (<em>breakpoints</em>) para modificar el diseño no funcionará en los dispositivos moviles. Si ponemos un media query que modifique el diseño a partir de una resolución de 480px pero los navegadores moviles están seteados a 980p (da una vista ampliada del sitio como lo hacian antes los moviles, dado su pantalla estrecha), nunca hace efecto. En cambio si configuramos la etiqueta meta, el query funcionará.</p>
+	<p>Hay otras configuraciones pero no se usan:</p>
+	<ul>
+		<li><em>initial-scale</em>: Establece el zoom inicial de la página en 1.</li>
+		<li><em>height</em>: Establece una altura específica para la ventana gráfica.</li>
+		<li><em>minimum-scale</em>: Establece el nivel mínimo de zoom.</li>
+		<li><em>maximum-scale</em>: Establece el nivel máximo de zoom.</li>
+		<li><em>user-scalable</em>: Evita el zoom si lo establecemos en "no".</li>
+	</ul>
+	<p>Debemos evitar usar minimum/maximum scale y permitir que los usuarios puedan hacer zoom con user-scalable con un valor distinto de "no", tanto como lo necesiten. Evitar que puedan hacer zoom causa problemas de accesibilidad.</p>
+
+	<h2>Resumen</h2>
+	<p>El diseño responsivo son las tecnicas que hacen que un diseño de un sitio o aplicación, responda al entorno en el que se ve. Abarca una serie de caracteristicas y tecnicas de CSS y HTML, es escencialmente como se hace la web en estos tiempos; es raro visitar un sitio en el movil con caracteristicas de la versión de escritorio reducida o que tengamos que desplazarnos y hacer zoom para ver todos los elementos de la página.</p>
+	<p>Tambien se ha vuelto más fácil lograr diseños responsivos con la ayuda de los metodos de diseños aprendidos en estas clases. Si eres nuevo en el desarrollo web, tienes muchas más herramientas a disposición para crear diseños elegantes y útiles sin importar el dispositivo que tenga el usuario.</p>
+
+</body>
+</html>

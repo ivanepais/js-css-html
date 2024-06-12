@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style-index.css">
+    <title>Grid - CSS</title>
+</head>
+
+<body>
+    <h1>Capitulo 4: Grid</h1>
+    <p>Es un metodo de diseño que usa el alto y el ancho como sus dimensiones para crear diseños complejos en cuadrículas, usando filas y columnas para volcar el contenido.</p>
+
+    <h2>Diseño en Grids</h2>
+    <p>La compaginación (ordenar y mostrar el contenido web adecuadamente) en cuadrículas permite que los elementos no cambien de tamaño ni se muevan de su sitio manteniendo un diseño coherente.</p>
+    <p>Los conceptos en grid son: Filas (<em>row</em>), columnas (<em>columns</em>), y espacios (<em>gutters</em>) que es el espacio entre ellas.</p>
+
+    <h2>Crear una cuadrícula en CSS</h2>
+    <p>Repasaremos los conceptos basicos para diseñar en <a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_Grid_Layout">Grid</a>.</p>
+
+    <h3>Definir una cuadrícula</h3>
+    <p>Descargamos el archivo local para practicar, en el html vemos que tiene un contenedor con 7 elementos hijos. En el contenedor ponemos la propiedad <em>display: grid;</em> para que sus elementos adquieran los efectos de este metodo de diseño.</p>
+    <code>
+        <!--
+            .container {
+              display: grid;
+            }
+         -->
+    </code> 
+
+    <p>Por defecto, vemos que hay una sola columna con siete elementos en fila.</p>
+    <p>Para añadir columnas escribimos la propiedad <a href="https://developer.mozilla.org/es/docs/Web/CSS/grid-template-columns">grid-template-columns</a> con valores de unidad de medida (px o %) para darle tamaño. Cada valor será una columna. El codigo va en el contenedor para modificar a sus elementos. Para crear filas se usa <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows">grid-template-rows</a>.</p>
+    <code>
+        <!--
+            grid-template-columns: 200px 200px 200px;
+
+        -->
+    </code>
+
+    <p>Las columnas dividen al documento verticalmente y las filas horizontalmente y de estas surgiran líneas que nos servirán más adelante.</p>
+
+    <h3>Cuadrículas flexibles</h3>
+    <p>Se utiliza la unidad de media <span>fr</span> en los valores para que el tamaño sea flexible/cambie y no sea fijo al reducir la ventana del navegador.</p>
+    <p>Es un valor proporcional al espacio disponible como lo vimos en flex, mientras más grande sea el valor más espacio tomará el elemento.</p>
+    <p>Por ejemplo, si todos tienen el mismo valor van a ocupar el mismo espacio que haya disponible. Si un elemento tiene un mayor valor, siempre ocupará más espacio que los demás; sin importar que haya poco espacio.</p>
+    <code>
+        <!--
+        .container {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          /* grid-template-columns: 2fr 1fr 1fr; */
+        }
+        -->
+    </code> 
+
+    <h3>Espacio entre las cuadrículas</h3>
+    <p>Utilizamos <a href="https://developer.mozilla.org/es/docs/Web/CSS/column-gap">grid-column-gap</a> entre las columnas, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/row-gap">grid-row-gap</a> entre las filas o con <a href="https://developer.mozilla.org/es/docs/Web/CSS/gap">grid-gap</a> activamos las dos a la vez con un solo valor. Estas propiedades tambien se escriben en el contenedor de elementos y se utilizan unidades de medida o porcentaje pero no se puede utilizar fr.</p>
+    <code>
+        <!--
+            .container {
+              display: grid;
+              grid-template-columns: 2fr 1fr 1fr;
+              gap: 20px;
+            }
+         -->
+    </code> 
+    
+    <h3>Repetir cuadriculas</h3>
+    <p>La funcion <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/repeat">repeat()</a> se usa para crear columnas o <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/g rid-template-rows">filas</a> dentro de estas propiedades de manera más eficiente. El primer valor será para la cantidad y el segundo valor será para el tamaño, separados por una coma. Hay más opciones de configuración en la referencia.</p>
+    <code>
+        <!--
+            .container {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 20px;
+            }
+         -->
+    </code>     
+    
+    <h3>Cuadrícula implícita y explícita</h3>
+    <p>Si solo usamos las columnas y dejamos que grid cree las filas, la cuadrícula es implícita. Si creamos filas y columnas es una cuadrícula explícita.</p>
+    <p>Si colocamos contenido fuera de la cuadrícula o si hay mucho contenido, grid crearía columnas o filas implícitas que tienen un tamaño automatico que se ajusta al contenido.</p>
+    <p>Para dar tamaño a una <em>cuadrícula implícita</em> usamos <a href="https://developer.mozilla.org/es/docs/Web/CSS/grid-auto-columns">grid-auto-columns</a> si solo tenemos filas explicitas y <a href="https://developer.mozilla.org/es/docs/Web/CSS/grid-auto-rows">grid-auto-rows</a> si habiamos usado columnas.</p>
+    <p>Por ejemplo, si hay 3 columnas y 1 fila explicita, usando <em>grid-auto-row</em> solo le dará tamaño a las dos filas que no creamos nosotros.</p>
+    <code>
+        <!--
+        .container {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-auto-rows: 100px;
+          gap: 20px;
+        }
+        -->
+    </code>
+
+    <h3>Función minmax()</h3>
+    <p>La tamaño de las cuadrículas como minimo tiene que coincidir con el tamaño del contenido, contrariamente causaría desbordamiento. Por eso que en la web no se determina una altura fija.</p>
+    <p>Con <a href="https://developer.mozilla.org/es/docs/Web/CSS/minmax">minmax()</a> el primer valor es para altura minima y el segundo determina la altura maxima. Por ejemplo, el valor <span>auto</span> en maximo; se explande para adaptarse al contenido. En el ejemplo lo aplicamos en las filas que que crea grid automaticamente.</p>
+    <code>
+        <!--
+            .container {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              grid-auto-rows: minmax(100px, auto);
+              gap: 20px;
+            }
+         -->
+    </code>     
+
+    <h3>Tantas columnas como sean posible</h3>
+    <p>Para que el contenedor admita la cantidad maxima de columnas posibles, en <em>grid-template-columns</em> usamos la funcion <em>repeat()</em> con el valor <span>auto-fill</span> (autocompletado). Dentro de esta función usamos <em>minmax()</em> con un valor de tamaño (minimo) y fr (unidad flexible) maximo.</p>
+    <p>Vemos que hay más columnas de 200px, tantas como entran en el contenedor, que se repartiran proporcionadamente el espacio en 1fr que se ajustan a la ventana del navegador.</p>
+    <code>
+        <!--
+            .container {
+              display: grid;
+              grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+              grid-auto-rows: minmax(100px, auto);
+              gap: 20px;
+            }
+         -->
+    </code> 
+
+    <h2>Posicionar elementos sobre las lineas de la cuadrícula</h2>
+    <p>Debemos seguir las lineas definidas por grid, no son los espacios (gutters). Están numeradas para poder <em>colocar los elementos del HTML</em> mediante su numero y dependen del modo de escritura que en occidente es de izquierda a derecha.</p>
+    <p>La <em>línea de columna 1</em> está a la izquierda y la <em>línea de fila 1</em> en la parte superior de la cuadricula. Si estuvieramos en el modo de escritura arabe sería al revés.</p>
+    <p>Usamos las propiedades: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start">grid-column-start</a> y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end">grid-column-end</a> que determinan donde comienza el elemento y donde termina. Lo mismo hacen <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start">grid-row-start</a> y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end">grid-row-end</a> para las filas.</p>
+    <p>Tambien podemos usar las abreviadas: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column">grid-column</a> y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row">grid-row</a> para el inicio y final de la posición en una misma propiedad, separamos los valores con una barra <em>/</em>.</p>
+    <p>Para practicar descargamos un archivo local.</p>
+    <code>
+        <!--    
+            header {
+              grid-column: 1 / 3;
+              grid-row: 1;
+            }
+
+            article {
+              grid-column: 2;
+              grid-row: 2;
+            }
+
+            aside {
+              grid-column: 1;
+              grid-row: 2;
+            }
+
+            footer {
+              grid-column: 1 / 3;
+              grid-row: 3;
+            }
+         -->
+    </code>     
+
+    <p>Vemos que el primer elemento <em>.header</em> se coloca en la columna 1 hasta la 3ra (<em>grid-column</em>) y se extiende por toda la fila (<em>grid-row</em>) por es solo usamos el valor de inicio.</p>
+    <p>Los elementos <em>.article</em> y <em>.aside</em> tiene valor de inicio pero no tiene valor de final porque esta es su ubicación por defecto, por eso prescindimos del ultimo (si queremos); tanto en sus filas y columnas. Es otra de las caracteristicas de grid.</p>
+    <p>En cambio, como pasa con <em>.header</em> y <em>.footer</em> que solo en sus filas no tiene valor final dado que así era su ubicación original en su fila.</p>
+    <p>El valor -1 solo funciona con cuadrículas explícitas, es para elegir la fila o columna final y contar hacia atras desde el final con valores negativos (-1, -2, -3) con este ejemplo.</p>
+    <p>Debemos usar las herramientas de desarrolladores para activar el inspector de grid junto con sus otras opciones para ver qué es lo que esta pasando.</p>
+
+    <h2>Posicionamiento con áreas de Grid</h2>
+    <p>Otra forma de posicionar elementos es con <a href="https://developer.mozilla.org/es/docs/Web/CSS/grid-template-areas">grid-template-areas</a> para ubicar a los elementos del HTML, despues usamos <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area">grid-area</a> para nombrar los elementos HTML.</p> 
+
+    <p>Uso de grid-area:</p>
+    <p>para empezar es una propiedad abreviada de <em>grid-row</em> y <em>grid-column</em> desde el inicio y final. Tambien <em>grid-area</em> puede recibir un valor <span>custom-ident</span> que son los nombres que crearemos con la anterior propiedad. Se usa fuera del contenedor y el nombre no va entre comillas.</p>
+
+    <p>Uso de grid-template-areas:</p>
+    <p>Cada palabra representará una columna y cada línea de nombres representará a una fila. Debemos tener en cuenta las que hemos creado con <em>grid-template-columns</em> lo mismo si solo usamos <em>grid-template-rows</em>. Se usa en el contenedor y las palabras van entre comillas, al final ponemos el punto y coma para cerrar la propiedad. Con los nombres debemos replicar la forma en la que queremos que se vea la página.</p>
+    <p>Hay una serie de reglas para usar <em>grid-template-areas</em>:</p>
+    <ul>
+    	<li>Se llenan todas las celdas.</li>
+    	<li>Para llenar dos celdas repetimos el nombre.</li>
+    	<li>Las areas deben ser solo rectangulares.</li>
+    	<li>Las areas no pueden repetirse en lugares diferentes.</li>
+    </ul>
+
+    <p>Para practicar bajamos un documento html. Primero le indicamos a <em>grid-template-areas</em> el nombre zonas en las que dividimos el HTML siguiendo las reglas anteriores. Despues con <em>grid-area</em> le pasamos el nombre de la zona al elemento de HTML.</p>
+    <code>
+        <!--
+            .container {
+              display: grid;
+              grid-template-areas:
+                "header header"
+                "sidebar content"
+                "footer footer";
+              grid-template-columns: 1fr 3fr;
+              gap: 20px;
+            }
+
+            header {
+              grid-area: header;
+            }
+
+            article {
+              grid-area: content;
+            }
+
+            aside {
+              grid-area: sidebar;
+            }
+
+            footer {
+              grid-area: footer;
+            }
+         -->
+    </code> 
+
+    <p>Logramos el mismo resultado con menos código lo que hace más eficiente el trabajo y aumenta el rendimiento del sitio.</p>
+
+    <h2>Formatos de cuadrículas</h2>
+    <p>Tienden a hacerse de 12 o 16 columnas y el posicionamiento debe hacerse de acuerdo con estas.</p>
+    <p>Descargamos el archivo y practicamos el posicionamiento de area o línea.</p>
+    <code>
+        <!--
+            header {
+              grid-column: 1 / 13;
+              grid-row: 1;
+            }
+
+            article {
+              grid-column: 4 / 13;
+              grid-row: 2;
+            }
+
+            aside {
+              grid-column: 1 / 4;
+              grid-row: 2;
+            }
+
+            footer {
+              grid-column: 1 / 13;
+              grid-row: 3;
+            }
+         -->
+    </code> 
+
+    <h2>Anidación de cuadrículas</h2>
+    <p>Podemos hacer de un elemento un contenedor grid, agregandole una clase en el HTML y creandole sub elementos. Del lado del CSS primero activamos Grid con display y después usamos las demás propiedades. Este nuevo contenedor no hereda las propiedades del contenedor padre, se acomoda en una cuadrícula aparte.</p>
+
+    <h2>Superponiendo elementos</h2>
+    <p>Podemos hacer que los elementos se superpongan ocupando una misma celda de grid. Usamos las lineas de grid y ubicando los elementos con <em>grid-column</em> y <em>grid-row</em>.</p>
+
+    <h2>Cuando usar Grid o Flexbox</h2>
+    <p>Grid se usa cuando tenemos que poner elementos en filas y columnas haciendo uso del diseño bidimensional, tambien lo usamos cuando queremos que un elemento ocupe varias cuadrículas. Los elementos se ven divididos y son proporcionados. En Flexbox se usa cuando solo tenemos que ubicar elementos en una dirección horizontalmente (fila) u verticalmente (columna), no hay varias columnas o filas en flex al mismo tiempo por eso es unidimensional; sus elementos no se ven divididos y puden ser o no ser proporcioandos.</p>
+    <p>Finalmente, con el posicionamiento en areas de grid podemos acomodor todos los elementos de un sitio y expandirlos, aunque no quiere decir que sea lo más ideal. En cambio, con flex es más dificil.</p>
+
+</html>

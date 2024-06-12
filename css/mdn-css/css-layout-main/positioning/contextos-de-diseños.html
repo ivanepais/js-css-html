@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index.css">
+	<title>Contextos de diseño - CSS</title>
+</head>
+<body>
+	<h1>Contextos de diseño y bloques contenedores en CSS</h1>
+	<p>A modo de recapitulación, profundizaremos en conceptos que habíamos pasado por alto sobre cómo funciona CSS.</p>
+
+	<h2>Contextos de diseño</h2>
+	<p>En CSS existen diferentes contextos denominados de formato que sirven para diseñar el contenido de los elementos y determinan como se comportan entorno a otros elementos.</p>
+	<p>A partir de ahora llamaremos informalmente <em>contextos de diseño</em> a los contextos de formato para facilitar la comprensión.</p>
+	<p>Los contextos de diseño actúan en el exterior (interacción con los demás elementos) e interior (diseño de sus elementos hijos) de una caja/elemento para aplicar un diseño particular al contenido del elemento o caja de CSS. Hay varios tipos de contextos: <a href="Normal layout">Normal layout</a> (determina las reglas de los elementos en bloque y en línea), <a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_Flexible_Box_Layout">Flexbox</a> y <a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_Grid_Layout">Grid</a>, etc. Cada uno con sus reglas de diseño como las que venimos aplicando pero sin profundizar en terminos tecnicos. Se cambian con los valores que le damos a la propiedad <a href="https://developer.mozilla.org/es/docs/Web/CSS/display">display</a>, especifica como actúa el exterior e interior de los elementos.</p>
+	<p>Por ejemplo, un <strong><a href="https://developer.mozilla.org/es/docs/Web/Guide/CSS/Block_formatting_context">BFC</a></strong> (contexto de formato en bloque) como los que practicamos en position sigue las reglas de diseño del Normal layout para los elementos en bloque. Es un mini documento para diseñar contenido que funciona "aparte" de la página. Un contexto de diseño en línea se puede encontrar dentro de los parrafos cuando usamos elementos para resaltar texto.</p>
+	
+	<h2>Sobre las cajas y el Model box</h2>
+	<p>Todo en CSS son cajas compuestas por áreas:</p>
+	<ul>
+		<li><strong>Content área</strong>: Espacio reservado para el contenido del elemento. Se puede modificar con width y height, a menos que sea una caja en línea.</li>
+		<li><strong>Padding área</strong>: Espacio para separar el contenido del borde de la caja para hacer que un elemento se vea más estetico.</li>
+		<li><strong>Border área</strong>: Dimensiona el borde de la caja para envolver el contenido.</li>
+		<li><strong>Margin área</strong>: Espacio fuera del borde usado para separar o mover las cajas en la página (agranda está área).</li>
+	</ul>
+	<p>Estas áreas forman el <a href="https://developer.mozilla.org/es/docs/Learn/CSS/Building_blocks/The_box_model">Model Box</a>.</p>
+	
+	<h2>In flow y out-of-flow</h2>
+	<p>El elemento <em>HTML</em> crea el contexto de diseño inicial para que los elementos esten dentro de la página, sigue las reglas del diseño en bloque y en línea. Los elementos dentro de esta etiqueta serán en bloque por lo que aparecerán uno debajo de otro a menos que sean en línea que aparecen uno al lado del otro. Dentro de este contexto podemos crear/usar otros metodos de diseño usando algunas propiedades, los elementos seguirán dentro de este contexto <em>in flow</em>, como la mayoría de los valores de display salvo algunos.</p>
+	<p>Los elementos pueden salir del flujo normal usando los valores de display y otras propiedades como <em>float</em>, <em>position</em> fixed y absolute. Crearan un nuevo <strong>BFC</strong> (contexto de formato de bloque) que es un mini documento fuera del contexto de diseño inicial, lo que quiere decir que estará fuera de la página (HTML); exteriormente (interacción) será un bloque e interiormente (diseño) seguira las reglas del diseño elegido. Los elementos <em>out-of-flow</em> podrían superponerse con otros elementos de la página y deberiás aplicar propiedades para evitarlo.</p>
+
+	<h2>Elementos padre, hijo, hermanos, antepasados y descendientes </h2>
+	<p>Las relaciones entre elementos se basan en qué elementos están contenidos dentro de otros elementos.</p>
+	<ul>
+		<li><strong>Elemento padre</strong>: Un elemento que contiene <em>directamente</em> a otros elementos.</li>
+		<li><strong>Elemento hijo</strong>: Elemento que está contenido directamente dentro de otro elemento.</li>
+		<li><strong>Elemento hermano</strong>: Los elementos son hermanos cuando <em>comparten</em> el mismo elemento principal.</li>
+		<li><strong>Elemento antepasado</strong>: Elemento que contiene (<em>en cualquier nivel</em>) a otros elementos, será un antepasado de estos.</li>
+		<li><strong>Elemento descendiente</strong>: Elemento que esta <em>está contenido</em> (en cualquier nivel) dentro de otro elemento.</li>
+	</ul>
+
+	<h2>Bloque contenedor y position</h2>
+	<p>Para generar un <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block">bloque contenedor</a> debe haber un ancestro (más cercano) para el elemento <a href="https://developer.mozilla.org/es/docs/Web/CSS/position">position</a>, que lo está conteniendo y determina la posición en donde va a estar ubicado. Si un elemento no cumple para ser bloque contenedor, pasa al otro más cercano. Para determinar cual es el bloque contenedor del elemento posicionado debe cumplir con algunas caracteristicas:</p>
+	<ul>
+		<li>Si el elemento es static, relative o sticky; el bloque contenedor será el <em>content área</em> del antepasado si es un elemento en bloque, flex o grid. Un elemento en linea no es tenido en cuenta porque no es un bloque contenedor.</li>
+		<li>Si es absolute, el contenedor será el <em>padding</em> del antepasado mientras no tenga aplicado <span>position: static;</span> o sea, puede tener fixed, absolute, relative. Este truco lo usamos en el apartado de posicionamiento, para que el contenedor del elemento no sea el viewport y se extienda por toda la pantalla.</li>
+		<li>Si es fixed, el contenedor será el viewport (ventana grafica) del navegador.</li>
+		<li>Si es absolute o fixed, el contenedor puede ser el padding del ancestro si tiene las siguientes propiedades:</li>
+		<ol>
+			<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform">transform</a> o <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/perspective">perspective</a> distinto del valor none</li>
+			<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/will-change">will-change</a> con los valores transform o perspective</li>
+			<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter">filter</a> distinto del valor none o will-change (solo en firefox)</li>
+			<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/contain">contain</a> con el valor paint</li>
+			<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter">backdrop-filter</a> distinto de none</li>
+		</ol>
+	</ul>
+	
+	<h3>Mover los BFC</h3>
+	<p>Para facilitar el movimiento de los BFC usamos el inspector para saber los valores de las areas de los ancestro (sobre todo para box-sizing) y dar valores en px a las propiedades top, bottom, left y right porque los desplazamientos de calculan a partir de este. Con los porcentajes podemos hacerlo más rápido, sin tener que restar los px del contenedor y nuestro elemento. Hace referencia al ancho del contenedor. El valor 0 se acerca al borde del contenedor.</p>
+
+	<h2>Resumen</h2>
+	<p>En la practica, la posición relativa se usa para mover/superponer elementos o para usarlo con la posición absoluta así tiene un contenedor definido (o un área) y no sea todo el documento.</p>
+	
+</body>
+</html>

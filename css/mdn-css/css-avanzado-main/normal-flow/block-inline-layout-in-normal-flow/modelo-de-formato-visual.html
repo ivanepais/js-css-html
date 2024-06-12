@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../../style-index/">
+	<title>Modelo de formato visual - CSS</title>
+</head>
+<body>
+	<h1>Modelo de formato visual</h1>
+	<p>Describe como los navegadores leen el DOM (árbol del documento) y lo muestran para los medios visuales (continuous media) una página, audio, video; y medios páginados (paged media) como puede ser un pdf para imprimir, un libro, etc.</p>
+	<p>Cada elemento del DOM o del documento (que creamos: parrafo, link, etc) que puede ser una página web o pdf se muestran en pantalla por el siguiente orden:</p>
+	<ul>
+		<li>Las cajas de CSS y su tamaño</li>
+		<li>Su posicionamiento en normal flow, float y position absolute.</li>
+		<li>Relaciones entre elementos en el árbol del documento.</li>
+		<li>Información externa (tamaño del viewport, tamaño de imagenes).</li>
+	</ul>
+
+	<h2>El rol de viewport</h2>
+	<p>En medios continuos o visuales (por ej, una web) podemos cambiar el tamaño de la ventana del navegador (en escritorio) o rotar la ventana (movil).</p>
+	<p>Si el documento es muy grande, tiene muchos elementos o mucho contenido; mostrará barras para desplazarse.</p>
+
+	<h2>Generación de cajas</h2>
+	<p>Es la parte del modelo visual que crea cajas a partir de los elementos que hay en el documento. Hay diferentes tipos de cajas, depende de su valor en la propiedad display.</p>
+
+	<p><em>CSS</em> toma el documento y lo representa en el lienzo, genera una estructura de cajas (intermedia) que es la estructura de formato del documento renderizado (mostrado). Cada caja en el árbol de cajas, representa su elemento correspondiente (o pseudo-elemento) en el espacio/lienzo, mientras que el texto en el árbol, representa el contenido de los nodos de texto.</p>
+	<p>Luego, para cada elemento, CSS general cero o más cuadros segun el valor de display de cada elemento.</p>
+
+	<h3>La caja principal</h3>
+	<p>Un elemento genera o contiente otras cajas, puede ser el elemento <em>body</em>.</p>
+	<p>Si un elemento tiene <em>display: list-item;</em> y valores com <em>none</em> o <em>contents</em> hacen que él o sus elementos descendiente, no generan ninguna caja.</p>
+
+	<h3>Cajas anonimas</h3>
+	<p>Se crea cuando no hay un elemento de HTML para usar en una caja. Por ejemplo, cuando declaras display flex en un contenedor/elemento principal y hay texto que no está encerrado en un parrafo. El arbol de cajas, creará una caja anonima para contener ese texto. Se comportará como un elemento flexible pero no se puede diseñar como una caja normal porque no podemos llamar al contenido suelto.</p>
+	<p>Lo mismo puede suceder cuando en un div hay contenido de texto suelto sin el elemento parrfo. Y lo mismo pasa con otros metodos de diseño.</p>
+	<p>Tambien sucede con las cajas en línea cuando hay uno de estos elementos vacio.</p>
+
+	<h2>Esquemas de posicionamiento y elemento in-flow y out-of-flow</h2>
+	<p>Un elemenento/caja se puede diseñar de acuerdo con tres esquemas de posicionamiento, <em>normal flow</em>, <em>floats</em>y <em>position absolute</em>.</p>
+
+	<h3>Normal flow</h3>
+	<p>El flujo normal incluye las cajas en bloque, en línea y los elementos en bloque o en línea con la propiedad position <em>relative</em> y <em>sticky</em>.</p>
+
+	<h3>Float</h3>
+	<p>A una caja normal, la podemos transformar en flotante con la propiedad <em>float</em>, se posicionan fuera del flujo normal, pueden estar colocados a la izquierda o derecha de una página.</p>
+
+	<h3>Posicion absoluta</h3>
+	<p>Un elemento con la propiedad <span>position: absolute;</span> se posiciona fuera del flujo normal y se le asigna un contenedor. </p>
+	<p>Un elemento está out-of-flow si es un flotante, tiene posicion absoluta o si es el elemento raíz (html). Un elemento está in-flow si no está fuera del flujo porque no es flotante, absoluto o es el elemento raíz.</p>
+	
+</body>
+</html>

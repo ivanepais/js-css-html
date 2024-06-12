@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Controlando las proporciones de los elementos flexibles en el eje principal</title>
+</head>
+<body>
+	<h1>Controlando elementos flexibles</h1>
+	<p>Las propiedades <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow">flex-grow</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink">flex-shrink</a> y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis">flex-basis</a> van en los elementos flexibles y no en el contenedor.</p>
+	<p>Controlan aspectos de la flexibilidad:</p>
+	<ul>
+		<li><em>flex-grow</em>: Cuanto del espacio libre positivo obtiene este elemento.</li>
+		<li><em>flex-shrink</em>: Cuango del espacio libre negativo obtiene este elemento.</li>
+		<li><em>flex-basis</em>: Cual es el tamaño del elemento antes que crezca o se reduzca.</li>
+	</ul>
+
+	<p>Se expresan mediante la propiedad abreviada flex, un ejemplo</p>
+	<code>
+    <!-- 
+    .item {
+  		flex: 2 1 auto;
+	  }
+    -->
+  </code>
+	<p>El primer valor es para grow, el segundo para shrink y el tercero para basis.</p>
+
+	<h2>Conceptos importantes para trabajar sobre el eje principal</h2>
+	<p>Las proporciones se relacionan con el tamaño intrinseco de los elementos flexiles y con el espacio sobrante en el contenedor antes de que crezcan o se reduzcan.</p>
+
+	<h3>Tamaño de los elementos flexibles</h3>
+	<p>Para calcular cúanto espacio disponible hay para diseñar elementos flexibles, el navegador debe saber qué tan grande es el elemento; especialmente para elementos que no tienen un ancho u alto determinado.</p>
+	<p>Debemos saber los conceptos de <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/width#min-content">min-content</a> y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/width#max-content">max-content</a>, nos servirán a medida que avancemos sobre cómo dimensionar los elementos flexibles.</p>
+	<p>Para <em>min-content</em>, la palabra más larga determina el tamaño del elementos, se hace lo más pequeño que puede de acuerdo a ésta; sin desbordar el contenedor. Para <em>max-content</em>, el contenido se expresa en una sola línea, ocupando todo el ancho necesario para que esto ocurra; provoca desborde.</p>
+	<code> 
+        <!--        
+		    .min-content {
+          width: -moz-min-content;
+          width: min-content;
+          border: 2px dotted rgb(96, 139, 168);
+        }
+        .max-content {
+          width: -moz-max-content;
+          width: max-content;
+          border: 2px dotted rgb(96, 139, 168);
+        }
+        -->
+  </code>
+
+    <h3>Espacio libre positivo y negativo</h3>
+    <p>Un <em>contenedor flexible</em> tiene espacio libre <em>positivo</em> cuando tiene más espacio del necesario libre para mostrar los elementos flexibles en este mismo contenedor. Por ejemplo, en un contenedor tenemos 500px de ancho, que tiene 3 elementos de 100px; nos sobran 200px de <em>espacio libre positivo</em> para que puedan repartirse entre ellos.</p>
+    <p>Un contenedor tiene espacio libre <em>negativo</em> cuando la suma total del tamaño de sus elementos es mayor al espacio disponible en el contenedor. Por ejemplo, en un contenedor de 500px con 3 elemenos de 200px, tenemos 100px de <em>espacio libre negativo</em>. Entonces, deberiamos reducir proporcionalmente el tamaño de los tres elementos.</p>
+
+    <p>Para diseñar los elementos flexibles debemos tener en cuenta estos dos valores finales y para entender flex grow, shrink, basis.</p>
+
+    <p>En los ejemplos la direccion flex es <em>row</em>, el tamaño de los elementos está determinado por su ancho.  </p>
+    <p>Si tuviera elementos con direccion <em>column</em>, el tamaño de los elementos está determinado por su altura, entonces, para diseñar; debemos tener los valores finales de la altura libre en la caja y la altura que sobresale de la caja </p>
+
+    <h2>Flex basis</h2>
+    <p>La propiedad <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis">flex-basis</a> determina el <em>tamaño inicial</em> de un elemento flexible antes de que se distribuya el espacio positivo o negativo. El <em>valor inicial</em> es <em>auto</em> (si no lo cambiamos), el navegador verifica antes si le habiamos dado valor <em>width</em>. Si le habiamos dado 200px al elemento, será el tamaño para después ampliarse o reducirse.</p>
+
+  	<p>Si lo dejamos en auto, el elemento toma un tamaño automatico de acuerdo a la propiedad <em>max-content</em> (el contenido total determina el tamaño).</p>
+  	<p>Tambien puede usar la palabra clave <em>content</em> para que basis tome el tamaño del contenido; aunque es un valor nuevo, menos compatible para navegadores antiguos que la palabra <em>auto</em> que tiene el mismo efecto.</p>	
+  	<p>Si a <em>flex-basis</em> le damos 0, ignora el tamaño del elemento y lo reparte el tamaño de los elementos proporcionalmente respecto al contenedor.</p>
+
+	  <code> 
+      <!--  
+      .box {
+        display: flex;
+      }
+
+      .box :first-child {
+        width: 150px;
+      }
+
+      .box > * {
+        flex: 0 0 auto;
+      }
+      -->
+    </code>
+  <p>Vemos el ancho a un elemento por fuera de flex, y en flex-basis tenemos auto.</p>
+
+	<h2>Flex grow</h2>
+	<p>La propiedad <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow">flex-grow</a> determina el crecimiento de los elementos cuando haya espacio disponible (positivo), en relación del resto.</p>
+	<p>Si todos tienen el mismo factor de crecimiento, el espacio se distribuirá uniformemente; normalmente se usa 1, aunque podría usar cualquier numero, siempre que sea el mismo en todos los elementos.</p>
+
+	<h3>Combinación entre flex-grow y flex-basis</h3>
+	<p>Las cosas pueden volverse confusas en algunas situaciones. Por ejemplo:</p>
+	<p>Si tenemos tres elementos flexibles de diferente longitud de contenido con la propiedad <span>flex: 1 1 auto</span>.</p>
+	<p>Además, los elementos tienen auto establecido y no tienen ancho determinado por nosotros; entonces, el tamaño de los elementos flexibles es lo que ocupe el contenido. Despues flexbox distribuye el espacio libre.</p>
+	<p>Entonces, en este ejemplo, estamos trabajando con una base flexible igual al tamaño de los elementos (max-content). El espacio disponible para distribuir se resta del espacio total disponible (ancho del contenedor) y el espacio sobrante se reparte por igual.</p>
+	<p>El elemento más grande termina siendo más grande porque así empezo o porque su contenido es mayor.</p>
+	<p>Si desea que todos los elementos tengan el mismo tamaño, aunque alguno tenga más contenido/ sea más grande desde el comienzo. Usamos <span>flex: 1 1 0</span>, significa que todo el espacio está disponible (porque no usamos auto o porque no le dimos un tamaño base) y como todos los articulos tienen el mismo valor de crecimiento, cada uno obtiene la misma cantidad de espacio.</p>
+  <code>
+    <!--
+      <div class="box">
+        <div>One</div>
+        <div>Two</div>
+        <div>Three has more content</div>
+      </div>
+
+      .box {
+        display: flex;
+      }
+
+      .box > * {
+        flex: 1 1 0;
+      }
+     -->
+  </code>
+
+	<h3>Factores de crecimiento diferente en los articulos</h3>
+	<p>Con <em>flex-basis</em> en 0, podemos usar todo el espacio disponible y podríamos asignar a cada elemento flexible distinto factores de crecimiento, <em>flex-grow</em>.</p>
+	<p>Por ejemplo</p>
+	<ul>
+		<l>1 para el primer elemento.</l>
+		<l>1 para el segundo.</l>
+		<l>2 para el tercero.</l>
+	</ul>
+
+	<code>
+      <!--
+      .box {
+        display: flex;
+      }
+
+      .one {
+        flex: 1 1 0;
+      }
+
+      .two {
+        flex: 1 1 0;
+      }
+
+      .three {
+        flex: 2 1 0;
+      }
+      -->
+  </code>
+
+	<p>El espacio total se distribuye segun el siguiente calculo: sumamos todos los factores de crecimiento, luego dividimos la cantidad total de espacio libre positivo del contenedor por el numero de la suma anterior que es 4.</p>
+	<p>Luego se comparte el espacio de acuerdo a los valores: el primer elemento obtiene una parte, el segundo otra parte y el tercero obtiene 2 partes de las 4. El tercer elemento tienen el doble que el primero y el segundo.</p>
+	<p>En resumen, el efecto de esto es que el tercer elemento toma más espacio disponible que el primero y el segundo, que serán iguales.</p>
+
+	<h2>Flex shrink</h2>
+	<p>La propiedad <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink">flex-shrink</a> especifica el factor de contracción flexible para los elementos que determina cúanto se reducirá en relación al resto.</p>
+	<p>Sucede cuando el navegador detecta que los valores de flex-basis de los elementos son demasiados grandes para el contenedor. Si ponemos factores positivos, los elementos se reducirán para que no se desborden del contenedor.</p>
+	<p>Si flex-grow agrega/aumenta espacio para que los elementos lo ocupen, <em>flex-shrink</em> lo <em>reduce/quita</em> <em>espacio disponible</em> para que los elementos puedan entrar en el contenedor sin desbordarse.</p>
+	<p>Si le ponemos <em>flex-shrink</em> en <em>0</em>, los elementos no pueden reducirse y se desbordarían del contenedor.</p>
+	<code>
+      <!-- 
+      .box {
+        display: flex;
+      }
+
+      .box > * {
+        flex: 0 0 auto;
+        width: 200px;
+      }
+      -->
+  </code>
+
+  <h3>Combinando flex-shrink y flex-basis</h3>
+  <p>Esta propiedad tiene particularidades que flex-grow no tiene:</p>
+  <ul>
+  	<li>el factor de reduccion se calcula multiplicando el tamaño de flex-basis cuando se distribuye el espacio negativo. Resulta una proporcion que determina cúanto puede reducirse, un elemento pequeño no llegará a un tamaño 0.</li>
+  	<li>Los articulos se reduciran hasta su tamaño de <em>min-content</em> (palabra más grande del contenedor determina el tamaño)</li>
+
+  </ul>
+  <p>Los elementos se adaptarán a la reducción del tamaño del contenedor.</p>
+  <code>
+    <!--    
+      <div class="box">
+        <div>Item One</div>
+        <div>Item Two</div>
+        <div>Item Three has more content and so has a larger size</div>
+      </div>
+
+      .box {
+        width: 500px;
+        display: flex;
+      }
+
+      .box > * {
+        flex: 1 1 auto;
+      }
+     -->
+  </code> 
+
+  <h3>Dar a los elementos diferentes factores de reducción</h3>
+  <p>Se usa para que un elemento se reduzca más o menos que sus hermanos o no se reduzcan (0).</p>
+
+  <code> 
+    <!--      
+  	.box {
+      display: flex;
+    }
+
+    .box > * {
+      width: 200px;
+    }
+
+    .one {
+      flex: 1 1 auto;
+    }
+
+    .two {
+      flex: 1 0 auto;
+    }
+
+    .three {
+      flex: 2 4 auto;
+    }
+    -->
+    </code>
+
+    <h2>Dominar el tamaño de los elementos flexibles</h2>
+    <p>Para realmente comprender como dimensionar los elementos flexibles, debemos tener un cuenta las siguientes cosas:</p>
+
+    <h3>Qué establece el tamaño de flex-basis</h3>
+    <ul>
+    	<li>¿Flex basis está configurada en auto (<em>max-content</em>) y el elemento tiene la propiedad <em>width</em>? Si es así, el tamaño se basará en ese ancho.</li>
+    	<li>¿Flex basis está en auto o en content (en un navegador compatible)? Si es así, el tamaño se basa en el tamaño del artículo.</li>
+    	<li>¿Tiene flex basis una unidad de longitud (ej, px), pero no cero? Si es así, este es el tamaño del artículo.</li>
+    	<li>¿Flex basis está en 0? si es así, el tamaño del elemento no se tiene en cuenta para el cálculo del espacio compartido.</li>
+    </ul>
+
+    <h3>¿Hay espacio disponible en el contenedor?</h3>
+    <p>Los elementos no pueden crecer sin espacio disponible, y no se reducirán a menos que haya espacio libre negativo</p>
+    <ol>
+    	<l> Si tomamos todos los elementos y sumamos sus anchos (o alturas si se trabaja en una columna), ¿ese total es menor que el ancho total (o la altura) del contenedor? Si es así, entonces tienes espacio libre positivo y entra en juego el crecimiento flexible.</l>
+
+    	<l>Si tomamos todos los elementos y sumamos sus anchos (o alturas si se trabaja en una columna), ¿ese total es mayor que el ancho total (o la altura) del contenedor? Si es así, tiene espacio libre negativo y entra en juego la reduccion flexible.</l>
+    </ol>
+
+    <h3>Otras formas de distribuir el espacio</h3>
+    <p>Si no quiere hacer que los elementos crezcan o se reduzcan puede usar las propiedades de alineación para usar el espacio libre disponible.</p>
+    <p>Con justify-content o con la tecnica de margin auto.</p>
+
+</body>
+</html>

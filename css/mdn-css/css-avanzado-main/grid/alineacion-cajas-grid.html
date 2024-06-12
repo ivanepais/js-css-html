@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Alineación de cajas en Grid</title>
+</head>
+<body>
+	<h1>Box Alignment en Grid</h1>
+	<p>La especificación <a href="https://drafts.csswg.org/css-align/">Box Alignment Level 3</a> determina las propiedades y reglas para la alineación de cajas en todos los metodos de diseño, siempre que para ellos sea posible; por eso es que vemos pequeñas diferencias. Por otro lado, tambien depende de que los navegadores la apliquen, en el caso de Grid está ampliamente aceptada.</p>
+	<p>En grid empezaremos entendiendo los dos ejes.</p>
+
+	<h2>Los dos ejes de la cuadrícula</h2>
+	<p>Dispone de dos ejes para alinear las cosas: el eje en <em>bloque</em> y el eje en <em>línea</em>. El eje en bloque es la <em>dirección</em> hacia donde van apareciendo los <em>elementos</em>, cruzando al eje en línea. El eje en línea es la dirección hacia donde corre el <em>contenido/texto</em>, cruzando al eje en bloque.</p>
+	<p>Podemos alínear el contenido que hay dentro de un area/celda y cuadrícula entera.</p>
+
+	<h2>Alinear elemenos en el eje en bloque</h2>
+	<p>Se usa las propiedades <em>align-self</em> y <em>align-items</em>, dentro de las areas o cuadrícula completa. Se usa en el <em>contenedor</em> para la direccion vertical/aparecen los elementos.</p>
+
+	<h3>Usando align-items</h3>
+	<p>Alineará todos los elementos de la cuadrícula, dispone de los siguientes valores:</p>
+	<ul>
+		<li>auto</li>
+		<li>normal</li>
+		<li>start</li>
+		<li>end</li>
+		<li>center</li>
+		<li>stretch</li>
+		<li>baseline</li>
+		<li>first baseline</li>
+		<li>last baseline</li>
+	</ul>
+	<code>
+		<!--
+		.wrapper {
+		   display: grid;
+		   grid-template-columns: repeat(8, 1fr);
+		   gap: 10px;
+		   grid-auto-rows: 100px;
+		-->
+		   grid-template-areas:
+			   "a a a a b b b b"
+			   "a a a a b b b b"
+			   "c c c c d d d d"
+			   "c c c c d d d d";
+			align-items: start;
+		}
+
+		.item1 {
+			grid-area: a;
+		}
+
+		<!--
+		.item2 {
+			grid-area: b;
+		}
+		.item3 {
+			grid-area: c;
+		}
+		.item4 {
+			grid-area: d;
+		}
+
+		<div class="wrapper">
+		  <div class="item1">Item 1</div>
+		  <div class="item2">Item 2</div>
+		  <div class="item3">Item 3</div>
+		  <div class="item4">Item 4</div>
+		</div>
+	-->
+	</code>
+
+	<h3>Usando align-self</h3>
+	<p>Podemos alinear uno por uno los elementos o despues de alinear todos, elegimos un elemento necesite una alineación distinta a los demás.</p>
+	<code>
+		<!--
+		.wrapper {
+		   display: grid;
+		   grid-template-columns: repeat(8, 1fr);
+		   gap: 10px;
+		   grid-auto-rows: 100px;
+		   grid-template-areas:
+			 "a a a a b b b b"
+			 "a a a a b b b b"
+			 "c c c c d d d d"
+			 "c c c c d d d d";
+		   }
+		.item1 {
+		   grid-area: a; 
+		}
+		.item2 {
+		   grid-area: b;
+		   align-self: start;
+		}
+		.item3 {
+		   grid-area: c;
+		   align-self: end;
+		}
+		-->
+		.item4 {
+		   grid-area: d;
+		   align-self: center;
+		}
+
+		<!--
+		<div class="wrapper">
+		  <div class="item1">Item 1</div>
+		</div>
+		-->
+	</code>
+
+	<h3>Elementos con relación de aspecto intrinseca</h3>
+	<p>El comportamiento predeterminado de <em>align-self</em> es stretch (estirar), excepto para los elementos multimedia que tienen una relación de aspecto con el valor <em>start</em>; es para que no pierda su tamaño.</p>
+	<p>Los navegadores no lo tienen implementado según la especificacion por eso hay que configurarlo manualmente.</p>
+	<p>Debemos poner las propiedades align-seft y <em>justify-self</em> con el valor <em>start</em>.</p>
+
+	<h2>Justificando elementos en el eje en línea</h2>
+	<p><em>justify-items</em> y <em>justify-self</em> hacen el mismo que las propiedades anteriores pero para el eje en línea. Podemos acomodar todos los elementos de la cuadrícula y un elemento individual dentro del área.</p>
+	<p>Los valores son los mismo: auto, normal, start, end, center, stretch, baseline, first baseline, last baseline.</p>
+	<p>el valor predeterminado es <em>stretch</em>, excepto para elementos con una relación de aspecto intrínseca. Debemos aplicar la tecnica anterior, para respetar la especificación y hacer buena practica poniendo <em>justify-self: start</em> para los objetos multimedia como pueden ser las imagenes.</p>
+	<code>
+		<!--
+		.wrapper {
+			display: grid;
+			grid-template-columns: repeat(8, 1fr);
+			gap: 10px;
+			grid-auto-rows: 100px;
+			grid-template-areas:
+			   "a a a a b b b b"
+			   "a a a a b b b b"
+			   "c c c c d d d d"
+			   "c c c c d d d d";
+		}
+	.item1 {
+	   grid-area: a;
+	}
+	-->
+	.item2 {
+	   grid-area: b;
+	   justify-self: start;
+	}
+	<!--
+	 .item3 {
+		grid-area: c;
+		justify-self: end;
+	}
+	.item4 {
+	   grid-area: d;
+	   justify-self: center;
+	}
+	-->
+	</code>
+
+	<h3>Propiedades abreviadas de alineación</h3>
+	<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/place-items">place-items</a> es la abreviada para align-items y justify-items para todos los elementos en los dos ejes. Se aplica en el contenedor.</p>
+	<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/place-self">place-self</a> actua de la misma forma. ES para los elementos individuales, se aplica en ellos, no en el contenedor.</p>
+
+	<h2>Centrar elemento en un área</h2>
+	<p>Si combinamos <em>align-self</em> y <em>justify-self</em> en un elemento lo podemos centrar en un area/cuadrícula entera.</p>
+	<code>
+		<!--
+		.wrapper {
+		   display: grid;
+		   grid-template-columns: repeat(4, 1fr);
+		   gap: 10px;
+		   grid-auto-rows: 200px;
+		-->
+		   grid-template-areas:
+		   ". a a ."
+		   ". a a .";
+		<!--   
+		}
+		.item1 {
+		   grid-area: a;
+		   align-self: center;
+		   justify-self: center;
+		}
+		-->
+	</code>
+
+	<h2>Alinear tracks (filas y columnas) en el eje de bloque</h2>
+	<p>Cuando tenemos una situación en la que las <span>pistas de la cuadrícula utilizan un área que es más pequeña que el contenedor de la cuadrícula</span> (sobre todo en espacios con tamaño fijo), entonces puede alinear las pistas de la cuadrícula, dentro de ese contenedor.</p>
+	<p>Esto funciona para los ejes de bloque y de línea. Usamos la propiedad <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/align-content">align-content</a> para el eje de bloque y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content">justify-content</a> para el eje de línea.</p>
+	<p>Tambien hay una propiedad abreviada, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/place-content">place-content</a> que junta las dos propiedades, las propiedades se utilizarán en el <em>contenedor</em>. los valores para todas son:</p>
+	<ul>
+		<li>normal</li>
+		<li>start</li>
+		<li>end</li>
+		<li>center</li>
+		<li>stretch</li>
+		<li>space-around</li>
+		<li>space-between</li>
+		<li>space-evenly</li>
+		<li>baseline</li>
+		<li>first baseline</li>
+		<li>last baseline</li>
+	</ul>
+	<p>Por ejemplo, si tenemos una cuadrícual de 500x500 y hay columnas y filas (areas) menor a este valor, hay espacio para usar las propiedades de alineación.</p>
+	<p>La propiedad <em>align-content</em> funciona en el contenedor y mueve todas las pistas en la <em>direccion del eje de bloque</em>.</p>
+
+	<h3>Comportamiento por defecto de las filas y columnas</h3>
+	<p>Tienen el valor <em>start</em> de la propiedad <em>grid-area</em> usando sus líneas, empiezan en la esquina superior izquierda.</p>
+	<code>
+		<!--
+		* {
+		   box-sizing: border-box;
+		}
+
+		.wrapper {
+		   border: 2px solid #f76707;
+		   border-radius: 5px;
+		   background-color: #fff4e6;
+		}
+
+		.wrapper > div {
+		   border: 2px solid #ffa94d;
+		   border-radius: 5px;
+		   background-color: #ffd8a8;
+		   padding: 1em;
+		   color: #d9480f;
+		}
+		-->
+	</code>
+
+	<code>
+		<!--
+		.wrapper {
+		   display: grid;
+		   grid-template-columns: repeat(3, 100px);
+		   grid-template-rows: repeat(3, 100px);
+		   height: 500px;
+		   width: 500px;
+		   gap: 10px;
+		   grid-template-areas:
+			   "a a b"
+			   "a a b"
+			   "c d d";
+		}
+		.item1 {
+		   grid-area: a;
+		}
+		.item2 {
+		   grid-area: b;
+		}
+		.item3 {
+		   grid-area: c;
+		}
+		.item4 {
+		   grid-area: d;
+		}
+
+		<div class="wrapper">
+		  <div class="item1">Item 1</div>
+		  <div class="item2">Item 2</div>
+		  <div class="item3">Item 3</div>
+		  <div class="item4">Item 4</div>
+		</div>
+	-->
+	</code>
+
+	<h3>Align content <em>end</em> en el eje en bloque</h3>
+	<p>Si lo usamos en el contenedor, desde la posición por defecto <em>start</em>, moverá todas las filas y columnas hacia abajo.</p>
+	<code>
+		<!--
+		.wrapper {
+		   display: grid;
+		   grid-template-columns: repeat(3, 100px);
+		   grid-template-rows: repeat(3, 100px);
+		   height: 500px;
+		   width: 500px;
+		   gap: 10px;
+		   grid-template-areas:
+		   "a a b"
+		   "a a b"
+		   "c d d";
+		   align-content: end;
+		} 
+		-->  
+	</code>
+
+	<h3>Otros valores de <em>align-content</em></h3>
+	<p>Con sus valores movemos todos los elementos/pistas en el eje de bloque, recordando que la condición es que siempre que haya espacio.</p>
+	<p>Si usamos <em>space-between</em> los elementos tomarán más espacio.</p>
+	<code>
+		<!--
+		.wrapper {
+		   display: grid;
+		   grid-template-columns: repeat(3, 100px);
+		   grid-template-rows: repeat(3, 100px);
+		   height: 500px;
+		   width: 500px;
+		   gap: 10px;
+		   grid-template-areas:
+			   "a a b"
+			   "a a b"
+			   "c d d";
+		   align-content: space-between;
+		}
+		.item1 {
+		   grid-area: a;
+		}
+		.item2 {
+		   grid-area: b;
+		}
+		.item3 {
+		   grid-area: c;
+		}
+		.item4 {
+		   grid-area: d;
+		}
+		-->
+	</code>
+
+	<p>Los valores <em>space-between</em>, <em>space-around</em> y <em>space-evely</em> <span>afecta a todos los elementos</span> distribuyen el espacio y hacen que los elemenentos sean más grandes que abarcan más pistas, como es una cuadrícula en de tamaño fijo, debemos asegurarnos que el contenido pueda entrar sin desbordarse.</p>
+
+	<h2><em>justify-content</em> en para el eje en línea</h2>
+	<p>Si usamos el valor <em>space-around</em> separa los elementos en todas las líneas.</p>
+	<code>
+		<!--
+		.wrapper {
+		   display: grid;
+		   grid-template-columns: repeat(3, 100px);
+		   grid-template-rows: repeat(3, 100px);
+		   height: 500px;
+		   width: 500px;
+		   gap: 10px;
+		   grid-template-areas:
+			   "a a b"
+			   "a a b"
+			   "c d d";
+		   align-content: space-between;
+		   justify-content: space-around;
+		}
+		.item1 {
+		   grid-area: a;
+		}
+		.item2 {
+		   grid-area: b;
+		}
+		.item3 {
+		   grid-area: c;
+		}
+		.item4 {
+		   grid-area: d;
+		}
+		-->
+	</code>
+
+	<h3>Alineación y auto margen</h3>
+	<p>Al configurar el margen izquiedo y derecho en auto con margenes verticales en 0, centramos centramos los elementos de bloque. El valor <em>auto</em> absorve el espacio utilizado.</p>
+	<code>
+		<!--		
+		.wrapper {
+		   display: grid;
+		   grid-template-columns: repeat(3, 100px);
+		   grid-template-rows: repeat(3, 100px);
+		   height: 500px;
+		   width: 500px;
+		   gap: 10px;
+		   grid-template-areas:
+			   "a a b"
+			   "a a b"
+			   "c d d";
+		}
+		-->
+		.item1 {
+			grid-area: a;
+			margin-left: auto;
+		}
+		<!--
+		.item2 {
+			grid-area: b;
+		}
+		.item3 {
+			grid-area: c;
+		}
+		.item4 {
+			grid-area: d;
+		} 
+		-->
+	</code>
+	<p>En el ejemplo tenemos, al elemento 1 le damos <em>margin-left: auto</em> que empuja todo el contenido hacia el otro lado por el espacio que no se haya utilizado, despues de que de demos espacio en el area.</p>
+	<p>Podemos usar las herramienentas para desarrolladores de grid para resaltar las lineas, las filas y columnas para ver estos espacios creados.</p>
+
+	<h2>Alineación y modos de escritura</h2>
+	<p>Grid y las propiedades de alineación estan pensadas para soportar todos los modos de escritura, significa que los bloques y el contenido fluye de otra manera.</p>
+	<p>En el modo de escritura <em>horizontal-tb</em> que es el que se usa en ingles, las lineas de inicio de los elementos estan arriba y a la izquierda.</p>
+	<p>Pero si usamos márgenes automáticos, margin-right o margin-left, o position absolute a los elementos usando los desplazamientos superior, derecho, inferior e izquierdo <em>no respetaría los modos de escritura</em>.</p>
+	<p>Se deben usar las propiedaes relativas al flujo (de los bloques y el contenido) en lugar de las propiedades fisicas, como lo son las anteriores. Es importante tenerlo en cuenta para desarrollar sitios en varios idiomas o para mostrar varios idiomas (se usa html) o para diseñar usando diferentes writting-mode (cambio estetico/artistico a los elmentos y no para idiomas).</p>
+
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../../style-index/style-index.css">
+	<title>Diseño de flujo y desbordamiento - CSS</title>
+</head>
+<body>
+	<h2>Controlando el desbordamiento (overflow)</h2>
+	<p>Hay valores alternativos para controlar el contenido desbordado que no son los más conocidos.</p>
+	<p>La propiedad <em>overflow</em> es una abreviatura de overflow-x y overflow-y.</p>
+
+	<h2>Propiedades logicas relativas al flujo</h2>
+	<p>Vimos en direcciones de texto alternativas a <em>horizontal-tb</em> podemos usar nuevas propiedades (logicas) como <em>block-size</em> e <em>inline-size</em> que reemplazan a propiedades fisicas height y width.</p>
+	<p>En la especificación de nivel 3 de Oveflow se incluyeron las propiedades logicas <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/overflow-block">overflow-block</a> y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/overflow-inline">overflow-inline</a>, tambien para usarlas en writting-mode distinto de horizontal-tb.</p>
+	<p>Corresponden a las direcciones <em>overflow-x</em> y <em>overflow-y</em> pero como son lógicas dependen de la<em>writting-mode</em> de los elementos. Aunque todavía no están implementadas en los navegadores.</p>
+	<p>Debemos seguir usando las propiedades fisicas comunes de overflow y cambiar el writting-mode.</p>
+
+	<h2>Indicando desbordamiento</h2>
+	<p>En la especificación de overflow de nivel 3, hay propiedades para mejorar la apariencia del contenido.</p>
+
+	<h3>Desbordamiento horizontal en una caja</h3>
+	<p>Si teneemos una caja que tiene ancho limitado y no podemos hacer que el contenido de texto sea responsivo/no siga en otra línea.</p>
+	<p><span>.box p {white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}</span></p>
+	<p>La propiedad <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow">text-overflow</a> se ocupa del desbordamiento de texto en la dirección del texto/contenido, segun writting-mode.</p>
+	<p>Tiene como valores a <em>clip</em> que es el predeterminado, corta/esconde el contenido que no entra en la caja. El otro valor es <em>ellipsis</em> que pone puntos suspensivos antes de esconder el contenido.</p>
+
+	<h3>Desbordamiento vertical en una caja</h3>
+	<p>La propiedad <em>block-overflow</em> es una propuesta (a la comunidad que determina los estandares de CSS) que con el valor <em>ellipsis</em> Permitiría agregar puntos suspensivos cuando el contenido se desborda verticalmente. Por ejemplo, en una lista de articulos dado que son cuadros pequeños con altura fija con poca capacidad para texto.</p>
+	<p>Estas propiedades funcionan para medios continuos (web, video, etc) y medios páginados (documentos para imprimir, pdf).</p>
+	
+</body>
+</html>

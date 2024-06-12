@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index/style-index.css">
+	<title>Contenido incrustados - HTML</title>
+</head>
+<body>
+	<h1>Contenido incrustado</h1>
+	<p>Podemos ampliar la variedad de contenido en el sitio con los elementos <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/iframe">iframe</a>, <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/embed">embed</a> y <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/object">object</a>. Con iframe podemos insertar otras paginas web con iframe (mapas, videos, etc), con embed podemos poner una aplicación externa (plug-in o complemento) que junto con object tienen una función parecida, se usan para incrustrar PDF, SVG, etc.</p>
+	
+	<h2>Elemento iframe</h2>
+	<p>Nos permite insertar sitios web de tercermos como mapas, audio/video, sistema de comentarios, etc. Generalmente las herramientas de estas páginas se encuentran en el botón compartir, insertar, copiar código <em>iframe</em>.</p>
+	<p>Atributos para configurar un iframe:</p>
+	<ul>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/iframe#attr-allowfullscreen">allowfullscreen</a>: Activa la pantalla completa para el elemento incrustado</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/iframe#attr-src">src</a>: Se escribe la URL de elemento que se quiere insertar</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/iframe#attr-width">width</a> y <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/iframe#attr-height">height</a>: Indicamos el ancho y alto para el iframe.</li>
+		<li><em>Contenido de respaldo</em>: Como hicimos antes agregamos un parrafo de aviso para los navegadores que no soporten iframe, junto con un enlace hacia la página dónde se encuentre el recurso.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/iframe#attr-sandbox"></a>: Activa una configuración para darle mayor seguridad a tu web, así poder usar el recurso externo.</li>
+	</ul>
+	<p><em>*</em>Se suele establecer el atributo src de los iframes con JavaScript para retrasar la carga de los iframe, para que la página carge más rapido.</p>
+
+	<h3>Seguridad para el elemento iframe</h3>
+	<p>Los atacantes pueden incrustrar iframe invisible en tu página o insertar tu página con un iframe en su página maliciosa. Esta tecnica de hackeo se llama <a href="https://es.wikipedia.org/wiki/Clickjacking">Clickjacking</a>.</p>
+	<p>Primero que nada, aseguremonos de que si incrustamos un recurso de una web; tenga el protocolo <a href="https://developer.mozilla.org/es/docs/Glossary/https">HTTPS</a>HTTPS. Lo podemos ver al principio de la URL. El sitio que desarrolles tambien debería tenerlo. <a href="https://developer.mozilla.org/es/docs/Learn/Common_questions/Using_Github_pages">Github pages</a> asegura tu contenido HTTPS, pero si estas usando un proveedor de hosting deberias consultarselo a esa empresa.</p>
+	<p>Segundo, el contenido de terceros generalmente tiene derechos de autor o una licencia que debe cumplir y dar credito de ello, como podemos ver en esta guía sobre <a href="https://wiki.creativecommons.org/wiki/Best_practices_for_attribution">buenas practicas de atribución</a>. Cuando busques contenido de terceros asegurate de leer su licencia y pedir permiso para asegurarte de usar correctamente el contenido otras personas.</p>
+	<p>Tercero, usar siempre el atributo <em>sandbox</em> sin ningún valor. Por si solo, contiene todas las restricciones para cubrir las debilidades que tiene el atributo <em>iframe</em> y obtiene todos los permisos necesarios para hacer su trabajo.</p>
+	
+	<code>
+		<!--
+			<iframe src="https://developer.mozilla.org/en-US/docs/Glossary"
+			    width="100%" height="500" frameborder="0"
+			    allowfullscreen sandbox>
+			  	<p> <a href="https://developer.mozilla.org/en-US/docs/Glossary">
+			    Fallback link for browsers that don't support iframes
+			  	</a> </p>
+			</iframe>
+
+		 -->
+	</code>	
+	
+	<h3>Configurar CSP directives</h3>
+	<p><a href="https://developer.mozilla.org/en-US/docs/Glossary/CSP">CSP</a> significa <strong><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">content security policy</a></strong> y provee <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy">HTTP Header</a> que son un conjuto de metadatos que van en el <em>head</em> del documento, diseñados para mejorar la seguridad del documento cuando se recibe una llamada al servidor</p>.
+	<p>Si configuramos en el servidor <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/X-Frame-Options">un <strong>X-Frame-Options</strong> header apropiado</a> evitamos que otros sitios malicioso o no, usen el contenido con fines inapropiados.</p>
+	<p>Puedes leer la publicación <a href="https://blog.mozilla.org/security/2013/12/12/on-the-x-frame-options-security-header/"></a> de Frederick Braun, que tiene una visión más profunda sobre como aplicar este metodo.</p>
+
+	<h2>Elementos embed y object</h2>
+	<p>Son elementos que pueden incrustar complementos (tecnologia de terceros, no nativa a la web) como Flash, Applets de Java, videos, PDF. Estas tecnologias quedaron en deshuso, tal vez haya en proyectos de uso empresarial o intranet (herramientas de comunicación entre equipos en las empresas). Para insertar videos usamos su etiqueta o iframe, para insertar pdf es mejor usar un enlace.</p>
+	<code>
+		<!--
+			<embed
+			  type="video/quicktime"
+			  src="movie.mov"
+			  width="640"
+			  height="480"
+			  title="Title of my video" />
+			
+			<object type="application/pdf"
+			    data="/media/examples/In-CC0.pdf"
+			    width="250"
+			    height="200">
+			</object>
+		 -->
+	</code>	
+</body>
+</html>

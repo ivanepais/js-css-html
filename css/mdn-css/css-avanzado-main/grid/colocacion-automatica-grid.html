@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Colocación automatica de filas y columnas en Grid</title>
+</head>
+<body>
+	<h1>Filas y columnas automaticas de Grid</h1>
+	<p>La especificación de grid determina qué sucede cuando creamos una cuadrícula y no colocamos todos los elementos con <em>grid-area</em> (líneas) o <em>grid-template-areas</em> (nombres).</p>
+
+	<h2>Ubicación predeterminada</h2>
+	<p>En una cuadrícula sin las propiedades mencionadas, por ejemplo:</p>
+	<code>
+    <!--
+    <div class="wrapper">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+      <div>Four</div>
+      <div>Five</div>
+    </div>
+    -->
+		.wrapper {
+           display: grid;
+           grid-template-columns: repeat(3, 1fr);
+           gap: 10px;
+        }
+	</code>
+	<p>Vemos cinco elementos seguidos, a medida que se llena las filas, aparecerán otras.</p>
+
+	<h2>Reglas del auto-posicionamiento</h2>
+	<p>El flujo predeterminado es por fila, Grid colocará un elemento en cada celda de la fila 1.</p>
+	<p>Si has creado filas explicitas adicionales con <em>grid-template-rows</em>, grid seguirá colocando elementos en estás filas.</p>
+	<p>Si no has creado suficientes filas explicitas para todos los elementos, se crearán filas implicitas.</p>
+
+	<h3>Dimensionar filas implicitas</h3>
+	<p>El tamaño predeterminado de las filas implicitas es <em>auto-size</em>, se adaptan al contenido para no desbordarse.</p>
+	<p>Pero podemos controlar el tamaño de estas filas con <em>grid-auto-rows</em>. Las filas se puede expandir a lo <em>alto</em>, por ej, con <em>100px</em> que es un tamaño fijo.</p>
+	<code>
+		.wrapper {
+           display: grid;
+           grid-template-columns: repeat(3, 1fr);
+           gap: 10px;
+           grid-auto-rows: 100px;
+        }
+	</code>
+	
+	<h3>Dimensionar filas con <em>minmax()</em></h3>	
+	<p>En grid-auto-rows podemos dar un valor minimo y maximo para que puedea ajustarse cuando el contenido sea más alto.</p>
+	<code>
+		.wrapper {
+           display: grid;
+           grid-template-columns: repeat(3, 1fr);
+           gap: 10px;
+           grid-auto-rows: minmax(100px, auto);
+        }
+	</code>
+	<p>El alto minimo es 100px y el maximo es auto para que la fila se expanda. Se aplica a <em>todas las filas</em>.</p>
+
+	<h3>Dimensionar filas usando multiples valores (track list)</h3>
+	<p>Podemos dar multiples valores a <em>grid-auto-rows</em>, cuando haya puesto todos, se repetirá la lista. Afecta de <em>va de fila en fila</em>.</p>
+	<code>
+ 		.wrapper {
+           display: grid;
+           grid-template-columns: repeat(3, 1fr);
+           gap: 10px;
+           grid-auto-rows: 100px 200px;
+        }
+
+        <!--
+          <div class="wrapper">
+            <div>One</div>
+            <div>Two</div>
+            <div>Three</div>
+            <div>Four</div>
+            <div>Five</div>
+            <div>Six</div>
+            <div>Seven</div>
+            <div>Eight</div>
+          </div>
+
+        -->
+	</code>
+
+	<h3>Colocación automatica de columnas</h3>
+	<p>Con <em>grid-auto-columns</em> podemos hacer todo lo mismo, salvo que afecta al ancho en la cuadrícula. Si aplicamos minmax() afectará a <em>todas las columnas</em>. Si aplicamos varios valores</p>
+
+	<p>Si incluimos <em>grid-auto-flow: column</em> para que el orden de los elementos sea en columna (uno debajo de otro), ubicará los elementos en las filas explicitas creadas con <em>grid-template-rows</em> pero cuando se terminen, creará filas implicitas. A éstas las dimensionamos con <em>grid-auto-columns</em>, sin esto tendrán un tamaño automatico adaptable al contenido.</p>
+	<code>
+		.wrapper {
+           display: grid;
+           grid-template-rows: repeat(3, 200px);
+           gap: 10px;
+           grid-auto-flow: column; <!--auto-posicioniento implic -->
+           grid-auto-columns: 300px 100px; <!-- tamaño celdas implic -->
+        }
+	</code>
+	<p>En el ejemplo, la primera columna tiene 300px, la segunda 100 y se repite 300px para la tercera, ya que no hay valores nuevos.</p>
+
+	<h2>Orden de los elementos colocados automaticamente</h2>
+	<p>En una cuadrícula podemos ubicar manualmente los elementos o <span>dejar que se coloquen automaticamente mediante la auto-creación de celdas y auto-posicionamiento</span>.</p>
+	<p>En la espacificación <a href="https://drafts.csswg.org/css-grid/#auto-placement-algo">Grid items placement algorithm</a> se detalla precisamente todas las reglas del orden de posicionamiento automatica, aunque solo necesitamos recordar algunas indispensables.</p>
+
+	<h3>Ordenar documento modificado</h3>
+	<p>Son los elementos a los que no se les ha dado una posición la las propiedades correspondiente. Es donde empieza a funcionar el algoritmo de ubicación automatica de grid.</p> 
+
+	<h3>Elementos con propiedades de ubicación</h3>
+	<p>Grid colocará primero los elementos que tengan una posición con las propiedades <em>grid-area</em> o <em>grid-templete-area</em>.</p>
+	<p>Los elementos colocados automaticamente se colocarán antes de que los elementos colocados en orden DOM.</p>
+
+	<!--Hay tres tipos de orden?: dom (3er), auto (2do), posicionados (1er) -->
+
+	<code>
+        <!--
+		    .wrapper {
+           display: grid;
+           grid-template-columns: repeat(4, 1fr);
+           grid-auto-rows: 100px;
+           gap: 10px;
+        }
+      -->
+        .wrapper div:nth-child(2) {
+           grid-column: 3;
+           grid-row: 2 / 4;
+        }
+        <!--
+        .wrapper div:nth-child(5) {
+           grid-column: 1 / 3;
+           grid-row: 1 / 3;
+        }
+      -->
+	</code>
+
+	<h3>Elementos que abarcan varias celdas</h3>
+	<p>Podemos combinar las propiedades de ubicación con la ubicación automatica.</p>
+	<p>Podemos abarcar filas y columnas con las propiedades <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end">grid-column-end</a> y <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end">grid-row-end</a> con un valor de 2, el inicio del elemento lo establecerá el posicionamiento automatico de grid y su línea final abarcará dos pistas.</p>
+	<p>Cuando no hay espacio para colocar los elementos automaticos, los moverá a donde haya espacio; dejando celdas vacias.</p>
+	<code>
+      <!--
+		  .wrapper {
+           display: grid;
+           grid-template-columns: repeat(4, 1fr);
+           grid-auto-rows: 100px;
+           gap: 10px;
+        }
+      -->
+        .wrapper div:nth-child(4n + 1) {
+           grid-column-end: span 2;
+           grid-row-end: span 2;
+           background-color: #ffa94d;
+        }
+        <!--
+        .wrapper div:nth-child(2) {
+           grid-column: 3;
+           grid-row: 2 / 4;
+        }
+        .wrapper div:nth-child(5) {
+           grid-column: 1 / 3;
+           grid-row: 1 / 3;
+        }
+        -->
+	</code>
+
+	<h3>Llenando los espacios vacios</h3>
+	<p>La cuadrícula siempre avanza y mantiene los elementos en el orden del DOM, para no mesclar todos los elementos.</p>
+	<p>Si queremos diseñar algo que no tiene orden lógico y que no haya espacios vacios como en el ejemplo anterior, podemos agregar la propiedad <em>grid-auto-flow</em> con el valor <em>dense</em> para cambiar la forma/direccion en la que se colocarán los elementos en el contenedor.</p>
+	<p>Se rellenaran los espacios a medida que encuentre elementos que puedan caber ahí. Como todas las propiedades de posicionamiento desde CSS, no cambian el orden del DOM/documento html origen; solo es un efecto de estilo/visual.</p>
+	<code>
+
+		    .wrapper div:nth-child(4n + 1) {
+           grid-column-end: span 2;
+           grid-row-end: span 2;
+           background-color: #ffa94d;
+        }
+        <!--
+        .wrapper div:nth-child(2) {
+           grid-column: 3;
+           grid-row: 2 / 4;
+        }
+        .wrapper div:nth-child(5) {
+           grid-column: 1 / 3;
+           grid-row: 1 / 3;
+        }
+      -->
+        .wrapper {
+           display: grid;
+           grid-template-columns: repeat(4, 1fr);
+           grid-auto-rows: 100px;
+           gap: 10px;
+           grid-auto-flow: dense;
+        }
+
+	</code>
+
+	<h3>Elementos de cuadrícula anónimos</h3>
+	<p>Estos se crean si tiene una cadena de texto dentro de su contenedor de cuadrícula, que no está envuelto en ningún otro elemento</p>
+	<p>En el ejemplo vemos un texto que no tiene marcado que será tratado en el posicionamiento automatico de grid porque no hay forma de orientarlos.</p>
+	<p>Los elementos que tienen marcado pueden colocarse automaticamente o usando propiedades.</p>
+
+	<h3>Casos de usa del posicionamiento automatico</h3>
+	<p>Tiene sentido cuando tenemos muchisimos elementos.</p>
+  <p>Podría ser un caso donde los elementos no necesiten un orden lógico como una galeria de imagenes o una lista de productos, entonces, usamos <em>grid-auto-flow: dense</em> que rellena los huecos a medida que encuentre elementos con ese tamaño.</p>
+  <code>
+    <!--
+    .wrapper {
+       display: grid;
+       grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+       gap: 10px;
+       grid-auto-flow: dense;
+    }
+    -->
+    .wrapper li.landscape {
+        grid-column-end: span 2;
+    }
+  </code>
+  <p>Si tenemos un conjunto de elementos que necesitan un orden lógico, por ejemplo, una lista descriptiva; éstas no tienen un contenedor. Podemos hacer que los terminos vayan en una columna y las definiciones en otra.</p>
+  <code>
+    <!--
+    dl {
+       display: grid;
+       grid-template-columns: auto 1fr;
+       max-width: 300px;
+       margin: 1em;
+       line-height: 1.4;
+      }
+    dt {
+       grid-column: 1;
+       font-weight: bold;
+    }
+    dd {
+       grid-column: 2;
+    }
+
+    <div class="wrapper">
+      <dl>
+        <dt>Mammals</dt>
+        <dd>Cat</dd>
+        <dd>Dog</dd>
+        <dd>Mouse</dd>
+        <dt>Fish</dt>
+        <dd>Guppy</dd>
+        <dt>Birds</dt>
+        <dd>Pied Wagtail</dd>
+        <dd>Owl</dd>
+      </dl>
+    </div>
+  -->
+  </code>
+
+  <h2>Qué no podemos hacer con la colocación automatica</h2>
+  <p>No podemos apuntar a todos los elementos de nuestra cuadrícula. En el repositorio <a href="https://github.com/w3c/csswg-drafts/issues/796">CSSWG-issues</a> a diario plantean problemas y sugerencias de uso para que en la especificación futura mejore la experiencia de GRID, nosotros podemos hacer o mismo.</p>
+
+</body>
+</html>

@@ -1,0 +1,750 @@
+/*
+	|| NORMAL FLOW
+		Disponemos de elementos de bloque que aparecen uno debajo de otro y 
+		de elementos de línea que aparecen uno al lado de otro.
+			
+			bloque:
+			Va a ocupar el 100% del ancho de su elemento padre.
+			
+			línea:
+			Tiene su ancho y alto determinado por su contenido, a menos que cambie a display: inline-block;
+		
+		*Es una buena practica comenzar el documento con el flujo normal y despues hacer las modificaciones.
+		Al contenido de una caja se le añade padding (relleno), border y margin. 
+		El modelo de caja más facil de aplicar es el que se usa con box-sizing: border-box en el cual las propiedades anteriores no afectan a la caja cambiando su anchura y altura dado.
+		Si dos elementos adyacentes tienen margen aplicado, se impondrá el más grande debido al colapso de margen.
+
+
+	|| FLEX
+
+		Contenedor y elementos flex:
+
+			<div class="wrapper">
+              <div class="box1">One</div>
+              <div class="box2">Two</div>
+              <div class="box3">Three</div>
+            </div>
+            
+            .wrapper {
+              display: flex;
+            }
+
+            .wrapper > div { 
+              flex: 1;   // selecciona todos los descendientes del contenedor.
+            }
+		
+		Propiedades para el contenedor:
+			display: flex
+			flex-direction y flex-wrap = flex-flow
+			align-items
+			justify-content
+
+		Propiedades para los elementos:
+			flex
+			align-self
+			justify-self
+			order
+		
+		Anidación:
+		
+		El articulo 3 tiene 3 divs tomamos el 1° para transformarlo en contenedor de nuestros botones.
+
+			article:nth-of-type(3) div:first-child {
+			  flex: 1 100px;
+			  display: flex;
+			  flex-flow: row wrap;
+			  align-items: center;
+			  justify-content: space-around;
+			}
+	
+		botones con flex: 1 auto; ocuparán el espacio que puedan cuando reducimos el ancho de la ventana del navegador y cuando no puedan saltarán a la nueva línea.
+			
+			button {
+			  flex: 1 auto;
+			  margin: 5px;
+			  font-size: 18px;
+			  line-height: 1.5;
+			}
+
+
+	|| GRID
+		
+		Contenedor y elementos:
+			
+			<div class="wrapper">
+              <div class="box1">One</div>
+              <div class="box2">Two</div>
+              <div class="box3">Three</div>
+              <div class="box4">Four</div>
+            </div>
+            
+            .wrapper {
+              display: grid;
+              grid-template-columns: 1fr 1fr 1fr;
+              grid-template-rows: 100px 100px;
+              gap: 10px;
+            }
+
+            .box1 {
+              grid-column: 2 / 4;
+              grid-row: 1;
+            }		
+
+		Propiedades para el contenedor:
+			display: grid
+			grid-template-rows
+			grid-template-columns
+			grid-template-areas
+			grid-column-gap
+			grid-row-gap
+			gap
+			grid-auto-rows      //tamaño implícito
+			grid-auto-columns
+			align-items: para eje bloque.
+				Alinéa a todos los elementos. Despues podemos usar align-self para alinar algun caso especial.
+				Para el contenedor.
+			jusitify-items: eje en línea.
+				Alinea todos los elementos.
+
+				// El valor predeterminado es stretch (estirar), excepto para elementos con una relación de aspecto intrínseca. 
+					Esto significa que, de forma predeterminada, los elementos cubrirán su área de cuadrícula.
+					Si usamos align o justify-items todos cambian y ninguno llena el espacio.
+				
+				// Con justify/align-self veremos que los elementos ocupan/empiezan en una fracción del espacio horizontal.
+
+		Propiedades para los elementos:
+			grid-column-start/end
+			grid-row-start/end
+			grid-column
+			grid-row        //ubicación 
+			grid-area
+			align-self:
+				Alinéa elementos individualmente en el eje de bloque.
+			justify-self
+
+		Repetir cuadrícula y fila o columna implicita:
+		El primer valor será para la cantidad y el segundo valor será para el tamaño, separados por una coma.
+		Podemos determinar tamaño de fila o columna implicita con grid-auto-rows/columns.
+
+			.container {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+			  grid-auto-rows: 100px;
+              gap: 20px;
+            }
+		
+		Contenido min y max:
+		El contenido mínimo/max deben coincidir al menos para evitar desbordamiento.			
+		
+		minmax(): 
+		El primer valor es para altura (row) o anchura (column) mínima y el segundo determina el valor máximo.
+			
+			.container {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              grid-auto-rows: minmax(100px, auto);
+              gap: 20px;
+            }
+
+        Filas o columnas como sean posibles:
+        Para que el contenedor admita la cantidad maxima de columnas posibles.
+        
+        repeat():
+		El 1° valor será auto-fill, el 2° la función minmax() y sus valores serán: tamaño (mínimo) y fr (unidad flexible) maximo.
+		O sea, repite los valores de min y max.	
+			
+			.container {
+              display: grid;
+              grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+              grid-auto-rows: minmax(100px, auto);
+              gap: 20px;
+            }
+
+		Posicionamiento sobre líneas:
+		Las lineas son definidas por grid, no son los espacios (gutters).
+		Usamos valores de inicio y fin en una sola propiedad.	
+			
+			header {
+              grid-column: 1 / 3;
+              grid-row: 1;
+            }
+
+		Se coloca en la columna 1 hasta la 3ra y se extiende por toda la fila.
+		Los valores negativos como -1, -2, -3 solo funcionan con explícita.
+		
+		Posicionamiento sobre áreas:
+		Cada palabra representará una columna/fila y cada línea de nombres representará a una fila.
+		
+			Usamos grid-template-rows o grid-template-columns:
+			Se usa en el contenedor y las palabras van entre comillas, al final ponemos el punto y coma para cerrar la propiedad. 
+			Con los nombres debemos replicar la forma en la que queremos que se vea la página.
+		
+			Reglas:
+				Se llenan todas las celdas.
+    			Para llenar dos celdas repetimos el nombre.
+    			Las areas deben ser solo rectangulares.
+    			Las areas no pueden repetirse en lugares diferentes.
+			
+			.container {
+              display: grid;
+              grid-template-areas:
+                "header header"
+                "sidebar content"
+                "footer footer";
+              grid-template-columns: 1fr 3fr;
+              gap: 20px;
+            }
+
+            header {
+              grid-area: header;
+            }	
+
+		Superponiendo elementos:
+		Usando las líneas de la cuadrícula con grid-column y grid-row.
+		
+		Anidación de cuadrículas:
+		Tomamos un elemento del contenedor para convertirlo en cuadrícula, no hereda las propiedades del contenedor padre, se acomoda en una cuadrícula aparte.
+		
+		Cuadrícula de 12/16 columnas:
+		Los frameworks para diseñar una cuadrícula se basaban en 12 o 16, pero para esto ya no se necesitan de terceros.
+		Podemos hacer estás cuadrículas nativamente.
+		Solo necesitamos un contenedor con una cuadrícula de 12 columnas. 
+			
+			.container {
+            	display: grid;
+            	grid-template-columns: repeat(12, minmax(0,1fr));
+            	gap: 20px;
+       		}
+
+
+	|| FLOAT
+		Se utiliza para desplazar un elemento del flujo normal que flotará en el documento para poder ubicarlo en alguna parte de la ventana del navegador.
+		Tiene cuatro valores para establecer la flotación a los lados de otros elementos: left, right, none, inherit (heredar propiedades del padre)
+		No podemos aplicar propiedades del model box a los elementos que están alrededor para elejarlo, lo aplicamos al float.
+
+			<div class="box">Float</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam</p>
+
+            .box {
+              float: left;
+              width: 150px;
+              height: 150px;
+              margin-right: 30px;
+            }
+	
+		Clear:
+		Si solo aplicamos esta propiedad, mueve el flotante y vemos que los elementos circulantes dejan de envolverse al float.
+		El problema es que no se integra con los demás elementos.
+
+			.cleared {
+			  clear: left;
+			}
+
+		display: flow-root
+		Creará un bloque que envuelve los elementos para que no sobresalgan en la parte inferior.
+		Un BFC (block formatting context) crea un pequeño diseño para que un elemento padre pueda abarcar el tamaño que toman los elementos hijos como son el flotante y el parrafo.
+			
+			.wrapper {
+			  background-color: rgb(79, 185, 227);
+			  padding: 10px;
+			  color: #fff;
+			  display: flow-root;
+			}
+
+
+	|| POSITION
+		Se usa para mover elementos desde su ubicación por defecto en el flujo normal hacia otra posición.
+
+		static:
+		Valor por defecto en cada elemento.
+
+		relative:
+		Permite mover elementos dentro flujo normal, puede superponerse con otros.
+		Para moverlo usamos propiedades como <em>top</em> y <em>left</em> que lo va a empujar desde arriba y desde la izquierda.
+			
+			.positioned {
+              position: relative;
+              top: 30px;
+              left: 30px;
+            }
+
+		Toma estos lados de la caja y los mueve en dirección contraria.
+
+		absolute:
+		Saca los elementos del flujo normal, para poder moverlo al borde del <em>html</em> (o de su elemento padre más próximo) para crear elementos de diseño complejo como paneles ocultos en la página que aparecen con un botón.		
+		El espacio en la página dónde estaba el elemento desaparece, los demás elementos tomán el lugar. Tendrá su bloque o capa propia.
+		Las propiedades top y left si van hacia arriba y a la izquierda, no empujan desde esas direcciónes como en relative.
+		Dependiendo del contenedor padre, dimensionamos el elemento.
+			
+			.positioned {
+              position: absolute;
+              top: 30px;
+              left: 30px;
+            }
+
+        La posición del elemento absoluto depende de su contenedor o ancestro más cercano y no del flujo normal.
+			Ej:
+			Especifican la distancia que debe estar el elemento desde cada uno de los lados del elemento que lo contiene. 
+			Entonces, en este caso, estamos diciendo que el elemento absolutamente posicionado debe estar a 30 px desde la parte superior del "elemento contenedor" y 30 px desde la izquierda.
+
+		Crear contenedor ancestro:
+		Si ningún ancestro tiene un valor de position explicito (que nosotros codeamos) tendrá por defecto el valor sticky y su contenedor será el viewport (toda la ventana grafica disponible).
+		Necesitamos codear uno:
+
+			position: relative;
+		
+		Para nuestro ancestro, así el contenedor deja de ser la ventana gráfica.
+		El tamaño se podrá definir mejor.
+
+		fixed:
+		El elemento flotará fijamente por la ventana del navegador porque es su contenedor natural mientras su ancestro no tenga las propiedades transform o perspective con un valor distinto de none.
+		
+			h1 {
+			  position: fixed;
+			  top: 0;
+			  width: 500px;
+			  margin-top: 0;
+			  background: white;
+			  padding: 10px;
+			}
+
+			top 0 es para que se adhiera a la parte superior o para no moverlo desde esa posición.
+			Le damos al encabezado el mismo ancho que la columna de contenido y luego un fondo blanco y algo de relleno y margen para que el contenido no sea visible debajo.
+			El encabezado posicionado ya no aparece en el flujo del documento, puede causar efectos que debemos arreglar.
+			Cuando fijamos un elemento parte del contenido se recorta al movernos por la página.
+			
+			Podríamos mejorar esto bajando o moviendo los elementos normales del documento:
+			
+			p:nth-of-type(1) {
+			   margen superior: 60px;
+			}
+
+		sticky:
+		Puede hacer que un elemento esté estatico que se desplazará cuando se mueva la pantalla.
+		El elemento sticky solo se desplazará en un área: por todo alto o dimensión de su elemento padre (elemento de bloque, flex o grid más cercado).	
+		
+			.positioned {
+              position: sticky;
+              top: 30px;
+              left: 30px;
+            }
+
+        Si es muy pequeño no se notará que se queda fijo. Con las propiedades top, bottom, left y right lo movemos hacia su lado contrario.
+			
+			Scrolling index:
+			Le agregamos sticky a al elemento <em>dt</em> (description title) de la lista de descripcion (dl). Con un valor maximo de 0 en top, los encabezados se desplazan con el contenido (dd) y cada encabezado siguiente reemplazará al anterior. Con un margen vertical (1em) y horizontal (0).
+				
+				<h1>Sticky positioning</h1>
+
+					<dl>
+					  <dt>A</dt>
+					  <dd>Apple</dd>
+					  <dd>Ant</dd>
+					  <dd>Altimeter</dd>
+					  <dt>B</dt>
+					</dl>
+
+				dt {
+				  background-color: black;
+				  color: white;
+				  padding: 10px;
+				  position: sticky;
+				  top: 0;
+				  left: 0;
+				  margin: 1em 0;
+				}
+
+				El efecto es que cada elemento dt se quedará fijo.
+
+		Colapso de margen en los elementos posicionados:
+		Los margenes pueden ser aplicados, pero no colapsan, se sumarían.
+		
+
+		top, left, right y bottom:
+
+			relative, fixed, sticky:
+			Lo usamos para empujar los elementos desde estas direcciones.
+			Ej: La propiedad top: 0; hace el elemento no se mueva desde esta posición.
+
+			absolute: 
+			Toma distancia de su elemento contenedor.
+			Ej: top: 0; toma toda la dimensión top del contenedor ancestro.
+
+
+		Contenedor ancestro más cercano:
+		HTML es un jerarquia de elemento relacionados, entre ellos pueden ser:
+
+			Elemento padre: 
+			Un elemento que <em>contiene directamente</em> a otros elementos.
+		
+			Hijo: 
+			Elemento que <em>está contenido</em> directamente dentro de otro elemento.
+		
+			Hermano: 
+			Los elementos son hermanos cuando <em>comparten</em> el mismo elemento principal.
+		
+			antepasado:
+			Elemento que contiene <em>en cualquier nivel</em> a otros elementos, será un antepasado de estos.
+
+			descendiente: 
+			Elemento que esta <em>está contenido</em> (en cualquier nivel) dentro de otro elemento.
+		
+		Las áreas de una caja (margin, border, padding, content) pueden ser el contenedor de un elemento posicionado:
+
+		Bloque contenedor y position:
+		Para generar un bloque contenedor debe haber un ancestro (más cercano) para el elemento.		
+		Determina la posición en donde va a estar ubicado.
+		Si un elemento no cumple para ser bloque contenedor, pasa al otro más cercano.	
+		Para ser contenedor, un elemento cercano debe tener ciertas caracteristicas:	
+				
+			Si el elemento es static, relative o sticky:
+			El bloque contenedor será el <em>content área</em> del antepasado si es un elemento en bloque, flex o grid. Un elemento en linea no es tenido en cuenta porque no es un bloque contenedor.
+			
+			Si es absolute: 
+			El contenedor será el <em>padding</em> del antepasado mientras no tenga aplicado <span>position: static;</span> o sea, puede tener fixed, absolute, relative. Este truco lo usamos en el apartado de posicionamiento, para que el contenedor del elemento no sea el viewport y se extienda por toda la pantalla.
+			
+			Si es fixed: 
+			El contenedor será el viewport (ventana grafica) del navegador.
+			
+			Si es absolute o fixed:
+			El contenedor puede ser el padding del ancestro si tiene las siguientes propiedades:
+				
+				transform o perspective distinto del valor none.
+				will-change con los valores transform o perspective.
+				filter distinto del valor none o will-change (solo en firefox).
+				contain con el valor paint.
+				backdrop-filter distinto de none.
+		
+		Mover el BFC:
+		Usamos el inspector para saber los valores de las areas de los ancestro y dar valores en px a las propiedades top, bottom, left y right.
+		Con los porcentajes podemos hacerlo más rápido, sin tener que restar los px del contenedor y nuestro elemento. Hace referencia al ancho del contenedor. El valor 0 se acerca al borde del contenedor.
+
+
+	|| Z-INDEX:
+	 	El elemento HTML es capaz de crear el contexto de diseño/formato inicial para poder aplicar el diseño en bloque y en línea en los elementos, tambien puede crear el contexto de apilamiento inicial que nos permite verlos y ubicarlos en orden.
+		Establece el orden de renderización/visualizacion en la página usando el eje z de un elemento posicionado y sus descendientes o de los elementos flexibles.		
+		Así como tambien habia propiedades para crear diferentes contextos de diseño, hay propiedades que crean otros contextos de apilamiento.
+		
+		Funciona con un elemento posicionado con el valor absolute, fixed o sticky.
+
+			orden html:
+			El orden en que aparecen los elementos posicionados en el HTML: los que aparecen últimos se superponen a los que estaban primeros. El eje z es una línea imaginaria que va desde la pantalla hacia nosotros.
+		
+		Agregamos un valor entero (positivo o negativo) a z-index para subirlo o bajarlo de capa.
+
+		Contextos de aplilamiento:
+		Una jerarquia de apilamiento es la estructura que generan todos los elementos del HTML, formado por elementos hermanos y padre/hijo. 
+		Existen los niveles en una jerarquia, por ejemplo, elementos hermanos es un nivel y si hay hijos de uno de ellos pasa a ser el segundo nivel. 
+		Podemos identificar el orden de renderización (visualización de elementos) imaginando un numero de versión.
+
+		Orden de apilamiento:
+			
+			Fondo y borde del elemento raíz (HTML).
+			Cualquier elemento en bloque del flujo normal.
+			Bloques flotantes.
+			Elementos en línea del flujo normal
+			Elementos position siguiendo su orden en el HTML (los ultimos que aparecen en el HTML se superponen a los primeros).
+		
+		Apilando con z-index:
+		Z-index solo funciona cuando creamos un nuevo contexto de apilamiento en un elemento y un ejemplo es usando position + z-index.	
+		Se usa si queremos un orden diferente en los elementos a como vienen predeterminados, visualmente los elementos se alejarán o acercarán de nosotros. 
+		Una capa con un numero mayor se renderizará encima de las capas con números menores.
+			
+			Abajo: Elemento más lejanos al observador.
+			...
+			Capa -1
+			Capa 0: Capa de renderización inicial/por defecto, cuando los elementos no tienen z-index.</li>
+			Caja 1
+			Caja 2
+			Caja 3
+			...
+			Arriba: Elemento más cercano al observador.
+		
+		*Si varios elementos comparten el mismo valor de z-index, se situarán en esa capa pero se ordenarán con las reglas basicas anteriores sin z-index.
+		*Si los elementos hijos tienen z-index y su padre no, estos se ordenarán en el contexto de apilamiento inicial.
+		*Los elementos hijos tiene su propio contexto: se ordenan entre ellos, los de afuera no interfieren y se superponen visualmente a su padre. Si el elemento padre tiene z-index se ordenará en su propio contexto y se moverá junto a sus hijos.
+		
+		Propiedades que crean contextos de apilamiento:
+
+			elemento raíz (HTML).
+			position (relative o absulute, fixed o sticky) y z-index distinto de 0.
+			item flex o item grid.
+			opacity menor de "1".
+			transform distinto de "none".
+			mix-blend-mode distinto de "normal".
+			filter distinto de "none".
+			perspective distinto de "none".
+			isolation distinto de "isolate".
+			will-change en un valor no inicial.
+			contain con layout, paint, strict, content.
+
+
+	|| BFC: contexto de formato de bloque
+		Es la región en que ocurre la disposición de las cajas de bloque y en la cuál los elementos flotantes interactúan los unos con los otros.
+		A estos bloques se les aplica las propiedades del model box para alejarlos de los demás, si las aplicamos a los elementos normales no tendrían efecto como vimos con los flotantes.
+		Por eso para diseñarlos o solucionar problemas, creamos un bfc contenedor o adyacente.
+
+			Es creado por un elemento con: 
+				elemento raiz (<HTML>) o algo que lo contiene.
+				float diferente de none.
+				position absolute o fixed.
+				display: inline-block.
+				display: table-cell, que es la propiedad por defecto de las celdas de una tabla HTML.
+				display: table-caption, que es la propiedad por defecto de los subtítulos de tablas HTML.
+				overflow distinto a visible.
+				display: flex o inline-flex.
+				display: flow-root.
+				Flex items, Grid items.
+				Multicol containers.
+				column-span: all, siempre; incluso cuando no está en el contenedor de multicolumna.
+		
+		Colapso de margen:
+		Si tenemos dos elementos adyacentes con margen vertical en dónde se tocan el de arriba y abajo, tal vez esperamos que se sumen para que haya más espacio. Pero este no es el comportamiento natural de los margenes, converge el más grande.
+			
+			Ejemplo: 
+				<div class="blue"></div>
+				<div class="red"></div>
+
+				.blue,
+				.red {
+				  height: 50px;
+				  margin: 10px 0;
+				}
+		
+			Podemos evitar el colapso, si envolvemos el segundo elemento y a este contenedor lo convertimos en bfc:
+
+				<div class="blue"></div>
+				<div class="outer">
+				  <div class="red"></div>
+				</div>
+				
+				.outer {
+				  overflow: hidden;
+				  background: transparent;
+				}
+
+		BFC externo: 
+		Cuando un contenedor es BFC para sus elementos internos.
+
+		BFC interno:
+		Cuando un elemento interno es un BFC dentro de un contenedor normal.
+
+
+	|| MULTI-COLUMN
+		Podemos acomodar el contenido en columnas mediante un contenedor con algunos elementos.
+
+		Propiedades para el contenedor:
+		column-count: 
+		Divide el contenido en la cantidad de columnas indicadas.
+		Toma un valor que será la cantidad de columnas en las que se dividirán los parrafos porque es el contenido
+			
+			.container {
+			  column-count: 3;
+			}	
+
+		column-width: 
+		La cantidad de columnas dependera del ancho del contenedor.
+		Si el ancho del contenedor es menor que el ancho de la columna; se crea una sola columna más pequeña que el contenedor. Cuando sobra espacio se reparte entre las columnas que tendrán más ancho de lo indicado.
+		El ancho de las columnas se adaptarán al tamaño de la ventana del navegador.
+
+			Ejemplo:
+			<div class="container">
+              <h1>Multi-column Layout</h1>
+
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus</p>
+
+              <p>Nam vulputate diam nec tempor bibendum. Donec luctus augue eget malesuada</p>
+            </div>  
+
+            .container {
+              column-width: 200px;
+            }
+		
+		Estilo a las columnas:
+		Las columnas divididas no se pueden diseñar individualmente: cambiarles el tamaño, fondo o color de texto, etc.
+		
+		column-gap:
+		Cambiamos el espacio entre las columnas usando un valor de longitud (% o px), tambien se puede usar con flexbox, grid, etc.
+		
+		column-rule: 
+		Agregamos el ancho, estilo y color de la línea que separa a las columna; es una propiedad abreviada.
+		Ocupa el espacio que creó column-gap, si quiere más espacio deberá aumentar esta.
+		
+		Si queremos 10px a cada lado de las columnas; tenemos que agregar column-gap: 25px; 5px para la línea entre las columnas (estilo de column-rule) y se reparten 10px a cada lado de las columnas.
+			
+			.container {
+			  column-count: 3;
+			  column-gap: 20px;
+			  column-rule: 4px dotted rgb(79, 185, 227);
+			}
+
+		Controlar el desbordamiento: max-width: 100%;
+		Cuando el tamaño de un elemento es mayor que el cuadro de la columna.
+			
+			Ej: una imágen que está entre dos columnas de un contenedor, es más ancha que las columnas
+				
+				<div class="container">
+  					<p>Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon.</p>
+  					<img src="image.jpg" alt="balloons">
+  					<p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi-</p>
+				</div>
+
+				.container {
+				  column-width: 150px;	//puede pasar con column-count.
+				}
+
+			Por defecto, el contenido desbordado no se corta, se sigue mostrando.	
+			Con max-width: 100% se adaptará al ancho de columna.
+		
+		Dependiendo del formato del contenido, impresión (print) o continuo (continuous), el contenido de las columnas se desbordará de diferente manera y cambiará la manera en que lo controlamos.
+		En impresion puede ser que las columnas que se desborden pasan a otra página, lo mismo con los renglones o líneas de texto horizontal.
+		
+		En medios continuos, como una web; las columnas se desbordan en dirección del texto cuando no tenemos altura suficiente.
+			.container {
+			  column-width: 200px;
+			  height: 180px;
+			}
+
+			Si le sacamos la altura, crean más espacio vertical
+			Pero si no podemos, el texto colapsará el contenedor y el navegador nos mostrará una barra de desplazamiento. No tenemos propiedades para esto.
+
+		Aplicar media query:
+		Si el contenido de las columnas es más alto que el viewport, el usuario o lector tendrá que subir y bajar para leer cada columna.
+		Podemos verificar la altura antes de aplicar las propiedades de la columna.
+			
+			@media (min-height: 300px) {
+			  .container {
+			    column-width: 200px;
+			  }
+			}
+			
+			Si la altura tiene un minimo de 300px, crear columnas de 200px para que entre todo el contenido en la pantalla.
+
+
+		Columnas expansivas:
+
+		column-span: all
+		Podemos hacer que un elemento se extienda sobre todas las columnas. Para hacer esto, este elemento divide al contenido de las columnas y continua después.
+		Ocupa todas las columnas o ninguna.
+		Se convierte en un bfc:  mini HTML que funciona aparte y sigue el diseño de bloques.
+		
+		Fragmentación de cajas:
+		al dividir el contenido de un conetenedor nos puede traer un problema en la experiencia de lectura: el texto se puede ver cortado.
+			
+			<div class="container">
+			  <div class="card">
+			    <h2>I am the heading</h2>
+			    <p>
+			      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus
+			      aliquam dolor, eu lacinia lorem placerat vulputate. Duis felis orci,
+			    </p>
+			  </div>
+			</div>
+
+			.container {
+			  column-width: 250px;
+			  column-gap: 20px;
+			}
+
+			.card {
+			  background-color: rgb(207, 232, 220);
+			  border: 2px solid rgb(79, 185, 227);
+			  padding: 10px;
+			  margin: 0 0 1em 0;
+			}
+		
+		Si tenemos muchas cartas como esta, el contenedor multicolumna que divide cada divs y no solamente los parrafos: corta mal las cajas y dificulta la lectura.
+		
+		break-inside:
+		Establecemos como deben comportarse los saltos de página o región dentro de una caja. Decidimos si se deben romper o si lo evitamos.
+		El valor avoid que evita cualquier ruptura; al contenedor/div del titulo y el parrafo.
+			
+			.card {
+			  break-inside: avoid;
+			  page-break-inside: avoid;
+			  background-color: rgb(207, 232, 220);
+			  border: 2px solid rgb(79, 185, 227);
+			  padding: 10px;
+			  margin: 0 0 1em 0;
+			}
+		
+		break-before y break-after:
+		Se usa para separar antes y despues de un elemento señalado
+		Funciona entre los elementos/contenedores. Tienen valores en comun, se usan para el diseño en multicolumna, para los saltos de páginas en un documento de lectura, para regiones (experimental). Tambien valores genericos y globales.
+
+			Si queremos que en una hoja de impresión se corte para usar una hoja nueva en cierto elemento usamos el valor break-before: page.
+			Otro uso es querer evitar que los encabezados terminen como ultimo en una página de documento o columna, entonces, usamos: break-after: avoid.	
+
+		Propiedades orphans y widows:
+		Determinan cuantas líneas deben quedar/mostrase al principio (widows) o al final (orphans) de un salto de página o corte de una columna.
+		Solo funcionan para las líneas de parrafos.
+		
+		
+	|| TABLE
+		Se usa para mostrar datos en filas y columnas, mucho tiempo atras se podía usar para diseñar páginas.
+		Ahora se puede usar para crear cosas especificas cuando un sitio admite navegadores antiguos.
+
+		display: en los elementos form (table), div (table-row) para una fila. 
+		Label e input (<em>table-cell</em>) para las celdas. 
+		Para el parrafo que sigue despues del formulario tiene el valor <em>table-caption</em> para el titulo/descripción de la tabla
+
+		Consta de espacios para el form, los campos con margin en 0 (arriba y abajo) y auto (centra horizontalmente), el ancho de los campos estan definidos, etc.
+			
+			<form>
+              <p>First of all, tell us your name and age.</p>
+              <div>
+                <label for="fname">First name:</label>
+                <input type="text" id="fname" />
+              </div>
+
+              <div>
+                <label for="lname">Last name:</label>
+                <input type="text" id="lname" />
+              </div>
+
+              <div>
+                <label for="age">Age:</label>
+                <input type="text" id="age" />
+              </div>
+            </form>
+            
+            html {
+              font-family: sans-serif;
+            }
+
+            form {
+              display: table;
+              margin: 0 auto;
+            }
+
+            form div {
+              display: table-row;
+            }
+
+            form label,
+            form input {
+              display: table-cell;
+              margin-bottom: 10px;
+            }
+
+            form label {
+              width: 200px;
+              padding-right: 5%;
+              text-align: right;
+            }
+
+            form input {
+              width: 300px;
+            }
+
+            form p {
+              display: table-caption;
+              caption-side: bottom;
+              width: 300px;
+              color: #999;
+              font-style: italic;
+            }
+
+
+
+*/

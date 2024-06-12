@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style-index/style-index.css">
+	<title>Box alignment en Grid</title>
+</head>
+<body>
+	<h1>Alineación de caja en Grid</h1>
+	<p>Como antes, la especificación <em>CSS Box Alignment</em> detalla la alineación que usamos para el diseño de cuadrículas.</p>
+
+	<h2>Un ejemplo</h2>
+	<p>En grid, el <em>eje principal</em> es la dirección en <em>línea</em> y el <em>eje transversal</em> es la dirección en <em>bloque</em> por donde corren los elementos. La alineación de los elementos del contenedor se controla con <em>align-items</em> para el eje transversal (bloque) y <em>justify-content</em> para el eje principal (línea).</p>
+	<code>
+		.box {
+		  display: grid;
+		  width: 540px;
+		  grid-template-columns: 120px 120px 120px;
+		  align-items: start;
+		  justify-content: space-between;
+		}
+
+		.box :first-child {
+		    align-self: center;
+		}    
+	</code>
+
+	<h2>Ejes en Grid</h2>
+	<p>En las dos dimensiones de grid tenemos disponibles todas las propiedades de alineaciones disponibles para los elementos.</p>
+	<p>El <em>eje en línea</em> es la dirección dónde corre el <em>texto</em> que cambia con el modo de escritura, en ingles son horizontales. Se usan las propiedaes <em>justify-content/items/self</em>.</p>
+	<p>El <em>eje en bloque</em> es la dirección hacia dónde aparecen los <em>elementos</em>, por ejemplo, en ingles; los parrafos aparecen uno debajo de otro, es vertical. Se usan las propiedades <em>align-content/items/self</em>.</p>
+
+	<h2>Alineación individual</h2>
+	<ul>
+		<li>justify-self</li>
+		<li>align-self</li>
+		<li>place-self</li>
+		<li>justify-items</li>
+		<li>align-items</li>
+		<li>place-items</li>
+	</ul>
+	<p>Se ocupan de alinear los elementos en las areas de las cuadrícula.</p>
+	<p>Las propiedades con la palabra <em>items</em> se aplican al <em>contenedor</em> y con la palabra <em>self</em> se aplican a los <em>elementos</em> individuales. Podemos establecer una alineación para todos los elementos de la cuadrícula y después tomar un elemento individual y cambiar su alineación.</p>
+
+	<p>El valor inicial de las propiedades <em>self</em> es <em>stretch</em>, el elemento se extenderá por toda el área de la cuadrícula, a menos que tengamos un elemento <em>media</em> (img, vid, etc) con una relación de tamaño intriseca que se mostrará tal cual para que no se distorsione.</p>
+
+	<h2>Content alignment</h2>
+	<ul>
+		<li><em>justify-content<em></li>
+		<li><em>align-content</em></li>
+		<li><em>place-content</em></li>
+	</ul>
+	<p>Son para alinear las pistas de la cuadrícula cuando hay espacio para distribuir, sucede cuando todas las pistas suman menos que el total del contenedor.</p>
+
+	<h2>Gap y gap heredado</h2>
+	<ul>
+		<li>row-gap</li>
+		<li>column-gap</li>
+		<li>gap</li>
+	</ul>
+	<p>Estas se usan tambien en otros metodos de diseño que tengan sentido el espacio sobrante.</p>
+	<p>Si un navegador no tiene compatibilidad para estas, se usan las <em>propiedades heredadas</em>: <em>grid-row-gap</em>, <em>grid-column-gap</em> y  <em>grid-gap</em>.</p>
+</body>
+</html>

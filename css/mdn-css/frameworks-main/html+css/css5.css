@@ -1,0 +1,2489 @@
+/*
+	|| NORMAL FLOW
+
+		Los elementos en bloque tienen dos direcciones: block-direction (como aparecen las cajas) y inline-direction (direción hacia donde fluye el contenido).	
+		La propiedad writing-mode determina las dirección de los elementos en los metodos de diseño.
+		La propiedad display cambia los metodos de diseño.
+		Las direction y text-direction son parecidas a writing-mode.		
+
+		Los contexto de formato determina el comportamiento de los elementos en bloque y en línea:
+			
+			en bloque:
+			Los margenes verticales crean una separación, si aplicamos margin: 0; elimina los margen en los cuatro lados, se juntarán las cajas.
+			El contenido de los elementos en bloque ocupará todo el espacio que haya en el contenedor del bloque, hacia donde fluya la dirección de este.
+			Aparecerán uno debajo de otro, incluso si para dos elementos determinamos un ancho para que entren los dos.
+			
+			en línea:
+			Se muestran uno tras otro en la dirección de contenido que disponga el modo de escritura que se esté usando.
+			Solo podemos aplicar propiedades horizontales del model box (izq y der: width (content área), padding, margin)
+			Solo le podemos dar altura si cambiamos el tamaño de fuente para su contenido.
+			
+			*Los dos tipos de elementos tienen un principio y final que es importante para las propiedades lógicas.	
+
+			Colapso de margen:
+			Cuando los margenes top y bottom se tocan, que uno solo: el más grande. Aunque hay más casos.
+			
+			Elementos de reemplazo (img, video, etc):
+			No cambian su orientación/visualización por el modo de escritura.
+
+		Display: define los tipos de visualización 
+
+			exterior:
+			Determina como se comporta la caja con respecto a las demás cajas dentro de ese mismo contexto de formato.
+			
+			interior:
+			Determina como se comportan las cajas/elementos dentro de este elemento.
+		
+		Propiedades lógicas:
+		block-size, inline-size y las demás se adaptan bien a los valores de display y writing-mode.
+
+		Elementos del HTML:
+		El elemento HTML crea el contexto de diseño/formato inicial para que los elementos esten dentro de la página.	
+		Seguirán el comportamiento del normal flow, a menos que con algunas propiedades o algunos valores de display podamos sacarlos de este contexto para crear otros con distintos comportamientos.
+
+			In flow:
+			Elementos que pertenecen al contexto inicial creado por la etiqueta HTML.
+
+			Out flow:
+			Elementos que pueden salir del flujo con float, position fixed y absolute, etc.
+			Podrán superponerse con los elementos que están en el contexto inicial.
+			
+			BFC (block formatting context):
+			Hay propiedades que pueden crear estos elementos especiales que son mini html que estan fuera del principal que exteriormente sigue un comportamiento de bloque.
+			Por ejemplo, un float o los item de grid o flex son bfc.
+
+		Desbordamiento/overflow:
+		Hay más contenido del que cabe en un contenedor de tamaño restringuido.
+		En el flujo normal, darle a un elemento una altura y un ancho fijos genera un desbordamiento.
+		
+		Por defecto la propiedad overflow está en visible.
+		Podemos ocultarlo (hidden) o poner barras horizontal y vertical(scroll) y auto (pone barras cuando son necesarias).
+		overflow es abreviada de overflow-x y overflow-y.
+		Todas estas crean un nuevo BFC.
+
+		Pero tambien hay otras propiedades que se adaptan al texto o al caja para que no se desborde.
+		Como white-space, overflow-wrap, word-break, width: fit-content, width: max-content.
+		
+		*Estas propiedades no hacen falta en un texto no dinamico/contralado usuario. 
+		 Si en una caja definimos ancho pero no alto y la palabra más larga no supera el ancho de la caja, la altura de la caja se ajusta automaticamente al texto;
+			
+			Ej: Para un parrafo en una caja:
+				
+				<div class="box">
+    			<p>One November night in the year 1782, so the story runs, two brothers sat over their winter fire in the little French town of Annonay, watching the grey smoke-wreaths from the hearth curl up the wide chimney.</p>
+				</div>
+
+				.box {
+				    width: 300px;
+				    border: 5px solid rebeccapurple;
+				    padding: 10px;
+				}
+
+				.box p {
+				    
+				    // no harián falta //
+
+				    white-space: nowrap;
+				    text-overflow: ellipsis;
+				    overflow: hidden;
+				}
+
+		Para propiedades lógicas:
+		Son como block-size e inline-size que reemplazan a height y width.
+
+			overflow-block:
+			Reemplaza a la propiedad vertical, overflow-y
+
+			overflow-inline:
+			reemplaza a la propiedad overflow-x.
+		
+		*Todavía no están implementadas, se deben usar las físicas y ajustar el modo de escritura.
+		
+		Propiedades para los ejes:
+			
+			En bloque:
+			block-overflow, no está aprobada.
+
+			En línea:
+			text-overflow: siempre evitará el desbordamiento. Para que funcione necesitamos algunos valores de las propiedades white-space y overflow.					
+								
+				.box p {
+				    white-space: nowrap;
+				    text-overflow: ellipsis;
+				    overflow: hidden;
+				}
+
+			Todos los valores cortan el texto:
+				
+				clip: Puede ocurrir en medio de un carácter.
+
+				ellipsis: Antes agrega puntos suspensivos.
+				
+				text-overflow: "-"; agregará un guión.
+
+				text-overflow: ""; impide que corte el texto en medio de una palabra.
+		
+	|| Modelo de formato visual:
+		Describe como los navegadores leen el DOM (árbol del documento) y lo muestran para los medios visuales (continuous media) una página, audio, video; y medios páginados (paged media) como puede ser un pdf para imprimir, un libro, etc.
+		Los elementos del DOM o del documento (web, pdf, etc) tienen un orden de renderizado:
+
+			1. Las cajas de CSS y su tamaño
+			2. Su posicionamiento en normal flow, float y position absolute.
+			3. Relaciones entre elementos en el árbol del documento.
+			4. Información externa (tamaño del viewport, tamaño de imagenes).
+
+		Cajas anonimas
+		Son elementos que no podemos diseñar con CSS porque no tienen etiqueta de HTML.
+			
+			Casos:
+			1° Hay un elemento de HTML para usar en una caja. Por ejemplo, cuando declaras display flex en un contenedor/elemento principal y hay texto que no está encerrado en un parrafo. El arbol de cajas, creará una caja anonima para contener ese texto. Se comportará como un elemento flexible pero no se puede diseñar como una caja normal porque no podemos llamar al contenido suelto.
+			2° Lo mismo puede suceder cuando en un div hay contenido de texto suelto sin el elemento parrfo. Y lo mismo pasa con otros metodos de diseño.
+			2° Tambien sucede con las cajas en línea cuando hay uno de estos elementos vacio.	
+
+
+	|| FLEX
+		Dispone los elementos sobre un eje vertical u horizontal, por eso es unidimensional.
+
+		Dos ejes:
+		El eje principal está definido por flex-direction, y el eje transversal corre en perpendicular (90°) al primero.
+		
+			Valores de flex-direction:
+
+				row: 
+				El eje principal corre en la dirección en línea/texto/contenido. 
+				Los items se ordenan en línea, uno al lado de otro.
+					
+					Su eje secundario correrá en dirección de bloque.
+
+				column: 
+				Corre en dirección de bloque/elementos. 
+				Los items se ordenan en columna, uno debajo de otro.
+					
+					El eje secundario correrá en dirección en línea.
+				
+				column-reverse/row-reverse: dirección contraria.
+		
+		writing-mode:
+		Determina dónde empiezan o terminan los elementos, start/end.
+
+		Valores por defecto:
+
+			Flex-direction: row;
+			Los items no crecen pero si se reducen
+			Los items crecen en el eje transversal para contener todo el contenido
+			flex-basis: auto;
+			flex-wrap: nowrap;
+
+		Valores auto / 0:
+
+			auto:
+			indica que los elementos toman el tamaño establecido en ellos mismo o si no tienen, su contenido determinará su tamaño.
+			
+			0: 
+			indica que va a ignorar el tamaño "auto" de los elementos (por contenido o por su ancho definido) así comparte todo el espacio disponible (del contenedor) proporcionalmente.
+
+		flex-wrap: wrap;
+		Acomoda los elementos en multiples líneas cuando no hay espacio en una sola.
+		
+		flex-flow: 
+		Es abreviada para flex-directión y flex-wrap.
+			
+			{flex-flow: row wrap;}
+
+		Propiedades para los items:
+		Usan el espacio disponible del contenedor flex.
+		Tamaño horizonal/vertical del contenedor menos el tamaño de los elementos.
+		Si sobra espacio, podemos distribuirlo entre los elementos.
+
+			flex-grow: 
+			Agrega/toma espacio del disponible para agrandar elementos.
+
+			flex-shrink:
+			Quita espacio para reducir elementos. 
+
+			flex-basis:
+			Define el tamaño de los elementos para crecer o reducirse.
+
+				auto: valor por defecto.
+				Los elementos toman el tamaño establecido en ellos mismo o si no tienen, su contenido determinará su tamaño.
+			
+				0: 
+				Indica que va a ignorar el tamaño "auto" de los elementos (por contenido o por su ancho definido) así comparte todo el espacio disponible (del contenedor) proporcionalmente.
+			
+			Flex:
+			Abreviada de grow, shink, basis; en este orden.
+
+				Configuraciones:
+
+					flex: 1 o flex: 2
+					Es como si usará flex: 1 1 0, o flex: 2 1 0; para los valores flex grow (crecimiento), shrink (reducción) o basis (tamaño). 
+					Los elementos pueden crecer o reducirse a partir de una base flexible de 0 (espacio proporcional).
+
+					flex: initial
+					Resetea a los valores iniciales que son flex: 0 1, cero para crecimiento, uno para reducción y auto para la base de los valores anteriores.
+					
+					flex: auto
+					Es flex: 1 1 auto, los elementos pueden crecer y reducirse a partir de su tamaño determinado.
+
+					flex: none 
+					Es flex: 0 0 auto, se distribuyen en el contenedor utilizando el tamaño mismo de los elementos, debido al valor auto.
+			
+			Alinear elementos:
+				
+				justify-content:
+				Alinea elementos en el eje principal.
+
+				align-items:
+				Para alinear elementos en el eje secundario
+			
+		Writting mode:
+		Flexbox se adapta a los modos de escritura, se usa para cuestiones creativas de diseño ya que estamos en CSSS, no se usa para cambiar el idioma de un documento completo. 
+		El idioma se trata desde HTML con los atributos dir y lang para indicar la dirección de texto y su idioma.
+
+		Flexbox y otros metodos:
+
+			Float y cleaner:
+			Si el contenedor de un float se convierte flex, no se aplicarán estás propiedades.
+			
+			Grid:
+			Si un elemento flexible se convierte en un elemento de cuadrícula, se ignorarán las propiedades flexibles que se hayan asignado a los elementos secundarios.
+			O reemplazar un cuadrícula con flex, para navegadores antiguos.		
+				
+				   	<div class="box">
+				       <div>One</div>
+				       <div>Two</div>
+				       <div>Three</div>
+				    </div>
+					
+					.box {
+			          display: flex;
+			          flex-wrap: wrap;
+			        }
+
+			        .box>* {
+			          flex: 1 1 200px;
+			        }
+					
+					.box {
+				        display: grid;
+				        grid-template-columns: repeat(auto-fill, minmax(200px, auto));
+				    }
+
+				*creamos el mismo diseño en flex y en grid
+
+			Propiedad display: contents
+			Si un elemento flexible tiene dos elementos anidados, que normalmente no participarían en el diseño flexible.
+			Elimina el diseño o estilo aplicado a a los subitems y tambien el estilo de bloque por fuera que le da el contenedor.
+
+				.box {
+		            display: flex;
+		        }
+
+		        .nested {
+		            background-color: orange;
+		            display: contents;
+		        }
+
+		|| Alineaciones:
+			Dejan el espacio en el eje principal o secundario.
+			Segun el flex-direction, los ejes van cambian; el espacio estará en eje de bloque o en el eje de línea. 
+			
+			Propiedades:
+
+			justify-content: 
+			Controla la alineación de todos los elementos en el eje principal (main).</li>
+			
+			align-items: 
+			Controla la alineación de todos los elementos en el eje secundario (cross).</li>
+			
+			align-self: Controla la alineación de un elemento en el eje secundario.</li>
+			
+			align-content: 
+			Controla el espacio entre las líneas del eje secundario.</li>
+			
+			gap, column-gap, and row-gap: 
+			Crean espacios entre elementos flexibles.
+			
+			Valores:
+				
+				justify-content: En eje principal
+				
+					flex-start
+					flex-end
+					center
+					space-between
+					space-around
+					space-evenly
+
+				align-items: En eje secundario
+					
+					flex-start
+					flex-end
+					center
+					stretch
+					baseline
+				
+				align-content: En eje secundario
+
+					flex-start
+					flex-end
+					center
+					space-between
+					space-around
+					stretch
+					space-evenly
+			
+		Margenes automaticos:
+		Para separar un grupo de elementos alineados en un contenedor.
+			
+			<div class="box">
+			  <div>One</div>
+			  <div>Two</div>
+			  <div>Three</div>
+			  <div class="push">Four</div>
+			  <div>Five</div>
+			</div>	
+
+			.box {
+			  display: flex;
+			}
+			.push {
+			    margin-left: auto;
+			}
+		
+		Gaps: espacios entre los elementos
+
+			.box {
+			  display: flex;
+			  flex-wrap: wrap;
+			  row-gap: 10px;
+			  column-gap: 2em;
+			}
+
+			.box > * {
+			  flex: 1;
+			}
+		
+		Orden de los elementos:
+		Podemos cambiar el orden de los elementos con flex-direction: row/column-reverse y la propiedad order.
+		Pero trae problemas de accesibilidad, el orden leido por el navegador es el del código fuente.
+		Solo estamos cambiando el orden visual.
+			
+			propiedad order:
+			Puede tomar elementos individuales y cambiarlos de lugar. 
+			Diseñada distribuir los elementos en grupos ordinales.
+			A los elementos se les asigna un número entero que representa su grupo, los valores más bajos van primero. Mas de un elemento puede tener el mismo numero de orden (se colocan seguidos, de menor a mayor orden del código fuente).
+			Por defecto tienen un valor 0, los que tengan un numero mayor, aparecerán despues de estos.				
+			Podemos usar negativos para dejar elementos primeros y a los demás no le asignamos ningun orden.
+
+				externo: 
+					
+					<div class="box">
+            			<div><a href="#">1</a></div>
+            			<div><a href="#">2</a></div>
+            			<div><a href="#">3</a></div>
+            		</div>
+					
+					.box {
+			          display: flex;
+			          flex-direction: row;
+			        }
+
+			        .box :nth-child(1) { order: 2; }
+			        .box :nth-child(2) { order: 3; }
+			        .box :nth-child(3) { order: 1; }
+				
+					negativo:
+
+						box {
+				          display: flex;
+				          flex-wrap: wrap;
+				          flex-direction: row;
+				        }
+
+				         <div class="active"><a href="#">3</a></div>
+				        .active {
+				            order: -1;
+				            flex: 1 0 100%;
+				        }
+
+				interno:
+				Puede ocurrir que el orden logico y de lectura (al mismo tiempo) de los elementos flexibles estén separados del orden visual.
+				Unos cuadros que tengan de notificaciones/noticias con un diseño que muestre una fecha, un encabezado y luego un contenido.
+				La fecha será un elemento flexible, con valor de order negativo, subimos la fecha por encima del encabezado.
+					
+					<div class="wrapper">
+			        	<div class="card">
+			            	<h3>News item title</h3>
+			            	<div class="date">1 Nov 2017</div>
+			            	<p>This is the content of my news item. Very newsworthy.</p>
+			        	</div>
+					</div>
+					
+					.card {
+            			display: flex;
+            			flex-direction: column;
+        			}
+
+        			.date {
+                		order: -1;
+                		text-align: right;
+            		}
+		
+		La mejor practica es mantener el orden logico, de lectura y tabulación. Tampoco se recomienda usar orden en elementos que se puedan navegar usando el teclado, como son los links.
+
+	|| Tamaño de los elementos flexibles:
+		Se relacionan con el tamaño natural de los artículos flexibles antes de que crezca o se encoja, y con el concepto de espacio libre.
+			
+			Espacio disponible en el contenedor:
+			El navegador necesita saber el tamaño de los elementos. 
+			
+			Elementos sin ancho ni alto definido:
+
+				min-content:
+				Su contenido minimo y tamaño de caja será la palabra más larga.	El contenido no se desbordará.
+
+					{width: min-content;}
+
+				max-content:
+				El contenido se muestra en una sola línea y es probable que se desborde si el contenedor no tiene el ancho suficiente.
+					
+					{width: max-content;}
+
+			Espacio libre:
+			Tamaño total elementos - contendor = espacio positivo o negativo
+
+				Positivo:
+				Cuando hay más espacio del necesario para mostrar todos los elementos flexibles dentro del contenedor.
+
+			 	Negativo:
+				Tamaño natural de los elementos suma más que el espacio disponible/tamaño del contenedor flex. Los elementos desbordan.
+			
+			*Para determinar el tamaño de los items flex debemos darnos cuenta si hay espacio positivo para distribuir o negativo para quitar.
+
+			Tamaño por flex-direction: 
+			Determinará el eje principal y si debemos calcular ancho/alto elementos con ancho/alto contenedor.
+			
+				row: viene por su ancho.
+				column: viene por su alto.
+			
+			Propiedades flex:
+
+				basis:
+				Especifica el tamaño inicial del elemento flexible antes de distribuir espacio positivo.
+					
+					auto:
+					Valor por defecto/inicial.
+					Primero verifica el tamaño inicial de un elemento.
+
+						Tamaño inicial:
+						Puede tener un valor/tamaño absoluto como 200px o relativo como %, em o una palabra, etc.
+						Sería la base.
+
+						Si el elemento no tiene un tamaño definido, queda en auto.
+						FLEXBOX determina que será su max-content.
+						
+					Ej: elementos con tamaño definido y elementos con auto
+						Un elemento, que tiene un ancho explícito de 150px; su valor basis auto será 150px.
+						Otro sin tamaño explicito, no tiene ancho explicito; su valor basis auto es max-content.
+						En este ultimo no importa el largo de las palabras, todo el contenido se verá en una línea.
+							
+							.box {
+						       display: flex;
+						    }
+
+						    .box :first-child {
+						       width: 150px;
+						    }
+
+						    .box > * {
+						       flex: 0 0 auto;
+						    }
+					
+					valor content:
+					La base flexible se toma le tamaño del contenido, incluso si hay un ancho establecido en el elemento.
+					
+					valor 0: 
+					Ignora el tamaño del elemento ya sea auto (max-content o explicito). El espacio disponible del contenedor se repartirá proporcionalmente.
+
+				grow:
+				Espacio positivo obtenido.
+				Crecimiento del elemento en relación con el resto,  cuando se distribuya el espacio libre positivo.
+				Si todos tienen el mismo de distribuye uniformemente, pero se puede dar distinto.
+
+					Combinar con basis:
+						
+						    .box {
+						       display: flex;
+						    }
+
+						    .box > * {
+						       flex: 1 1 0;
+						    }
+
+					Ej: flex: 1 1 auto
+					Si los elementos no tienen tamaño determinado y basis en auto, toma el tamaño por defecto el tamaño de contenido (el ancho es la palabra más larga y el alto se ajusta a la cantidad de palabras/contenido).
+					*Por la cantidad de contenido algun elemento puede quedar más grande, por más que todos tengan el mismo factor de crecimiento
+					
+					Ej: flex: 1 1 0
+					Con basis en 0 todos los elementos quedan con el mismo tamaño porque a todos le dimos un tamaño base 0, ignora su tamaño intrinseco y extrinseco.
+					Con grow 1 distribuirá proporcionalmente. 
+					
+					Ej: distintos valores de crecimiento desde basis 0
+					Uno puede llevarse el doble o el triple del espacio disponible
+					
+						*calculo del navegador:
+						suma los factores de crecimiento, después divide la cantidad total de espacio libre positivo en el contenedor flexible por ese número.
+						A este resultado lo divide por la cantidad de elemento. 
+						Así obtiene su parte cada elemento.
+
+				shrink:
+				Espacio negativo eliminado.
+				Determina cuánto se encogerá el elemento flexible en relación con el resto, cuando se distribuye el espacio libre negativo.
+				El navegador calcula cuando descubre que el total de los elementos son más grandes que el contenedor.
+						
+					Ej: un valor en 0 hace que los elementos no se reduzcan, el valor en 1 posible su reducción; si todos tienen el mismo valor se verán proporcionados.
+						Vemos un ancho determinado y basis auto.
+						Tambien vemos que el contenedor flex no tiene ancho, ocupará el 100% ancho de su contenedor padre.
+						
+						No tiene min/max-content, ni width, etc.
+
+						    .box {
+						       display: flex;
+						    }
+							
+							.box >*	{	
+								flex: 0 1 auto;        
+						 		width: 200px;
+							}
+				
+					Combinando con basis:					
+					Ej: 
+					Flex shrink evita que los elementos se reduzcan a 0.
+					Quedan con el tamaño de min-content (el ancho de la caja será la palabra más larga)
+					El item más grande toma más espacio pero los demas no desaparecen.
+					Podemos hacerlo proporcional usando basis 0.		
+
+						.box {
+						    width: 500px;
+						    display: flex;
+						}
+
+						.box > * {
+						    flex: 1 1 auto;
+						}
+					
+					Ej: diferentes valores de reducción
+					Podemos hacer que unos elementos se reduzcan más que otros.
+					
+						.one {
+					        flex: 1 1 auto;
+					    }
+
+					    .two {
+					        flex: 1 0 auto;
+					    }
+
+					    .three {
+					        flex: 2 4 auto;
+						}
+				
+				En resumen:
+				max-content lo vemos en basis, cuando el elemento no tiene tamaño definido.
+				min-content lo vemos en shrink, para que el tamaño no se reduzca a 0.	
+				
+				Por otro lado, tenemos que controlar el tamaño del contenedor y si los elementos tiene tamaño determinado o automatico.
+				
+				Tamaño de basis: 
+				Si está en auto pero el elemento tiene definido un tamaño explicito, toma como base el explicito.
+				Si está en auto o content y el elemento no tiene uno definico, se el tamaño será el contenido.
+				A basis le podemos dar una unidad de longitud o factor, si posee uno; será el tamaño del item.
+				Si basis está en 0, el tamaño del elemento no se tiene en cuenta al distribuir el espacio. 
+				
+				Crecimiento y decrecimiento:
+				Si hay espacio libre positivo (total tamaño de los elementos < contenedor), los items crecerán.
+				Si hay espacio libre negativo (todos los elementos > contenedor), los items se reducirán.
+				Flex-direction entra en juego para calcular anchos si es fila o altura si es columna.
+				
+				Justify-content:
+				Podemos aplicarla cuando hay espacio libre para distribuir los elementos, sin aplicar flex basis, grow, shrink. 
+				
+				Margin auto:
+				Para separar un grupo de elementos de otro.
+
+		|| Tamaño de los contenedores flexibles:
+			
+			Elementos en multiples filas/columnas:
+			No sucede automaticamente porque el valor por defecto de la propiedad flex-wrap es nowrap.
+			Con el valor wrap de flex-wrap evitamos que los elementos desborden el contenedor y se acomoden en una línea nueva. 
+			Tambien podemos usar fle-flow.
+
+				{ flex-wrap: wrap; }
+					o 
+				{ flex-flow: row wrap; }
+				{ flex-flow: column wrap; }
+
+				Ej: filas
+				Vemos elementos con tamaño explicito aplicado desde flex-basis.
+				Pero un contenedor sin ancho. 
+
+					.box {
+					    display: flex;
+					    flex-wrap: wrap;
+					}
+
+					.box>* {
+					    flex: 1 1 160px;
+					}
+  
+				Ej: columnas
+
+					.box {
+			       		height: 300px;
+			        	display: flex;
+			        	flex-direction: column;
+			        	flex-wrap: wrap;
+			   		}
+
+			    	.box>* {
+			        	flex: 1 1 80px;
+			    	}
+
+			*Si sobra espacio en el contenedor, el ultimo elemento lo ocupará todo; quedando desproporcionado con respecto a los demas. 		
+			A menos que la cantidad de elementos coincida perfectamente con el tamaño del contenedor.
+				
+				Ej: cuadrícula
+
+				    .box {
+				       height: 350px;
+				       width: 300px;
+				       display: flex;
+				       flex-direction: column;
+				       flex-wrap: wrap;
+				    }
+
+				    .box>* {
+				        flex: 1 1 60px;
+				    }
+
+			*Si damos altura al contenedor y tamaño base a los elementos podemos crear cuadrículas con flex.
+			*Si damos ancho al contenedor, los elementos dejarán de ocupar todo el ancho de su contenedor padre.
+			
+			*Los valores column/row reverse solo cambian el inicio y fin: derecha a izquierda.
+				
+				Ej: reverse:
+
+					.box {
+				        display: flex;
+				        flex-wrap: wrap;
+				        flex-direction: row-reverse;
+				    }
+				    .box>* {
+				        flex: 1 1 160px;
+				    }
+			
+			*No se puede indicarle a un elemento que se alineen con otro en otra fila.
+			Cada línea actúa como un nuevo contenedor, por eso se llena cuando hay espacio disponible.
+			Esto se debe al proposito unidimensional de flexbox.
+				
+				Ej: grid, sobra espacio y el ultimo item no lo llena
+
+					.box {
+				        display: grid;
+				        grid-template-columns: repeat(auto-fill,minmax(160px, 1fr));
+				    }
+				
+				// a menos que borre un elemento.			
+			
+			*Si queremos distribución del espacio fila por fila, usamos flexbox. Si no, usamos Grid.
+
+			Cuadrículas con flex:
+			Se asigna anchos porcentuales a elementos flexible.
+			Controlamos la flexibilidad usando porcentajes.
+
+				.box {
+			        width: 500px;
+			        display: flex;
+			        flex-wrap: wrap;
+			    }
+			    
+			    .box>* {
+			        flex: 0 0 33.3333%;
+			    }
+				
+				o con espacios:
+				
+				.wrapper {
+			        border: 2px dotted rgb(96, 139, 168);
+			        width: 500px;
+			      }
+
+			    .box {
+			        display: flex;
+			        flex-wrap: wrap;
+			        gap: 10px;
+			    }
+
+			    .box>* {
+			        flex: 1 1 160px;
+			    }
+
+			Colapsar/esconder elementos: 
+			Usamos propiedad visibility:collapse; se puede combinar con Js al momento esconder y mostrar contenido.
+			Mantiene el diseño y los elementos en sus líneas, así no se representarán desprolijamente.
+
+				<div class="box">
+		          <div>One</div>
+		          <div>Two</div>
+		          <div class="hide">Three
+		              <br>has
+		              <br>extra
+		              <br>text
+		          </div>
+		        </div>
+
+				.box {
+	            	display: flex;
+	         	}
+
+	          	.box>* {
+	            	flex: 1 1 200px;
+	          	}
+	          
+	          	.hide {
+	            	visibility: collapse;
+	          	}
+			
+			Ej: elemento escondido con varias filas
+				Si al elemento escondido le sacamos la propiedad visibility, el diseño se rompe; se distribuye el espacio y los demás elementos cambian de tamaño, el contenedor puede cambiar de tamaño si no lo tiene definido.
+				
+				.box {
+		            display: flex;
+		            flex-wrap: wrap;
+		        }
+		        
+		        .box>* {
+		            flex: 1 1 auto;
+		        }
+		        
+		        .hide {
+		            visibility: collapse;
+		        }
+
+				<div class="box">
+	                <div>One</div>
+	                <div>Add more text to this box to make it grow</div>
+	        		<div class="hide">Three
+	              		<br>has
+	              		<br>extra
+	              		<br>text
+	         		 </div>
+	          		<div>Four</div>
+	          		<div>Five</div>
+	          		<div>Six</div>
+	          		<div>Seven</div>
+	          		<div>Eight</div>
+	          	</div>
+			
+			*Cuando se vuelve a mostrar el elemento causa problemas en el diseño, puede requerir un replanteamiento de la estructura, por ejemplo, colocar cada fila en un contenedor flexible separado para que no puedan cambiar filas.
+			
+			visibility: hidden y display none:
+			La diferencia con display: none es que este lo elimina del formateo de la página, en cambio el otro lo ocuta pero se puede usar.			
+			*Chrome y Safari tratan a collapse como hidden.
+
+		|| Usos tipico:
+			El fuerte de flexbox es su capacidad de alineación y su gran compatibilidad con navegadores antiguos y modernos.
+
+			Navegación:
+
+				// Dependiendo del HTML o del diseño, seleccionamos uno u otros elementos y agregamos otras capacidades.
+					Lo ideal es que cada selector tenga un nombre dado con una clase así es más facil el mantenimiento.	
+						
+						<nav>
+					 		<ul>
+					   			<li><a href="#">Page 1</a></li>
+					    		<li><a href="#">Page 2</a></li>
+							</ul>
+						</nav>
+
+						nav ul {
+						  display: flex;
+						  justify-content: space-between;
+						}
+
+						
+						o //Diferente espaciado en los elementos.
+
+						nav ul {
+						  display: flex;
+						}
+
+						nav li {
+						  flex: auto ;
+						}
+
+
+						o // Barra de navegación fija para pantallas grandes.
+
+						nav {
+						  position: sticky;
+						  top: 0;
+						  z-index: 99;
+						}
+
+				        nav ul {
+				          display: flex;
+				          flex-flow: row wrap;
+				          justify-content: space-between;
+				        }
+
+				        nav ul li {
+				          flex: 1fr;
+				        }		
+
+				Agrupar y empujar elementos a un lado:
+					
+					<div class="box">
+						<div>Three</div>
+					  	<div class="push">Four</div>
+					  	<div>Five</div>
+					</div>	
+
+					.box {
+					  display: flex;
+					}
+					.push {
+					    margin-left: auto;
+					}
+						
+						o
+				
+					nav ul {
+					  display: flex;
+					  margin: 0;
+					}
+
+					.push-right {
+					  margin-left: auto;
+					}
+
+					 	0
+
+					nav ul {
+					  display: flex;
+					  margin: 0 -10px;
+					}
+
+					nav li {
+					  margin: 0 10px;
+					}
+
+					.push-right {
+					  margin-left: auto;
+					}
+			
+			Diseño de carta:
+
+				Con footer abajo:
+				Necesitamos que el footer se pegue a la parte inferior de la carta, el diseño de bloque interno de los elementos flexibles no puede lograrlo; los elementos se muestran seguido.
+				Hacemos que el contenido/elemento antes del footer crezca.	
+				
+					.card {
+					  display: flex;
+					  flex-direction: column;
+					}
+
+					.card .content {
+					  flex: 1 1 auto;
+					}
+				
+					<div class="cards">
+
+					  <div class="card">
+					    <div class="content">
+					      <p>This card doesn't have much content.</p>
+					    </div>
+					  <footer>Card footer</footer>
+					
+						//... más cartas
+
+					</div>
+
+				Con titulos y más elementos:
+
+					<div class="wrapper">
+			        	<div class="card">
+			            	<h3>News item title</h3>
+			            	<div class="date">1 Nov 2017</div>
+			            	<p>This is the content of my news item. Very newsworthy.</p>
+			        	</div>
+					</div>
+					
+					.card {
+            			display: flex;
+            			flex-direction: column;
+        			}
+				
+			Centrar item:
+
+				.box {
+				  display: flex;
+				  align-items: center;
+				  justify-content: center;
+				}
+
+				.box div {
+				  width: 100px;
+				  height: 100px;
+				}		
+			
+			Media object:
+			Imagen u otro elemento a un lado y texto a la derecha.
+			
+				Ej: tenemos un contenedor flex con dos elementos, la alineación en el eje transversal es flex-start para que se coloquen arriba de todo.
+					La imágen o su contenedor tiene padding a los cuatro lados para que el texto se acomode bien.
+					Además, agregamos flex: 1; para que crezca hasta su 100% (seleccionamos la imagen con otra regla) y el texto no ocupe casi todo el espacio del contenedor.
+
+					<div class="media">
+					  <div class="image"><img src="MDN.svg" alt="MDN logo"></div>
+					    <div class="content">This is the content of my media object.</div>
+					</div>
+
+					.media {
+					  display: flex;
+					  align-items: flex-start;
+					}
+
+					.media .content {
+					  flex: 1;
+					  padding: 10px;
+					}
+
+					.imagen img {
+					   ancho máximo: 100px;
+					}
+
+					// si queremos que crezcan y se reduzcan en proporción:
+
+						.media .content {
+						  flex: 1;
+						  padding: 10px;
+						}
+
+						.image {
+						  flex: 1;
+						}
+
+			 Controles de formularios:
+			Requieren muchos elementos de html, debemos alinearlos.
+					
+				<form class="example">
+					<div class="wrapper">
+						<input type="text" id="text">
+						<input type="submit" value="Send">
+					</div>
+				</form>
+				
+				.wrapper {
+		  			display: flex;
+				}
+
+				.wrapper input[type="text"] {
+		  			flex: 1 1 auto;
+				}
+
+				Tenemos los botones imput y buttom en un contenedor flex. Despues hacemos que imput crezca, mientras que buttom no. El campo crecerá a medida que cambie el tamaño de la ventana.
+				
+				Agregamos otro botón:
+
+					.wrapper {
+			  			display: flex;
+
+					}
+
+					.wrapper input[type="text"] {
+			  			flex: 1 1 auto;
+					}
+
+					<form class="example">
+					  <div class="wrapper">
+					    <label for="text">Label</label>
+					    <input type="text" id="text">
+					    <input type="submit" value="Send">
+					  </div>
+					</form>
+					-->
+				</code>
+				
+				Ponemos un label o un icono a la izquierda, ahora el campo de entrada de datos flexible tiene menos espacio.
+			
+		|| Dar compatibilidad:
+			Para navegadores muy antiguos debemos incluir los prefijos en cada regla.
+
+				.wrapper {
+				  display: -webkit-box;
+				  display: -webkit-flex;
+				  display: -ms-flexbox;
+				  display: flex;
+				}
+
+			*autoprefixer es un sitio dónde podemos ver los prefijos que necesitamos para las versiones antiguas de los navegadores.
+			
+		    fallbacks:
+			Flexbox ignorará las siguientes propiedades por eso podemos usarlas en los elementos flex para dar compatibilidad a navegadores antiguos que no admiten flex. 
+			Con ellas logramos diseños parecidos. Los navegadores modernos sobreescribirán las propiedades antiguos y aplicará las modernas.
+
+				float y clear: 
+				Cuando aplicamos flex a un flotante, estos dejan de tener efecto.
+				Se convierten en elementos flexibles y adquieren la misma proporción, algo que no pasa en float.
+
+					.box {
+					  display: flex;
+					}
+
+					.item {
+					  float: left;
+					  width: 150px;
+					  flex: 1;
+					}
+   
+				display inline-block:
+				Pasa lo mismo, si eliminamos la propiedad flex, vemos las diferencias. 
+				Presenta espacios en blanco.
+					
+					.box {
+					  display: flex;
+					}
+
+					.item {
+					  display: inline-block;
+					  width: 150px;
+					  flex: 1;
+					}					
+
+				display table-:
+				Funciona hasta I.E, crea elementos anomimos para representar un diseño de columnas y centrado.
+				Pero no se pueden diseñar. Si eliminamos la propiedad flex, vemos que se crean columnas parecidas.
+
+					.box {
+					  display: flex;
+					}
+
+					.item {
+					  display: table-cell;
+					  width: 150px;
+					  flex: 1;
+					}
+
+      			vertical-align:
+				Se puede usar en display: table-cell y display: inline-block.
+				Flexbox y los navegadores modernos sobreescribirán esta propiedad y podemos usar justify-content o align-content.
+
+					.box {
+					  display: flex;
+					}
+
+					.item {
+					  display: inline-block;
+					  vertical-align: top;
+					  width: 150px;
+					  flex: 1;
+					}
+
+				Queries:
+				Podemos detectar si hay compatibilidad con flex
+
+					@supports (display: flex) {
+					   //code for supporting browsers
+					}
+				
+					o para los que admiten el prefijo antiguo de flexbox
+
+					@supports (display: flex) or (display: -webkit-box) {
+					   //code for supporting browsers 
+					}
+
+
+	|| GRID
+		La cuadrícula se forma con un conjunto de líneas horizontales y verticales, los elementos se pueden colocar dentro de ellas.
+		Podemos hacerlas de tamaño fijo (px) para que los elemtos se adapten al diseño. 
+		O hacerlas flexibles (1fr) para que el diseño se adapte a los elementos.
+			
+		|| Contenedor:
+			Solo los hijos directos serán grid items. Display flex por si solo, creará varias una columna con todos los elementos dispuestos uno debajo de otro.		
+			Las pistas le dan forma final de cuadrícula, se crean con grid-templete-rows/columns.
+			Los elementos que no son o no pueden ser colocados en las pistas creadas por nosotros, se colocarán automaticamente en las pistas implicitas que creará el navegador.
+			El tamaño de las pistas explicitas serán los valores que esten en grid-templete-columns/rows.
+			El tamaño de las pistas implicitas será su contenido o usar grid-auto-rows/columns.
+				
+				.wrapper {
+				  display: grid;
+				  grid-template-columns: repeat(3, 1fr);
+				  grid-auto-rows: 200px;
+				}
+
+			Las unidades flexibles se usan para que el diseño se adapte al ancho de la ventana del navegador, las pistas o elementos crecen y se reducen segun el espacio disponible.
+			Podemos dar diferentes valores para que una parte del diseño se vea más grande u ocupe más espacio disponible que otras partes del sitio. 
+			Tambien podemos mezclar los valores inflexibles/absolutos con los flexibles para elementos que tengan que ser mostrados completamente y para elementos que puedan reducirse.
+			Podemos usar las funciones minmax() para dar un tamaño flexible entre un mínimo y máximo. 
+				
+				.wrapper {
+				  display: grid;
+				  grid-template-columns: repeat(3, 1fr);
+				  grid-auto-rows: minmax(100px, auto);
+				}
+			
+			Las líneas de grid se definen después de las pistas (a su vez crean celdas), su numeración depende de la dirección de escritura.
+			Con grid-column o grid-row start/end, los números de las líneas serán los sus valores.
+			Para colocarlos en las áreas usamos grid-template-areas para crear el diagrama con los nombres de las areas que tenemos que configurar con la propiedad grid-area.
+			El diagrama de las areas debe ser rectángular
+			Podemos superponer los elementos usando las líneas o usando z-index.
+			
+				.box1 {
+				  grid-column-start: 1;
+				  grid-column-end: 4;
+				  grid-row-start: 1;
+				  grid-row-end: 3;
+				  z-index: 2;
+				}
+
+		|| Flexbox vs Grid:
+			Flex funciona desde el contenido que toma el espacio del contenedor, además de las capacidades de alineación y espaciado. 
+			Grid prioriza el diseño y a partir de este colocamos a los elementos. Si creamos pistas que se adaptan al contenido, los elementos se acomodan en línea nueva.
+
+			Alineación:
+			El eje principal es la dirección en línea (texto) y el eje secundario es la dirección en bloque (cajas).
+			Podemos usar algunas propiedades de box-aligment que valen tanto para flex y grid.
+
+				.wrapper {
+				  display: grid;
+				  grid-template-columns: repeat(3, 1fr);
+				  align-items: end;
+				  grid-auto-rows: 200px;
+				}
+				.box1 {
+				  align-self: stretch;
+				}
+				.box2 {
+				  align-self: start;
+				}
+			
+			Unidades flexibles:
+			La unidad fr, cuando se combina con la función minmax(), puede brindarnos un comportamiento muy similar a las propiedades flex en flexbox.
+			Hay una diferencia entre la forma en que los dos diseños funcionan de manera receptiva, como hay diferencia en la forma de diseño y representación.
+			Flexbox puede acomodar todos los elementos en una fila siempre que haya espacio.
+			Mientras que en Grid siempre van a estar las mismas pistas que definimos aunque más chicas o grandes.
+
+			Autocompletar y autoajustar cuadrícula:
+			Para las filas o columnas podemos usar el valor auto-fill y auto-fit para lograr un efecto responsivo como en flexbox en la función repeat.
+				
+				Ej: Con auto-fill creará tantas columnas de 200 px como entren en el contenedor.
+					
+					.wrapper {
+					  display: grid;
+					  grid-template-columns: repeat(auto-fill, 200px);
+					}
+
+					// Puede quedar espacio sin ocupar en el contenedor.
+				
+				Ej: Con auto-fit y minmax() repartirá el espacio del contenedor entre el mínimo y el máximo.
+					Tendremos filas y columnas variables y responsivas.
+
+					.wrapper {
+					  display: grid;
+					  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+					}
+
+					// Los elementos ocupan todo el espacio del contenedor.
+
+		|| Grid y position absolute:
+			Cuando un contenedor grid es bloque contenedor de un elemento posicionado
+			Para que el contenedor de grid se bloque contenedor de un elemento, debemos agregarle la propiedad position: relative.
+			Así es como funciona para cualquier otro elemento padre cuando necesitemos un elemento absoluto.
+			Ahora podemos mover el elemento en todo el area del bloque contenedor/cuadrícula.
+				
+				wrapper {
+				  display: grid;
+				  grid-template-columns: repeat(4, 1fr);
+				  grid-auto-rows: 200px;
+				  gap: 20px;
+				  position: relative;
+				}
+
+				.box3 {
+				  grid-column-start: 2;
+				  grid-column-end: 4;
+				  grid-row-start: 1;
+				  grid-row-end: 3;
+				  position: absolute;
+				  top: 40px;
+				  left: 40px;
+				}
+
+				// Estaba posicionado en esas líneas, salió del flujo y cierra ese lugar; se ubica a 40px desde top y left.		
+			
+			*Una cuadrícula que es padre de un elemento absoluto pero que no tiene position: relative no puede contener a ningun elemento.
+			El bloque contenedor pasa a ser la ventana gráfica si no hay otro.	
+			Si eliminamos position: relative del contenedor vemos este efecto.
+			
+			Grid item como contenedor de un elemento absoluto:
+				
+				<div class="wrapper">
+					<div class="box2">Two</div>
+				 	<div class="box3">
+				    	Three
+				 	
+				  		<div class="abspos"> 
+				 			subelement of three
+				    	</div>
+
+					</div>
+				</div>
+				
+				.wrapper {
+				  display: grid;
+				  grid-template-columns: repeat(4, 1fr);
+				  grid-auto-rows: 200px;
+				  gap: 20px;
+				}
+
+				.box3 {
+				  grid-column-start: 2;
+				  grid-column-end: 4;
+				  grid-row-start: 1;
+				  grid-row-end: 3;
+				  position: relative;
+				}
+
+				.abspos {
+				  position: absolute;
+				  top: 40px;
+				  left: 40px;
+				  background-color: rgba(255, 255, 255, 0.5);
+				  border: 1px solid rgba(0, 0, 0, 0.5);
+				  color: #000;
+				  padding: 10px;
+				}
+			
+		|| display: contents:
+			Los elementos secundarios de un item de cuadrícula no pertenecen a ella, su comportamiento es de elementos de bloque comunes.
+			Cuando activamos display: contents al elemento padre, los hijos se disponen en cuadrícula.
+				
+				<div class="wrapper">
+				  <div class="box box1">
+				    <div class="nested">a</div>
+				    <div class="nested">b</div>
+				    <div class="nested">c</div>
+				  </div>
+				</div>
+			
+				.wrapper {
+			  		display: grid;
+			  		grid-template-columns: repeat(3, 1fr);
+			  		grid-auto-rows: minmax(100px, auto);
+				}
+
+				.box1 {
+			  		grid-column-start: 1;
+			  		grid-column-end: 4;
+			  		display: contents;
+				}
+			
+		|| Colocación automatica:
+			Si no los colocamos en la cuadrícula de ninguna manera, se distribuirán de acuerdo con las reglas de colocación automática, un elemento en cada una de las celdas, uno despues de otro. 		
+			
+				.wrapper {
+				  display: grid;
+				  grid-template-columns: repeat(3, 1fr);
+				  grid-template-rows: repeat(3, 100px);
+				}
+				
+				// tenemos 3 columnas y 3 filas que forman 9 celdas para colocar elementos. 
+					Este diseño creo 4 líneas en cada dimension (horizontal y vertical).
+					Y tambien, si tenemos menos de 9 elementos sobrarán lugares. 
+			
+		|| Espacios vacios:
+			Es otra caracteristica de grid, podemos dejar espacios sin usar margenes.
+			Con la ubicación en línea tendríamos que evitar las líneas que definen el área que deseemos que este vacia.
+			Con grid-template-areas usamos un punto cuando hacemos el diagrama.
+			
+			Si un elemento ocupa todo una fila o columna no hace falta el valor de grid-column o grid-row end.
+				
+				.box1 {
+				  grid-column-start: 1;
+				  grid-row-start: 1;
+				  grid-row-end: 4;
+				}
+				
+				.box3 {
+				  grid-column-start: 2;
+				  grid-row-start: 1;
+				}
+				
+				o
+
+				.box1 {
+				  grid-column: 1;
+				  grid-row: 1 / 4;
+				}
+
+				.box3 {
+				  grid-column: 2;
+				  grid-row: 1;
+				}
+
+			Con el diagrama de grid-template-areas ponemos el nombre de las areas las veces que necesitamos.
+			
+			Con grid-area ademas de dar un nombre a los elementos, podemos ubicarlos en las líneas
+			Su orden:
+
+		    	grid-row-start
+    			grid-column-start
+    			grid-row-end
+    			grid-column-end
+			
+				.box1 {
+				  grid-area: 1 / 1 / 4 / 2;
+				}
+
+				.box3 {
+				  grid-area: 1 / 2 / 2 / 3;
+				}
+				
+				// El orden está inspirado en el flujo lógico: 
+					
+					block-start
+					inline-start
+					block-end
+					inline-end
+			
+		|| Líneas negativas/reversa:
+			En modo de escritura de izquierda a derecha, para columnas se empiezan a numerar desde la derecha, -1 es la primera, sigue -2, etc.
+			Para filas se enumeran desde abajo hacia arriba -1, -2.
+			Quiere decir que el posicionamiento en dirección/orden se cuenta de esa manera.
+				
+				.box4 {
+				  grid-column-start: -2;
+				  grid-column-end: -4;
+				  grid-row-start: -3;
+				  grid-row-end: -4;
+				}
+			
+			Podemos estirar un elemento a lo largo del contenedor:
+				
+				.item {
+				  grid-column: 1 / -1;
+				}
+
+		|| Espacios:
+			Las propiedades column-gap, row-gap y gap no agregan espacio, sino que lo toman.
+			Si las filas y columnas nos quedan más pequeñas de lo que deseamos, aumentamos su tamaño en grid-template-columns/rows
+				
+				.wrapper {
+				  display: grid;
+				  grid-template-columns: repeat(3, 1fr);
+				  grid-template-rows: repeat(3, 100px);
+				  column-gap: 20px;
+				  row-gap: 1em;
+				}
+			
+		|| Ubicación con el valor span:
+			Podemos especificar una línea de inicio y luego el número de pistas que desea que abarque el área.
+				
+				.box1 {
+				  grid-column: 1;
+				  grid-row: 1 / span 3;
+				}
+
+				// Ej: Si 4 filas, empieza desde uno y despues toma 3; expandiendose hasta el final.
+					En la columna no tenemos el valor final, toma toda la columa 1.
+		
+		|| Nombrar un área
+			Con grid-area le damos un nombre y con grid-template-area le damos ubicación, haciendo una especie de diagrama con los nombres.
+			Las áreas principales de una página puede ser:
+
+		     	un encabezado
+		    	un pie de página
+		    	una barra lateral
+		     	el contenido principal
+
+		    Podemos dejar una celda vacia usando un punto en el diseño de grid-template-areas	
+			Cada fila de grid-template-areas se crea con comillas dobles al inicio y al final.
+			En al ultima fila colocar punto y coma para cerrar la propiedad.
+			Siempre que haya un espacio entre varios puntos, formará las celdas.
+			Para ordenar el diseño (solo en la propiedad) ubicamos los nombre en línea.
+			Para expandir elementos en las celdas, usamos varias veces su nombre; la forma debe ser rectángular. Así creamos areas más grandes.
+
+				.wrapper {
+				  display: grid;
+				  grid-template-columns: repeat(9, 1fr);
+				  grid-auto-rows: minmax(100px, auto);
+				  grid-template-areas:
+				    "hd hd hd hd   hd   hd   hd   hd   hd"
+				    "sd sd sd main main main main main main"
+				    ".  .  .  ft   ft   ft   ft   ft   ft";
+				}
+				
+				<div class="wrapper">
+				  <div class="header">Header</div>
+				  <div class="sidebar">Sidebar</div>
+				  <div class="content">Content</div>
+				  <div class="footer">Footer</div>
+				</div>
+			
+		|| Redifinir todo el diseño con queries
+			Empezamos con un diseño de columna flexible pero muy grande, hasta los 500px del segundo punto de interrupción.
+			Despues pasamos a un diseño de menos filas pero más ancho para que entre todo el contenido.
+
+				.wrapper {
+				  display: grid;
+				  grid-auto-rows: minmax(100px, auto);
+				  grid-template-columns: 1fr;
+				  grid-template-areas:
+				    "hd"
+				    "main"
+				    "sd"
+				    "ft";
+				}
+
+				@media (min-width: 500px) {
+				  .wrapper {
+				    grid-template-columns: repeat(9, 1fr);
+				    grid-template-areas:
+				      "hd hd hd hd   hd   hd   hd   hd   hd"
+				      "sd sd sd main main main main main main"
+				      "sd sd sd  ft  ft   ft   ft   ft   ft";
+				  }
+				}
+
+				@media (min-width: 700px) {
+				  .wrapper {
+				    grid-template-areas:
+				      "hd hd hd   hd   hd   hd   hd   hd hd"
+				      "sd sd main main main main main ft ft";
+				  }
+				}
+		
+		|| Componentes ui:
+			Grid puede ser util para crear elementos pequeños.
+
+			media object:
+			Se compone de un elementos multimedia (img, video, svg, etc) y de texto.
+			Podemos crear dos columnas de tamaño fijo, variable, combinado, uno responsivo y otro no
+				
+				* {
+				  box-sizing: border-box;
+				}
+
+				.media {
+				  border: 2px solid #f76707;
+				  border-radius: 5px;
+				  background-color: #fff4e6;
+				  max-width: 400px;
+				  display: grid;
+				  grid-template-columns: 1fr 3fr;
+				  grid-template-areas: "img content";
+				  margin-bottom: 1em;
+				}
+
+				.media .image {
+				  grid-area: img;
+				  background-color: #ffd8a8;
+				}
+
+				.media .text {
+				  grid-area: content;
+				  padding: 10px;
+				}
+
+				// al reves:
+
+				.media.flipped {
+				  grid-template-columns: 3fr 1fr;
+				  grid-template-areas: "content img";
+				}
+
+		|| Posicionamiento con areas y líneas:
+			Pueden funcionar juntas, cuando usamos líneas con nombres.
+			Después de su nombre ponemos la cantidad/tamaño de fila o columna.
+			Al final posicionamos una elemento con grid-column o grid-row-start/end usando el nombre puesto entre corchetes.
+
+			Nombrar líneas:
+			En grid-template-columns/rows, se nombran las líneas entre corchetes; solo le damos nombre a las que son esenciales para el diseño o para marcar áreas de posicionamiento importantes.
+				
+				Ej: Tenemos tres columnas y 4 líneas.
+					
+					.wrapper {
+					  display: grid;
+					  grid-template-columns: [main-start] 1fr [content-start] 1fr [content-end] 1fr [main-end];
+					  grid-template-rows: [main-start] 100px [content-start] 100px [content-end] 100px [main-end];
+					}
+
+					.box1 {
+					  grid-column-start: main-start;
+					  grid-row-start: main-start;
+					  grid-row-end: main-end;
+					}
+			
+			* El diseño se responsivo, redefinimos la cuadrícula, en lugar de tener que redefinir la posición del contenido cambiando el número de línea con un query.
+			  Para cambiar el diseño solo necesitamos volver a cambiar al posición del elemento desde grid-column/row y no desde grid-template-columns/rows. 
+		
+			Podemos dar multiples nombres a las líneas dejando un espacio en blanco, además de poder usar uno solo para usarla. 
+				
+				[sidebar-end main-start]
+			
+			Definir áreas con nombres de línea:
+			Con el nombre de las líneas podemos definir un área: 
+			Lo hará grid cuando definimos el mismo nombre en grid-template-columns y rows.
+			Con esto no necesitamos usar grid-template-areas.
+				
+				.wrapped {
+				  display: grid;
+				  grid-template-columns: [main-start] 1fr [content-start] 1fr [content-end] 1fr [main-end];
+  				  grid-template-rows: [main-start] 100px [content-start] 100px [content-end] 100px [main-end];
+				
+				.thing {
+				  grid-area: content;
+				}
+
+				// se ubicarán en el centro del área.
+			
+			*Es lo contrario a lo que pasa cuando usamos grid-template-areas, en dónde creamos las áreas pero no las líneas.
+				
+				Ej: posicionamos un elemento en el área main-content usando nombres de líneas "no definidos" explicitamentes.
+						
+						.wrapper {
+						  display: grid;
+						  grid-template-columns: repeat(9, 1fr);
+						  grid-auto-rows: minmax(100px, auto);
+						  grid-template-areas:
+						    "hd hd hd hd   hd   hd   hd   hd   hd"
+						    "sd sd sd main main main main main main"
+						    "ft ft ft ft   ft   ft   ft   ft   ft";
+						}
+												
+						.header {
+						  grid-area: hd;
+						}
+
+						.wrapper > div.overlay {
+						  z-index: 10;
+						  grid-column: main-start / main-end;
+						  grid-row: hd-start / ft-end;
+						  border: 4px solid rgb(92, 148, 13);
+						  background-color: rgba(92, 148, 13, 0.4);
+						  color: rgb(92, 148, 13);
+						  font-size: 150%;
+						}
+
+			Multiples líneas con un mismo nombre:
+			Usamos la función repeat().
+
+				Ej: Doce columnas de igual ancho.
+					Tenemos tamaño 1fr de la pista de la columna y nombre de línea de [col-start].
+					Entonces, 12 columnas, todas llamadas col-start.
+						
+						.wrapper {
+						  display: grid;
+						  grid-template-columns: repeat(12, [col-start] 1fr);
+						}
+					
+					Para ubicar un elemento usamos el nombre de la línea, más el número de esa línea.
+						
+						.item1 {
+						  grid-column: col-start / col-start 5;
+						}
+					
+					Podemos usar span:
+
+						.item2 {
+						  grid-column: col-start 7 / span 3;
+						}
+				
+				Ej: multiples columnas que se repiten con varios nombres de fila
+					Tenemos ocho pistas, con una columna de ancho 1fr más angosta llamada col1-start seguida de una columna 3fr más ancha llamada col2-start.
+						
+						.wrapper {
+						  grid-template-columns: repeat(4, [col1-start] 1fr [col2-start] 3fr);
+						}
+					
+				Ej: diseño de 12 columnas 	
+					Los nombre de línea repetidos se adaptan bien para este tipo de diseño.
+					Tenemos 12 columnas con un tamaño responsivo de 1fr con todas líneas llamadas col-start.	
+
+						.wrapper {
+						  display: grid;
+						  gap: 10px;
+						  grid-template-columns: repeat(12, [col-start] 1fr);
+						}
+
+						.main-header,
+						.main-footer {
+						  grid-column: col-start / span 12;
+						}
+
+						.side1 {
+						  grid-column: col-start / span 3;
+						  grid-row: 2;
+						}
+
+						.content {
+						  grid-column: col-start 4 / span 6;
+						  grid-row: 2;
+						}
+
+						.side2 {
+						  grid-column: col-start 10 / span 3;
+						  grid-row: 2;
+						}
+
+		|| Autoposicionamiento de los elementos en grid
+			Cuando crea una cuadrícula y no coloca algunos o todos los elementos.
+			Los elementos, se colocarán en la cuadrícula, uno en cada celda de la cuadrícula.
+			Organiza los elementos por fila, uno al lado de otro.			
+			Si creamos pistas explicitas con grid-template-rows/columns suficientes se colocarán aquí, sino, creará filas implicitas.
+			
+			Dimensionar pistas implicitas:
+			Por defecto tienen un tamaño automatico (auto-sized), los cuadros se adaptarán al contenido para que nos se desborde, se harán más grandes.
+			Pero podemos controlar el tamaño con grid-auto-rows/columns
+				
+				.wrapper {
+				  display: grid;
+				  grid-template-columns: repeat(3, 1fr);
+				  gap: 10px;
+				  grid-auto-rows: 100px;
+				}
+			
+				Usando minmax():
+				Podemos pasar un tamaño mínimo de 100px hasta un tamaño máximo auto (la caja se ajusta al contenido).
+					
+					.wrapper {
+					  display: grid;
+					  grid-template-columns: repeat(3, 1fr);
+					  gap: 10px;
+					  grid-auto-rows: minmax(100px, auto);
+					}
+
+					// Todas las implicitas tienen este tamaño.
+		
+				Dimensionar varias pistas:
+				Usamos la funcion repeat(), el primer valor es la cantidad, el segundo es el tamaño.
+					
+					Ej: en este ejemplo solo tenemos dos filas, una de 100px y otra de 200px. 
+					Si colocamos muchos elementos que necesiten una tercera fila se creará con el tamaño de 100px primero, y 200px después.	
+						
+						.wrapper {
+						  display: grid;
+						  grid-template-columns: repeat(3, 1fr);
+						  gap: 10px;
+						  grid-auto-rows: 100px 200px;
+						}		
+				
+						// Todas filas implicitas seguirán este patrón.
+
+			|| Qué propiedad el ancho y alto de los elementos grid:
+				Rows determinan el alto y columns determinan el ancho.
+				
+				grid-auto-flow:
+				Controla como se colocan los elementos en las pistas implicitas, si en columna o fila.
+				Acepta los valores: row, column o dense; en un par o uno.
+				Los pistas explicitas se muestran según su configuración.
+				Y grid-auto-rows/columns es solo para el tamaño.
+					
+					row: elementos en fila, uno al lado de otro.
+					column: elementos en columna, uno debajo de otro.
+					dense: llena los espacios vacios con los elementos que puedan entrar.
+						
+						row/column junto con dense llenará los espacios para que diseño sea coherente.
+						row es el valor por defecto.
+
+				Las tres propiedades son distintas y tienen distinto propósito:
+
+					grid-auto-flow: define como se muestran las pistas implicitas.
+					grid-auto-columns/rows:	define el tamaño de las pistas implicitas.
+					grid-template-columns/rows: crea y define el tamaño de las pistas explicitas.
+				
+					Ej:
+
+						.wrapper {
+						  display: grid;
+						  grid-template-rows: repeat(3, 200px);
+						  gap: 10px;
+						  grid-auto-flow: column;
+						  grid-auto-columns: 300px 100px;
+						}
+
+			|| Orden de los elementos ubicados automaticamente:
+				Grid coloca a los elementos a los que no se les ha dado una posición explicita en lo que se llama "orden de documento modificado"
+				Si usamos la propiedad order para reordenar los elementos, los elementos siguen este orden y no el orden DOM (como aparecen en el código fuente)
+				
+				Prioridad para el posicionamiento:
+					
+					1° los elementos que tengan una posición con alguna propiedad.
+					2° los elementos automaticamente posicionados.
+					3° los elementos en orden del DOM.
+			
+				Llenar espacios:
+				A veces tenemos una cuadrícula que no necesita un orden lógico y podemos hacer que unos elementos se muestren antes que otros porque son más grandes etc.
+				Usamos la propiedad grid-auto-flow: dense. O usamos row dense si el orden es en fila o column dense si es en columna.
+				Solo cambia el orden visual de los elementos del DOM, el orden para interactuar con los elementos es el del DOM	(código fuente o HTML), como cuando se tabula sobre en link.
+
+					.wrapper {
+					  display: grid;
+					  grid-template-columns: repeat(4, 1fr);
+					  grid-auto-rows: 100px;
+					  gap: 10px;
+					  grid-auto-flow: dense;
+					}
+
+				Elementos anomimos:
+				Los que no están envueltos por etiquetas, no se pueden diseñar al no poder tomarlos con un selector de CSS.
+				Se colocará según las reglas de posicionamiento automatico.
+				Los que no son anonimos podemos colocarlos con algún metodo de posicionamiento.
+				
+				ubicación automatica:
+				Sirve para diseños en los que los elementos no requieren un orden lógico.
+					
+					Ej: galería de imágenes
+						Algunas imágenes de paisajes y retratos. Se ha configurado imágenes de paisajes, con una clase de paisaje para abarcar dos pistas de columnas.
+
+						.wrapper {
+						  display: grid;
+						  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+						  gap: 10px;
+						  grid-auto-flow: dense;
+						}
+
+						.wrapper li.landscape {
+						  grid-column-end: span 2;
+						}
+						
+						<ul class="wrapper">
+							<li><img src="./portrait.jpg" alt="placeholder"></li>
+    						<li class="landscape"><img src="landscape.jpg" alt="placeholder"></li>
+    						<li><img src="portrait.jpg" alt="placeholder"></li>
+    						<li class="landscape"><img src="landscape.jpg" alt="placeholder"></li>
+						</ul>
+
+						
+					Ej: Lista de definiciones
+						Son planas, no hay nada que envuelva los grupos de elementos dt y dd.
+						Los términos van de un lado y las definiciones del otro, sin importar cuántos de cada uno tenemos.
+
+						dl {
+						  display: grid;
+						  grid-template-columns: auto 1fr;
+						  max-width: 300px;
+						  margin: 1em;
+						  line-height: 1.4;
+						}
+
+						dt {
+						  grid-column: 1;
+						  font-weight: bold;
+						}
+
+						dd {
+						  grid-column: 2;
+						}
+						
+						<div class="wrapper">
+						  <dl>
+						    <dt>Mammals</dt>
+						    <dd>Cat</dd>
+						    <dd>Dog</dd>
+						    <dd>Mouse</dd>
+						    <dt>Fish</dt>
+						    <dd>Guppy</dd>
+						    <dt>Birds</dt>
+						    <dd>Pied Wagtail</dd>
+						    <dd>Owl</dd>
+						  </dl>
+						</div>
+
+		|| Box alignment en grid
+			Detalla la alineación para los metodos de diseño, en este caso, para grid.
+
+			Dos ejes:
+
+				de bloque:
+				Determina como se disponen los elementos en bloque del diseño normal/bloque.
+				Flujen uno debajo de otro.
+				El eje es vertical.
+
+				de línea:
+				Los elementos en línea van en dirección del texto o contenido, funciona dentro del diseño de bloque.
+				Este eje es horizontal.
+			
+			Podemos alinear los elemenentos dentro del área/celdas de la cuadrícula.
+
+			Alinear items en el eje de bloque:
+			Usamos las propiedades align-items o align-self.
+
+				align-items:
+				Alinea a todos los elementos. Despues podemos usar align-self para alinar algun caso especial.
+				Se usa en el contenedor.
+
+					auto, normal, start, end, center, stretch, baseline, first baseline, last baseline.
+						
+						.wrapper {
+						  display: grid;
+						  grid-template-columns: repeat(8, 1fr);
+						  gap: 10px;
+						  grid-auto-rows: 100px;
+						  grid-template-areas:
+						    "a a a a b b b b"
+						    "a a a a b b b b"
+						    "c c c c d d d d"
+						    "c c c c d d d d";
+						  align-items: start;
+						}
+						.item1 {
+						  grid-area: a;
+						}
+						.item2 {
+						  grid-area: b;
+						}
+
+					// Así como está, la altura del elemento depende del contenido
+
+				align-self:
+				Alinea un solo elemento.
+					
+					.item2 {
+					  grid-area: b;
+					  align-self: start;
+					}
+
+				    .item3 {
+					  grid-area: c;
+					  align-self: end;
+					}
+
+					// veremos que los elementos ocupan/empiezan en una fracción del espacio vertical.
+				
+					// El valor por defecto de aling-self es stretch, menos para los elementos con una relación de aspecto intrínseca,
+					    Para estos elementos debemos usar: align-self y justify-self: start; porque puede no estar implementado en el navegador. 
+						Así no se distorcionaría la imagen, etc.
+
+			Alinear elementos en eje de línea:
+			Usamos las propiedades justify-items y justify-self.
+				
+				valores:
+
+					auto, normal, start, end, center, stretch, baseline, first baseline, last baseline
+					El valor predeterminado es stretch (estirar), excepto para elementos con una relación de aspecto intrínseca. 
+					Esto significa que, de forma predeterminada, los elementos cubrirán su área de cuadrícula.
+					
+					Lo veremos en el primer elemento, como sucedio en align-self, en align-items (todos los elemetos fueron cambiado) por eso no ocuparón todo el espacio.
+
+				justify-items:
+				Cambia la alineación de todos los elementos en el eje línea.
+
+				justify-self:
+				Cambia individualmente.
+
+				// estas dos propiedades no estan en flexbox porque tiene un solo eje.		
+					
+					.wrapper {
+					  display: grid;
+					  grid-template-columns: repeat(8, 1fr);
+					  gap: 10px;
+					  grid-auto-rows: 100px;
+					  grid-template-areas:
+					    "a a a a b b b b"
+					    "a a a a b b b b"
+					    "c c c c d d d d"
+					    "c c c c d d d d";
+					}
+					.item1 {
+					  grid-area: a;
+					}
+					.item2 {
+					  grid-area: b;
+					  justify-self: start;
+					}
+
+					// veremos que los elementos ocupan/empiezan en una fracción del espacio horizontal.
+
+				Abreviadas:
+				Son place-items para justify/align-items y place-self para justify/items-self.
+
+				centrar item:
+
+					.wrapper {
+					  display: grid;
+					  grid-template-columns: repeat(4, 1fr);
+					  gap: 10px;
+					  grid-auto-rows: 200px;
+					  grid-template-areas:
+					    ". a a ."
+					    ". a a .";
+					}
+					.item1 {
+					  grid-area: a;
+					  align-self: center;
+					  justify-self: center;
+					}
+			
+		|| Alinear pistas 	
+			Las filas y columas deben ser más pequeñas que todo el contenedor.
+			
+			En el eje de bloque:
+			Usamos align-content.
+
+			Eje en línea:
+			Usamos justify-content. 
+
+			Abreviatura:
+			Es place-content.
+
+			Valores:
+			normal, start, end center, stretch, space-around, space-between, space-evenly, baseline, first baseline, last baseline.
+				
+				Predeterminado:
+				Es el valor start, empiezan en la esquina superior izquierda.
+
+				Ej: alinear contenido en eje de bloque, tenemos un contenedor con 500 x 500px
+					Usamos align-content.
+					Las columnas ocupan 300px en total.
+					
+					.wrapper {
+					  display: grid;
+					  grid-template-columns: repeat(3, 100px);
+					  grid-template-rows: repeat(3, 100px);
+					  height: 500px;
+					  width: 500px;
+					  gap: 10px;
+					  grid-template-areas:
+					    "a a b"
+					    "a a b"
+					    "c d d";
+
+					    Si agregamos alineación:
+
+					  	// align-content: end; todos se mueven al final del eje de bloque.
+						
+						// align-content: space-between; separa las pistas en este eje.
+					}
+
+					.item1 {
+					  grid-area: a;
+					}
+					.item2 {
+					  grid-area: b;
+					}
+					.item3 {
+					  grid-area: c;
+					}
+					.item4 {
+					  grid-area: d;
+					}
+				
+				// Los elementos se agrandan tomando más espacio del contenedor. Hay que tener en cuenta que al usar espacios los elementos deben compensar eso, agrandandose o asegurandose que el contenido se ajuste al espacio estricto.
+
+				Ej: alinear contenido en eje de línea, tenemos un contenedor con 500 x 500px
+					Usamos justify-content 
+					Podemos usarlo junto con align-content si las pistas miden menos que el contenedor podemos du
+						
+					.wrapper {
+					  display: grid;
+					  grid-template-columns: repeat(3, 100px);
+					  grid-template-rows: repeat(3, 100px);
+					  height: 500px;
+					  width: 500px;
+					  gap: 10px;
+					  grid-template-areas:
+					    "a a b"
+					    "a a b"
+					    "c d d";
+					  align-content: space-between;
+					  justify-content: space-around;
+					}
+
+		|| Alinear elementos con auto margin:
+			Funciona dentro de su área. Establecemos margen automatico derecho e izquierdo, absorberá todo el espacio disponible.
+			Empuja el bloque hacia el centro mientras ambos márgenes intentan ocupar todo el espacio.
+
+				Ej: 
+				Artículo 1 tiene un margen izquierdo de auto, el contenido ahora se empuja hacia el lado derecho.
+				Ta que el margen automático ocupa el espacio restante, después de que se haya asignado el espacio para el contenido de ese elemento.
+					
+				.wrapper {
+				  display: grid;
+				  grid-template-columns: repeat(3, 100px);
+				  grid-template-rows: repeat(3, 100px);
+				  height: 500px;
+				  width: 500px;
+				  gap: 10px;
+				  grid-template-areas:
+				    "a a b"
+				    "a a b"
+				    "c d d";
+				}
+				.item1 {
+				  grid-area: a;
+				  margin-left: auto;
+				}	
+			
+			// En resumen es una ubicación/separación vertical y horizontal de los elementos o pistas. 
+			   Lo vemos en las líneas de fila (block/align) y columna (inline/justify).
+			// Siempre se debe tener en cuenta los modos de escritura.
+		
+		
+		|| Valores lógicos y writing-mode en Grid:
+			
+			Posicionamiento físico: 
+			Corresponde a la izquierda y derecha, arriba y abajo.
+			Son fijas, la izquierda siempre va a estar a la izquierda, etc.
+			Si posicionamos un item vemos que se coloca desde estos lugares.
+
+				.item {
+				  position: absolute;
+				  top: 20px;
+				  left: 30px;
+				}
+
+				// a 20px desde arriba de la caja/ancestro/viewport y a 30px desde la izquierda.
+			
+			Posicionamiento lógico:
+			No se guía por un lugar físico, se adaptan a la ubicación del contenido. 
+			Se usan ubicaciones como start, center, end, etc.
+
+			writing-mode:
+			Se puede usar para fines creativos o para adaptar el contenido otro lenguaje.
+    			
+    			valores:
+    			horizontal-tb, vertical-rl, vertical-lr, sideways-rl, sideways-lr.
+			
+				en grid:
+				cambiar el writing-mode cambia los ejes.
+
+					Ej:
+					hay tres pistas recorriendo el eje del bloque. En el modo de escritura predeterminado, la cuadrícula coloca automáticamente los elementos comenzando en la parte superior izquierda, moviéndose hacia la derecha, llenando las tres celdas en el eje en línea. 
+					Luego pasa a la siguiente línea, crea una nueva pista de Fila y completa más elementos.
+						
+						.wrapper {
+						  display: grid;
+						  grid-template-columns: repeat(3, 100px);
+						  grid-template-rows: repeat(2, 100px);
+						  gap: 10px;
+						}
+
+					Ej: si seteamos writing-mode en el contenedor, lo vuelca verticalmente.
+
+						.wrapper {
+						  writing-mode: vertical-lr;
+						  display: grid;
+						  grid-template-columns: repeat(3, 100px);
+						  grid-template-rows: repeat(2, 100px);
+						  gap: 10px;
+						}
+						
+						// Ahora el eje de bloque corre horizontalmente y el eje en línea corre verticalmente.
+			
+			Valores lógicos en la alineación:
+			Funcionan igual que en el modo predeterminado.
+
+				Ej:
+					.item1 {
+				  	  grid-column: 1 / 4;
+				  	  align-self: start;
+					}
+					
+					.item3 {
+					  grid-column: 3;
+					  grid-row: 2 / 4;
+					  align-self: end;
+					  justify-self: end;
+					}
+				
+				Ej: Alineación en línea
+					Sin importar el modo de escritura o dirección de texto la línea 1 será la primera y la línea -1 será la última.			
+
+			Orden de grid-area:
+			Va en el contrario sentido de las agujas del reloj.
+
+			    grid-row-start
+			    grid-column-start
+			    grid-row-end
+			    grid-column-end
+			
+			Mezclar direcciones de texto:
+			Por ejemplo, podemos poner una barra de navegación a la izquierda de la pantalla, o un titulo orientado de arriba hacia abajo.
+				
+				.wrapper {
+				  display: grid;
+				  grid-gap: 20px;
+				  grid-template-columns: 1fr auto;
+				  font: 1em Helvetica, Arial, sans-serif;
+				}
+				.wrapper nav {
+				  writing-mode: vertical-lr;
+				}
+				.wrapper ul {
+				  list-style: none;
+				  margin: 0;
+				  padding: 1em;
+				  display: flex;
+				  justify-content: space-between;
+				}
+				.wrapper a {
+				  text-decoration: none;
+				}
+
+			Propiedades Lógicas vs físicas:
+			Position sigue dependiendo de los lugares fisicos, al igual que cuando aplicamos margenes automaticos porque dependen de la izquierda y derecha.
+			Por otro lado podemos usar equivalentes lógicos para reemplazar los valores y propiedades físicas.
+			Tambien hay que verificar la compatibilidad de los navegadores para las nuevas propiedades lógicas.
+
+		|| Accesibilidad en Grid:
+			Vimos que podemos usar varias propiedades para cambiar el orden original de los elementos.
+			Los navegadores tienen reglas cuando el contenido se reordena visualmente.
+			El reordenamiento de los elementos no cambia el orden de fuente que lee el navegador.
+			No afectan a la interpretación por voz, ni tampoco a la recorrido o interacción que posee el navegador (como tabular o desplazarse entre enlaces).
+			
+			Los desarrolladores no deberían cambiar el orden a los elementos que contengan una lógica que sea importante para los usuarios de lectores de pantall.
+			Puede cambiar el orden visual en los elementos que solo aporten un valor estetico en el proyecto.
+				
+				Ej: una cuadrícula con links
+					si cambiamos el orden de los elementos y ponemos al segundo elemento en lugar del primero.
+					La tabulación va a empezar por el primero, lo mismo para los lectores de pantalla.
+					
+					.box1 {
+					  grid-column: 1;
+					  grid-row: 2;
+					}
+
+			Peligro de aplastar el marcado:
+			Situación en la cual simplificamos el marcado eliminando los elementos semanticos para facilitar la creación del diseño.
+			Sobre todo cuando tenemos muchos elementos dentro de un contenedor, dado que solo los elementos secundarios directos se transforman con los metodos de diseño.
+			Debemos encontrar formas no eliminar los elementos semanticos para lograr un diseño.
+
+		|| Mejora progresiva:
+
+			Prefijos para I.E y Edge (<15):
+			No incluye la capacidad de colocación automática ni las áreas de plantilla de cuadrícula.
+
+			    grid-template-columns as -ms-grid-columns
+			    grid-template-rows as -ms-grid-rows
+			    grid-row-start as -ms-grid-row
+			    grid-column-start as -ms-grid-column
+			    align-self as -ms-grid-row-align
+			    justify-self as -ms-grid-column-align
+
+			    Para habilitarlos hay que usar:
+
+			    	autoprefixer({ grid: "autoplace" });
+			
+			Los demás navegadores no tienen prefijos.
+			Se usan para sitios orientados a navegadores antiguos o que decide dar soporte o sitios antiguos que deben mantenerse.
+
+			Mejorando diseños:
+			Sobreescribiendo metodos anteriores podemos mejorar el diseño heredado de los elementos, los metodos modernos tienen prioridad.
+			
+				Floats:
+				Tenemos un contenedor con un flotanta, si lo convertimos en cuadrícula pasa a tener prioridad.
+				Tambien podemos aplicar align-self al contenido.				
+					
+					Ej: media object
+
+					.media {
+					  border: 2px solid #f76707;
+					  border-radius: 5px;
+					  background-color: #fff4e6;
+					  max-width: 400px;
+					  display: grid;
+					  grid-template-columns: 1fr 2fr;
+					  grid-template-areas: "img content";
+					  margin-bottom: 1em;
+					}
+
+					.media .text {
+					  padding: 10px;
+					  align-self: end;
+					}
+
+					// old code we can't remove 
+					.media .image {
+					  float: left;
+					  width: 150px;
+					  margin-right: 20px;
+					}
+		
+					<div class="media">
+					  <div class="image">
+					    <img src="https://via.placeholder.com/150x150" alt="placeholder" />
+					  </div>
+
+					  <div class="text">
+					    This is a media object example. I am using floats for older browsers and
+					    grid for new ones.
+					  </div>
+					</div>
+				
+				Media query:
+				Puede presentarse algunos problemas al sobreescribir código heredado.
+
+					Ej: cartas flotantes, tenemos ancho, margen para crear espacio y margen negativo eliminar espacio de afuera.						
+						Cuando agregamos contenido a la tarjeta, el diseño se rompe.
+						Establecemos una altura minima y no se debería agregar tanto contenido a la carta.
+						Convertimos la lista no ordenada en contenedor grid, pero se aplicará el ancho en porcentaja.
+						Cambiamos el ancho a auto (la carta se adapta al contenido) y para esto necesitamos el query.
+							
+							// Float grid heredado
+
+							.wrapper ul {
+							  overflow: hidden;
+							  margin: 0 -10px;
+							  padding: 0;
+							  list-style: none;
+							}
+							.wrapper li {
+							  float: left;
+							  width: calc(33.333333% - 20px);
+							  margin: 0 10px 20px 10px;
+							}
+
+							// Mejora progresiva
+
+							@supports (display: grid) {
+							  .wrapper ul {
+							    display: grid;
+							    grid-template-columns: repeat(3, 1fr);
+							    gap: 20px;
+							    margin: 0;
+							  }
+
+							  .wrapper li {
+							    width: auto;
+							    min-height: auto;
+							    margin: 0;
+							  }
+							}
+
+					Display inline-block:
+					Metodo heredado alternativo a grid float.
+					Cambian algunas propiedades como la alineación vertical, que despues se ignora al sobreescribir con grid el contenedor.
+						
+						.wrapper ul {
+						  margin: 0 -10px;
+						  padding: 0;
+						  list-style: none;
+						}
+
+						.wrapper li {
+						  display: inline-block;
+						  vertical-align: top;
+						  width: calc(33.333333% - 20px);
+						  margin: 0 10px 20px 10px;
+						}
+
+						@supports (display: grid) {
+						  .wrapper ul {
+						    display: grid;
+						    grid-template-columns: repeat(3, 1fr);
+						    gap: 20px;
+						    margin: 0;
+						  }
+						  .wrapper li {
+						    width: auto;
+						    margin: 0;
+						  }
+						}
+		
+		|| Diseños comunes:
+			Los sitios web son una variación de un diseño con un contenido central, barras laterales, un encabezado y un pie de página y un espacio para la publicidad. 
+			En un diseño responsivo, primero se pone todos los elementos en una columna y luego se va agrandando el diseño a dos y tres columnas para adaptarlo a diferentes tamaños de pantalla.
+				
+				Ej: usando solo grid
+
+					.wrapper {
+					  display: grid;
+					  gap: 20px;
+					  grid-template-areas:
+					    "header"
+					    "nav"
+					    "content"
+					    "sidebar"
+					    "ad"
+					    "footer";
+					}
+
+					@media (min-width: 500px) {
+					  .wrapper {
+					    grid-template-columns: 1fr 3fr;
+					    grid-template-areas:
+					      "header  header"
+					      "nav     nav"
+					      "sidebar content"
+					      "ad      footer";
+					  }
+					  nav ul {
+					    display: flex;
+					    justify-content: space-between;
+					  }
+					}
+
+					@media (min-width: 700px) {
+					  .wrapper {
+					    grid-template-columns: 1fr 4fr 1fr;
+					    grid-template-areas:
+					      "header header  header"
+					      "nav    content sidebar"
+					      "nav    content ad"
+					      "footer footer  footer";
+					  }
+					  nav ul {
+					    flex-direction: column;
+					  }
+					}
+					
+					// El espacio disponible en el contenedor se divide en 6 y se asigna en proporción a nuestras tres pistas: una parte para cada columna lateral y 4 partes para el centro.
+						Las columnas responsivas tienen asignado 1fr para la barra navegación vertical y otro para el aside y 4fr para el contenido principal.
+						Para el
+
+			Diseño de 12 columnas:
+			Será un diseño particular: Tendremos 12 columnas y las líneas de la cuadrícula tendrán todas el mismo nombre.
+			En Los puntos de interrupcion (query) serán posicionados los elementos según el ancho de pantalla así se usarán las líneas necesarias.
+			Primero comenzamos con las dimensiones de pantalla para dispositivos moviles.
+			Despues pasamos al diseño de dos columnas y vamos expandiendo los elementos por las línenas.
+			Para el diseño de tres columnas, ponemos la barra de navegación verticalmente y después expandimos el footer.			
+				
+				.wrapper {
+				  display: grid;
+				  grid-template-columns: repeat(12, [col-start] 1fr);
+				  gap: 20px;
+				}
+
+				.wrapper > * {
+				  grid-column: col-start / span 12;
+				}
+
+				@media (min-width: 500px) {
+				  .side {
+				    grid-column: col-start / span 3;
+				    grid-row: 3;
+				  }
+				  .ad {
+				    grid-column: col-start / span 3;
+				    grid-row: 4;
+				  }
+				  .content,
+				  .main-footer {
+				    grid-column: col-start 4 / span 9;
+				  }
+				  nav ul {
+				    display: flex;
+				    justify-content: space-between;
+				  }
+				}
+
+				@media (min-width: 700px) {
+				  .main-nav {
+				    grid-column: col-start / span 2;
+				    grid-row: 2 / 4;
+				  }
+
+				  .content {
+				    grid-column: col-start 3 / span 8;
+				    grid-row: 2 / 4;
+				  }
+
+				  .side {
+				    grid-column: col-start 11 / span 2;
+				    grid-row: 2;
+				  }
+
+				  .ad {
+				    grid-column: col-start 11 / span 2;
+				    grid-row: 3;
+				  }
+
+				  .main-footer {
+				    grid-column: col-start / span 12;
+				  }
+
+				  nav ul {
+				    flex-direction: column;
+				  }
+				}
+		
+		|| Lista de productos con cartas:
+			Podemos crear listas de elementos nativamente con grid, sin queries.
+			Principalmente usamos grid y algo de flexbox para corregir el diseño de las cartas.
+			Tendremos columnas flexibles (agrandan y reducen) con un piso de 200px, que reparte el espacio proporcionalmente logrado con la funcion minmax().
+			Por minmax() y el valor autofill logramos que el numero de columnas aumenten o disminuyan a medida que el contenedor pueda expandirse o reducirse por la ventana gráfica.
+			Con esto no necesitamos de queries para agregar columnas.
+			Para corregir el diseño por dentro, usamos flex en columna y automargen que empujará el pie de página o banner de la carta.
+			*Cuando tenemos que o distribuir elementos en una solo dirección usamos flexbox.
+
+				<ul class="listing">
+				  <li>
+				    <h2>Item One</h2>
+				    <div class="body">
+				      <p>The content of this listing item goes here.</p>
+				    </div>
+
+				    <div class="cta">
+				      <a href="">Call to action!</a>
+				    </div>
+				  </li>
+				</ul>
+
+				.listing {
+				  list-style: none;
+				  margin: 2em;
+				  display: grid;
+				  gap: 20px;
+				  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+				}
+
+				.listing li {
+				  border: 1px solid #ffe066;
+				  border-radius: 5px;
+				  display: flex;
+				  flex-direction: column;
+				}
+
+				.listing .cta {
+				  margin-top: auto;
+				  border-top: 1px solid #ffe066;
+				  padding: 10px;
+				  text-align: center;
+				}
+
+				.listing .body {
+				  padding: 10px;
+				}
+
+		 	Si tenemos cartas muy grandes dado su contenido, no quedan bien cuando son muy altas.
+		 	Para que abarquen más columnas y no sean tan altas, regla grid-column-end con un valor de span 2. Ahora, cuando grid encuentre este elemento, le asignará dos pistas.  
+			Además podemos hacer que el contenedor llene espacios en blanco con grid-auto-flow: dense.
+			*Esto ultimo solo está permitido para elementos que no necesiten un orden lógico.
+			Puede ayudarlo a manejar el contenido que genera un CMS.
+
+				.listing {
+				  list-style: none;
+				  margin: 2em;
+				  display: grid;
+				  gap: 20px;
+				  grid-auto-flow: dense;
+				  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+				}
+				.listing .wide {
+				  grid-column-end: span 2;
+				}
+
+	|| Subgrid:
+
+		
+
+
+
+
+
+
+
+	
+/*				
