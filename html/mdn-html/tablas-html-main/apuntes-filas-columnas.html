@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="evaluacion-style.css">
+    <title>Filas y columnas</title>
+</head>
+<body>
+    <p><strong>Filas y columnas:</p></strong>
+    <p>Cada una de las filas ira dentro de la etiqueta tr, dentro de cada fila tendremos que indicar las columnas que tendran</p>
+    <p>Cada td sera una columna diferente. Ejempo: una fila con tres columnas</p>
+
+    <table>
+        <tr> <!-- una fila-->
+            <td>musica</td> <!-- tres columnas-->
+            <td>vida</td>
+            <td>champagne</td>
+        </tr>
+    </table>
+
+    <p><em>Podemos indicarle si cada columna(td) sea un titulo en la tabla. Usando la etiqueta th</em></p>
+    <table>
+        <tr> <!-- una fila-->
+            <th>musica</th> <!-- tres columnas-->
+            <th>vida</th>
+            <th>champagne</th>
+        </tr>
+    </table>
+    
+    <p><strong>Combinar celdas: en fila(rowspan) o columna(colspan)</strong></p>
+    <p>Con el valor de las filas o columnas a ocupar por la celda elegida.
+        Tenemos que quitar las f o c que esten ocupando el lugar a unificar. 
+    </p>
+    
+    <table>
+        <tr> <!-- una fila-->
+            <th>musica</th> <!-- tres columnas-->
+            <th>vida</th>
+            <th>champagne</th>
+                
+        <tr>
+            
+        <tr>
+            <td>trap</td>
+            <td>paisajes</td>
+            <td>caro</td>
+        </tr>    
+
+        <tr>
+            <td>pop</td>
+            <td>animales</td>
+            <td>lujo</td>
+        </tr>
+
+        <tr>
+            <td>rock</td>
+            <td>movimiento</td>
+            <td>alcohol</td>
+        </tr>
+    </table>
+
+    <p><strong>Modelos de tabla: fila con encabezados o columnas con encabezados</strong></p>
+    <p>F y th: con tr(fila), un encabezado(th) y los datos(td). C y th: tr(fila), y todos los th (encabezos) requeridos seguidos y las lineas con los datos</p>
+
+    <table>
+            <tr> <!-- una fila-->
+                <th>musica</th> <!-- tres columnas-->
+                <th>vida</th>
+                <th>champagne</th>
+                    
+            <tr>
+                
+            <tr>
+                <td rowspan="2">trap</td>
+                <td>paisajes</td>
+                <td>caro</td>
+            </tr>    
+    
+            <tr>
+                
+                <td>animales</td>
+                <td>lujo</td>
+            </tr>
+    
+            <tr>
+                
+                <td colspan="3">movimiento</td>
+                
+            </tr>
+        </table>
+
+</body>
+</html>

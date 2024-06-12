@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bloques de construcción css</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+            <h1>Capitulo 2: Bloques de construcción</h1>
+    </header>
+    
+
+    <main>
+        <article>
+            <h2>Cascada y herencia</h2>
+            <p>Controlan como se aplica el CSS al HTML</p>
+            <h3>Reglas conflictivas:</h3>
+            <p>Por lo general, son varias reglas aplicadas a un mismo elemento; hacen que el resultado no sea el esperado.</p>
+            <p>La cascada y la especificidad controlan que regla se aplica en este conflicto. La herencia significa que algunas propiedades del elemento padre se heredan (a los elementos hijos) pero otras no.</p>
+            <h4>Cascada</h4>
+            <p>Cuando dos reglas tienen la misma especificidad, se aplica la que aparece ultima: Es decir, tener un <strong>selector idéntico</strong></p>
+            <h4>Especificidad</h4>
+            <p>Cuando tenemos selectores diferentes que podrían aplicarse a un mismo elemento. Si un elemento es mas especifico que otro se aplicará este a pesar que este antes en la hoja de estilo.</p>
+            <h4>Herencia (inheritance)</h4>
+            <p>A los elementos que estén dentro de el se le aplicaran las mismas propiedades, pero a otros no. No se heredara propiedades si el elemento hijo tiene las suyas.</p>
+            <p>Los bordes, los margenes, el relleno y la anchara no se heredan en una ul, por sentido comun.</p>
+            <p><strong>Ver Referencia</strong> de cada propiedad para ver cuales son heredables</p>
+            <h3>Control de la herencia: Valores</h3>
+            <p></p>
+            <h4>inherit</h4>
+            <p>Es un valor permitido en todas las propiedades CSS. Hace que el elemento al cual se aplica tome el valor calculado de la propiedad de su elemento padre.</p> 
+            <p>Si hay un elemento hijo con la misma especificidad se aplicará las que tenga definida y en orden a la cascada.</p>   
+            <h4>initial</h4>
+            <p>ES un valor que se puede aplicar a un elemento seleccionado tenga el mismo valor que esté establecido para esa propiedad en la hoja de estilo por defecto del navegador. Fuerza la utilización del valor inicial de la propiedad para el elemento seleccionado.</p>
+            <h4>unset</h4>
+            <p>Este valor restablece la propiedad a su condición natural, si no es heredable, sera inicial</p>
+            <h4>revert</h4>
+            <p>Este valor actuá como el valor unset (restablece valor natural) en muchos casos. También puede establecer los valores de estilo del navegador.</p>
+            <h4>all</h4>
+            <p>Es una propiedad que puede tomar los valores anteriores para restablecer el estilo que tenia el elemento antes de hacer cambios (funciona para casi todos las propiedades de estilo que se tenían aplicados).</p>
+
+            <h3>Comprender la cascada:</h3>
+            <p>Veremos la forma en que la cascada define que reglas se aplican según estos tres factores: orden del código, especificidad e importancia.</p>
+            <p>La importancia invalida a la especificidad y esta al orden del código de CSS.</p>
+            <h4>Orden del código</h4>
+            <p>Si hay mas de una regla con el mismo peso/especificidad gana la ultima.</p>
+            <h4>Especificidad</h4>
+            <p>Cuando se aplica una regla anterior es porque esta es mas especifica que la ultima.</p>
+            <p>No se <strong>sobrescribe</strong> toda la reglas, solo las <strong>propiedades</strong> que entran en conflicto de especificidad/valor. Una practica común es dar estilo a elementos básicos y después crear clases para cambiar otras propiedades del elemento. El estilo genérico se aplica a todos los elementos y el de las clases solo a elementos particulares, estos van a recibir las propiedades que no se hayan sobrescrito con mayor especificidad.</p>
+            <p><strong>Ejemplo:</strong> A un selector genérico le ponemos color rojo y fuente Helvetica y a un selector de clase le ponemos color azul sin cambiar la fuente, este recibirá la fuente Helvetica pero cambiará el color azul.</p>
+            <h4>Calculo de la especificidad</h4>
+            <p>Un selector genérico o pseudo elemento suma 1 punto, un selector de clase suma 10 puntos, un selector de id suma 100, un atributo style en HTML suma de 1000 puntos; pero la declaración !importan al lado de un valor le gana a todos los selectores.</p>
+            <h4>declaración !important</h4>
+            <p>La unica manera de anularla es escribiendo otro !important al valor de la propiedad que se quiere aplicar.</p>
+            <p>Aunque esta declaración no se utiliza a menos que no puedas acceder a modificar los nodos (elementos, texto, etc.) del CSS.</p>
+            <h4>Efecto de la ubicación del CSS</h4>
+            <p>Declaraciones contradictorias se aplicaran en el siguiente orden:</p>
+            <ol>
+                <li>Declaraciones en las hojas de estilo del cliente/navegador</li>
+                <li>Declaraciones en las hojas de estilo del usuario web</li>
+                <li>Declaraciones en las hojas de estilo del desarrollador web</li>
+                <li>Declaraciones !important en las hojas de estilo del desarrollador</li>
+                <li>Declaraciones !important en las hojas de estilo del usuario web</li>
+            </ol>
+
+            <h3>Cascada en detalle</h3>
+            <p>La cascada es un algoritmo que define como combinar los valores de las propiedades en las hojas de estilo. Como una cascada, se aplicará al documento (html, xml, etc) de la ultima hacia la primera regla en general, aunque hay casos particulares. </p>
+            <p>Solo las reglas con par propiedad/valor participan de la cascada, significa que las reglas de CSS distintas o que respondan a otro algoritmo que no sea el de CSS no participaran.</p>
+            <p>Hay declaraciones como pueden ser algunas de las reglas (at-rules) como @font-face que contiene descriptores. Declaraciones mas conocidas como @media, @document o @supports; si participarán de la cascada.</p>
+            <h4>At-rules</h4>
+            <p>Es una declaración que comienza con el signo @ seguido del nombre de la regla.</p>
+            <p>Hay reglas con distintas sintaxis y reglas con una misma sintaxis pero que funcionan mediante condiciones.
+            <p></p>
+            <h4>Orden de la cascada</h4>
+            <p>La cascada determina como va a encontrar el valor que se aplicará a cada propiedad de cada elemento.</p>
+            <p>Primero clasifica las reglas que se permiten en la cascada (con par propiedad/valor y que responden al algoritmo de la cascada de CSS), luego clasifica las reglas de acuerdo a su importancia y luego por su origen (tipo de hoja de estilo: cliente, autor y usuario), estas hojas determinan la prioridad: 3) cliente, 2) autor; 1) usuario. El autor puede modificar la hoja del cliente y el usuario puede modificar la hoja del autor.</p>
+            <p>Cómo elige el navegador que estilo aplicar, en orden:</p>  
+            <ol>
+                <li>cliente/browser</li>
+                <li>usuario</li>
+                <li>autor</li>
+                <li>animation</li>
+                <li>autor (!important)</li>
+                <li>usuario (!important)</li>
+                <li>cliente (!important)</li>
+                <li>transición</li>
+            </ol> 
+            <p>Finalmente, si hay igualdad entre las reglas, la especificidad elige el orden en el cual se aplicará el CSS.</p> 
+            <p>Aunque lo más recomendable es no romper la cascada al aumentar tanto la especificidad, mantenerlas igualadas para que la ultima reglas se siga aplicando.</p>
+        </article>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Modelo de Cajas - CSS</title>
+</head>
+<body>
+    <main>
+        <article>
+            <h1>Capitulo 3: Modelo de Cajas</h1>
+            <p>Todo en CSS tiene una caja alrededor que es fundamental entender para crear diseños mejores y armónicos.</p>
+            <h2>Cajas en bloque y en linea:</h2>
+            <p>Definen al modo que se comporta la caja en términos de flujo de pagina y en relación con otras cajas de la pagina.</p>
+            <h3>Caja en bloque</h3>
+            <p>Se comportara de la siguiente manera:</p>
+            <ul>
+                <li>Fuerza un salto de linea al llegar al final de la linea.</li>
+                <li>Se extenderá en la dirección de la linea para rellenar todo el espacio disponible que haya en su contenedor, la mayoría de las veces, la caja será tan ancha y ocupara todo el espacio como su contenedor.</li>
+                <li>Respetan las propiedades <strong>width</strong> y <strong>height</strong>.</li>
+                <li>Las propiedades padding, margin y border separan la caja de otros elementos.</li>
+            </ul>
+            <p>Las cajas en bloque tienen un tipo de visualización externa llamada block. Algunos ejemplos son los encabezados (h1, h2, etc) y los párrafos (p) a menos que se les cambie el tipo de visualización por inline, flex, etc. Su altura depende de cuanto contenido haya dentro de la caja. Es importante darle anchura así podemos mover el bloque, de lo contrario ocupara toda la oja.</p>
+            <h3>Caja en linea</h3>
+            <p>Se comportara de la siguiente manera:</p>
+            <ul>
+                <li>No fuerza un salto de linea al llegar al final de la linea.</li>
+                <li>Las propiedades <strong>width</strong> y <strong>height</strong> no funcionan por defecto (solo cambiando su tipo de visualización). Aunque con padding se puede agrandar la caja desde adentro pero se superponen los otros elementos, si hay y dependiendo de cuanto sea el padding.</li>
+                <li>Las propiedades padding, margin y border <em>verticales</em> no alejan a otras cajas en linea.</li>
+                <li>Las propiedades padding, margin y border <em>horizontales</em> si alejan a otras cajas en linea.</li>
+            </ul>
+            <p>Las cajas en linea tiene un tipo de visualización externa llamada inline. Algunos ejemplos son a (enlaces/links), span (contenido sin semántica), em (cursiva), strong (negrita). Su altura y su anchura depende de cuanto contenido tenga la caja; se expande o contrae con este, solo puede cambiarse con la propiedad display.</p>
+            <h4>Display</h4>
+            <p>Con sus valores block e inline define el tipo de caja que va a tener un elemento. Tiene relación con outer (valor externo) y display es la visualización.</p>
+            <h2>Tipos de visualización (interna y externa):</h2>
+            <h3>Visualización Externa</h3>
+            <p>Define si una caja de css es en bloque o en linea, tienen diferentes comportamientos como vimos.</p>
+            <h3>Visualización Interna</h3>
+            <p>Determina como se disponen los elementos dentro de una caja en bloque o en linea.</p>
+            <h3>Flujo normal</h3>
+            <p>Es el sistema mediante el cual los elementos del código se presentan gráficamente en el navegador. Los elementos en bloque se presentan como en modo de escritura: de izquierda a derecha y separados uno debajo de otro. Los elementos en linea aparecen uno al lado del otro en una misma linea, si no tienen espacio, aparecerán debajo.</p>
+            <p>El comportamiento de los elementos dentro de una caja depende del comportamiento de su tipo de caja (en bloque o en linea)</p>
+            <p>Comenzar con un documento coherente y bien estructurado que sea legible en el flujo normal es la mejor manera de comenzar cualquier página web.</p>
+            <p>Pero podemos cambiar el tipo se visualización interna (comportamiento de las cajas) con los valores de la propiedad display. Por ejemplo display: flex; hace que el tipo de visualización externa sea en bloque y la visualización interna sea flexible. Los elementos hijos de esta caja pasaran a comportarse como tipo flex de acuerdo a las normas de Flexbox. También como valor interno nos podemos encontrar a <strong>grid</strong> tiene sus propias normas como flexbox.</p>
+            <p>Las disposiciones en bloque y en linea son como se comportan los elementos si no especificamos otra forma de visualización interna, esto se llama flujo normal.</p>
+            <h3>Ejemplos de tipo de visualización:</h3>
+            <p>Podemos ver como se comportan y delimitan los tipos de visualización en la web de prueba, aplicando un borde a los ejemplos.</p> 
+            <p>En el ejemplo 1, tenemos un párrafo sin modificar su visualización, una lista con visualización flex, un span con block. Recordando que la visualización interna se cambio con la propiedad display.</p>
+            <p>Vemos que las cajas block se expanden hasta el final y se paran de las cajas siguientes o anteriores. Las cajas flex externamente se comporta como block pero internamente son flexibles y se delimitan hasta donde terminan sus elementos.</p> 
+            <p>En el ejemplo 2, tenemos un span sin modificar dentro de un párrafo.</p>
+            <p>Vemos que Las cajas inline al estar dentro de una caja block no se separan de este. También vemos que los párrafos al cambiar su visualización a inline se juntan uno al lado del otro sin hacer un salto de linea y su extension se limita hasta donde termina el contenido que esta dentro. La caja inline-flex no usa salto de linea y se unen a los demás elementos en line. Tambien vemos como los bordes dentro se ajustan a los elementos.</p>
+            <h2>Modelo de caja en detalle</h2>
+            <p>El modelo de cajas de CSS completo solo se aplica a los elementos en bloque, como vimos a los elementos en linea no se le pueden aplicar la propiedad altura y anchura. El modelo define como trabajan juntas las diferentes partes de una caja: margen (margin), borde (border), relleno (padding) y contenido (content).</p>
+            <h3>Partes de una caja</h3>
+            <p>Una caja de tipo bloque tiene:</p>
+            <ul>
+                <li>Contenido (content box): area que muestra el contenido, puede modificarse con las propiedades width y height.</li>
+                <li>Relleno (padding box): espacio en blanco alrededor del contenido, se modifica con la propiedad padding.</li>
+                <li>Borde (border box): envuelve y limita la caja, puede modificarse con border.</li>
+                <li>Margen (margin box): espacio en blanco entre la caja y los otros elementos, se usa para separarlos. Se modifica con margin.</li>
+            </ul>
+            <h3>Modelo de caja estándar</h3>
+            <p>La altura y la anchura absorben o se suman el valor de las propiedades padding y border aumentado el tamaño de la caja. Asi que si quieres que la caja tenga determinada altura y anchura hay que restarle los valores de padding y border que habías declarado. Este problema lo soluciona el modelo de cajas alternativo.</p>
+            <h3>Modelo de caja alternativo</h3>
+            <p>Con su propiedad box-sizing: border-box; cuando a una determinada anchura y altura de una caja le agregamos algo de padding y border, el valor de estos resta al ancho y a la altura haciendo un calculo automático para mantener el tamaño total de la caja intacto.</p>
+            <p><strong>En detalle:</strong>"Por dentro" (box-model en inspect element) va a mostrar menos px de ancho y alto. "Por fuera" (en la hoja de estilo de CSS y en la visualización del navegador) se va a mostrar la caja con menos tamaño de contenido pero a la altura y anchura de la caja se le suman los valore de padding y border.</p>
+            <p>Es una practica estándar entre desarrolladores: es más fácil que tener que hacer cálculos nosotros al acomodar los elementos en la web. Se usa un Selector universal con la propiedad box-sizing: border-box; al inicio de cada hoja de CSS.</p>
+            <h3>Herramientas de desarrollador</h3>
+            <p>Están en todos los navegadores, generalmente se accede con f12. Se usa para inspeccionar las cajas que creamos, si realmente nuestras cajas tienen el tamaño que nosotros creemos que tienen.</p>
+            <h2></h2>
+            <p>Margin, border y padding son propiedades abreviadas que nos permiten establecer todos sus valores a la vez, solo funcionará si están todos definidos. Aunque también tienen propiedades individuales que permiten controlar cada función de ellas.</p>
+            <h3>Margin</h3>
+            <p>Es el espacio invisible alrededor del borde de la caja que aleja al resto de los elementos. Puede tener valores negativos y positivos. Con el modelo de cajas estándar y alternativo, el margen se añade después de haber puesto las medidas de la caja. Establecer un valor negativo puede hacer que tu caja se superponga con otros elementos o elimine margen.</p>
+            <p>Podemos controlar todos los margenes de una sola vez con la propiedad margin de forma abreviada. También están las propiedades individuales de margin: margin-top, margin-right, margin-bottom, margin-left.</p>
+            <p>Los elementos en linea solo tienen disponibles los margenes horizontales (izquierda y derecha), solo se pueden mover en linea horizontal. No pueden ser verticales a menos que se le cambie el tipo de visualización con la propiedad display.</p>
+            <p>Los elementos en bloque tienen disponibles los 4 lados de margin, a estos es importante darles un ancho al menos para que no ocupen todo su espacio en la hoja de css.</p>
+            <h4>Los valores de Margin</h4>
+            <P>Son de medida para los cuatro lados.</P>
+            <h4>Buenas practicas:</h4>
+            <p><strong>Margenes automáticos para centrar elementos:</strong> con margin-left: auto; mueve la caja hacia el margen derecho (al agrandar el margen izquierdo). Con margin-right: auto; muevo todo el elemento hacia la izquierda y con las dos declaraciones centramos el elemento o la caja.</p>
+            <h4>Malas practicas:</h4>
+            <p><strong>Eliminar el margin y el padding:</strong> Con margin: 0; y padding: 0; se juntan todos los elementos y no se pueden distinguir. Peor es la situación si usan un selector universal porque van a tener que ir elemento a elemento para cambiar estas propiedades.</p>
+            <p><strong>Centrar elementos con margin 0 auto:</strong> Puede desaparecer el espacio/separación vertical si hay otros elementos antes en la cascada.</p>
+            <p><strong>Usar margin 0 y padding 0 en el body:</strong> El primero por que todos los navegadores tienen por defecto un margin 8px (a todos los lados) se puede ver en inspeccionar elemento y los hace desaparecer. El segundo no tiene sentido porque no hay padding por defecto.</p>
+            <h4>Colapso de margin</h4>
+            <p>Si hay dos elementos cuyo margen se tocan, el margen que se sobrepone es el más grande. Un problema común es cuando queremos crear espacios y no se asigna el que le decimos, lo más probable es que haya un colapso de margen.</p>
+            <h3>Border</h3>
+            <p>Es el marco para las cajas, la mayoría son invisibles por defecto.</p>
+            <img>
+            <p>En la propiedad abreviada border podemos el ancho (width), el estilo (style) y el color en una linea. Son todos los valores que se le pueden aplicar a un borde</p>
+            <p>Como segundo método abreviado tenemos: border-top para modificar de una sola vez cada lado por su cuenta.</p>
+            <p>De manera individual tenemos: por ejemplo border-top-width asi con todos los lados y los demás valores de border para aplicar estos valores independientemente de cada lado.</p>
+            <h4>Los estilos de los bordes</h4>
+            <p>Podemos cambiar cada borde individualmente con una variedad de estilos.<p>
+            <h3>Padding</h3>
+            <p>Genera espacio interno entre el borde y el contenido de la caja. No puede tener valores negativos, solo de 0 a positivo. Se usa para alejar el contenido del borde de la caja.</p>
+            <p>La propiedad abreviada padding controla los 4 lados. Admite cuatro valores (top, right, bottom y left) así escritos, como las agujas del reloj. Si ponemos 3 valores: el primer va a ser para top, el segundo para right-left y el tercero para bottom. Si ponemos 2 valores: el primero para top y bottom, el segundo para right y left. Con un solo valor controlamos todos los lados</p>
+            <p>La propiedad individual: como padding-top sirve para con mas detalle cada lado, asi con los demás.</p>
+            <h3>Cuando usar padding y margin</h3>
+            <p>Cuando tenemos que separar o mover una caja de los demás elementos usamos margin, si tenemos que aumentar el tamaño de una caja o separar el contenido del borde usamos padding.</p>
+            <h3>Model-Box y Display</h3>
+            <p>La propiedad display cambia el contexto de los elementos modificando su comportamiento. Valores: none (oculta el elemento, pero sigue estando en el html), block o inline (el elemento seleccionado tendrá el comportamiento según las características de estos valores), inline-block (elemento en linea que admite medidas y margenes verticales, o sea, se puede modificar los lados arriba y abajo). Flex y grid son experimentales.</p>
+            <p><strong>Ejemplo:</strong> Si tomamos un span que es un elemento en linea no se puede dar forma con width y height, pero si internamente con padding aunque si hay elemntos alrededor se van a superponer. Para esto se puede usar la propiedad inline-block: se aplican el ancho y el alto y el padding, margin y border mantienen alejados a otros elementos a los cuatro lados. Aunque no hace un salto de linea como la propiedad block. En la practica sirve para que elementos en linea tengan más protagonismo o ocupen más lugar en una pagina cuando lo necesitemos.</p>    
+            
+        </article>
+
+    </main>
+</body>
+</html>
