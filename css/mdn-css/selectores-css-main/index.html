@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Selectores CSS</title>
+</head>
+<body>
+    <main>
+        <article>
+            <h1>Capitulo 3: Selectores</h1>
+            <p>Se utilizan para aplicar estilo a los elementos de HTML, hay una variedad de tipos de selectores que son muy útiles para hacer un uso detallado y extensivo de CSS.</p>
+
+            <h2>Qué es un selector</h2>
+            <p>Es la primera parte de una regla de CSS, indica al CSS que elementos se seleccionan del HTML, estos se denominan <em>sujeto del selector</em>.</p>
+            <code>
+                h1 {
+                    color: blue;
+                }
+            </code>
+
+            <h2>Lista de selectores</h2>
+            <p>Si varios elementos usan la misma propiedad y valor, se pueden unir (separados por una coma o uno debajo del otro) en una misma regla o crear dos reglas.</p>
+            <p>Si el selector esta mal escrito, el CSS ignora la regla; ahora si hay dos selectores en una regla y uno esta bien escrito y el otro no, CSS va a ignorar los dos selectores.</p>
+
+            <code>
+                h1 {
+                  color: blue;
+                }
+
+                .special {
+                  color: blue;
+                }
+            </code>
+
+            <p>Lo ponemos separados por coma, si queremos que compartan propiedades.</p>
+
+            <code>
+                h1, .special {
+                  color: blue;
+                }
+            </code>
+
+            <h2>Tipos de selectores:</h2>
+            <p>Hay diferentes agrupaciones de selectores y cada uno es una herramienta para hacer mejor un tipo de tarea.</p>
+
+            <h3>Selectores de tipo, clase e ID</h3>
+            <p>El selector de tipo toma un elemento de HTML, el selector de clase y de ID toma el nombre especial que le dimos a un o varios elementos. En el CSS se los llama con un punto . (clase) y # (ID).</p>
+            <code>
+                h1 {            
+                }
+
+                .box {
+                }
+                
+                #unique {
+                }
+            </code>
+
+            <h3>Selector de atributo</h3>
+            <p>Toma un atributo o tambien el atributo y su valor.</p>
+            <code>
+                a[title] {
+                }
+
+                a[href="https://example.com"]{
+                }
+            </code>
+
+
+            <h3>Selectores de (:)Pseudoclases y (::)pseudoelementos</h3>
+            <p>La pseudoclase aplican estilo a ciertos estados de un elemento según qué valor tenga la propiedad. El pseudoelemento selecciona cierta parte de un elemento en vez de darle estilo a todo en conjunto.</p>
+            <code>
+                a:hover {
+                }
+            </code>
+
+            <code>
+                p::first-line {
+                }
+            </code>
+
+            <h3>Combinadores</h3>
+            <p>Es una combinación de elementos mediante un operador para actuar sobre estos.</p>
+
+            <code>
+                article > p {
+                }
+            </code>
+            <p>Seleciona hijos directos.</p>
+
+            <h4>Selector universal (*)</h4>
+            <p>Selecciona todos los elementos del documento (ya sea un p, h1, etc.) al mismo tiempo para aplicarle un propiedad/estilo a todos las diferentes etiquetas.</p>
+            <p>Se usa con mucho cuidado porque significa eliminar todos los estilos predeterminado del navegador. Se usan es situaciones muy especificas: por ejemplo, facilitar la legibilidad de los navegadores y clarificar sus funciones, <span>al navegar por la jerarquía de los elementos</span> y llegar al que se le quiere aplicar estilo.</p>
+
+            <h4>Elemento afectado por más de una clase</h4>
+            <p>En la primera clase se aplican los elementos base y en las restantes se aplican estilos particulares, combinas la primera con cualquiera de estas (se encadenan sin espacios). En CSS se escriben separadas. En el HTML se deja espacio para ponerle varias clases al elemento.</p>
+
+            <h3>Selectores de ID</h3>
+            <p>Comienza con un carácter # seguido del nombre del id. Se puede usar una sola vez en cada documento y a cada elemento se le puede aplicar un único id. Dos formas de seleccionarlo: por su nombre o con elemento y su nombre (el id tiene que ser del elemento) al que se le va a aplicar estilo.</p>
+
+            <h2>Selectores de atributo:</h2>
+            <p>Los elementos/etiquetas del HTML pueden tener atributos, proporcionan un nivel de profundidad mayor para aplicar estilo.</p>
+
+            <code>
+                /* a con el atributo title */
+                a[title] {
+                  color: purple;
+                }
+
+                /*  a (link) con atributo href tiene que coincidir con el valor: "https://example.org" */
+
+                a[href="https://example.org"]
+                {
+                  color: green;
+                }
+
+                /* link con href tienen que tener la palabra  "example" */
+                a[href*="example"] {
+                  font-size: 2em;
+                }
+
+                /* a con href tiene que terminar con la palabra ".org" */
+                a[href$=".org"] {
+                  font-style: italic;
+                }
+
+                /* a con la clase que contenga "logo" */
+                a[class~="logo"] {
+                  padding: 2px;
+                }
+            </code>    
+            <p>Son posible gracias a los signos que permiten trabajar más especificamente con los valores de los atributos</p>        
+
+            <h3>Minúscula y mayúscula</h3>
+            <p>Con el carácter i después del valor del atributo (ejemplo, atributo="x" i), le decimos al navegador que tome los valores escritos en mayus y minus.</p>
+
+            <code>
+                a[href*="insensitive" i] {
+                    color: cyan;
+                }
+            </code>
+
+            <p>Que coincida/respete tal cual las mayus y minus</p>
+            <code>
+                a[href*="cAsE" s] {
+                  color: pink;
+                }
+            </code>
+
+            <h3>Selector de atributos con valores de inicio y fin.</h3>
+            <p>Por ejemplo, cuando inicia con numeral:</p>
+            <code>
+                a[href^="#"] {
+                  background-color: gold;
+                }
+            </code>
+
+            <p>Cuando termina, por ejemplo; con la palabra .org, usamos:</p>
+            <code>
+                a[href$=".org"] {
+                  color: red;
+                }
+            </code>
+
+            <h3>Pseudoclase (:)</h3>
+            <p>Es un selector para dar estilo a elementos que están en un estado especifico, por ejemplo, cambia si le pasamos el cursor por encima. Ayudan a reducir el exceso de clases y al mantenimiento del CSS.</p>
+            <p>Se comportan como si se hubiera añadido un clase. Una pseudoclase podría escribirse sin que le preceda un selector, pero  esto equivale a un selector universa (que selecciona todos los elementos especificados del HTML o documento), y para tener mas control se recomienda especificar que elemento y estado se quiere aplicar estilo.</p>
+            <p><strong>Ejemplos:</strong> :last-child (da estilo al ultimo hijo de un elemento padre), :only-child (da estilo a un elemento que solo tenga un hijo) o :invalid (da estilo a un input o form señalar el error.).</p>
+
+            <p>Ejemplo:</p>
+            <code>
+                /* Cuando pongamos el puntero encima del botón, cambiará al color azul. */
+
+                    button:hover {
+                      color: blue;
+                    }
+            </code>
+
+            <h4>Pseudoclase de acción de usuario o dinámicas</h4>
+            <p>Actúan cuando el usuario interactuá con el documento. <strong>Ejemplos:</strong> :hover (interviene cuando el usuario pasa el ratón por encima del elemento en un enlace generalmente), :focus (interviene si el usuario selecciona los elementos con el teclado)</p>
+
+            <code>
+                
+            </code>
+
+            <h3>Pseudoelemento (::)</h3>
+            <p>Actúan como si hubieras creado un elemento nuevo en el HTML (toma como base uno existente y crear uno nuevo), en lugar de crear una clase a un elemento que ya existía. Los primeros pseudoelementos utilizaban la sintaxis de dos puntos (:) por si ves uno en algún documento.</p>
+            <p>La idea de las pseudoclase y pseudoelementos es que cada cosa que quieras hacer tenga su herramienta y no tengas que modificar las etiquetas, el código o el contenido. Por ejemplo article p ::first-line {}, seleccionara la primera linea de cada parrafo/elemento (ojo!) sin importar la cantidad de contenido que si se modifica no necesitarás cambiar el código del HTML.</p>
+
+            <p>Por ejemplo: <em>:before</em>  crea un pseudo-elemento que será hijo del elemento seleccionado. Podemos proveer de caracteres al inicio y al final de un texto para transformarlo en un cita.</p>            
+            <code>   
+                <!--                    
+                    <q>Some quotes</q>, he said, <q>are better than none.</q>
+                -->
+
+                q::before {
+                  content: "«";
+                  color: blue;
+                }
+
+                q::after {
+                  content: "»";
+                  color: red;
+                }
+            </code>
+            <p>Tomamos un elemento y despues de este creamos otro (generalmente texto/parrafo) en el que le aplicamos algun tipo de estilo.</p>
+
+            <p>Tambien, <em>:after</em>  crea un pseudoelemento que es el último hijo del elemento seleccionado. Por ejemplo, después de los parrafos podemos escribir contenido desde CSS y darle estilo.</p>
+            <code>
+                .exciting-text::after {
+                   content: " <- EXCITING!";
+                     color: green;
+                }
+
+                .boring-text::after {
+                  content: " <- BORING";
+                  color: red;
+                }
+
+            </code>
+
+            <p>Before y After son elementos de formato como cualquiera de CSS que heredan propiedades. No se aplica a imagenes porque son elementos de reemplazo (contenido o recursos que viene por fuera del HTML, como imagenes, videos, etc).</p>
+
+            <h3>Estructura de selección y niveles</h3>
+            <p>No es recomendable crear selectores que bajen mas de 2 niveles</p>
+
+            <h3>Combinar pseudoclase y pseudoelemento</h3>
+            <p>Por ejemplo elemento .pseudoclase::pseudoelemento {}.</p>
+
+            <h3>Insertar contenido con pseudoelementos ::before y ::after</h3>
+            <p>Hay pseudoelementos especiales que se utilizan junto la propiedad "content" para crear contenido en el HTML usando CSS.</p>
+            <p>Con ::before y ::after, podemos llamar a un elemento o clase e introducir un icono antes (principio) o después (final) de lo que haya en el elemento seleccionado.</p>
+            <p>Otro ejemplo es insertar una cadena de texto vaciá como valor de content, para después darle estilo como a cualquier elemento.</p>
+
+            <h2>Selectores de Combinación:</h2>
+            <p>Combinan otros selectores que tienen una relación y ubicación en el documento</p>
+
+            <h3>Selector descendiente (un espacio)</h3>
+            <p>selecciona nodos que son descendientes (directos y no directos) del primer elemento.</p>
+            <code>
+                /* li descendientes de la clase "my-things" list */
+                
+                ul.my-things li {
+                margin: 2em;
+                }
+            </code>
+
+            <h3>Selector hijos directo (>)</h3>
+            <p> selecciona nodos que son hijos directos del primer elemento.</p>
+            <code>
+                /* li que son hijos de la clase "my-things" list */
+
+                ul.my-things > li {
+                   margin: 2em;
+                }
+            </code>
+
+            <h3>Selector hermano adyacente (+)</h3>
+            <p>Selecciona un elemento que se encuentre debajo con la misma jerarquía.</p>
+            <code>
+                
+                /* Parrafos que están despues de la imagen */
+
+                    img + p {
+                    font-weight: bold;
+                    }
+            </code>
+
+            <h3>Selector hermano general (~)</h3>
+            <p>Selecciona los hermanos de un elemento incluso si no están debajo de él.</p>
+            <code>
+                /* Párrafos que son hermanos de y
+                    posterior a cualquier imagen */
+
+                    imagen ~ p {
+                        color rojo;
+                    }
+            </code>
+
+            <h3>Selectores de etiqueta avanzados:</h3>
+            <h4>Selector valor de atributo de inicio (^)</h4>
+            <p>Adelante de un atributo[atributo^="valor de inicio"] para seleccionar la parte del elemento deseado</p>
+
+            <h4>Selector de valor de atributo general (*)</h4>
+            <p>Adelante de un atributo[atributo*="valor en un lugar del atributo"] para seleccionar la parte del elemento deseado</p>
+
+            <h2>Estructura de un selector</h2>
+            <p>Hay tres tipos de selectores:</p>
+
+            <h3>Simple</h3>
+            <p>Tiene un solo selector sin ninguna combinación que generalmente tienen una descripción precisa del elemento. Son los selectores de tipo, de atributo y pseudo-clases y pseudo-lementos.</p>
+
+            <h3>Compuestos</h3>
+            <p>Es una secuencia o seguidilla de selectores simples sin combinadores que representa un conjunto de condiciones simultaneas en un elemento.</p>
+            <p>El selector de tipo o universal debe aparecer primero en la secuencia de selectores. Solo se permite uno de estos. No se permiten espacios porque es un combinador.</p>
+            <code>
+                /* a#selected {...} */
+            </code>
+
+            <h3>Complejos</h3>
+            <p>Una secuencia de uno o más selectores simples y/o compuestos que están separados por combinadores. El elemento debe cumplir con todas ellas.</p>
+            <code>
+                 /* a#selected > .icon {...}, .box h2 + p {...}, a .icon {...} */
+            </code>
+
+            <h3>Relativos</h3>
+            <p>Empiezan con un combinador y tienen relación con los elementos.</p>
+            <code>
+                /*  + div#topic > #reference {...}, > .icon {...} */
+            </code>
+
+            <h3>En lista</h3>
+            <p>Una lista separada por comas de selectores simples, compuestos o complejos.</p>
+            <code>
+               /* #main, article.heading {...} */
+            </code>
+        </article>
+    </main>
+
+</body>
+</html>

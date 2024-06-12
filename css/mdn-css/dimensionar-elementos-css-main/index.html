@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dimensionar elementos</title>
+</head>
+<body>
+	<h1>Capitulo 8: Dimensionar elementos</h1>
+	<p>Se refiere a los tamaños que van a tener los diferentes elementos del diseño que pueden definirse de varias formas.</p>
+	<h2>Tamaño natural o intrínseco</h2>
+	<p>Los elementos del HTML tienen un tamaño por defecto antes de que los redefinamos. Por ejemplo: una imagen tiene un ancho y un alto cuando se crea, esto es intrínseco. Si no cambiamos estas dos valores se mostrará con su tamaño natural. Un <em>div</em> no tiene tamaño natural ademas recordemos que es un elmento en bloque que se extenderá por todo el ancho del contenedor y no tiene altura, pero si agregamos un texto, la altura se adaptará y será su tamaño intrínseco.</p>
+	<h2>Determinar un tamaño especifico</h2>
+	<p>Cuando asignamos un tamaño a un elemento (que el contenido debera ajustarse) se llama tamaño extrínseco. Por ejemplo una altura muy ajustada puede causar desbordamiento del contendio, debemos tener cuidado.</p>
+	<h3>Uso del porcentaje</h3>
+	<p>Es un valor de longitud, es relativo al tamaño intrínseco y eco. (Si tenemos un contenedor y adentro otra caja cuando le asignemos un porcentaje, la medida será una fraccion de la primera ????, no se). Un elemento en bloque ocupa 100% del body a lo ancho, en un elemento en linea su longitud esta determinada por el contenido. Los cambios seran relativos a estos valores principales, son sus tamaños intrísecos.</p>
+	<h4>Porcentaje en margin y padding</h4>
+	<p>Se calcula a partir del tamaño en linea del elemento (lo determina el contenido), osea, van a tener el mismo porcentaje .En el apartado anterior vimos cual es el tamaño intrinseco del elemento, lo mismo con el tamaño extrínseco. Es bueno repasar como funciona el model box y sus caracteristicas.</p>
+	<h2>Tamaños mínimo y máximo</h2>
+	<p>Cuando tienes una caja con un contenido variable y quieres una altura predeterminada, puede usar <strong>min-height</strong> porque crecera si hay más contenido, no se desbordará. <strong>max-width</strong> se usa para reducir el tamaño de las imagenes si no hay espacio para su tamaño intrínseco, nos aseguramos que no será mayor al ancho de la caja. Por <em>max-width: 100%</em> la imagen puede reducirse respecto a su tamaño intrínseco, pero no se agrandará más del 100%, lo que evita que se pixele (caja mas grande que la imagen) o desborde (caja mas pequeña que la imagen).</p>
+	<p>Esta tecnica se utiliza para adaptarse a la pantalla de dispositivos pequeños, pero no es conveniente para cargar imagenes grandes y luego reducirlas con el navegador porque esto no evita que internamente carge toda la imagen usando más datos y relentizará el sitio. Las imagenes deben tener un tamaño adecuado para el diseño del sitio.</p>
+	<h2>Unidades de ventana grafica</h2>
+	<p>Es el area visible dentro del navegador, esta tiene un tam año. Hay unidades asociadas: <strong>vw</strong> es para el ancho<strong>vh</strong> es para la altura. Ej: 1vh es 1% de la altura de visualizacion como 1vw es 1% de ancho de la ventana grafica. Podemos dimensionar cajas y texto. Puede ser util cuando tengas que diseñar un elemento a pantalla completa y que se vea antes del resto del contenido, con 100vh empuja el resto del contenido por debajo de la ventana grafica, de modo que solo aparezca cuando desplacen los contenidos con la barra de desplazamiento.</p>
+</body>
+</html>

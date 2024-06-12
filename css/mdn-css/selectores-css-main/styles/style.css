@@ -1,0 +1,34 @@
+
+h1 {
+    color: #0084ff;
+    font-size: 2em;
+}
+
+h2 {
+    color: #fdb250;
+    font-size: 1.5em;
+}
+
+h3 {
+    color: hsl(278, 78%, 70%);
+    font-size: 1.3em;
+}
+
+h4 {
+    color: rgba(231, 3, 193, 0.992);
+    font-size: 1.1em;
+}
+
+p {
+    color: hsl(0, 3%, 12%);
+}
+
+body {
+    font: 1em/150% Helvética, Arial, sans-serif;
+    padding: 1em;
+    margin: 0 auto;
+}  
+
+span {
+    background-color: #ffff8f;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Direcciones de texto</title>
+</head>
+<body>
+    <h1>Capitulo 5: Direcciones de texto</h1>
+    <p>Es la forma en que se visualiza y se leé el contenido de un sitio. La forma más tradicional es encontrarse con un sitio que está diseñado para leerse de izquierda a derecha. Pero también hay formas modernas de mostrar un contenido como puede ser de arriba hacia abajo o de derecha a izquierda como es el caso de lenguajes orientales y árabes. Estas formas se llaman modos de escritura.</p>
+    <h2>Modos de Escritura</h2>
+    <p>Un texto puede estar de forma horizontal o vertical, o sea, los párrafos van a estar uno abajo del otro en el primer caso y en el segundo; los párrafos estarán uno al lado del otro.</p>
+    <h3>Writing-Mode</h3>
+    <p>Se usa para cambiar el modo de escritura. Sus valores son: <em>horizontal-tb</em> (El texto se ve horizontal y el bloque se van ordenando de arriba hacia abajo cuando agregamos elementos), <em>vertical-rl</em> (el texto aparece en vertical y los bloques van de derecha a izquierda), <em>vertical-lr</em> (el texto se lee en vertical y los bloques se crean de izquierda a derecha).</p>
+    <h2>Diseño en bloque y en linea</h2>
+    <p>Los modos de escritura tienen dos dimensiones: block e inline. La primera se refiere como organizarán los bloques y la segunda dispone la dirección de lectura del texto. Con los valores de writing mode podemos cambiar esto.</p>
+    <h3>Dirección de texto</h3>
+    <p>Por ejemplo los árabes escriben de derecha a izquierda en horizontal y los orientales escriben de arriba hacia abajo lógicamente en vertical. Como con la propiedad writing-mode se puede cambiar la dirección del texto hay avanzadas formas de diseño que no tienen en cuenta la izquierda y la derecha como arriba y abajo. Sino que se utiliza un inicio y fin para el contenido de los elementos en bloque o en linea, aunque es se verá mas adelante y quedará más claro.</p>
+    <h3>Flujo físico vs Flujo lógico</h3>
+    <p>El flujo físico es el que se usa para las coordenadas top, right, bottom y left en distintas propiedades como margin, padding, etc. Entonces, las coordenadas estan atadas a los lugares fisicos de las cajas de css tomo puede ser un top. En cambio el flujo lógico depende desde donde empiezan y terminan los elementos en los modos de escritura, por eso se utiliza block/inline con start/end que sirven para cualquier modo de escritura así no tendrás que ajustar nada y escribir menos código.</p>
+    <h2>Valores y propiedades lógicas</h2>
+    <p>Estas van a reemplazar a las propiedades width y height (valores horizontales) en los modos de escritura como horizontal-tb, vertical-rl y lr porque width y height no se ajustan al contenido en los modos mencionados. Y a otros valores más.</p>
+    <h3>inline-size</h3>
+    <p>Se refiere al tamaño de la dimension inline (texto/contenido dentro de la caja), va a extender o encoger las lineas de texto/contenido. Reemplaza a width.</p>
+    <h3>block-size</h3>
+    <p>Se refiere al tamaño de la caja, reemplaza a height. En resumen son la altura y la anchura que se usan en estos modos de escritura pero refiriéndose a las dos dimensiones.</p>
+    <h3>margin-block-start</h3>
+    <p>Margen de inicio del bloque. Reemplaza a margin</p>
+    <h3>padding-inline-start</h3>
+    <p>Es relleno va a aplicar al inicio de la dimension en linea (al inicio de las lineas de texto).Reemplaza a padding-left.</p>
+    <h3>border-block-end</h3>
+    <p>El borde se va a aplicar al final del bloque.</p>
+    <p>Las propiedades físicas quedan ligadas a sus direcciones físicas, mientras que las propiedades lógicas cambian con el modo de escritura.</p>
+    <h3>block-start</h3>
+    <p>Reemplaza a la propiedad top.</p>
+    <h3>inline-end</h3>
+    <p>Reemplaza a la propiedad right.</p>
+    <h3>block-end</h3>
+    <p>Reemplaza a la propiedad bottom.</p>
+    <h3>inline-start</h3>
+    <p>Reemplaza a la propiedad left. Si estamos en el modo de escritura horizontal-tb, el texto empieza por izquierda y termina por derecha, entonces, tiene sentido que esta propiedad reemplacé a left.</p>
+    <h3>Consejo</h3>
+    <p>Si no usas flexbox ni grid, puedes usar las propiedades convencionales.</p>
+    <h3>Resumen</h3>
+    <p>block-start y block-end: son el top y bottom de la caja, inline-start y inline-end: son izq y der *dependiendo el modo de escritura. Y al inicio de esta propiedad se le puede agregar el margin, border y padding.</p>
+    <p>Por ejemplo: en el modo de escritura vertical-rl, el bloque inicia a la derecha y termina a la izquierda y la linea inicia arriba y termina a la derecha. Así con los demás modos de escritura.</p>
+    <p>En fin, hay que visualizar y comprender es donde empieza y termina los elementos en los distintos modos de escritura.</p>
+</body>
+</html>
