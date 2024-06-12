@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index/style-index.css">
+	<title>Hipervínculos o enlaces - HTML5</title>
+</head>
+<body>
+	<h1>Los hipervínculos</h1>
+	<p>Están desde el comienzo de la web, hacen que la web sea la <em>web</em> porque con tan solo pulsarlos podemos navegar por cualquier sitio; podríamos decir que son la web, sin ellos no podríamos visitar ningún sitio.</p>
+
+	<h2>Anatomia de un enlace</h2>
+	<p>Al proveerle una dirección (<a href="https://developer.mozilla.org/es/docs/Glossary/URL">URL</a>) podemos vincular en sitio con otros recursos internos y externos.</p>
+	<p>Un enlace se crea con el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/a">s</a> y en la etiqueta de apertura tiene el atributo <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/a#attr-href">href</a>, adentro va la dirección.</p>
+
+	<h3>Atributo title en un enlace</h3>
+	<p>Debemos describir resumidamente el contenido de la página enlazada. Mostrará un recuadro pequeño con la descripción dada al poner el cursor sobre el enlace.</p>
+	<p>Para los dispositivos moviles no funciona, si esta descripción es muy importante para el uso, debemos escribirla en el enlace.</p>
+	
+	<code>
+		<!--
+			<p>
+			  Crea un enlace a
+			  <a
+			    href="https://www.mozilla.org/es-ES/"
+			    title="El mejor lugar para encontrar más información acerca de la misión de Mozilla
+			    y cómo contribuir"
+			    >la página de inicio de Mozilla</a>.
+			</p>
+
+		 -->
+	</code>
+	
+	<h3>Convertir una imagen en un enlace</h3>
+	<p>Cualquier cosa se puede convertir en un enlace si se lo incluye dentro de sus etiquetas.</p>
+
+	<p>Encerramos el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/img">img</a>, dentro de <em>a</em>. La etiqueta de apertura de imagen tiene el atributo <em>src</em> en el tambien indicamos la dirección donde está la imagen</p>
+	<code>
+		<!--
+			<a href="https://www.mozilla.org/es-ES/">
+			  <img
+			    src="mozilla-image.png"
+			    alt="Logotipo de Mozilla que dirige a la página inicial de Mozilla"
+			  />
+			</a>
+		-->
+	</code>
+	
+	<h2>Buenas practicas para el uso de enlaces</h2>
+	<p>Hay una serie de comportamientos de los usuarios y buscadores con respecto a los enlace a tener en cuenta:</p>
+	<ul>
+		<li>Los usuarios de lectores de pantalla suelen saltar de enlace a enlace y los leen si contexto.</li>
+		<li>Los buscadores utilizan el texto de los enlaces para posicionar la página, es recomendable utilizar palabras claves al escribir un enlace.</li>
+		<li>Los visitantes hacen un vistazo rapido para leer lo que les interesa, mirán lo que se destaca de la web como pueden ser el texto de los enlaces.</li>
+	</ul>
+
+	<p>Tips para escribir enlaces:</p>
+	<ul>
+		<li><em>NO</em> poner la URL como parte del texto del enlace porque son larguisimas y no tienen sentido. Se describe muy resumidamente hacia donde va el enlace.</li>
+		<li>No escribir "link" o "link a", tampoco "enlace" o "enlace a" porque es redundante y no aporta nada al usuario, ni es una palabra clave para los buscadores.</li>
+		<li>Los enlaces generalmente están dentro de un contexto desarrollado en los párrafos de la página en el que es dificil que se repita el texto que hay en ellos. Pero en el caso de que los enlaces no tengan un contexto, evitar que su texto este repetido. Ejemplo, al costado izquierdo de la página suele haber link, debemos evitar que esten escritos como "haz click aquí" repetidas veces.</li>
+	</ul>
+
+	<h3>Indicar claramente los recursos no HTML</h3>
+	<p>Se refiere a los enlaces que no llevan a una página normal sino que llevan a una página que abre/descarga un un recurso pesado como puede ser un pdf, juego, una descarga. Indicar si es muy pesado (o se peso) en el texto del enlace.</p>
+
+	<h3>Usar el atributo download para indicar una descarga</h3>
+	<p>Se usa para darle un nombre al archivo que el usuario va a descargar</p>
+	<code>
+		<!--
+		<a
+		  href="https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=es-MX"
+
+		  download="firefox-latest-64bit-installer.exe">
+		  Descarga la última versión de Firefox para Windows (64 bits) (Español, es-MX)
+		</a>
+		-->
+	</code>
+
+	<h3>Ir hacia una parte de la página</h3>
+	<p>Con el atributo <em>id</em> podemos movernos por los encabezados o secciones de una página.</p>
+	<p>El primer paso es describir el nombre del encabezado en el valor del atributo (sin espacios/con guiones), el segundo paso es crear un link con la dirección de la página + #valor-id/seccion-de-la-página.</p>
+	<p>En el texto de este link vemos una referencia sutil a la sección a la que queremos enviar al usuario.</p>
+	<code>
+		<!--
+			<h2 id="Dirección_de_envío">Dirección de envío</h2>
+			<p>
+			  ¿Quieres mandarnos una carta? Aquí tienes nuestra
+			  <a href="contacts.html#Dirección_de_envío">Dirección de envío</a>.
+			</p>
+		-->
+	</code>	
+
+	<h2>Tratamiento para URLs y rutas locales y externas</h2>
+	<p>Las <em>URLs</em> (<i>Uniform Resource Locator</i>) definen donde esta situado un recurso en la web.</p>
+	<p>Las URLs utilizan rutas para encontrar los archivos, estas rutas son una cadena continua de directorios. El directorio que usamos para contener y crear otros archivos y carpetas se denomina <em>directorio raiz</em>.</p>
+	<p>Cada uno de estos archivos y carpetas forman una nueva ruta con su nombre separadas por una barra vertical. Los archivos <span>index.html</span> generalmente son las página de inicio de cada sección de la web y estas son las carpetas contenedoras con las otras páginas.</p>
+
+	<h3>Estructura y navegación por las URLs</h3>
+	<p>Es esencial conocer el uso de las rutas cuando usamos los enlaces, podemos navegar por el mismo directorio, subir o bajar de directorio usando distintos caracteres. En el atributo <em>href</em> del elemento <em>a</em>, irán las rutas de los archivos y carpetas.</p>
+	<p>Si leemos de izquierda a derecha</p>
+	<ul>
+		<li>Por un mismo directorio: Para enlazar otros archivos sueltos que esten en el mismo directorio del archivo que estamos usando, solo tenemos que escribir el nombre de ese archivo.</li>
+		<li>Subiendo un directorio: Escribimos el nombre de la carpeta que se encuentra en nuestro directorio, seguido de una barra y por ultimo el nombre del archivo. Por ej: <span>nombre-de-carpeta/archivo.html</span>.</li>
+		<li>Bajando un directorio: Si nos situamos en el archivo de arriba de todo y en este queremos enlazar algún documento que esta <em>suelto</em> abajo, <span>../archivo.html</span>. Si el archivo al que queremos llegar esta dentro de una carpeta, <span>../nombre-de-carpeta/archivo.html</span>.</li>
+	</ul>
+	<p>Si entendemos que página de inicio está arriba de todo: Con <span>../nombre-archivo-o-carpeta</span> subimos de directorio y con <span>/nombre-archivo-o-carpeta</span> bajamos.</p>
+	<code>
+		<!--
+			raiz:
+			<a href="contacts.html"></a>
+
+			bajando:
+			<a href="projects/index.html"></a>
+
+			subiendo:
+			<a href="../pdfs/project-brief.pdf"></a>
+		-->
+	</code>
+	
+	<h3>URLs relativas y absolutas</h3>
+	<p>Se diferencian por su ubicación y tamaño (partes de una URL).</p>
+	<ul>
+		<li><strong>URL absoluta</strong>: El enlace incluye el <a href="https://developer.mozilla.org/es/docs/Glossary/Protocol">protocolo</a> (HTTP/HTTPS) y <a href="https://developer.mozilla.org/es/docs/Glossary/Domain_name">nombre de dominio</a> (ej: google) hasta el archivo/página que desea llegar. Siempre apuntará a la misma dirección sin importar desde donde se utilize</li>
+		<li><strong>URL relativa</strong>: El enlace comienza desde la posicion actual hasta el archivo donde queremos llegar, son como los enlaces que usamos para navegar entre directorios. Si cambiamo de lugar los archivos, no apuntará al mismo sitio.</li>
+	</ul>
+
+	<h3>Cuando usar enlaces relativos y absolutos</h3>
+	<p>Para navegar entre directorios usamos las URLs relativas y para los enlaces que llevan a otra parte del sitio web, usamos URLs absolutas.</p>
+
+	<h2>Crear un menú de navegación</h2>
+	<p>En el directorio tenemos la página de inicio (index.html) y las otras secciones.</p>
+	<p>En cada página creamos una lista no ordenada, agregamos los list item necesarios según las secciones del sitio.</p>
+	<p>Ponemos los enlaces a cada una de estas, pero no ponemos el que va a la página que estamos usando.</p>
+
+	<h2>Enlace a un correo electronico</h2>
+	<p>En el atributo href de un enlace podemos poner una direccion de correo. Antes del correo va la palabra <span>mailto:</span>. Finalmente en la descripción del enlace ponemos hacia quién va ir el mail.</p>
+	<p>Cuando el usuario haga click en el enlace, el navegador abrirá el cliente de correo electronico o el gmail para que redacte el mail.</p>
+	<p>Si omitimos la direccion de correo y solo ponemos <span>href="mailto:"</span>, se abrirá el cliente de correo y los usuarios podrán elegir el destinatario que quieran.</p>
+	<code>
+		<!--
+			<a href="mailto:nowhere@mozilla.org"
+			  >Enviar correo electrónico a ninguna parte</a>
+		 -->
+	</code>	
+	
+	<h3>Incluir asunto, copia, copia oculta y cuerpo del mensaje</h3>
+	<p><em>subject</em> (asunto), <em>cc</em> (copia -otro mail-), <em>bcc</em> (copia oculta) y <em>body</em> (cuerpo para un breve mensaje). Para usar estos campos en la url, se necesitan unos caracteres especiales.</p>
+	<p>El <a href="https://es.wikipedia.org/wiki/C%C3%B3digo_porciento">Código porcentual</a> se usan para los espacios, el <em>signo de interrogacion</em> (?) es para separar las URLs de los campos (subject, cc, bcc, etc), el <em>signo de ampersand</em> (&) es para separar los campos del enlace "mailto:".</p>
+	<code>
+		<!--
+			<a href="mailto:nowhere@mozilla.org?cc=name2@rapidtables.com&bcc=name3@rapidtables.com&subject=The%20subject%20of%20the%20email&body=The%20body%20of%20the%20email">
+			  Enviar un correo electrónico cc, bcc, asunto y cuerpo
+			</a>
+
+		-->
+	</code>
+
+
+
+
+
+</body>
+</html>

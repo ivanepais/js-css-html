@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index/style-index.css">
+	<title>Cebecera del HTML: Metadatos</title>
+</head>
+<body>
+	<h1>Cabecera de HTML: Metadatos</h1>
+	<p>La etiqueta <a href="https://developer.mozilla.org/es/docs/Glossary/Head">head</a> es la parte no visible de una página que contiene otras etiquetas/elementos para las hojas de estilo (CSS), icono de la web que aparece en la pestaña del navegador y metadatos que son datos que describen el contenido de la web que ayudan a posicionar el sitio en los buscadores.</p>
+
+	<h2>Elementos principales de la cabecera</h2>
+	<p>En sitios grandes, la cabecera puede tener muchisimos elementos y <a href="https://es.wikipedia.org/wiki/Metadatos">metadatos</a> para describir a nuestro sitio, poner el autor, resumirlo, etc. Para empezar repasaremos los esenciales.</p>
+
+	<h3>Etiqueta meta</h3>
+	<p>El elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/meta">meta</a> solo posee una etiqueta de apertura donde se ubicarán los atributos con los que describiremos al sitio.</p>
+	<p>En la etiqueta meta encontraremos atributos en comun como <em>name</em> en donde va el nombre del metadato que vamos a usar y <em>content</em> que es contenido/texto del metadato. </p>
+	<ul>
+		<li><em>meta charset</em>: Determina los caracteres de un idioma conocido que aceptará nuestra web. Se usa el valor utf-8 para asegurarnos que nuestro sitio muestre todos los caracteres del mundo, sean arabes, japoneses; cuando los usuarios tengan que interactuar con nuestra web.</li>
+		<li><em>meta author</em>: En el atributo content debemos colocar el nombre de nuestra web.</li>
+		<li><em>meta description</em>: En content debemos escribir el objetivo/proposito de nuestro sitio/página, cuál es su contenido, sus ventajas, etc. Aparece en el buscador web, debajo del titulo de la página.</li>
+		<li><em>meta keywords</em>: Palabras claves para nuestra página que el buscador web las tomará en cuenta a la hora de dar un sus resultados. Aunque este elemento es ignorado hoy en día por los buscadores dado a que se usaba para spamear palabras así conseguir mejor ubicación en los resultados.</li>
+		<li><em>meta viewport</em>: Esto tiene que ver con la visualización de nuestra página en los navegadores moviles. Este tema se tratará al final del curso de CSS.</li>
+	</ul>
+
+	<h3>Etiqueta title</h3>
+	<p>Se usa para poner el titulo de la página que va a aparecer en la pestaña del navegador. Ademas cuando guardamos una página en marcadores, el titulo de sugerencia es el que aparece en la pestaña.</p>
+
+	<h3>Etiqueta Link</h3>
+	<p><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/link">Link</a> se usa para anclar un recurso externo o interno a nuestro documento HTML. Un recurso interno puede ser una hoja de estilo que este en alguna carpeta en nuestro proyecto. Un recurso externo puede ser una fuente de google usada en alguna parte de nuestro proyecto.</p>
+	<p>Dentro de link generalemente se encuentran los atributos <em>rel</em> que describe a que se refiere el atributo <em>href</em> que determina la dirección del recurso/archivo atraido por esta etiqueta.</p>
+	
+		<code>
+		<!-- 
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<link rel="stylesheet" href="style-index.css">
+			<title>Cebecera del HTML: Metadatos</title>
+		-->
+		</code>
+	
+	<h3>Otros tipos de metadatos</h3>
+	<p>Son los creados por Facebook llamado <a href="https://ogp.me/">Open Graph Data</a> en los que se pone un logo/imagen, descripción y titulo. Twitter tiene algo parecido pero más simple, lo hace automaticamente <a href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards">Twitter Cards</a>. Tienen efecto cuando pones el link de tu sitio en estas redes sociales y muestra una carta con una imagen y descripción de la página.</p>
+
+	<p>Para facebook:</p>
+		<code>
+		<!--
+			<meta
+			  property="og:image"
+			  content="https://developer.mozilla.org/static/img/opengraph-logo.png"
+			/>
+			<meta
+			  property="og:description"
+			  content="The Mozilla Developer Network (MDN) proporciona información
+			  sobre tecnologías Open Web, incluidas HTML, CSS y APIs para ambos sitios web
+			  y aplicaciones HTML5. También documenta productos Mozilla, como el sistema operativo Firefox."
+			/>
+			<meta property="og:title" content="Mozilla Developer Network"/>
+		-->
+		</code>
+	
+	<p>Para twitter:</p>
+	<code>
+		<!-- 
+			<meta name="twitter:title" content="Mozilla Developer Network" />
+		-->
+	</code>
+	
+	<h2>Agregar iconos al sitio</h2>
+	<p>Son iconos de 16x16 en formato <em>.png</em>, <em>.gif</em> y <em>.ico</em> que se mostrarán en la pestaña abierta o cuando guardamos una página en marcadores. Este icono llamado <em>favicon</em> se puede usar en diferentes contextos que requieran uno de mayor resolución como los que se usan en dispositivos como ipads, etc.</p>
+	<p>Usamos el elemento <em>link</em> en el <em>head</em> (parte no visible del html) donde es más usado. Vemos los atributos <em>rel</em> y <em>href</em> explicados anteriormente. Link representa otro <a href="https://developer.mozilla.org/es/docs/Web/HTML/Link_types">tipo de enlace</a> junto con el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/a">a</a> pero es más usado en la parte visible/contenido de la web (<em>body</em>), la diferencia es proposito o la relación con el recurso que enlaza como se explica en tipos de enlace. En conclusión el elemento link va hacia recursos y el elemento a va hacia otras paginas.</p>
+	<p>Los enlaces tienen su particularidades porque debemos describir el atributo rel en funcion de su recurso (href), como se explica en tipos de enlace (aunque en el elemento <em>a</em> no se suele usar el atributo el).</p>
+	<p>Junto con los iconos son otro topico de HTML que se ampliará más adelante.</p>
+	<code>
+		<!--
+		 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+		-->
+	</code>
+
+
+	<h2>CSS y JavaScript en el head</h2>
+	<p>Se aplica <a href="https://developer.mozilla.org/es/docs/Web/CSS">CSS</a> para darle una buena disposición y aspecto a los elementos del HTML, además se agrega <a href="https://developer.mozilla.org/es/docs/Web/JavaScript">JS</a> para darle una buena funcionalidad.</p>
+	<p>Se puede agregar estos dos desde el head con los elementos <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/style">style</a> y <a href="https://developer.mozilla.org/es/docs/Web/JavaScript">script</a>.</p>
+	<p>Aunque no se recomienda este metodo para un sitio profesional, por el contrario se usa el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/link">link</a> para CSS y el elemento <a href="https://developer.mozilla.org/es/docs/Web/SVG/Element/script">script</a> para JS. Los dos elementos dependen de un archivo o recurso externo al HTML como <em>.CSS</em> que va en link y <em>.js</em> que va en script. La diferencia esta en que link va en la cabecera pero script va al final del body HTML para que carge la estructura y el aspecto del sitio antes que sus funciones así carga más rapido.</p>
+	<ul>
+		<li>El elemento link tiene los atributos <span>rel="stylesheet"</span> que es la referencia al recurso que está en href y <span>href="style.css"</span> es la dirección de la hoja de estilo.</li>
+		<li>El elemento script puede tener el atributo <span>type="text/js"</span> y el atributo <span>src="script/main.js"</span> aquí va la direccion donde esté la hoja con el código de javascript.</li>
+	</ul>
+	<code>
+		<!--
+			<link rel="stylesheet" href="my-css-file.css" />
+			<script src="my-js-file.js"></script>
+		-->
+	</code>	
+	<p>Vemos que los atributos siempre estan en la etiqueta de apertura.</p>
+	
+
+	<h2>Establecer el idioma principal del sitio</h2>
+	<p>Se hace añadiendo el atributo <a href="https://developer.mozilla.org/es/docs/Web/HTML/Global_attributes/lang">lang</a> en el elemento HTML. Los motores de busqueda lo usarán para dar los resultados del sitio en el idioma respectivo. Tambien es usado por los lectores de pantalla (para usuarios no videntes) para que pronuncien las palabras adecuadamente según el idioma.</p>
+	<p>Con el atributo lang podemos establecer una parte textual de la página que este en otro y se interprete como este. Por ejemplo, si una palabra está en inglés y usamos lang en está; un lector de pantalla lo va a leer como se debe en este idioma.</p>
+	<code>
+		<!--
+			<html lang="es-MX"></html>
+			<p>Ejemplo Japonés: <span lang="ja">ご飯が熱い。</span>.</p>
+		-->
+	</code>
+
+
+
+
+	
+
+
+</body>
+</html>

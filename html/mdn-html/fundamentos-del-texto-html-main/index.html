@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index/style-index.css">
+	<title>Fundamentos del texto - HTML</title>
+</head>
+<body>
+	<h1>Fundamentos del texto en HTML</h1>
+	<p>El texto por si solo no tiene significado para el navegador, ni para los buscadores; además de que no podríamos aplicarle CSS ni JS. Para esto necesitamos a los elementos que fueron creados para darle <a href="https://developer.mozilla.org/en-US/docs/Glossary/Semantics">semantica</a> a un texto. Los elementos de texto y en general le dan estructura al contenido, cualquier articulo necesita de un titulo, parrafos, enlaces, etc. Por otra parte esto tambien ayuda a las personas que necesitan de un lector de pantalla, es la única manera que se de cuenta cúal es el titulo, los parrafos, las palabras resaltadas, frases, citas, los enlaces, etc.</p>
+
+	<h2>Encabezados y párrafos</h2>
+	<p>Cuando necesitemos un titulo o un parrafo usamos los elementos <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/p">p</a> y <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements">h1</a>, h2, h3, que son los demás elementos de encabezado.</p>
+	<p>Es una buena practica usar solo un h1 por página que sería titulo principal, h2 será el subtitulo y h3 el subtitulo del subtitulo. Otra manera de verlo es que los encabezados representan distinto nivel de contenido que usaremos para ordenar un articulo. Tambien ver los encabezados y los párrafos en las tiendas online en las que hay cartas/recuadros que representan la descripción de un producto.</p>
+	<p>Otro cosa a tener en cuenta es que no debería usarse <em>CSS</em> para hacer que un párrafo o algún texto se parezca a un título. Directamente usamos el elemento que fue creado para tal fin, lo mismo aplica para los demás.</p>
+	<code>
+		<!--
+			<p>Soy un párrafo, ¡desde luego que lo soy!</p>
+			<h1>Yo soy el título de la historia</h1>
+		-->
+	</code>	
+	
+	<h3>Crear una estructura jerarquica</h3>
+	<p>Depende lo que necesita el texto o lo que se necesite redactar. Debe tener lógica y sentido comun al seguir el orden de los encabezados, no se puede tener un nivel de encabezado menor que agrupe contenido con un encabezado más grande.</p>
+	<p>Algunas consideraciones:</p>
+	<ul>
+		<li>Se recomienda tener un solo <em>h1</em> por página, en este nivel se ubicarán los demas encabezados.</li>
+		<li>No se debería usar un titulo con <em>h3</em> para agrupar contenido con subtitulos con <em>h2</em></li>
+		<li>De <em>h1</em> hasta <em>h6</em> se recomienda no usar más de 3 niveles de encabezados a menos que sea necesario uno más. En caso de necesitar muchos niveles, es mejor separar el contenido en varias páginas, puede resultar incomoda la navegación por el contenido para el usuario.</li>
+	</ul>
+
+	<h3>Ventajas de estructurar el documento</h3>
+	<p>Hace que la página se más legible para el usuario, este siempre buscará la información rapidamente y si no la encuentra se irá.</p>
+	<ul>
+		<li>Los usuarios tienden a escanear la página para encontrar contenido relevante, ademas <a href="http://www.nngroup.com/articles/how-long-do-users-stay-on-web-pages/">suelen pasar muy poco tiempo en una página web</a>. Si no ven nada útil se van a otro sitio.</li>
+		<li>Los motores de busqueda toman los encabezados como palabras clave para posicionar la web <a href="https://developer.mozilla.org/es/docs/Glossary/SEO">SEO</a> en sus resultados. Sin encabezados, la página tendrá un rendimiento bajo en terminos de SEO según la <a href="">guía de Google</a>.</li>
+		<li>Para aplicar <em>CSS</em> y <em>JS</em> se necesita de los elementos de HTML.</li>
+	</ul>
+	<code>
+		<!--
+			<h1>Titulo de nivel 1 (único)</h1>
+			<p>Parrafo</p>
+
+			<h2>Titulo de nivel 2</h2>
+			<p>Parrafo</p>
+
+			<h3>Titulo de nivel 3 o subtitulo del nivel 2</h3>
+			<p>Parrafo<p>
+		-->
+	</code>
+	
+	<h2>Listas</h2>
+	<p>Usamos las listas para describir un conjunto de datos o info relacionada a un tema en particular, seguir instrucciones, tareas u obligaciones que tenemos, etc. Hay tres tipos de listas: ordenadas, no ordenadas y descriptivas. Todas las listas deben llevar un elemento de lista <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/li">li</a> en donde va la información.</p>
+
+	<h3>Lista ordenada</h3>
+	<p>Se crea con el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/ol">ol</a>, al principio de la lista veremos que está ordenada por numeros.</p>
+
+	<h3>Lista no ordenada</h3>
+	<p>Se crea con el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/ul">ul</a>, al principio de la lista veremos unos puntos antes de la información.</p>
+
+	<h3>Lista descriptiva</h3>
+	<p>Puede ser usada para describir conceptos más complejos y extensos como puede ser abordar un tema completo, con encabezados y definiciones. Se compone de tres elementos: <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/dl">dl</a> crea la lista, <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/dt">dt</a> da el titulo al concepto/definicion y <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/dd">dd</a> descripción/contenido.</p>
+
+	<h3>Listas anidadas</h3>
+	<p>Podemos poner una lista dentro de otra creando una lista ordenada, no ordenada o descriptiva dentro de un elementos de lista (<em>li</em>).</p>
+
+	<h2>Enfasis e importancia en el texto</h2>
+	<p>Destacamos un palabra o frase que nos parece importante o diferente.</p>
+	<code>
+		<!--
+				<ul>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+
+				<ol>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ol>
+
+				<dl>
+					<dt></dt>
+						<dd></dd>
+				</dl>
+
+				<ol>
+					<li></li>
+					<li></li>
+					<li>
+						<ul>
+							<li>
+						</ul>
+					</li>
+				</ol>
+		 -->
+	</code>
+
+	<h3>Enfasis</h3>
+	<p>Con el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/em">em</a> podemos poner enfasis al texto para modificar/resaltar <em>levemente</em> el significado o importancia de alguna cuestión o hecho que aparezca en el texto, el texto se inclinado. Además los lectores de pantalla cambiarán el tono al leer el enfasis. Son elementos semanticos, debemos tenerlos siempre en cuenta para la accesibilidad (inclusividad) y el SEO (posicionamiento en buscadores).</p>
+
+	<h3>Importancia fuerte</h3>
+	<p>A las palabras muy importantes le damos el enfasis con <strong>negrita</strong>, en HTML esta función depende del elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/strong">strong</a>. El tono de los lectores de pantalla se incrementará, si no queremos esto pero si queremos que el texto tenga negrita; podemos usar otras propiedades de CSS mediante un elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/span">span</a> a la palabra o usar el elemento <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/b">b</a> (si corresponde) explicado más adelante.</p>
+
+	<p>La experiencia de lectura se enriquese resaltando las palabras más o menos importantes, logramos que el usuario encuentre lo que necesita rapidamente o le ayude a quedarse con los conceptos importantes.</p>
+
+	<h3>Cursiva, negrita y subrrayado</h3>
+	<p>HTML nos proporciona para estas funciónes cuando no queremos resaltar ninguna importancia y solo queremos lograr este aspecto en el texto pero no deberían usarse porque no son semanticos, no se tienen en cuenta en la accesibilidad y SEO.</p>
+	<p>Aunque la nueva especificación de HTML5 refinio su uso solo en estas ocaciones:</p>
+	<ul>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/i">i</a> (italica o cursiva): Se usa en un texto/oración que contenga extrajerismos (palabras en otro idioma), calificaciones taxomomicas (categorizar, ordenar, estructurar organismos vivos), conceptos tecnicos (tecnicismos/nombres cientificos), un pensamiento.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/b">b</a> (bold/negrita): Se usa para palabras claves, nombres de productos, frases principales.</li>
+		<li><a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/u">u</a> (subrrayado): Se usa para nombres propios, errores ortográficos.</li>
+	</ul>
+	<code>
+		<!--
+			<i>italica/cursiva</i>
+			<b>negrita</b>
+			<u>subrrayado</u>
+		 -->
+	</code>
+	
+	<p>Entonces, ¿Qué elementos debemos usar para resaltar partes del texto? Podemos tener en cuenta que una palabra puede ser importante una vez coomo <em>concepto general o global</em> y la resaltamos con em o strong pero despues si se repite podemos usar i o b o span con css para llamar la atención del usuario y no se pierda en el texto. No deberíamos llenar el texto de em o strong. Si tenemos otras dudas, es mejor atenerse a la especificación.</p>
+
+	<p>Las etiquetas em y strong no se usan por las cursivas o la negrita (es solo su CSS por defecto), sino, por el nivel de importancia en el texto. Si queremos un efecto parecido y ademas al texto al que queremos aplicar no cumple con las reglas para i, b o u; es mejor usar un span con CSS.</p>
+
+	<h2>Conclusión</h2>
+	<p>Cada apartado del texto tiene un elemento de HTML que debemos usar, como lo es en general para cualquier apartado de un sitio web. Para esto debemos hacernos preguntas sobre qué elemento tiene más sentido usar para la cosa que queremos hacer.</p>
+
+
+</body>
+</html>

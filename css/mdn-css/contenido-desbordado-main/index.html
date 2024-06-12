@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contenido desbordado</title>
+</head>
+<body>
+    <h1>Capitulo 6: Contenido desbordado</h1>
+    <p>Sucede cuando hay más contenido del que la caja puede soportar.</p>
+
+    <h2>Desbordamiento</h2>
+    <p>Podemos expandir o restringir el tamaño de una caja con width y height o inline-size y block-size. Es bastante frecuente en las compilaciones de CSS. </p>
+
+    <h3>Perdida de datos</h3>
+    <p>CSS trata de evitar que el contenido se pierda cuando no entre en una caja, por eso hace que se desborde.</p>
+    <code>
+        <!--
+            .box {
+              border: 1px solid #333333;
+              width: 200px;
+              height: 100px;
+            }
+         -->
+    </code> 
+    <p>El error es darle altura a la caja y no dejar que se adapte el contenido.</p>
+
+    <h2>Propiedad overflow</h2>
+    <p>Con esta, podemos controlar como se comporta el desborde de contenido. Su valor predeterminado es <em>visible</em>. Si queremos que se oculte usamos <em>hidden</em> hace que los datos se pierdan para el usuario, lo contrario a visible. El valor <em>scroll</em> agrega una barra de desplazamiento horizontal y vertical a la caja. La propiedad <em>overflow-y: scroll</em> agrega una barra de desplazamiento vertical. Los mismo con <em>overflow-x: scroll</em> agrega una barra horizontal, aunque no es recomendada para las palabras largas, es mejor investigar <em>"word-break"</em> y <em>"overflow-wrap"</em>. Podemos utilizar dos valores en la propiedad overflow. El valor overflow: auto añade la barra de desplazamiento que se necesita cuando hay desborde.</p>
+
+    <code>
+        <!--
+            .word {
+              border: 1px solid #333333;
+              width: 100px;
+              font-size: 250%;
+            }
+         -->
+    </code>
+    <p>El error está en que una fuente tan grande necesita más espacio o eliminamos el ancho fijo o usamos las propieades para controlar el desbordamiento.</p> 
+
+    <p>Usar valores para controlar tiene efectos en el navegador y en la caja.</p>
+    <code>
+        <!--
+            .box {
+              border: 1px solid #333333;
+              width: 200px;
+              height: 100px;
+              overflow: hidden;
+            }
+
+            .box {
+              border: 1px solid #333333;
+              width: 200px;
+              height: 100px;
+              overflow: scroll;
+            }
+
+            .box {
+              border: 1px solid #333333;
+              width: 200px;
+              height: 100px;
+              overflow-y: scroll;
+            }
+
+            .word {
+              border: 5px solid #333333;
+              width: 100px;
+              font-size: 250%;
+              overflow-x: scroll;
+            }
+         -->
+    </code>
+    <p>Algunos valores proporcionan barras de desplazamiento.</p>
+
+    <h2>BFC (block formatting context)</h2>
+    <p>El contexto de formato en bloque se convierte en un contenedor para tu caja, cuando se usa overflow. El contenido de adentro no sale y tampoco el contenido por fuera de esta caja puede superponerse.</p>
+    
+    <h2>Consejo</h2>
+    <p>Cambiar el valor predeterminado de overflow tiene que reservarse para muy pocos casos. Se debe probar el diseño con grandes cantidades de contenido así como pequeñas cantidades, cambiar el tamaño de la letra para asegurarnos que el diseño soporte estos cambios.</p>
+</body>
+</html>

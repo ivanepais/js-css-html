@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Estilizar tablas</title>
+	<link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+	<h1>Estilizando tablas</h1>
+	<p>Si no aplicamos estilos a las tablas son dificiles de leer y esteticamente no tienen identidad.</p>
+
+	<h2>Conceptos basicos</h2>
+	<p>Cada tabla se define con dos etiquetas <em>table</em> de inicio y fin. La etiqueta <em>tr</em> forma una fila, <em>td</em> forma las celdas de las tablas. Si no se usan encabezados no se puede distingir el contenido que clasifica los datos, entonces, utilizamos la etiqueta <em>th</em> para dar un encabezado a la celda.</p> 
+	<p>Dentro de <strong>th</strong> y <strong>td</strong> va el contenido/texto para estas celdas.</p>
+	<ul>
+		<li>Si ponemos una fila (tr) y dentro varios encabezados (th), tendremos una fila de encabezados horizontal o "columnas".</li>
+		<li>Si hacemos una fila (tr) y dentro ponemos un solo encabezado (th) y seguido ponemos varias celdas normales (td), tendremos un encabezado vertical con sus datos. Si lo hacemos varias veces tendremos una fila vertical de encabezados.</li>
+	</ul>
+
+    <code>
+        <!--     
+            <table>
+              <caption>
+                A summary of the UK's most famous punk bands
+              </caption>
+
+              <thead>
+                <tr>
+                  <th scope="col">Band</th>
+                  <th scope="col">Year formed</th>
+                  <th scope="col">No. of Albums</th>
+                  <th scope="col">Most famous song</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <th scope="row">Buzzcocks</th>
+                  <td>1976</td>
+                  <td>9</td>
+                  <td>Ever fallen in love (with someone you shouldn't've)</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">The Clash</th>
+                  <td>1976</td>
+                  <td>6</td>
+                  <td>London Calling</td>
+                </tr>
+
+                 several other great bands 
+
+                <tr>
+                  <th scope="row">The Stranglers</th>
+                  <td>1974</td>
+                  <td>17</td>
+                  <td>No More Heroes</td>
+                </tr>
+              </tbody>
+
+              <tfoot>
+                <tr>
+                  <th scope="row" colspan="2">Total albums</th>
+                  <td colspan="2">77</td>
+                </tr>
+              </tfoot>
+            </table>
+         -->
+    </code>
+
+	<h3>Expansión/unificacion de filas o columnas</h3>
+	<p>Para celdas horizontales se usa el atributo las etiquetas llamado <em>colspan</em> y para las verticales se usa <em>rowspan</em>, ambas aceptan un valor numerico positivo y se <strong>cuenta la celda que se quiere expandir. Hay que tener cuidado con las celdas superpuestas si se usan estos atribujos seguidos, tambien si se usa "rowspan" el codigo es diferente a como se muestra.</strong></p>
+
+	<h2>Conceptos avanzados</h2>
+
+	<h3>Atributo summary</h3>
+	<p>Se utiliza para dar una descripción precisa sobre el contendio de nuestra tabla. Es una funcion de accesibilidad, para los usuarios con lector de pantalla. Se ubica en la etiqueta de apertura <em>table</em>.</p>
+
+	<h3>Titulo</h3>
+	<p>Es la descripcion de la informacion que se presenta en la tabla, se usa la etiqueta <em>caption</em> al principio de la tabla.</p>
+
+	<h3>Atributo span y scope</h3>
+	<p>Un atributo <em>span</em> sirve para aplicar un estilo creado en <em>col</em> y <em>colgroup</em> (explicado más adelante) a las demas columanas, segun a cuantas se le indique. Por eso, acepta valores positivos. Aunque no es la única forma, se puede hacer lo mismo con la etiqueta <em>col</em>.</p>
+	<p>El atributo <em>scope</em> indica qué celdas afecta una celda de encabezado (solo para th), solo se usa en th y los valores pueden ser <em>col, row, colgroup, rowgroup</em>. . Los valores col y row indican que el encabezado provee info para el resto de las celdas en columna o fila que esté presente. Se usa para distingir con que celdas o columna de datos estan relacionadas con los encabezados. Ej: si un encabezado pertenece a una columnas se pone "col", si pertenece a una fila se pone "row".</p>
+
+	<h3>Estructura para los datos</h3>
+	<p>Ej: <em>thead</em> se usa para contener las filas horizontales de encabezados o "columnas", <em>tbody</em> se usa para encabezados verticales y sus celdas de datos horizontales. Cuando hay info que necesita distingirse con estilos, podemos crear dos tbody, sino no hace falta. La etiqueta <em>tfoot</em> se usan para las filas de resumen o fian.</p>
+
+	<h3>Estilo a las filas o columnas</h3>
+
+	<h4>Colgroup</h4>  
+	<p>Es para una columna completa de datos, son etiquetas <em>col</em> y <em>colgroup</em>. La etiqueta "colgroup" sirve para aplicar estilos a un conjunto de columnas. Se escribe al principio de la tabla, despues del titulo. Las columnas se cuentan de izq a der y se usa junto al atributo span.</p>
+	<p>Ej: si tenemos 5 columnas (no importan las unificadas), y queremos hacer tres grupos de columnas, o sea; la primera columna queda sola porque no esta relacionada con el segundo y tercer grupo de columnas (formadas cada una por dos columnas) estas tiene datos distintos por eso las separamos. Aunque una columna este sola, debemos declararla como colgroup vacio para que las demas tengan sentido. Dentro de las etiquetas aplicamos estilo al grupo de columnas que queremos diferenciar.</p>
+
+	<h4>Etiqueta Col</h4>
+	<p>Representa a las columnas en las tablas de HTML, se escribe dentro de <em>colgroup</em> al inicio de la tabla o despues del titulo si es que necesita. Se usa para dar un conjunto de atributos y estilos a un grupo de celdas. Mediante el atributo span podemos especificar las columnas afectadas por los mismos atributos y estilos. Si creamos varios <em>col</em> es porque necesitamos varios estilos para las distintas celdas o grupos. De la misma forma que funciona <em>colgroup</em>. El fin de <em>col</em> no es semantico al relacionar datos con columnas, solo es estitico o para llamar la atención a los usuarios.</p>
+	<p><strong>Esta es una forma desde HTML.</strong></p>
+
+	<h2>Resumen de una tabla</h2>
+	<p>Comienza con la etiqueta <em>table</em>, dentro va el atributo <em>caption</em> que describe el contenido para accesibilidad. Luego viene el titulo (etiqueta <em>title</em>), si hace falta. Despues agrupamos las columnas con <em>colgroup y col</em> para definir caracteristicas y estilo a otras columnas, junto con el atributo <em>span</em> que determina cuantas columnas va a tener el mismo estilo. Seguimos con los encabezados <em>th</em> junto al atributo <em>scope</em> para definir que si los encabezados (exclusivamente) incluyen a fila o columnas con los valores <em>row</em>, <em>col</em>, <em>rowgroup</em>, o <em>colgroup</em>. Los valores "row y "col" es cuando un encabezado tiene columnas o filas normales. Los valores <em>rowgroup</em> y <em>colgroup</em> se usan cuando un encabezado mayor tiene encabezados menores y a su vez estos tienen datos en filas y columnas (scope row y col). Finalmente usamos las filas (tr) y columnas/celdas normales (td).<p>
+
+	<p>Aplicar estilos se puede hacer de varias formas a traves de la etiqueta <em>style</em> en el html: 1) Aplicando estilo a los encabezados (th), 2) Aplicando estilo con "colgroup", 3) Aplicando estilo con "col", aunque los ultimos tienen propisitos distintos como ya lo explicamos. Junto con los demas atributos explicados.</p>
+
+	<h2>Estilizar tablas desde CSS</h2>
+	<p>Primero enlazamos el CSS con la etiqueta <em>link</em> en el HTML.</p>
+
+    <h3>Espaciado y distribución</h3>
+    <p>Por defecto el estilo de la tabla es apretado, para solucionarlo escribimos el siguiente codigo en el CSS:</p>
+
+    <h4>Diseño de tabla</h4>
+    <ul>
+    	<li>Para el elemento table vemos La propiedad <em>table-layout</em> en <em>fixed</em> permite un comportamiento predeterminado flexible. Le podemos dar a las columnas un ancho igual a los encabezados y expresar el contenido adecuadamente. Por eso usamos el selector <em>thead th:nth-child(n)</em>, selecciona descendientes de th (lo vimos en tipos de selectores) dentro de <em>thead</em> para asignar los porcentajes de anchura.</li>
+
+    	<li>La tabla tiene asignado un 100% de anchura, significa que va a ocupar el total del espacio en la caja/contenedor donde se la ubique. Se adaptará bien a la mayoria de las resoluciones aunque no tanto a las que son muy estrechas.</li>
+
+    	<li>La propiedad <em>border-collapse</em> con el valor <em>collapse</em> es un estándar para que en los bordes no queden espacios entre celdas</li>
+
+    	<li>La función del borde alrededor de la tabla es estetico y funcional, da mejor presentación y se separa de otros elementos.</li>
+
+    	<li>En los encabezados (th) y celdas (td) hay padding que genera espacio enter el contenido y los bordes.</li>
+    </ul>
+    <code>
+        <!--
+            /* spacing */
+
+            table {
+              table-layout: fixed;
+              width: 100%;
+              border-collapse: collapse;
+              border: 3px solid purple;
+            }
+
+            thead th:nth-child(1) {
+              width: 30%;
+            }
+
+            thead th:nth-child(2) {
+              width: 20%;
+            }
+
+            thead th:nth-child(3) {
+              width: 15%;
+            }
+
+            thead th:nth-child(4) {
+              width: 35%;
+            }
+
+            th,
+            td {
+              padding: 20px;
+            }
+         -->
+    </code>
+
+    <h4>Tipografia</h4>
+    <p>Vamos a<a href="fonts.google.com"></a> Google Fonts para buscar una fuente que se adapte a nuestra tabla o sitio o que sea totalmente diferente. Agregamos la fuente en la etiqueta <em>link</em> dentro del <em>head</em> del HTML.</p>
+    <p>En el CSS agregamos el siguiente codigo:</p>
+    <p>Los cambios son:</p>
+    <ul>
+    	<li>Establecimos Sans-Serif como fuente global (Html) y en la estructura de la tabla <em>thead</em> y <em>tfoot</em> la fuente de Google adecuada.
+    	</li>
+
+    	<li>En los encabezados (th) y celdas (td) se aplicó un espaciado de letra, <em>letter-spacing</em> de <em>2px</em> y <em>1px</em> para la legibilidad.
+    	</li>
+
+    	<li>
+    	En el body de la tabla (tbody) se ha centrado las celdas (td) para que queden alineadas al encabezado
+    	</li>
+
+    	<li>en el pie, se asignó a sus encabezados una alineacion a la derecha porque así tiene más sentido. Dependerá de lo que necesite la tabla.</li>
+    </ul>
+    <code>
+        <!-- 
+            <link
+              href="https://fonts.googleapis.com/css?family=Rock+Salt"
+              rel="stylesheet"
+              type="text/css" />
+
+            /* typography */
+
+            html {
+              font-family: "helvetica neue", helvetica, arial, sans-serif;
+            }
+
+            thead th,
+            tfoot th {
+              font-family: "Rock Salt", cursive;
+            }
+
+            th {
+              letter-spacing: 2px;
+            }
+
+            td {
+              letter-spacing: 1px;
+            }
+
+            tbody td {
+              text-align: center;
+            }
+
+            tfoot th {
+              text-align: right;
+            }
+                     -->
+    </code>     
+
+    <h4>Colores y Gráficos</h4>
+    <p>Cada tabla va a tener un estilo adecuado.</p>
+    <ul>
+    	<li>A la estructura de encabezados (thead) y pie (tfoot) le agregamos un fondo con imagen con la funcion url. Le cambiamos de color al texto con la propiedad <em>color</em>, y le agregamos sombra al texto (text-shadow) para que sea más legible a los cuatro lados y color negro.</li>
+
+    	<li>A las celdas de encabezado y normales que estan en las estructuras anteriores, le agregamos un fondo degradado lineal que empieza de abajo para darle volumen. Se puede hacer con multiples imagenes de fondo pero los navegadores antiguos no lo soportan.</li>
+    </ul>
+    <code>
+        <!--
+            /* graphics and colors */
+
+            thead,
+            tfoot {
+              background: url(leopardskin.jpg);
+              color: white;
+              text-shadow: 1px 1px 1px black;
+            }
+
+            thead th,
+            tfoot th,
+            tfoot td {
+              background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.5)
+              );
+              border: 3px solid purple;
+            }
+         -->
+    </code> 
+
+    <h4>Rayas de cebra</h4>
+    <p>Se alternan las filas con distintos colores que facilitan la lectura de los datos, con el siguiente codigo:</p>
+    <ul>
+    	<li>Vemos el selector <em>:nth-child()</em> toma elementos hijos especificos determinados por su parametro, como un ciclo. Ej: en el body de la tabla pero que tomará las lineas (tr), el valor <em>odd</em> representa cuya posicion numerica en una serie es impar y <em>even</em> una posicion par. Así podemos definir distintos colores para las filas.</li>
+
+    	<li>Tambien para las lineas del body, aplicamos una imagen de fondo semitrasparente con una distorsion así la tabla se verá menos limpia.</li>
+
+    	<li>Al final le agregamos a la tabla un color de fondo solido para los navegadores que no admiten el selector <em>:nth-child</em>.</li>
+    </ul>
+    <code>
+        <!--
+            /* zebra striping */
+
+            tbody tr:nth-child(odd) {
+              background-color: #ff33cc;
+            }
+
+            tbody tr:nth-child(even) {
+              background-color: #e495e4;
+            }
+
+            tbody tr {
+              background-image: url(noise.png);
+            }
+
+            table {
+              background-color: #ff33cc;
+            }
+         -->
+    </code>
+
+    <h4>Estilo al titulo</h4>
+    <p>Tomamos la etiqueta <em>caption</em> y definimos reglas en CSS:</p>
+    <ul>
+    	<li>Ponemos una font, padding, font-style, color, text-aling, letter-spacing</li>
+    	<li>Lo destacado es la propiedad <em>caption-side: button</em> para ubicar el titulo abajo de la tabla</li>
+    </ul>
+    <code>
+        <!--    
+            /* caption */
+
+            caption {
+              font-family: "Rock Salt", cursive;
+              padding: 20px;
+              font-style: italic;
+              caption-side: bottom;
+              color: #666;
+              text-align: right;
+              letter-spacing: 1px;
+            }
+         -->
+    </code> 
+
+    <h4>Consejos para el diseño de tablas</h4>
+    <p>Un resumen del diseño que acabamos de crear:</p>
+    <ul>
+    	<li>Manten el marcado simple y las cosas flexibles con el uso de porcentajes para que el diseño sea responsivo.</li>
+
+    	<li>Usa <em>table-layout: fixed</em> en la etiqueta <em>table</em> para permitir poner ancho en los encabezados</li>
+
+    	<li>Define <em>border-collapse</em> en la tabla para eliminar los bordes de las celdas.</li>
+
+    	<li>Usa las estructuras <em>thead, tbody, tfoot</em> para dividir la tabla y poder aplicar estilos más completos.</li>
+
+    	<li>Usar distintos colores para las filas así facilitar la legibilidad.</li>
+
+    	<li>Alinear los textos de las celdas y columnas para ordenar los elementos y facilitar la lectura de la tabla.</li>
+    </ul>
+
+</body>
+</html>

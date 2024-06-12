@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index/style-index.css">
+	<title>Conceptos basicos de HTML</title>
+</head>
+<body>
+
+	<h1>Conceptos basicos de HTML</h1>
+	<p><a href="https://developer.mozilla.org/es/docs/Glossary/HTML">HTML</a> ("hypertext markup lenguage") no es un lenguaje de programación, con él no se puede escribir lógica, resolver problemas complejos. Es <em>es un lenguaje de marcado</em> para estructurar el contenido de la web así los navegadores entienden cada elemento. Se utilizan <a href="https://developer.mozilla.org/es/docs/Glossary/Element">elementos de marcado</a> se utilizan para marcar, delimitar las partes del contenido del sitio. Los elementos de marcado tienen <a href="https://developer.mozilla.org/es/docs/Glossary/Tag">etiquetas</a> para encerar el contenido de la página.</p>
+
+	<h2>Anatomia de un elemento HTML</h2>
+	<p>Son las partes que posee cualquier elemento de HTML.</p>
+	<ul>
+		<li><strong>Etiqueta de apertura</strong>: Marca donde comienza el elemento por eso se encuentra antes del nombre de este. Se trata de un parentesis angular.</li>
+		<li><strong>Contenido del elemento</strong>: Puede ser texto o una imagen, un link, etc.</li>
+		<li><strong>Etiqueta de cierre</strong>: Se distingue de la etiqueta de apertura por la barra vertical antes del nombre del elemento. Verá que algunos elementos no tienen esta etiqueta.</li>
+	</ul>
+
+	<p>De está manera está conformado un <em>elemento</em> de HTML</p>
+
+	<h3>Creando nuestro primer elemento de HTML</h3>
+	<p>Podemos usar algun elemento basico de HTML de la lista para crear nuestro primer elemento y ver su efecto.</p>
+	
+	<h3>Elementos anidados</h3>
+	<p>Son elementos dentro de otro, debemos tener en cuenta que la etiqueta del primer elemento debe estar al final, conteniendo a todos los elementos.</p>
+
+	<h3>Elementos en bloque y elementos en línea</h3>
+	<p>Son las dos categorias de elementos más importante de HTML, porque afecta a la visualización de la página. Debemos conocer sus fundamentos para evitarnos problemas con el CSS.</p>
+
+	<ul>
+		<li>Los <a href="https://developer.mozilla.org/es/docs/Web/HTML/Block-level_elements">elementos en bloque</a> aparecen uno debajo de otro, en una línea nueva. Son elementos estructurales de la página como <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/Heading_Elements">titulos</a>/encabezados, <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/p">parrafos</a>, <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/ul">listas</a> (ordenadas, desordenadas y descriptivas) <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/nav">menús de navegación</a> o un <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/footer">footer</a> (pié de pagina). Un elemento en bloque puede estar dentro de otro, pero no de un elemento en línea</li>
+
+		<li>Los <a href="https://developer.mozilla.org/es/docs/Web/HTML/Inline_elements">elementos en línea</a> son los que estan contenido en un elemento para remarcar, señalar algo del contenido de una web en una misma línea. Como son los <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/link">links</a>, o elementos de enfasis como <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/em">cursivas</a> o <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/strong">negrita</a>.</li>
+	</ul>
+	<p>En <em>HTML5</em> se redefinió y amplió las <a href="https://html.spec.whatwg.org/multipage/indices.html#element-content-categories">categorias de elementos</a>.</p>
+
+	<code>
+		<!--	
+			<em>primero</em><em>segundo</em><em>tercero</em>
+
+			<p>cuarto</p>
+			<p>quinto</p>
+			<p>sexto</p>
+		 -->
+	</code>	
+
+	<h3>Elementos vacios</h3>
+	<p>Son los elementos que no tienen etiqueta de cierre como puede ser el elemento que se usa para poner las imagenes en la web: <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/img">img</a>.</p>
+	<code>
+		<!-- 
+			<img
+			  src="https://raw.githubusercontent.com/mdn/beginner-html-site/gh-pages/images/firefox-icon.png"
+			>
+		-->
+	</code>	
+
+	<h2>Atributos</h2>
+	<p>Los <a href="https://developer.mozilla.org/es/docs/Web/HTML/Attributes">atributos</a> dan funciones e información adicional a un elemento de HTML. No afecta al contenido sino que ayuda al visitante de la página.</p>
+	<p>Para que funcione debe cumplir con estás condiciones:</p>
+	<ul>
+		<li>Se colocan dentro de la etiqueta de apertura.</li>
+		<li>Deben estar separados con un espacio desde el nombre del elemento, si hay más atributos, tambien.</li>
+		<li>El nombre del atributo va seguido de un igual (sin espacios).</li>
+		<li>Tienen diferentes valores que van dentro de dos comillas dobles que se ponen despues signo del igual.</li>
+	</ul>
+
+	<p>Por ejemplo, un elemento de link o enlace puede tener los siguientes atributos para darle más información al usuario.</p>
+	<ul>
+		<li><em>href</em>: Su valor será la dirección del sitio web al que apunta.</li>
+		<li><em>title</em>: Su valor será la descrición del sitio, podría ser algo como "La página de inicio de Google". Aparecerá una solapa con está información si pasamos el cursor encima del link.</li>
+		<li><em>target</em>: Tiene como valor a <em>_blank</em> que abrirá abrira el enlace en una pestaña nueva. Si omitimos este atributo, se abre el otro sitio en nuestra ventana actual.</li>
+	</ul>
+	<code>
+		<!--
+			<a href="" target="" title="">#</a>
+		 -->
+	</code>
+
+	<h3>Atributos booleanos</h3>
+	<p>Son atributos que no necesitan valor, solo con su nombre funcionan.</p>
+	<p>Por ejemplo, el elemento <em>imput</em> es un campo para entrada de datos, decimos que este campo aceptará texto (con el atributo type="text"). Si al lado escribimos el atributo <em>disabled</em> desactiva el elemento completo y el usuario no puede ingresar datos.</p>
+	<p>Otros atributos booleanos son: <em>checked</em> (marca al elemento con un signo de verificación), <em>defer</em> ( retraza la carga del código seleccionado), <em>selected</em> (selecciona un elemento despues de cargar la página). Ahora no debe preocuparnos ya que son más avanzados.</p>
+	<code>
+		<!--
+			el uso del atributo deshabilitado evita que el usuario final introduzca texto en el cuadro de entrada 
+			<input type="text" disabled />
+
+			 se permite la entrada de texto, ya que no contiene el atributo deshabilitado 
+			<input type="text" />
+		-->
+	</code>	
+
+	<h3>Tipos de comilla en los atributos</h3>
+	<p>Se pueden usar las comillas dobles o simples, lo importante es no olvidarse de colocarlas o mezclarlas porque inutilizan el código.</p>
+	<code>
+		<!--
+			<a href="http://www.ejemplo.com" title="¿A que es 'divertido'">Un enlace a mi ejemplo.</a>
+		 -->
+	</code>	
+
+	<h2>Anatomía de un documento HTML</h2>
+	<p>Debemos combinar los elementos individuales para formar una página de HTML completa.</p>
+	<ol>
+		<li><em>!DOCTYPE html</em>: Es un elemento que está desde los inicios de la web, hoy en día es un legado pero se incluye para que todo pueda funcionar correctamente.</li>
+		<li><em>HTML</em>: Es el elemento raíz de una página web, contiene a los demás elementos que usamos.</li>
+		<li><em>head</em>: Van los elementos que no son visibles en la web, como metadatos, las hojas de estilo del documento, etx.</li>
+		<li><em>meta charset="utf-8"</em>: Establece que el documento utilizará la códificación de caracteres UTF-8 para que el documento acepte los caracteres de la mayoría de idiomas conocidos.</li>
+		<li><em>body</em>: Hace visible los elementos y todo el contenido que queremos mostrar y que pueden ver los visitantes del sitio.</li>	
+	</ol>
+	<code>
+		<!--
+			<html>
+			  <head>
+			    <meta charset="utf-8" />
+			    <title>Mi página de prueba</title>
+			  </head>
+
+			  <body>
+			    <p>Esta es mi página</p>
+			  </body>
+			</html>
+		-->
+	</code>	
+
+	<h3>Espacios en blanco en el HTML</h3>
+	<p>En cualquier elemento de HTML se contará solo un espacio, por más que agregemos miles; solo se mostrará uno.</p>
+	<p>La legibilidad de un texto y como están formateado y separados los elementos desde el HTML son igual de importantes, hace al documento mantenible para los desarrolladores.</p>
+	<p>Por eso no tiene sentido agregar tantos espacios desde el HTML. Los espacios entre los elementos que vemos en cualquier página están dados por el <em>CSS</em>. Por ahora no deberiamos preocuparnos por este.</p>
+	<code>
+		<!--
+			<p>Espacios en blanco</p>
+			<p>Espacios     en         blanco</p>
+		 -->
+	</code>		
+
+	<h2>Caracteres especiales en HTML</h2>
+	<p>Son los caracteres que al querer escribirlos desde el documento HTML chocan con el código del HTML porque son parte de su sintaxis, por este motivo no se logran mostrar en la página.</p>
+	<p>Los siguientes signos se componen de un caracter inicial que es <em>&</em> (signo de ampersand), una inicial y un caracter final que es <em>;</em> (punto y coma). Así logramos mostrar estos signos en una web. Un articulo de <a href="https://es.wikipedia.org/wiki/Anexo:Referencias_a_entidades_de_caracteres_XML_y_HTML">Wikipedia</a> detalla más acerca de estos.</p>
+	<p>Por ejemplo, si queremos mostrar en la web la etiqueta parrafo, debemos escribir desde el HTML: <span>&lt;p&gt;</span>.</p>
+	<p>Para que se muestren en una página HTML:</p>
+	<code>
+		<!--	
+			<  es igual  a &lt;
+			> = &gt;
+			" = &quot;
+			' = &apos;
+			& = &amp;
+		 -->
+	</code>		
+
+	<h2>Comentarios en HTML</h2>
+	<p>Los usan los desarrolladores para resaltar/recordar algún aspecto del código, escribir notas, explicar la lógica de alto. No se muestran en la página.</p>
+	<p>Una frase o texto desde el documento HTML debe estar entre los <span>!<-- --></span>.</p>
+
+</body>
+</html>

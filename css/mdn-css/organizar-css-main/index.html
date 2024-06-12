@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style-index/style-index.css">
+	<title>Organizar CSS - CSS</title>
+</head>
+<body>
+	<h1>Organizar CSS</h1>
+	<p>Mantener grandes archivos de CSS puede ser un desafio, debemos aprender practicas para que se nos haga más facil.</p>
+
+	<h2>Tips para mantener tu CSS ordenado</h2>
+	<p>Algunas sugerencias para mantener las hojas de estilo organizadas y ordenadas.</p>
+
+	<h3>¿Tu proyecto tiene un estilo de codificación de CSS propio?</h3>
+	<p>Una guia de estilo de codificación sirve para que todo el equipo de desarrolle siga unas normas y sea todo consistente, para que cada programador no aplique sus preferencias individuales y sean confusas para los demas.</p>
+	<p>Un ejemplo son las <a href="https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Writing_style_guide/Code_style_guide/CSS">reglas para los articulos de mozilla mdn</a>.</p>
+
+	<h3>Manten el código consistente</h3>
+	<p>Establecer reglas o normas de codificación para un proyecto grupal o individual es importante para mantener la coherencia.</p>
+	<p>Se aplica al describir el código, usando los mismo nombres/nombre correspondiente a cada elemento, para las clases; colores en distintas secciones de la web, un metodo para el espaciado en el código que sea facil de leer con una cantidad de tabulaciones, espaciado, etc.</p>
+
+	<h3>Hacer código CSS legible</h3>
+	<p>Es recomendable que las reglas de CSS (selector de elemento, propiedad y valor: declaración) esten separadas por un salto de línea; cada parte debe estar en una nueva línea.</p>
+	<code>
+		<!--
+			.box { background-color: #567895; }
+			h2 { background-color: black; color: white; }
+
+			.box {
+			  background-color: #567895;
+			}
+
+			h2 {
+			  background-color: black;
+			  color: white;
+			}
+		 -->
+	</code>	
+
+	<h3>Comentarios en el CSS</h3>
+	<p>Ayudan a los programadores futuros a entender el CSS y a los presentes a recordar el CSS.</p>
+	<p>Un tip es hacer un bloque de comentario antes de una sección lógica o de mucho desarrollo de código, mirando rapido o para buscarlas directamente (debemos usar ||). </p>
+	<code>
+		<!--
+			/* || General styles */
+
+			/* … */
+
+			/* || Typography */
+
+			/* … */
+
+			/* || Header and Main Navigation */
+
+			/* … */
+		 -->
+	</code>	
+
+	<p>No es necesario comentar cada cosa, ya que en CSS, gran parte se explican sola. Pero podemos comentar cuando se ha tomado una decisión por una razón en particular. Un ejemplo pueden ser propiedades de respaldo para navegadores antiguos.</p>
+	<p>Otro ejemplo puede ser si has usado un tutorial para lograr algo, agregar la url.</p>
+	<code>
+		<!--
+			.box {
+			  background-color: red; 
+			  /* fallback for older browsers that don't support gradients */
+
+			  background-image: linear-gradient(to right, #ff0000, #aa0000);
+			}
+		 -->
+	</code>		
+
+	<h3>Crear secciones para CSS</h3>
+	<p>En principio se crea una sección en la que se le dará un estilo comun para todos los elementos de HTML, predecible para todos los navegadores.</p>
+	<p>La segunda sección sería de utilitdad, puede tomar las clases principales de los elementos. Por ejemplo, para eliminar los puntos en los elementos de lista; así no aparecerán en la barra de navegación. En esta sección podría poner elementos que no entran en otras secciones.</p>
+	<p>Una tercera sección podría ser los elementos que integren el diseño basico del sitio, como el encabezado, la barra/menú de navegación, etc.</p>
+	<p>En la cuarta sección, agregamos las funciones especiales o cosas especificas de la página, como menús contextuales, componentes.</p>
+	<p>Al ordenar de esta manera, buscaremos rapidamente lo que queremos cambiar.</p>
+	<code>
+		<!--
+			/* || GENERAL STYLES */
+
+			body {
+			  /* … */
+			}
+
+			h1,
+			h2,
+			h3,
+			h4 {
+			  /* … */
+			}
+
+			ul {
+			  /* … */
+			}
+
+			blockquote {
+			  /* … */
+			}
+
+			/* || UTILITIES */
+
+			.nobullets {
+			  list-style: none;
+			  margin: 0;
+			  padding: 0;
+			}
+
+			/* … */
+			
+			/* || STORE PAGES */
+
+			.product-listing {
+			  /* … */
+			}
+
+			.product-box {
+			  /* … */
+			}
+
+			
+		 -->
+	</code>		
+
+	<h3>Evitar los selectores demasiados especificos</h3>
+	<p>Porque evita que dupliquemos elementos o partes del CSS para aplicar las mismas reglas.</p>
+	<p>Ej: aplicar a un parrafo que está dentro de un articulo <span>article.main p.box {border: 1px solid #ccc;}
+	</span>. Selecciona el elemento descendientes del primero.</p>
+	<p>Si despues queremos aplicar la misma regla a algo fuera de .main o que no sea el elemnto p, tenemos que duplicar el css usando otro selector con las mismas reglas.</p>
+	<p>Para eso, <em>usamos una clase para aplicar una regla multiples veces</em>. Son pocas veces que se usa un selector especifico para aplicar css.</p>
+	<code>
+		<!--
+			article.main p.box {
+			  border: 1px solid #ccc;
+			}
+			
+			article.main p.box {
+			  border: 1px solid #ccc;
+			}
+ 		-->
+	</code>
+
+	<h3>Dividir hojas de estilo grandes en varias más pequeñas</h3>
+	<p>En caso de que se tenga estilos muy diferentes para distintas partes del sitio, es posible que sea mejor tener una hoja de estilo que tenga reglas globales y hojas de estilo más pequeñas que tengan reglas más especificas para esas secciones. Parecido a crear secciones de CSS.</p>
+	<p>Las reglas de la cascada de CSS se aplican normalmente, sin importar la cantidad de hojas aplicadas a un HTML. Por ejemplo, si ocupamos gran cantidad de CSS para las cartas que describen los productos de una tienda, tiene sentido tenerlo en una hoja aparte. Ademas agiliza y facilita su mantenimiento.</p>
+
+	<h2>Otras herramientas que podemos usar</h2>
+	<p>Son herramientas desarrolladas por la comunidad para poder mantener grandes hojas de estilo.</p>
+
+	<h3>Metodologias de CSS</h3>
+	<p>En lugar de tener que crear nuestros propios estandares o reglas para escribir CSS, podemos usar los enfoques ya creados. Se tratan de guias para escribir CSS, con un enfoque muy estructurado para mantener la consistencia para tener ordenada la hoja de estilo.</p>
+
+	<h3>OOCSS</h3>
+	<p>Oriented Object CSS es un trabajo de <a href="https://github.com/stubbornella/oocss/wiki">Nicole Sullivan</a>, la idea es separar su CSS en objetos reutilizables para usarlos en cualquier lugar que necesite el sitio. El ejemplo estandar de OOCSS es el patrón llamado <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_cookbook/Media_objects">The Media Object</a>. El patrón que se repite en todos los sitios es un contenedor con una imagen o video u otro elemento de tamaño fijo en un lado y contenido descriptivo en el otro (generalmente ocupa la mayoria de espacio). Pueden ser comentarios (imagen de usuario pequeña y texto del comentario), listados, etc.</p>
+	<p>A traves de clases, vamos nombrando a los objetos que son cada parte de nuestro sitio y despues las combinamos con selectores.</p>
+	<code>
+		<!--
+			.comment {
+			  display: grid;
+			  grid-template-columns: 1fr 3fr;
+			}
+
+			.comment img {
+			  border: 1px solid grey;
+			}
+
+			.comment .content {
+			  font-size: 0.8rem;
+			}
+
+			.list-item {
+			  display: grid;
+			  grid-template-columns: 1fr 3fr;
+			  border-bottom: 1px solid grey;
+			}
+
+			.list-item .content {
+			  font-size: 0.8rem;
+			}
+
+			.media {
+			  display: grid;
+			  grid-template-columns: 1fr 3fr;
+			}
+
+			.media .content {
+			  font-size: 0.8rem;
+			}
+
+			.comment img {
+			  border: 1px solid grey;
+			}
+
+			.list-item {
+			  border-bottom: 1px solid grey;
+			}
+		 -->
+	</code>	
+
+	<p>En el HTML necesitamos las clases para los elementos</p>
+	<code>
+		<!--
+			<div class="media comment">
+			  <img src="" alt="" />
+			  <div class="content"></div>
+			</div>
+
+			<ul>
+			  <li class="media list-item">
+			    <img src="" alt="" />
+			    <div class="content"></div>
+			  </li>
+			</ul>
+		 -->
+	</code>
+
+	<h3>BEM</h3>
+	<p>Significa Modificador de elemento de bloque. En BEM un bloque es una entidad independiente, como un boton, un menú o un icono. Un elemento es algo como un elemenento de lista (li) o un titulo que está vinculado al bloque en que se encuentra. Un modificador es una bandera en un bloque (independiente) o elemento (descendiente/relativo a otro) que cambia el estilo y el comportamiento.</p>
+	<p>El código BEM se reconoce facilmente por el uso extensivo de guiones medios y guiones bajos para las clases de los elementos. Las clases adicionales utilizan la estricta <a href="http://getbem.com/naming/">nomenclatura BEM</a>.</p>
+	<p>Se usa ampliamente en proyectos web grandes y muchas personas que ayudan o escriben codigo en diferentes sitios, usan la nomenclatura BEM sin mencionarla. En CSS Tricks hay <a href="https://css-tricks.com/bem-101/">guia basica sobre BEM</a>.</p>
+	<code>
+		<!--
+			<form class="form form--theme-xmas form--simple">
+			  <label class="label form__label" for="inputId">
+			  </label>
+			  <input class="form__input" type="text" id="inputId" />
+
+			  <input
+			    class="form__submit form__submit--disabled"
+			    type="submit"
+			    value="Submit" />
+			</form>
+		 -->
+	</code>
+
+	<h2>Otras metodologias</h2>
+	<p>Hay otros como <a href="http://smacss.com/">SMACSS</a> (Scalable and Modular Architecture), <a href="https://itcss.io/">ITCSS</a>, <a href="https://acss.io/">ACSS</a> (Atomic CSS), al ser populares puedes encontrar guias en la web. Por otro lado, usarlo en proyectos pequeños no tiene mucho sentido.</p>
+
+	<h3>Construir metodologias propias</h3>
+	<p>Hay herramientas disponibles para los desarrolladores que les permite adoptar un enfoque más programatico para escribir CSS. Se denominan preprocesadores y posprocesadores.</p>
+	<p>Un pre-procesador ejecuta archivos sin procesar y los convierte en una hoja de estilo, mientras en un post-procesador toma la hoja de estilo terminada y la optimiza para que cargue más repitdo.</p>
+	<p>Estas herramientas requieren de complementos (scripts, plug-in) que puede instalar en su editor de codigo. El pre-procesador más popular es <a href="https://sass-lang.com/">Sass</a>, a continuación se detalálarn conceptos basicos. Si queire aprender más hay una <a href="https://sass-lang.com/guide">guia de Sass</a> disponible en su sitio web.</p>
+
+	<h2>Funciones basicas de Sass</h2>
+	<p>Son realmente útiles en términos de organización, incluso si no usa ninguna de las otras funciones de Sass.</p>
+
+	<h3>Definir variales</h3>
+	<p>Configurar propiedades de CSS en una variable (es un objeto que le debemos poner un nombre -relacionado- con los valores que contiene) para poder usar todos estos valores en cualquier lugar de CSS. La gran ventaja de una variable es que si necesitamos cambiar algun valor, lo hacemos desde ella y se actualiza en todos los lugares donde esté. Por ejemplo, una variable que contenga el color azul; pero ahora el proyecto necesita usar el color roja, solo cambiamos una vez y no todos los lugares donde hayamos puesto el color azul.</p>
+	<p><span>$base-color: red; .alert {border: 1px solid $base-color;}</span>.</p>
+	<p>Una vez compilado el CSS, pone el valor en la variable y no su nombre.</p>
+	<p><span>.alert {border: 1px solid red;}</span></p>
+	<p>Aunque ya podemos usar <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties">variables de CSS</a> de forma nativa.</p>
+	<code>
+		<!--
+			$base-color: #c6538c;
+
+			.alert {
+			  border: 1px solid $base-color;
+			}
+
+			compilation output:
+			.alert {
+			  border: 1px solid #c6538c;
+			}
+		 -->
+	</code>	
+
+	<h3>Compilar la hoja de estilo</h3>
+	<p>Al usa Sass se puede tener multiples hojas de estilo muy pequeñas o incluso una hoja de estilo por cada componente.</p>
+	<p>Se usa la función <a href="https://sass-lang.com/documentation/at-rules/use#partials">partials</a> que se pueden compilar juntos un una o una pequeña cantidad de hojas de estilo para vincular al sitio web.</p>
+	<code>
+		<!--
+			// foundation/_index.scss
+			@use "code";
+			@use "lists";
+			@use "footer";
+			@use "links";
+
+			compilation output
+			// style.scss
+			@use "foundation";
+		 -->
+	</code>
+</body>
+</html>
