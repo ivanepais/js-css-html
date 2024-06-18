@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Capas-js-css-html</title>
+
+		<style>
+			button {
+			  font-family: "helvetica neue", helvetica, sans-serif;
+			  letter-spacing: 1px;
+			  text-transform: uppercase;
+			  border: 2px solid rgb(200 200 0 / 60%);
+			  background-color: rgb(0 217 217 / 60%);
+			  color: rgb(100 0 0 / 100%);
+			  box-shadow: 1px 1px 2px rgb(0 0 200 / 40%);
+			  border-radius: 10px;
+			  padding: 3px 10px;
+			  cursor: pointer;
+			}
+
+		</style>
+
+	</head>
+	
+	<body>
+
+		<button type="button">Player 1: Chris</button>
+
+
+	</body>
+
+	<script>
+
+		/*
+		Orden de ejecución: 
+			arriba a abajo:
+
+				botón
+				detector de eventos
+				función
+
+		*/
+		
+		const button = document.querySelector("button");
+
+		button.addEventListener("click", updateName);
+
+		function updateName() {
+		  const name = prompt("Enter a new name");
+		  button.textContent = `Player 1: ${name}`;
+		}
+
+
+		/*
+			Si cambiara el orden de las dos primeras líneas de código, ya no funcionaría; en su lugar, obtendría un error en la consola del desarrollador del navegador: Error de referencia no detectado: no se puede acceder al 'botón' antes de la inicialización. Esto significa que el objeto del botón aún no se ha inicializado, por lo que no podemos agregar un detector de eventos
+	
+		*/
+
+
+		// Documentación/Comentarios
+
+		/*
+		// Function: creates a new paragraph and appends it to the bottom of the HTML body.
+
+			function createParagraph() {
+			  const para = document.createElement("p");
+			  para.textContent = "You clicked the button!";
+			  document.body.appendChild(para);
+			}
+
+			
+			  1. Get references to all the buttons on the page in an array format.
+			  2. Loop through all the buttons and add a click event listener to each one.
+
+			  When any button is pressed, the createParagraph() function will be run.
+			
+
+			const buttons = document.querySelectorAll("button");
+
+			for (const button of buttons) {
+			  button.addEventListener("click", createParagraph);
+			}
+
+
+			Orden: 
+
+				función 
+				botón 
+				bucle
+			
+
+			Operar bucles: 
+				
+				Debemos llamar a la variable que guardará un elemento del array en cada iteración.
+
+
+
+		*/
+
+
+
+	</script>
+</html>

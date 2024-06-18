@@ -1,0 +1,76 @@
+
+<!-- Start and Stop -->
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Start and Stop</title>
+	</head>
+	<body>
+
+		<button>Start machine</button>
+		<p>The machine is stopped.</p>
+
+	</body>
+
+	<script type="text/javascript">
+		
+
+		const btn = document.querySelector("button");
+		const txt = document.querySelector("p");
+
+		btn.addEventListener("click", updateBtn);
+
+		function updateBtn() {
+		  if (btn.textContent === "Start machine") {
+		    btn.textContent = "Stop machine";
+		    txt.textContent = "The machine has started!";
+		  } else {
+		    btn.textContent = "Start machine";
+		    txt.textContent = "The machine is stopped.";
+		  }
+		}
+
+		/*	
+			Código JS: 
+
+			La función de JS modifica los elementos html y el Evento en un elemento de html activa la función 
+			
+
+		*/
+
+
+		/*
+			Matemáticas y Operadores: 	
+
+
+			Comprobar resultado o número par: 
+
+				usar operador %(resto)
+				y además el número 2. 
+
+				0 = par
+				1 = impar
+
+				let num1 = 2
+				let esPar = num1%2
+
+
+			Tareas: 
+
+			1. 
+
+
+			2. 
+
+
+			3. 
+
+
+		*/
+
+	</script>
+
+</html>

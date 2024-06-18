@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<title>Cadenas</title>
+	
+	</head>
+
+	<body>
+
+		<h1>Cadenas</h1>
+
+		<button>Press me</button>
+		<div id="greeting"></div>
+		
+	</body>
+
+	<script>	
+
+		const button = document.querySelector("button");
+
+		function greet() {
+		  const name = prompt("What is your name?");
+		  const greeting = document.querySelector("#greeting");
+		  greeting.textContent = `Hello ${name}, nice to see you!`;
+		}
+
+		button.addEventListener("click", greet);
+
+
+		/*
+			Indices: 
+
+
+
+			
+			1. Recuperar el ultimo elemento de cualquier cadena: 
+
+				Hay que hacer un cálculo lógico: 
+
+				```
+				const browserType = "mozilla";
+				browserType.length;
+
+				browserType[browserType.length - 1];
+
+				```
+
+				La longitud de la cadena "mozilla" es 7, pero como el recuento comienza en 0, la posición del último carácter es 6; usar longitud-1 nos da el último carácter.
+
+
+			2. Subcadenas y condicional: 
+
+				1. includes(subCadena):
+
+				2. startsWith():
+
+				3. endsWith()
+
+				4. indexOf(cadenaBuscada, indiceComienzoBusqueda) 
+
+				5. slice():
+
+				6. toUpperCase y toLowerCase()
+
+				7. replace():
+
+				Cambiar cadena:
+
+					Si la queremos guardar en el mismo lugar, contenedor o variable;
+					declarar browserType usando let, no const, porque lo estamos reasignando.
+
+				8. replaceAll()
+
+
+	
+			3. Incrustar operación con literales: 
+
+				const song = "Fight the Youth";
+				const score = 9;
+				const highestScore = 10;
+				const output = `I like the song ${song}. I gave it a score of ${
+				  (score / highestScore) * 100
+				}%.`;
+				console.log(output); // "I like the song Fight the Youth. I gave it a score of 90%."
+
+
+			4. 
+
+
+			5. 
+
+
+			6. 
+			
+			Practicas: 	
+				
+				Qué devuelve el método: 
+					
+					indice, valor, objeto, cantidad, etc. 
+
+				Console.log para debug
+
+
+
+
+
+			Tareas: 
+
+
+		*/
+
+		
+	</script>
+
+</html>
