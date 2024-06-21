@@ -1,0 +1,142 @@
+
+	1. Genera una historia tonta cuando se presiona el botón "Generar historia aleatoria".
+
+	2. Reemplaza el nombre predeterminado "Bob" en la historia con un nombre personalizado, solo si se ingresa un nombre personalizado en el campo de texto "Ingresar nombre personalizado" antes de presionar el botón generar.
+
+	3. Convierte las cantidades y unidades predeterminadas de peso y temperatura de EE.UU. en la historia a equivalentes del Reino Unido si se marca el botón de opción del Reino Unido antes de presionar el botón Generar.
+	
+	4. Genera una nueva historia tonta aleatoria cada vez que se presiona el botón.
+
+
+	Configuración básica:
+
+	 1. Cree un nuevo archivo llamado main.js, en el mismo directorio que su archivo index.html.
+
+	 2. Aplique el archivo JavaScript externo a su HTML insertando un elemento <script> en su HTML que haga referencia a main.js. Colóquelo justo antes de la etiqueta </body> de cierre.
+
+
+	1. Variables y funciones iniciales:
+
+	En el archivo de texto sin formato, copie todo el código debajo del encabezado 
+
+	"1. DEFINICIONES COMPLETAS DE VARIABLES Y FUNCIONES" y péguelo en la parte superior del archivo main.js.
+
+	Esto le brinda tres variables que almacenan referencias al campo de texto "Ingresar nombre personalizado" (customName), el botón "Generar historia aleatoria" (randomize) y el elemento <p> en la parte inferior del cuerpo HTML en el que se incluirá la historia. copiado en (story), respectivamente. Además, tienes una función llamada randomValueFromArray() que toma una matriz y devuelve uno de los elementos almacenados dentro de la matriz al azar.
+
+
+	2. Ahora mire la segunda sección del archivo de texto sin formato: 
+
+	"2. CADENAS DE TEXTO SIN PROCESAR". Este contiene cadenas de texto que actuarán como entrada en nuestro programa. Nos gustaría que incluyeras estas variables internas dentro de main.js:
+
+	1. Almacene la primera cadena de texto grande y larga dentro de una variable llamada storyText.
+
+	2. Almacene el primer conjunto de tres cadenas dentro de una matriz llamada insertX.
+
+	3. Almacene el segundo conjunto de tres cadenas dentro de una matriz llamada insertY.
+
+	4. Almacene el tercer conjunto de tres cadenas dentro de una matriz llamada insertZ.
+
+
+	Colocando el controlador de eventos y la función incompleta:
+
+	1. Ahora regrese al archivo de texto sin formato.
+
+	2. Copie el código que se encuentra debajo del título 
+
+	"3. OYENTE DE EVENTOS Y DEFINICIÓN DE FUNCIÓN PARCIAL" y péguelo en la parte inferior de su archivo main.js. Este:
+
+	Agrega un detector de eventos de clic a la variable ramdomize para que cuando se haga clic en el botón que representa, se ejecute la función result().
+
+	Agrega una definición de función result() parcialmente completada a su código. Durante el resto de la evaluación, deberá completar líneas dentro de esta función para completarla y hacer que funcione correctamente.
+
+
+	3. Completando la función resultado():
+
+	Cree una nueva variable llamada newStory y establezca su valor en storyText. Esto es necesario para que podamos crear una nueva historia aleatoria cada vez que se presiona el botón y se ejecuta la función. Si hiciéramos cambios directamente en storyText, solo podríamos generar una nueva historia una vez.
+
+	Cree tres nuevas variables llamadas xItem, yItem y zItem, y hágalas iguales al resultado de llamar a randomValueFromArray() en sus tres matrices (el resultado en cada caso será un elemento aleatorio de cada matriz en la que se llama). Por ejemplo, puede llamar a la función y hacer que devuelva una cadena aleatoria de insertX escribiendo randomValueFromArray(insertX).
+
+	A continuación, queremos reemplazar los tres marcadores de posición en la cadena newStory ( :insertx:, :inserty: y :insertz:) con las cadenas almacenadas en xItem, yItem y zItem.
+
+	Hay dos posibles métodos de cadena que le ayudarán en este caso: en cada caso, haga que la llamada al método sea igual a newStory, de modo que cada vez que se llame, newStory se haga igual a sí mismo, pero con sustituciones realizadas. Entonces, cada vez que se presiona el botón, estos marcadores de posición se reemplazan con una cadena tonta aleatoria. Como sugerencia adicional, dependiendo del método que elija, es posible que deba realizar una de las llamadas dos veces.
+
+	4. Dentro del primer bloque if, agregue otra llamada al método de reemplazo de cadena para reemplazar el nombre 'Bob' que se encuentra en la cadena newStory con la variable de name. En este bloque decimos "Si se ingresó un valor en la entrada de texto customName, reemplace a Bob en la historia con ese nombre personalizado".
+
+	5. Dentro del segundo bloque if, estamos verificando si se ha seleccionado el botón de opción uk. Si es así, queremos convertir los valores de weight y temperature en la historia de libras y Fahrenheit a stones y centigrade. Lo que debes hacer es lo siguiente:
+
+		1. Busque las fórmulas para convertir libras a piedras y Fahrenheit a centígrados.
+
+		2. Dentro de la línea que define la variable weight, reemplace 300 con un cálculo que convierta 300 libras en piedras. Concatene 'stone' al final del resultado de la llamada general a Math.round().
+
+		3. Dentro de la línea que define la variable de temperature, reemplace 94 con un cálculo que convierta 94 Fahrenheit en centígrados. Concatene 'centrigrade' al final del resultado de la llamada general a Math.round().
+
+		4. Justo debajo de las dos definiciones de variables, agregue dos líneas más de reemplazo de cadenas que reemplacen '94 fahrenheit' con el contenido de la variable de temperature y '300 libras' con el contenido de la variable de weight.
+
+	6. Finalmente, en la penúltima línea de la función, haga que la propiedad textContent de la variable story (que hace referencia al párrafo) sea igual a newStory.
+
+
+	Consejos:
+
+	1. No necesita editar el HTML de ninguna manera, excepto para aplicar JavaScript a su HTML.
+
+	2. Si no está seguro de si JavaScript se aplica correctamente a su HTML, intente eliminar todo lo demás del archivo JavaScript temporalmente, agregue un simple fragmento de JavaScript que sepa que creará un efecto obvio y luego guarde y actualice. Lo siguiente, por ejemplo, convierte el fondo del elemento <html> en rojo, por lo que toda la ventana del navegador debería volverse roja si JavaScript se aplica correctamente:
+	 js
+
+	document.querySelector("html").style.backgroundColor = "rojo";
+
+	3. Math.round() es un método JavaScript integrado que redondea el resultado de un cálculo al número entero más cercano.
+
+	4. Hay tres casos de cadenas que deben reemplazarse. Puedes repetir el método replace() varias veces o puedes usar replaceAll(). Recuerde, ¡las cadenas son inmutables!
+
+	*/
+
+	/*
+
+	1. COMPLETE VARIABLE AND FUNCTION DEFINITIONS
+
+	const customName = document.getElementById('customname');
+	const randomize = document.querySelector('.randomize');
+	const story = document.querySelector('.story');
+
+	function randomValueFromArray(array){
+	  const random = Math.floor(Math.random()*array.length);
+	  return array[random];
+	}
+
+	2. RAW TEXT STRINGS
+
+	It was 94 fahrenheit outside, so :insertx: went for a walk. When they got to :inserty:, they stared in horror for a few moments, then :insertz:. Bob saw the whole thing, but was not surprised — :insertx: weighs 300 pounds, and it was a hot day.
+
+	Willy the Goblin
+	Big Daddy
+	Father Christmas
+
+	the soup kitchen
+	Disneyland
+	the White House
+
+	spontaneously combusted
+	melted into a puddle on the sidewalk
+	turned into a slug and crawled away
+
+	3. EVENT LISTENER AND PARTIAL FUNCTION DEFINITION
+
+	randomize.addEventListener('click', result);
+
+	function result() {
+
+	  if(customName.value !== '') {
+	    const name = customName.value;
+
+	  }
+
+	  if(document.getElementById("uk").checked) {
+	    const weight = Math.round(300);
+	    const temperature =  Math.round(94);
+
+	  }
+
+	  story.textContent = ;
+	  story.style.visibility = 'visible';
+	}
+

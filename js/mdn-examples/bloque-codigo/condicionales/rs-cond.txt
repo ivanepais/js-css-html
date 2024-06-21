@@ -1,0 +1,377 @@
+Opciones o decisiones y resultado -> condicional
+
+	Nos permiten representar dicha toma de decisiones en JavaScript, desde la elección que se debe realizar (por ejemplo, "una galleta o dos"), hasta el resultado resultante de esas elecciones (quizás el resultado de "comí una galleta" podría ser "todavía tenía hambre", y el resultado de "comí dos galletas"
+
+
+1. if...else (si...si no): 
+
+	código legible: "si la condición es verdadera, ejecute el código A; de lo contrario, ejecute el código B".
+
+	if (condition) {
+	  code to run if condition is true 
+	} else {
+	   run some other code instead 
+	}
+
+	condición para probar, colocada entre paréntesis (normalmente "¿este valor es mayor que este otro valor?" o "¿existe este valor?"). 
+
+	La condición utiliza los operadores de comparación que analizamos en el último módulo y devuelve verdadero o falso.
+
+	no es necesario incluir el else y el segundo bloque de llaves; el siguiente también es un código perfectamente legal	
+
+
+	if (condition) {
+	  code to run if condition is true
+	}
+
+	run some other codeze
+
+	
+2. Escenario real:
+
+	Representar situación: 
+
+	Del padre al hijo:  
+
+		"Si me ayudas yendo a hacer las compras, te daré una asignación extra para que puedas comprar el juguete que querías". En JavaScript, podríamos representar esto así.
+
+
+
+	1. predeterminado: 
+
+	Al plantear o representar situaciones que requieran condicional/decision/opciones podemos predeterminarlos con una variable booleana. 
+
+
+	let shoppingDone = false;
+	let childsAllowance;
+
+	if (shoppingDone === true) {
+	  childsAllowance = 10;
+	} else {
+	  childsAllowance = 5;
+	}
+
+	
+	Este código, como se muestra, siempre da como resultado que la variable shoppingDone devuelva falso, lo que significa decepción para nuestro pobre hijo. 
+
+	Dependería de nosotros proporcionar un mecanismo para que el padre establezca la variable shoppingDone en verdadero si el niño hizo la compra
+
+
+3. else...if (además...si):
+	
+	Si necesitamos más opciones. 
+
+	sintaxis: 
+			
+		if else if
+
+		if(){}else if(){}
+
+	sintaxis completa: 
+		
+		if(){ } else if (){ } else if(){ }
+
+		if(condición){//código } else if (condición){//código } else if(condición){//código }
+
+	
+	La última opción, dentro del bloque else { }, es básicamente una opción de "último recurso": el código que contiene se ejecutará si ninguna de las condiciones es verdadera. 
+
+	En este caso, sirve para vaciar el texto del párrafo si no hay nada seleccionado, por ejemplo, si un usuario decide volver a seleccionar la opción de marcador de posición "--Hacer una elección--" que se muestra al principio.
+
+
+4. Operadores de comparación: 
+
+	=== y !==: prueba si un valor es idéntico o no idéntico a otro.
+
+	< y >: prueba si un valor es menor o mayor que otro.
+
+	<= y >=: prueba si un valor es menor o igual, o mayor o igual que otro.
+
+
+	mención especial:
+
+		prueba de valores booleanos (verdadero/falso) y a un patrón común con el que te encontrarás una y otra vez.
+
+		Cualquier valor que no sea falso, indefinido, nulo, 0, NaN o una cadena vacía ('') en realidad devuelve verdadero cuando se prueba como una declaración condicional, por lo tanto, puede usar un nombre de variable por sí solo para probar si es verdadero
+
+		let cheese = "Cheddar";//true en condicional
+		
+		let shoppingDone = false;//false
+
+		let childsAllowance; //indefined
+	
+
+5. Anidar if else: 
+
+	if (choice === "sunny") {
+	  if (temperature < 86) {
+	    para.textContent = `It is ${temperature} degrees outside — nice and sunny. Let's go out to the beach, or the park, and get an ice cream.`;
+	  } else if (temperature >= 86) {
+	    para.textContent = `It is ${temperature} degrees outside — REALLY HOT! If you want to go outside, make sure to put some sunscreen on.`;
+	  }
+	}
+
+	Aunque todo el código funciona en conjunto, cada declaración if...else funciona de forma completamente independiente de la otra.
+
+
+6. Operadores lógicos: and, or, not
+
+	probar varias condiciones sin escribir declaraciones if...else anidadas
+		
+	en condiciones tiene su efecto: 
+
+	and, && - Y: 
+		
+		dos o más expresiones para que todas ellas tengan que evaluarse individualmente como verdaderas, devuelve verdadero
+
+		if (choice === "sunny" && temperature < 86) 
+
+	or, || - O: 
+		
+		encadenar dos o más expresiones para que una o más de ellas tengan que evaluarse individualmente como verdadera para que toda la expresión devuelva verdadero
+
+		if (iceCreamVanOutside || houseStatus === "on fire")
+
+	not, !: 
+		
+		NOT, expresado por ! operador, se puede utilizar para negar una expresión
+
+		si la declaración devuelve verdadero, el operador NOT la negará para que la expresión general devuelva falso.
+		
+		if (!(iceCreamVanOutside || houseStatus === "on fire"))
+
+
+	
+	Un error común al utilizar el operador lógico OR: 
+	
+		if (x === 5 || 7 || 10 || 20) {
+	  // run my code
+	}
+	
+
+	para arreglarlo: 
+	
+		if (x === 5 || x === 7 || x === 10 || x === 20) {
+	  // run my code
+	}
+
+
+7. switch: 
+
+	dejamos if else para situaciones más complejas. 
+
+
+	Para un gran cantidad de opciones simples, sin complejidad. 
+
+	por ej, establecer una variable con una determinada elección de valor o imprimir una declaración particular dependiendo de una condición
+
+	usamos switch: 
+
+		switch (expression) {
+		  case choice1:
+		    // run this code
+		    break;
+
+		  case choice2:
+		    // run this code instead
+		    break;
+
+		  // include as many cases as you like
+
+		  default:
+		    // actually, just run this code
+		    break;
+		}
+
+
+		break: 
+
+			 Si la elección anterior coincide con la expresión/valor, el navegador deja de ejecutar el bloque de código aquí y pasa a cualquier código que aparezca debajo de la declaración de cambio.
+
+		default: 	
+
+			default no tiene otra opción después y no necesita la declaración break ya que no hay nada que hacer. corre después de esto en el bloque de todos modos. Esta es la opción predeterminada que se ejecuta si ninguna de las opciones coincide.
+
+			Nota: No es necesario incluir la sección predeterminada; puede omitirla con seguridad si no hay posibilidad de que la expresión termine siendo igual a un valor desconocido. Sin embargo, si existe la posibilidad de que esto ocurra, debe incluirlo para manejar casos desconocidos.
+
+
+8. ternario:
+	
+	prueba una condición y devuelve un valor/expresión si es verdadero y otro si es falso.
+
+	esto puede ser útil en algunas situaciones y puede ocupar mucho menos código que un bloque if...else si tiene dos opciones que se eligen mediante una condición verdadero/falso.
+
+		condition ? run this code : run this code instead
+
+		const greeting = isBirthday
+		  ? "Happy birthday Mrs. Smith — we hope you have a great day!"
+		  : "Good morning Mrs. Smith.";
+
+
+		  ? (si...) -> ejecución código
+
+		  : (si no) -> ejecución código. 
+
+
+	El operador ternario no sirve sólo para establecer valores de variables; también puedes ejecutar funciones o líneas de código, lo que quieras. 
+
+		function update(bgColor, textColor) {
+		  html.style.backgroundColor = bgColor;
+		  html.style.color = textColor;
+		}
+
+		select.addEventListener("change", () =>
+		  select.value === "black"
+		    ? update("black", "white")
+		    : update("white", "black"),
+		);
+
+
+		Comienza con una condición de prueba: select.value === 'negro'.
+
+		Si esto devuelve verdadero, ejecutamos la función update() con parámetros de blanco y negro, lo que significa que terminamos con un color de fondo negro y un color de texto blanco. 
+
+		Si devuelve falso, ejecutamos la función update() con parámetros de blanco y negro, lo que significa que los colores del sitio están invertidos
+
+
+	Calendar: 
+
+		select.addEventListener("change", () => {
+		  const choice = select.value;
+
+		  let days = 31;
+		  if (choice === "February") {
+		    days = 28;
+		  } else if (
+		    choice === "April" ||
+		    choice === "June" ||
+		    choice === "September" ||
+		    choice === "November"
+		  ) {
+		    days = 30;
+		  }
+
+		  createCalendar(days, choice);
+		});
+
+
+	color choices: 	
+
+		select.addEventListener('change', () => {
+		  const choice = select.value;
+
+		  switch(choice) {
+		    case 'black':
+		      update('black','white');
+		      break;
+		    case 'white':
+		      update('white','black');
+		      break;
+		    case 'purple':
+		      update('purple','white');
+		      break;
+		    case 'yellow':
+		      update('yellow','purple');
+		      break;
+		    case 'psychedelic':
+		      update('lime','purple');
+		      break;
+		  }
+		});
+
+
+	tareas: 
+
+	1. 
+
+		let season = "summer";
+		let response;
+
+		if (season === "summer") {
+		  response = "It's probably nice and warm where you are; enjoy the sun!";
+		} else if (season === "winter") {
+		  response = "I hope you are not too cold. Put some warm clothes on!";
+		} else {
+		  response =
+		    "I don't know what the season is where you are. Hope you are well.";
+		}
+
+
+	2. 
+
+		let response;
+		let score = 75;
+		let machineActive = false;
+
+		if (machineActive) {
+		  if (score < 0 || score > 100) {
+		    response = "This is not possible, an error has occurred.";
+		  } else if (score >= 0 && score < 20) {
+		    response = "That was a terrible score — total fail!";
+		  } else if (score >= 20 && score < 40) {
+		    response =
+		      "You know some things, but it's a pretty bad score. Needs improvement.";
+		  } else if (score >= 40 && score < 70) {
+		    response = "You did a passable job, not bad!";
+		  } else if (score >= 70 && score < 90) {
+		    response = "That's a great score, you really know your stuff.";
+		  } else if (score >= 90 && score <= 100) {
+		    response = "What an amazing score! Did you cheat? Are you for real?";
+		  }
+		} else {
+		  response = "The machine is turned off. Turn it on to process your score.";
+		}
+
+
+
+	3. 
+
+
+
+anidando if else: 
+
+	if (choice === "sunny") {
+		  if (temperature < 86) {
+		    para.textContent = `It is ${temperature} degrees outside — nice and sunny. Let's go out to the beach, or the park, and get an ice cream.`;
+		  } else if (temperature >= 86) {
+		    para.textContent = `It is ${temperature} degrees outside — REALLY HOT! If you want to go outside, make sure to put some sunscreen on.`;
+		  }
+		}
+
+
+anidando ternario: 
+
+	let machineActive = true;
+	let pwd = "cheese";
+
+	let machineResult;
+	let pwdResult;
+
+	if (machineActive) {
+	  machineResult = "Machine is active. Trying login.";
+	  pwdResult =
+	    pwd === "cheese"
+	      ? "Login successful."
+	      : "Password incorrect; login failed.";
+	} else {
+	  machineResult = "Machine is inactive. Activate and try logging in again.";
+	}
+
+
+
+		
+	let machineActive = true;
+	let pwd = 'cheese';
+
+	let machineResult;
+	let pwdResult;
+
+	// Add your code here
+	  
+	machineActive === true
+	  pwd === 'cheese' 
+	   ? pwdResult = 'pwd is correct, you has been enter'
+	   : pwdResult = 'pwd is wrong, you cannot enter'
+	 ? machineResult = 'The machine es ON'
+	 : machineResult = 'The machine is OFF'
+

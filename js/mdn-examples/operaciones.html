@@ -44,8 +44,77 @@
 
 		/*
 			Matemáticas y Operadores: 	
+			
+			Operadores: 
+			
+				Aritméticos:
+
+					+ - * / % **
+
+				precedencia: 
+
+					1.  *, /
+					2. +, - 
+
+					Se cambia con (). 
+
+				
+				Incremento y decremento:
+ 					
+ 					Ideal: 
+ 						++num1 --num2
+
+ 						Incrementa y después devuelve el nuevo valor. 
 
 
+ 					Alternativo: 	
+ 						num1++ num2--
+						
+						devuelve el valor actual y luego lo incrementa.
+
+				Asignación: 
+
+					+=
+
+						x += 4;
+						x = x + 4;
+
+					-=
+						
+						x -= 3;
+						x = x - 3;
+
+					*=
+						
+						x *= 3;
+						x = x * 3;
+
+					/=
+						x /= 5;
+						x = x / 5;
+
+
+				Comparación: 
+					
+					===
+						5 === 2 + 4
+
+					!==
+
+						5 !== 2 + 3
+
+					<
+						10 < 6
+					
+					>
+						10 > 20
+
+					<=	
+
+						3 <= 2
+
+					>=
+						5 >= 4
 			Comprobar resultado o número par: 
 
 				usar operador %(resto)
@@ -60,13 +129,41 @@
 
 			Tareas: 
 
-			1. 
+			1. Resultado final 48 y par: 
+
+				const number1 = 4;
+				const number2 = 8;
+				const number3 = 12;
+				const number4 = 8;
+
+				const additionResult = number1 + number2;
+				const subtractionResult = number3 - number4;
+
+				finalResult = additionResult * subtractionResult;
+
+				evenOddResult = finalResult % 2;
+			
+
+			2. Precedencia, toFixed y conversión: 
+
+				let result = (7 + 13) / (9 + 7);
+				
+				let result2 = 100 / (2 * 6);
+
+				result *= result2;
+
+				const finalResult = result.toFixed(2);
+
+				const finalNumber = Number(finalResult);
 
 
-			2. 
+			3. Comparaciónes booleanas: 
 
+				const weightComparison = eleWeight < mouseWeight;
 
-			3. 
+				const heightComparison = ostrichHeight > duckHeight;
+
+				const pwdMatch = pwd1 === pwd2;
 
 
 		*/

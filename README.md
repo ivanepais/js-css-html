@@ -3337,25 +3337,930 @@ Contenido de js, css y html.
 
 
 
-
-
 || Matrices
 
 	Almacenamiento de un conjunto de datos. 
 
 
+	Al almacenar una lista de elementos de datos bajo un único nombre de variable, se nos permite recuperar, agregar y eliminar elementos almacenados en una matriz, y más.
+
+
+	Array: 
+
+		Se describen como "objetos similares a listas"; son objetos únicos que contienen múltiples valores almacenados en una lista.
+
+		Los objetos de matriz se pueden almacenar en variables y tratarse de la misma manera que cualquier otro tipo de valor, la diferencia es que podemos acceder a cada valor dentro de la lista individualmente y hacer cosas súper útiles y eficientes con la lista, como recorrer y haz lo mismo con todos los valores. 
+
+		Tal vez tengamos una serie de artículos de productos y sus precios almacenados en una matriz, y queremos recorrerlos todos e imprimirlos en una factura, mientras sumamos todos los precios e imprimimos el precio total en la parte inferior.
+
+		Si no tuviéramos matrices, tendríamos que almacenar cada elemento en una variable separada y luego llamar al código que imprime y agrega por separado para cada elemento. 
+
+		Esto sería mucho más largo de escribir, menos eficiente y más propenso a errores. 
+
+		Si tuviéramos 10 artículos para agregar a la factura ya sería molesto, pero ¿qué pasa con 100 artículos o 1000? Volveremos a este ejemplo más adelante en el artículo.
+
+		Como en artículos anteriores, aprendamos sobre los conceptos básicos reales de las matrices ingresando algunos ejemplos en la consola del desarrollador del navegador.
+
+
+	Crear Array: 
+
+		Las matrices constan de corchetes y elementos separados por comas.
+
+		1. Supongamos que queremos almacenar una lista de compras en una matriz. 
+
+		```js
+
+		const shopping = ["bread", "milk", "cheese", "hummus", "noodles"];
+		console.log(shopping);
+
+		```
+
+		2. En el ejemplo anterior, cada elemento es una cadena, pero en una matriz podemos almacenar varios tipos de datos: cadenas, números, objetos e incluso otras matrices. 
+
+		También podemos mezclar tipos de datos en una sola matriz; no tenemos que limitarnos a almacenar solo números en una matriz y en otra solo cadenas. Por ejemplo:
+
+		```js
+
+		const sequence = [1, 1, 2, 3, 5, 8, 13];
+		const random = ["tree", 795, [0, 1, 2]];
+
+		```
+
+
+	Encontrar la longitud de una matriz:
+
+		Puede averiguar la longitud de una matriz (cuántos elementos hay en ella) exactamente de la misma manera que averigua la longitud (en caracteres) de una cadena: utilizando la propiedad de longitud. 
+
+		```js
+
+		const shopping = ["bread", "milk", "cheese", "hummus", "noodles"];
+		console.log(shopping.length); // 5
+
+		```
+
+
+	Acceder y modificar elementos de la matriz
+
+		Los elementos de una matriz están numerados comenzando desde cero.
+
+		Este número se llama índice del artículo. 
+
+		Entonces el primer elemento tiene índice 0, el segundo tiene índice 1, y así sucesivamente. 
+
+		Puede acceder a elementos individuales en la matriz usando notación entre corchetes y proporcionando el índice del elemento, de la misma manera que accedió a las letras en una cadena.
+
+		1. Ingrese lo siguiente en su consola
+
+		```js
+
+		const shopping = ["bread", "milk", "cheese", "hummus", "noodles"];
+		console.log(shopping[0]);
+		// returns "bread"
+
+		```
+
+
+		2. También puede modificar un elemento en una matriz dándole un nuevo valor a un solo elemento de la matriz. Prueba esto:
+
+		```js
+		const shopping = ["bread", "milk", "cheese", "hummus", "noodles"];
+		shopping[0] = "tahini";
+		console.log(shopping);
+		// shopping will now return [ "tahini", "milk", "cheese", "hummus", "noodles" ]
+
+		```
+
+		Nota: Lo hemos dicho antes, pero solo como recordatorio: ¡Javascript comienza a indexar matrices en cero!
+
+
+		3. Tenga en cuenta que una matriz dentro de una matriz se denomina matriz multidimensional. 
+
+		Puede acceder a un elemento dentro de una matriz que a su vez está dentro de otra matriz encadenando dos conjuntos de corchetes. 
+
+		Por ejemplo, para acceder a uno de los elementos dentro de la matriz que es el tercer elemento dentro de la matriz aleatoria (ver sección anterior), podríamos hacer algo como esto:
+
+		```js
+
+		const random = ["tree", 795, [0, 1, 2]];
+		random[2][2];
+
+		```
+
+
+	Encontrar el índice de elementos en una matriz:
+
+		Si no conoce el índice de un elemento, puede utilizar el método indexOf(). 
+
+		El método indexOf() toma un elemento como argumento y devolverá el índice del elemento o -1 si el elemento no está en la matriz.
+
+		```js
+
+		const birds = ["Parrot", "Falcon", "Owl"];
+		console.log(birds.indexOf("Owl")); //  2
+		console.log(birds.indexOf("Rabbit")); // -1
+
+		```
+
+
+	Agregar elementos:
+
+		Para agregar uno o más elementos al final de una matriz podemos usar push(). 
+
+		Tenga en cuenta que debe incluir uno o más elementos que desee agregar al final de su matriz.
+
+		```js
+
+		const cities = ["Manchester", "Liverpool"];
+		cities.push("Cardiff");
+		console.log(cities); // [ "Manchester", "Liverpool", "Cardiff" ]
+		cities.push("Bradford", "Brighton");
+		console.log(cities); // [ "Manchester", "Liverpool", "Cardiff", "Bradford", "Brighton" ]
+
+		```
+
+		La constante newLength (nueva longitud/tamaño) de la matriz se devuelve cuando se completa la llamada al método. 
+
+		Si desea almacenar la nueva longitud de la matriz en una variable, puede hacer algo como esto: más elementos que desee agregar al final de su matriz
+
+		```js
+
+		const cities = ["Manchester", "Liverpool"];
+		const newLength = cities.push("Bristol");
+		console.log(cities); // [ "Manchester", "Liverpool", "Bristol" ]
+		console.log(newLength); // 3
+
+		```
+
+		Para agregar un elemento al inicio de la matriz, use unshift():
+
+		```js
+
+		const cities = ["Manchester", "Liverpool"];
+		cities.unshift("Edinburgh");
+		console.log(cities); // [ "Edinburgh", "Manchester", "Liverpool" ]
+
+		```
+
+
+	Eliminando elementos:
+
+		Para eliminar el último elemento de la matriz, use pop().
+
+		```js
+
+		const cities = ["Manchester", "Liverpool"];
+		cities.pop();
+		console.log(cities); // [ "Manchester" ]
+
+		```
+
+		El método pop() devuelve el elemento que se eliminó. Para guardar ese elemento en una nueva variable, puede hacer esto:
+
+		```js
+
+		const cities = ["Manchester", "Liverpool"];
+		const removedCity = cities.pop();
+		console.log(removedCity); // "Liverpool"
+
+		```
+
+		Para eliminar el primer elemento de una matriz, use shift():
+
+		```js
+
+		const cities = ["Manchester", "Liverpool"];
+		cities.shift();
+		console.log(cities); // [ "Liverpool" ]
+
+		
+		```
+
+		Si conoce el índice de un elemento, puede eliminarlo de la matriz usando splice():
+
+		```js
+
+		const cities = ["Manchester", "Liverpool", "Edinburgh", "Carlisle"];
+		const index = cities.indexOf("Liverpool");
+		if (index !== -1) {
+		  cities.splice(index, 1);
+		}
+		console.log(cities); // [ "Manchester", "Edinburgh", "Carlisle" ]
+
+		```
+
+		En esta llamada a splice(), el primer argumento dice dónde comenzar a eliminar elementos y el segundo argumento dice cuántos elementos deben eliminarse. Entonces puedes eliminar más de un elemento:
+
+		```js
+
+		const cities = ["Manchester", "Liverpool", "Edinburgh", "Carlisle"];
+		const index = cities.indexOf("Liverpool");
+		if (index !== -1) {
+		  cities.splice(index, 2);
+		}
+		console.log(cities); // [ "Manchester", "Carlisle" ]
+
+		```
+
+
+	Accediendo a cada elemento:
+
+		Muy a menudo querrás acceder a todos los elementos de la matriz.
+
+		Puedes hacer esto usando la declaración for...of
+
+		```js
+
+		const birds = ["Parrot", "Falcon", "Owl"];
+
+		for (const bird of birds) {
+		  console.log(bird);
+		}
+
+		```
+
+
+		A veces querrás hacer lo mismo con cada elemento de una matriz, dejándote con una matriz que contiene los elementos modificados. 
+
+		Puedes hacer esto usando map(). 
+
+		El siguiente código toma una serie de números y duplica cada número:
+
+		```js
+
+		function double(number) {
+		  return number * 2;
+		}
+		const numbers = [5, 2, 7, 6];
+		const doubled = numbers.map(double);
+		console.log(doubled); // [ 10, 4, 14, 12 ]
+
+		```
+
+		Le damos una función a map(), y map() llama a la función una vez para cada elemento de la matriz, pasando el elemento. 
+
+		Luego agrega el valor de retorno de cada llamada a función a una nueva matriz y finalmente devuelve la nueva matriz.
+
+
+		A veces querrás crear una nueva matriz que contenga solo los elementos de la matriz original que coincidan con alguna prueba.
+
+		Puedes hacerlo usando filter(). 
+
+		El siguiente código toma una matriz de cadenas y devuelve una matriz que contiene solo las cadenas que tienen más de 8 caracteres:
+
+		```js
+
+		function isLong(city) {
+		  return city.length > 8;
+		}
+		const cities = ["London", "Liverpool", "Totnes", "Edinburgh"];
+		const longer = cities.filter(isLong);
+		console.log(longer); // [ "Liverpool", "Edinburgh" ]
+
+		```
+
+		Al igual que map(), le damos una función al método filter() y filter() llama a esta función para cada elemento de la matriz, pasando el elemento. 
+
+		Si la función devuelve verdadero, entonces el elemento se agrega a una nueva matriz. 
+
+		Finalmente devuelve la nueva matriz.
+
+
+	Conversión entre cadenas y matrices:
+
+		A menudo se le presentarán algunos datos sin procesar contenidos en una cadena grande y larga, y es posible que desee separar los elementos útiles en una forma más útil y luego hacerles cosas, como mostrarlos en una tabla de datos.
+
+		Para hacer esto, podemos usar el método split(). 
+
+		En su forma más simple, esto toma un único parámetro, el carácter en el que desea separar la cadena, y devuelve las subcadenas entre el separador como elementos de una matriz.
+
+		Nota: Bueno, técnicamente este es un método de cadena, no un método de matriz, pero lo hemos incluido con matrices porque funciona bien aquí.
+
+
+		1. Juguemos con esto, para ver cómo funciona. Primero, crea una cadena en tu consola:
+
+		```js
+
+		const data = "Manchester,London,Liverpool,Birmingham,Leeds,Carlisle";
+
+		```
+
+
+		2. Ahora dividámoslo en cada coma:
+
+		```js
+
+		const cities = data.split(",");
+		cities;
+
+		```
+
+
+		3. Finalmente, intente encontrar la longitud de su nueva matriz y recuperar algunos elementos de ella:
+
+		```js
+
+		cities.length;
+		cities[0]; // the first item in the array
+		cities[1]; // the second item in the array
+		cities[cities.length - 1]; // the last item in the array
+
+		```
+
+
+		4. También puedes ir en sentido contrario usando el método join(). Pruebe lo siguiente:
+
+		```js
+
+		const commaSeparated = cities.join(",");
+		commaSeparated;
+
+		```
+
+		Reconstruye cadena original
+
+
+		5. Otra forma de convertir una matriz en una cadena es utilizar el método toString(). 
+
+		toString() es posiblemente más simple que join() ya que no requiere un parámetro, pero es más limitante.
+
+		Con join() puedes especificar diferentes separadores, mientras que toString() siempre usa una coma. (Intente ejecutar el Paso 4 con un carácter diferente a una coma).
+
+		```js
+
+		const dogNames = ["Rocket", "Flash", "Bella", "Slugger"];
+		dogNames.toString(); // Rocket,Flash,Bella,Slugger
+
+		```
+
+
+
+|| 2. Entendiendo los Bloques de Código en JS
+
+	Tipos de bloques de código que se encuentran comúnmente, como declaraciones condicionales, bucles, funciones y eventos.
+
+
+	Guia: 
+
+
+		1. Condicionales: toma de decisiones: 
+
+			En cualquier lenguaje de programación, el código necesita tomar decisiones y llevar a cabo acciones en consecuencia dependiendo de diferentes entradas. 
+
+			Por ejemplo, en un juego, si el número de vidas del jugador es 0, entonces se acabó el juego.
+
+			En una aplicación meteorológica, si se mira por la mañana, muestra un gráfico del amanecer; muestra estrellas y una luna si es de noche. 
+
+			En este artículo exploraremos cómo funcionan las estructuras condicionales en JavaScript.
+
+
+		2. Bucles:
+
+			A veces es necesario realizar una tarea más de una vez seguidas. 
+
+			Por ejemplo, mirar una lista de nombres. 
+
+			En programación, los bucles realizan muy bien este trabajo. 
+
+			Aquí veremos estructuras de bucle en JavaScript.
+	
+
+		3. Funciones: bloques de código reutilizables
+
+			Las funciones le permiten almacenar un fragmento de código que realiza una única tarea dentro de un bloque definido y luego llamar a ese código cuando lo necesite mediante un único comando corto, en lugar de tener que escribir el mismo código varias veces. 
+
+			En este artículo exploraremos conceptos fundamentales detrás de funciones como la sintaxis básica, cómo invocar y definir funciones, alcance y parámetros.
+
+
+		4. Construye tu propia función:
+
+			Habiendo tratado la mayor parte de la teoría esencial anteriormente, este artículo proporciona una experiencia práctica. 
+
+			Aquí obtendrá algo de práctica para crear su propia función personalizada. 
+
+			A lo largo del camino, también explicaremos algunos detalles útiles adicionales sobre cómo tratar con funciones.
+
+
+		5. Valores de retorno de la función
+
+			El último concepto esencial que debes conocer sobre una función son los valores de retorno.
+
+			Algunas funciones no devuelven un valor significativo una vez completadas, pero otras sí. 
+
+			Es importante comprender cuáles son sus valores, cómo utilizarlos en su código y cómo hacer que sus propias funciones personalizadas devuelvan valores útiles.
+
+
+		6. Introducción a los eventos:
+
+			Los eventos son acciones o sucesos que suceden en el sistema que estás programando, de los cuales el sistema te informa para que puedas responder a ellos de alguna manera si lo deseas. 
+
+			Por ejemplo, si el usuario hace clic en un botón en una página web, es posible que desee responder a esa acción mostrando un cuadro de información. 
+
+			En este último artículo, analizaremos algunos conceptos importantes relacionados con los eventos y veremos cómo funcionan en los navegadores.
+
+
+
+|| Condicionales: decisiones
+
+	A veces, el código necesita tomar decisiones y llevar a cabo acciones en consecuencia en función de diferentes entradas.
+
+	Por ejemplo, en un juego, si el número de vidas del jugador es 0, entonces se acabó el juego. 
+
+	En una aplicación meteorológica, si se mira por la mañana, muestra un gráfico del amanecer; mostrar estrellas y una luna si es de noche.
+
+
+	Las opciones o decisiones se crean con una condición: 
+
+		Los seres humanos (y otros animales) toman decisiones todo el tiempo que afectan sus vidas, desde pequeñas ("¿debería comer una galleta o dos?") hasta grandes ("debería quedarme en mi país de origen y trabajar en la granja de mi padre, o ¿Debería mudarme a Estados Unidos y estudiar astrofísica?")
+
+		Las declaraciones condicionales nos permiten representar dicha toma de decisiones en JavaScript, desde la elección que se debe realizar (por ejemplo, "una galleta o dos"), hasta el resultado resultante de esas elecciones (quizás el resultado de "comí una galleta" podría ser "todavía tenía hambre", y el resultado de "comí dos galletas" podría ser "me sentí lleno, pero mamá me regañó por comerme todas las galletas").
+
+
+	Declaraciones If...else (si...si no):
+
+
+		Sintaxis básica if...else: 
+
+		```js
+
+		if (condition) {
+		  /* code to run if condition is true */
+		} else {
+		  /* run some other code instead */
+		}
+
+
+		```
+
+		Aquí tenemos:
+
+		1. La palabra clave si va seguida de algunos paréntesis.
+
+
+		2. Una condición para probar, colocada entre paréntesis (normalmente "¿este valor es mayor que este otro valor?" o "¿existe este valor?"). 
+
+		La condición utiliza los operadores de comparación que analizamos en el último módulo y devuelve verdadero o falso.
+
+
+		3. Un conjunto de llaves, dentro de las cuales tenemos algo de código; puede ser cualquier código que queramos y solo se ejecuta si la condición devuelve verdadero.
+
+
+		4. La palabra clave else.
+
+
+		5. Otro conjunto de llaves, dentro del cual tenemos más código (puede ser cualquier código que queramos y solo se ejecuta si la condición no es verdadera) o, en otras palabras, la condición es falsa.
+
+		Este código es bastante legible por humanos: dice "si la condición es verdadera, ejecute el código A; de lo contrario, ejecute el código B".
+
+		Debes tener en cuenta que no es necesario incluir el else y el segundo bloque de llaves; el siguiente también es un código perfectamente legal
+
+		```js
+
+		if (condition) {
+		  /* code to run if condition is true */
+		}
+
+		/* run some other code */
+
+
+		```
+
+		Sin embargo, debe tener cuidado aquí: en este caso, el segundo bloque de código no está controlado por la declaración condicional, por lo que siempre se ejecuta, independientemente de si la condición devuelve verdadero o falso. 
+
+		Esto no es necesariamente algo malo, pero puede que no sea lo que desea; a menudo desea ejecutar un bloque de código u otro, no ambos.
+
+		Como punto final, aunque no se recomienda, a veces puede ver declaraciones if...else escritas sin llaves:
+
+
+		```js
+
+		if (condition) /* code to run if condition is true */
+		else /* run some other code instead */
+
+		```
+
+		Esta sintaxis es perfectamente válida, pero es mucho más fácil entender el código si usas las llaves para delimitar los bloques de código y usas múltiples líneas y sangría.
+
+
+	Ejemplo real: 
+
+		Imagínese a un niño al que su madre o su padre le piden ayuda con una tarea.
+
+		El padre podría decir: "¡Hola, cariño! Si me ayudas yendo a hacer las compras, te daré una asignación extra para que puedas comprar el juguete que querías". En JavaScript, podríamos representar esto así.
+
+		```js
+
+		let shoppingDone = false;
+		let childsAllowance;
+
+		if (shoppingDone === true) {
+		  childsAllowance = 10;
+		} else {
+		  childsAllowance = 5;
+		}
+
+		```
+
+		Este código, como se muestra, siempre da como resultado que la variable shoppingDone devuelva falso, lo que significa decepción para nuestro pobre hijo. 
+
+		Dependería de nosotros proporcionar un mecanismo para que el padre establezca la variable shoppingDone en verdadero si el niño hizo la compra.
+
+
+	Else...if (además si): 
+
+		El último ejemplo nos proporcionó dos opciones o resultados, pero ¿qué pasa si queremos más de dos?
+
+		Hay una manera de encadenar opciones/resultados adicionales a tu if...else: usando else if. 
+
+		Cada opción adicional requiere un bloque adicional para colocar entre if () { } y else { }; consulte el siguiente ejemplo más complicado, que podría ser parte de una aplicación simple de pronóstico del tiempo:
+
+		```html
+
+		<label for="weather">Select the weather type today: </label>
+		<select id="weather">
+		  <option value="">--Make a choice--</option>
+		  <option value="sunny">Sunny</option>
+		  <option value="rainy">Rainy</option>
+		  <option value="snowing">Snowing</option>
+		  <option value="overcast">Overcast</option>
+		</select>
+
+		<p></p>
+
+		```
+
+
+		```js
+
+		const select = document.querySelector("select");
+		const para = document.querySelector("p");
+
+		select.addEventListener("change", setWeather);
+
+		function setWeather() {
+		  const choice = select.value;
+
+		  if (choice === "sunny") {
+		    para.textContent =
+		      "It is nice and sunny outside today. Wear shorts! Go to the beach, or the park, and get an ice cream.";
+		  } else if (choice === "rainy") {
+		    para.textContent =
+		      "Rain is falling outside; take a rain coat and an umbrella, and don't stay out for too long.";
+		  } else if (choice === "snowing") {
+		    para.textContent =
+		      "The snow is coming down — it is freezing! Best to stay in with a cup of hot chocolate, or go build a snowman.";
+		  } else if (choice === "overcast") {
+		    para.textContent =
+		      "It isn't raining, but the sky is grey and gloomy; it could turn any minute, so take a rain coat just in case.";
+		  } else {
+		    para.textContent = "";
+		  }
+		}
+
+		```
+
+		1. Aquí tenemos un elemento HTML <select> que nos permite elegir diferentes condiciones climáticas y un párrafo simple.
+
+
+		2. En JavaScript, almacenamos una referencia a los elementos <select> y <p> y agregamos un detector de eventos al elemento <select> para que cuando se cambie su valor, se ejecute la función setWeather().
+
+
+		3. Cuando se ejecuta esta función, primero configuramos una variable llamada elección al valor actual seleccionado en el elemento <select>. 
+
+		Luego usamos una declaración condicional para mostrar texto diferente dentro del párrafo dependiendo de cuál sea el valor de elección. 
+
+		Observe cómo se prueban todas las condiciones en los bloques else if () { }, excepto la primera, que se prueba en un bloque if () { }.
+
+
+		4. La última opción, dentro del bloque else { }, es básicamente una opción de "último recurso": el código que contiene se ejecutará si ninguna de las condiciones es verdadera. 
+
+		En este caso, sirve para vaciar el texto del párrafo si no hay nada seleccionado, por ejemplo, si un usuario decide volver a seleccionar la opción de marcador de posición "--Hacer una elección--" que se muestra al principio.
+
+
+	Una nota sobre los operadores de comparación:
+
+		Los operadores de comparación se utilizan para probar las condiciones dentro de nuestras declaraciones condicionales. 
+
+		La primera vez que analizamos los operadores de comparación fue en nuestro artículo Matemáticas básicas en JavaScript: números y operadores. 
+
+		Nuestras opciones son:
+
+		 === y !==: prueba si un valor es idéntico o no idéntico a otro.
+
+		 < y >: prueba si un valor es menor o mayor que otro.
+
+		 <= y >=: prueba si un valor es menor o igual, o mayor o igual que otro.
+
+		Queríamos hacer una mención especial a la prueba de valores booleanos (verdadero/falso) y a un patrón común con el que te encontrarás una y otra vez.
+
+		Cualquier valor que no sea falso, indefinido, nulo, 0, NaN o una cadena vacía ('') en realidad devuelve verdadero cuando se prueba como una declaración condicional, por lo tanto, puede usar un nombre de variable por sí solo para probar si es verdadero.
+
+		o incluso que existe (es decir, que no está indefinido). Así, por ejemplo
+
+
+		```js
+
+		let cheese = "Cheddar";
+
+		if (cheese) {
+		  console.log("Yay! Cheese available for making cheese on toast.");
+		} else {
+		  console.log("No cheese on toast for you today.");
+		}
+
+		```
+
+		Y, volviendo a nuestro ejemplo anterior sobre el niño haciendo una tarea para sus padres, podrías escribirlo así
+
+		```js
+
+		let shoppingDone = false;
+		let childsAllowance;
+
+		// We don't need to explicitly specify 'shoppingDone === true'
+		if (shoppingDone) {
+		  childsAllowance = 10;
+		} else {
+		  childsAllowance = 5;
+		}
+
+		```
+
+	Anidando if else: 
+
+		Está perfectamente bien poner una declaración if...else dentro de otra para anidarlas. 
+
+		Por ejemplo, podríamos actualizar nuestra aplicación de pronóstico del tiempo para mostrar un conjunto adicional de opciones dependiendo de la temperatura.
+
+		```js
+
+		if (choice === "sunny") {
+		  if (temperature < 86) {
+		    para.textContent = `It is ${temperature} degrees outside — nice and sunny. Let's go out to the beach, or the park, and get an ice cream.`;
+		  } else if (temperature >= 86) {
+		    para.textContent = `It is ${temperature} degrees outside — REALLY HOT! If you want to go outside, make sure to put some sunscreen on.`;
+		  }
+		}
+
+
+		```
+
+		Aunque todo el código funciona en conjunto, cada declaración if...else funciona de forma completamente independiente de la otra.
+
+
+	Operadores lógicos: and, or, not
+
+		Si desea probar varias condiciones sin escribir declaraciones if...else anidadas, los operadores lógicos pueden ayudarle. Cuando se usan en condiciones, los dos primeros hacen lo siguiente:
+
+		 && - Y; le permite encadenar dos o más expresiones para que todas ellas tengan que evaluarse individualmente como verdaderas para que la expresión completa devuelva verdadera.
+
+		 || - O; le permite encadenar dos o más expresiones para que una o más de ellas tengan que evaluarse individualmente como verdadera para que toda la expresión devuelva verdadero.
+
+		Para darle un ejemplo AND, el fragmento de ejemplo anterior se puede reescribir a este
+
+		```js
+
+		if (choice === "sunny" && temperature < 86) {
+		  para.textContent = `It is ${temperature} degrees outside — nice and sunny. Let's go out to the beach, or the park, and get an ice cream.`;
+		} else if (choice === "sunny" && temperature >= 86) {
+		  para.textContent = `It is ${temperature} degrees outside — REALLY HOT! If you want to go outside, make sure to put some sunscreen on.`;
+		}
+
+		```
+
+		Entonces, por ejemplo, el primer bloque de código solo se ejecutará si la opción === 'soleado' y la temperatura < 86 devuelven verdadero.
+
+		Veamos un ejemplo rápido de OR
+
+		```js
+
+		if (iceCreamVanOutside || houseStatus === "on fire") {
+		  console.log("You should leave the house quickly.");
+		} else {
+		  console.log("Probably should just stay in then.");
+		}
+
+
+		```
+
+		El último tipo de operador lógico, NOT, expresado por ! operador, se puede utilizar para negar una expresión. Combinémoslo con OR en el ejemplo anterior:
+
+		```js
+
+		if (!(iceCreamVanOutside || houseStatus === "on fire")) {
+		  console.log("Probably should just stay in then.");
+		} else {
+		  console.log("You should leave the house quickly.");
+		}
+
+		```
+
+		En este fragmento, si la declaración OR devuelve verdadero, el operador NOT la negará para que la expresión general devuelva falso.
+
+		Puede combinar tantas declaraciones lógicas como desee, en cualquier estructura. 
+
+		El siguiente ejemplo ejecuta el código interno solo si ambas declaraciones OR devuelven verdadero, lo que significa que la declaración AND general devolverá verdadero.
+
+		```js
+
+		if ((x === 5 || y > 3 || z <= 10) && (loggedIn || userName === "Steve")) {
+		  // run the code
+		}
+
+		```
+
+		Un error común al utilizar el operador lógico OR en declaraciones condicionales es intentar indicar la variable cuyo valor está verificando una vez y luego dar una lista de valores que podrían ser verdaderos, separados por || (O) operadores. Por ejemplo:
+
+		```js
+
+		if (x === 5 || 7 || 10 || 20) {
+		  // run my code
+		}
+
+		```
+
+		En este caso, la condición dentro de if () siempre se evaluará como verdadera ya que 7 (o cualquier otro valor distinto de cero) siempre se evaluará como verdadero. 
+
+		Esta condición en realidad dice "si x es igual a 5, o 7 es verdadero, lo cual siempre es cierto". 
+
+		¡Esto lógicamente no es lo que queremos! Para que esto funcione, debe especificar una prueba completa en cada lado de cada operador OR:
+
+		```js
+
+		if (x === 5 || x === 7 || x === 10 || x === 20) {
+		  // run my code
+		}
+
+		```
+
+
+	Switch:
+
+		Las declaraciones if...else hacen bien el trabajo de habilitar el código condicional, pero no están exentas de desventajas. 
+
+		Son principalmente buenos para casos en los que tienes un par de opciones y cada una requiere una cantidad razonable de código para ejecutarse y/o las condiciones son complejas (por ejemplo, múltiples operadores lógicos). 
+
+		Para los casos en los que simplemente desea establecer una variable con una determinada elección de valor o imprimir una declaración particular dependiendo de una condición, la sintaxis puede ser un poco engorrosa, especialmente si tiene una gran cantidad de opciones.
+
+		En tal caso, las declaraciones de switch son tus amigas: toman una sola expresión/valor como entrada y luego examinan varias opciones hasta encontrar una que coincida con ese valor, ejecutando el código correspondiente que la acompaña. 
+
+		Aquí hay más pseudocódigo, para darle una idea.
+
+		```js
+
+		switch (expression) {
+		  case choice1:
+		    // run this code
+		    break;
+
+		  case choice2:
+		    // run this code instead
+		    break;
+
+		  // include as many cases as you like
+
+		  default:
+		    // actually, just run this code
+		    break;
+		}
+
+
+		```
+
+		 1. La palabra clave switch, seguida de un conjunto de paréntesis.
+
+		 2. Una expresión o valor dentro del paréntesis.
+
+		 3. La palabra clave mayúscula, seguida de una opción de cuál podría ser la expresión/valor, seguida de dos puntos.
+
+		 4. Algún código para ejecutar si la elección coincide con la expresión.
+
+		 5. Una declaración de break, seguida de un punto y coma. Si la elección anterior coincide con la expresión/valor, el navegador deja de ejecutar el bloque de código aquí y pasa a cualquier código que aparezca debajo de la declaración de cambio.
+
+		 6. Tantos otros casos (puntos 3 a 5) como desee.
+
+		 7. La palabra clave default, seguida exactamente del mismo patrón de código que uno de los casos (viñetas 3 a 5), ​​excepto que default no tiene otra opción después y no necesita la declaración break ya que no hay nada que hacer. corre después de esto en el bloque de todos modos. 
+
+		 Esta es la opción predeterminada que se ejecuta si ninguna de las opciones coincide.
+
+		Nota: No es necesario incluir la sección predeterminada; puede omitirla con seguridad si no hay posibilidad de que la expresión termine siendo igual a un valor desconocido. Sin embargo, si existe la posibilidad de que esto ocurra, debe incluirlo para manejar casos desconocidos.
+
+
+	Operador ternario: 
+
+		Hay una última parte de la sintaxis que queremos presentarle antes de que empiece a jugar con algunos ejemplos. 
+
+		El operador ternario o condicional es una pequeña parte de sintaxis que prueba una condición y devuelve un valor/expresión si es verdadero y otro si es falso; esto puede ser útil en algunas situaciones y puede ocupar mucho menos código que un bloque if...else si tiene dos opciones que se eligen mediante una condición verdadero/falso. 
+
+		El pseudocódigo se ve así
+
+		```js
+
+		condition ? run this code : run this code instead
+
+		```
+
+		Así que veamos un ejemplo simple:
+
+		```js
+
+		const greeting = isBirthday
+		  ? "Happy birthday Mrs. Smith — we hope you have a great day!"
+		  : "Good morning Mrs. Smith.";
+
+		```
+
+		Aquí tenemos una variable llamada isBirthday; si esto es cierto, le damos a nuestro invitado un mensaje de feliz cumpleaños; si no, le damos el saludo diario estándar.
+
+
+	Ejemplo de operador ternario:
+
+		El operador ternario no sirve sólo para establecer valores de variables; también puedes ejecutar funciones o líneas de código, lo que quieras. 
+
+		El siguiente ejemplo en vivo muestra un selector de temas simple donde se aplica el estilo del sitio mediante un operador ternario.
+
+		```html
+
+		<label for="theme">Select theme: </label>
+		<select id="theme">
+		  <option value="white">White</option>
+		  <option value="black">Black</option>
+		</select>
+
+		<h1>This is my website</h1>
+
+		```
+
+		```js
+
+		const select = document.querySelector("select");
+		const html = document.querySelector("html");
+		document.body.style.padding = "10px";
+
+		function update(bgColor, textColor) {
+		  html.style.backgroundColor = bgColor;
+		  html.style.color = textColor;
+		}
+
+		select.addEventListener("change", () =>
+		  select.value === "black"
+		    ? update("black", "white")
+		    : update("white", "black"),
+		);
+
+		```
+
+		Aquí tenemos un elemento <select> para elegir un tema (blanco o negro), además de un h1 simple para mostrar el título de un sitio web. 
+
+		También tenemos una función llamada update(), que toma dos colores como parámetros (entradas). 
+
+		El color de fondo del sitio web se establece en el primer color proporcionado y el color del texto se establece en el segundo color proporcionado.
+
+		Finalmente, también tenemos un detector de eventos onchange que sirve para ejecutar una función que contiene un operador ternario.
+
+		Comienza con una condición de prueba: select.value === 'negro'. Si esto devuelve verdadero, ejecutamos la función update() con parámetros de blanco y negro, lo que significa que terminamos con un color de fondo negro y un color de texto blanco. 
+
+		Si devuelve falso, ejecutamos la función update() con parámetros de blanco y negro, lo que significa que los colores del sitio están invertidos.
+
+		Nota: También puede encontrar este ejemplo en GitHub (véalo ejecutándose en vivo allí también).
+
+
+
+|| Bucles
 
 
 
 
-|| 2. Entendiendo los Bloques en JS
+|| Funciones 
+
+
+
+
+
+|| Funciones Propias
+
+
+
+
+|| Retorno de Funciones
+
+
+
+
+
+|| Intro a Eventos
+
+
+
+
+
+
+
+|| 3. OOP en JS
 
 
 	Guia: 
 
 		1. 
-
-
 
 
 

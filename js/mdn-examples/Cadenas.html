@@ -30,12 +30,47 @@
 		button.addEventListener("click", greet);
 
 
-		/*
-			Indices: 
+		/*	
+			concatenar: 
+				
+				const greeting = "Hello";
+				const name = "Chris";
+				console.log(greeting + ", " + name); // "Hello, Chris"
 
 
+				console.log(`${greeting}, ${name}`); // "Hello, Chris"
+				
 
+			conversión a number o string: 
 			
+
+			formatear simbolos: 
+				
+				const bigmouth = 'I\'ve got no right to take my place…';
+				console.log(bigmouth);
+
+
+			concatenación en contexto: 
+
+				const button = document.querySelector("button");
+
+				function greet() {
+				  const name = prompt("What is your name?");
+				  const greeting = document.querySelector("#greeting");
+				  greeting.textContent = `Hello ${name}, nice to see you!`;
+				}
+
+				button.addEventListener("click", greet);
+
+
+			Longitud/tamaño/:
+
+				.length;
+
+			Indices: 
+				
+				[0];
+
 			1. Recuperar el ultimo elemento de cualquier cadena: 
 
 				Hay que hacer un cálculo lógico: 
@@ -54,26 +89,43 @@
 			2. Subcadenas y condicional: 
 
 				1. includes(subCadena):
+					true or false
 
-				2. startsWith():
+				2. startsWith(sub):
+					comienza con subcadena
+					condicional, devuelve 
 
-				3. endsWith()
+				3. endsWith(ena)
+					termina con subcadena
 
-				4. indexOf(cadenaBuscada, indiceComienzoBusqueda) 
+				4. indexOf(subcadenaBuscada, indiceComienzoBusqueda-opcional-) 
+					
+					devuelve indice, cuenta espacios vacios
 
-				5. slice():
+					si no está presente la subcadena devuelve -1.
 
-				6. toUpperCase y toLowerCase()
+				5. slice(indexInicioCorte, indexFinCorte):
+					le pasamos indices para que corte y devuelva una palabra.
 
-				7. replace():
+					el segundo indice no se incluye
 
-				Cambiar cadena:
+					caracteres restantes: 
+					le pasamos un solo indice desde donde empieza a cortar, lo incluye
+
+				6. toUpperCase y toLowerCase():
+
+				7. replace(subcadenaReemplazada, subcadenaReemplazo):
+
+					reemplaza una subcadena con otra. 
+
+					como muchos métodos de cadena, no cambia la cadena a la que se llamó, sino que devuelve una nueva cadena; por ese hay que guardarla en otra variable. 
 
 					Si la queremos guardar en el mismo lugar, contenedor o variable;
-					declarar browserType usando let, no const, porque lo estamos reasignando.
+					declarar usando let, no const, porque lo estamos reasignando.
 
 				8. replaceAll()
-
+					
+					cambiar toda la cadena
 
 	
 			3. Incrustar operación con literales: 
@@ -87,13 +139,126 @@
 				console.log(output); // "I like the song Fight the Youth. I gave it a score of 90%."
 
 
-			4. 
+			4. Operación indexOf(): 
+
+				Encontrar las posteriores subcadenas, después de que fue encontrada la primera:
+				
+				```
+				const firstOccurrence = tagline.indexOf("developers");
+				const secondOccurrence = tagline.indexOf("developers", firstOccurrence + 1);
+
+				console.log(firstOccurrence); // 20
+				console.log(secondOccurrence); // 35
+				
+				```
+				la siguiente palabra la encontramos en el indice si le pasamos la primera subcadena y el indice de la 1°subcadena + 1 (posición)
+	
+
+			5. filtrar cadena: 
+
+				condicional if debe recorrer array
+
+				operamos la variable donde se guardan los valores de cada iteración/repetición y no el nombre del array. 
+
+				metodo de cadena a utilizar
+					includes('Christmas');
+
+				Filtrar Christmas:
+
+				    Happy Birthday!
+				    Merry Christmas my love
+				    A happy Christmas to all the family
+				    You're all I want for Christmas
+				    Get well soon
+
+ 				const list = document.querySelector('.output ul');
+				list.innerHTML = '';
+				const greetings = [
+				  'Happy Birthday!',
+				  'Merry Christmas my love',
+				  'A happy Christmas to all the family',
+				  'You\'re all I want for Christmas',
+				  'Get well soon',
+				];
+
+				for (const greeting of greetings) {
+				  // Your conditional test needs to go inside the parentheses
+				  // in the line below, replacing what's currently there
+				  if (greeting.includes('Christmas')) {
+				    const listItem = document.createElement('li');
+				    listItem.textContent = greeting;
+				    list.appendChild(listItem);
+				  }
+				}
 
 
-			5. 
+			6. conversión de cadena, manipulación de subcadenas: 
+
+				los parámetros de los métodos de cadena no tienen que ser literales de cadena; también pueden ser variables, o incluso variables con un método invocado en ellas.
+
+				for (const city of cities) {
+				  // write your code just below here
+				  const lower = city.toLowerCase();
 
 
-			6. 
+				Cambiar:			
+
+				    lonDon
+				    ManCHESTer
+				    BiRmiNGHAM
+				    liVERpoOL
+				
+				por: 				
+
+				    London
+				    Manchester
+				    Birmingham
+				    Liverpool
+	
+				```
+				const list = document.querySelector('.output ul');
+				list.innerHTML = '';
+				const cities = ['lonDon', 'ManCHESTer', 'BiRmiNGHAM', 'liVERpoOL'];
+
+				for (const city of cities) {
+				  // write your code just below here
+				  const lower = city.toLowerCase();
+				  const firstLetter = lower.slice(0,1);
+				  const capitalized = lower.replace(firstLetter,firstLetter.toUpperCase());
+				  const result = capitalized;
+				  const listItem = document.createElement('li');
+				  listItem.textContent = result;
+				  list.appendChild(listItem);
+				}
+
+				```
+			
+
+			7. Extraer caracteres y reconstruir cadena: 
+			
+				const list = document.querySelector('.output ul');
+				list.innerHTML = '';
+				const stations = ['MAN675847583748sjt567654;Manchester Piccadilly',
+                  'GNF576746573fhdg4737dh4;Greenfield',
+                  'LIV5hg65hd737456236dch46dg4;Liverpool Lime Street',
+                  'SYB4f65hf75f736463;Stalybridge',
+                  'HUD5767ghtyfyr4536dh45dg45dg3;Huddersfield'];
+
+				for (const station of stations) {
+				  // write your code just below here
+
+				  const code = station.slice(0,3);
+				  const semiColon = station.indexOf(';');
+				  const name = station.slice(semiColon + 1);
+				  const result = `${code}: ${name}`;
+
+				  const listItem = document.createElement('li');
+				  listItem.textContent = result;
+				  list.appendChild(listItem);
+				}
+
+
+
 			
 			Practicas: 	
 				
@@ -104,10 +269,68 @@
 				Console.log para debug
 
 
-
-
-
 			Tareas: 
+			
+			1. citas: 
+
+			// Add your code here
+
+			const quoteStart = 'Don\'t judge each day by the harvest you reap ';
+
+			const quoteEnd = 'but by the seeds that the plant';
+
+			const finalQuote = `${quoteStart} ${quoteEnd}`; 
+
+			// Don't edit the code below here!
+
+			section.innerHTML = ' ';
+			const para1 = document.createElement('p');
+			para1.textContent = finalQuote;
+
+			section.appendChild(para1);
+	
+
+			2. 
+
+				const quoteStart = "Don't judge each day by the harvest you reap ";
+				const quoteEnd = "but by the seeds that you plant.";
+
+				const finalQuote = `${quoteStart}${quoteEnd}`;
+
+
+			3. 
+
+				const quote = "I do not like green eggs and ham. I do not like them, Sam-I-Am.";
+				const substring = "green eggs and ham";
+
+				const quoteLength = quote.length;
+
+				const index = quote.indexOf(substring);
+
+				const revisedQuote = quote.slice(0, index + substring.length + 1);
+			
+
+			4. 
+				const quote = "I dO nOT lIke gREen eGgS anD HAM";
+
+				let fixedQuote = quote.toLowerCase();
+				const firstLetter = fixedQuote.slice(0, 1);
+				fixedQuote = fixedQuote.replace(firstLetter, firstLetter.toUpperCase());
+
+				fixedQuote = fixedQuote.replace("green eggs and ham", "pickled onions");
+
+				const finalQuote = `${fixedQuote}.`;
+
+			
+			5. 
+				const theorem = "Pythagorean theorem";
+
+				const a = 5;
+				const b = 8;
+
+				const myString = `Using ${theorem}, we can work out that that if the two shortest sides of a right-angled triangle have lengths of ${a} and ${b}, the length of the hypotenuse is ${Math.sqrt(
+				  a ** 2 + b ** 2
+				)}.`;
 
 
 		*/
