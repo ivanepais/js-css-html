@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Promise code</title>
+    
+  </head>
+
+  <body>
+	  
+	<script>
+		
+		// Mejores prácticas 
+		
+		// 1. promise multiple con manejo de errores
+		
+		const fetchPromise = fetch(
+		  "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+		);
+
+		fetchPromise
+		  .then((response) => {
+			if (!response.ok) {
+			  throw new Error(`HTTP error: ${response.status}`);
+			}
+			return response.json();
+		  })
+		  .then((data) => {
+			console.log(data[0].name);
+		  });
+			
+			
+		const fetchPromise = fetch(
+		  "bad-scheme://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+		);
+
+		fetchPromise
+		  .then((response) => {
+			if (!response.ok) {
+			  throw new Error(`HTTP error: ${response.status}`);
+			}
+			return response.json();
+		  })
+		  .then((data) => {
+			console.log(data[0].name);
+		  })
+		  .catch((error) => {
+			console.error(`Could not get products: ${error}`);
+		  });
+		
+		
+		// 2. async await 
+			
+		// 2.1:
+		
+		async function fetchProducts() {
+		  try {
+			// después de esta línea, nuestra función esperará a que se resuelva la llamada `fetch()`
+			// la llamada `fetch()` devolverá una respuesta o lanzará un error
+			const response = await fetch(
+			  "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+			);
+			if (!response.ok) {
+			  throw new Error(`HTTP error: ${response.status}`);
+			}
+			// después de esta línea, nuestra función esperará a que se resuelva la llamada `response.json()`
+			// la llamada `response.json()` devolverá el objeto JSON analizado o arrojará un error
+			const data = await response.json();
+			console.log(data[0].name);
+		  } catch (error) {
+			console.error(`Could not get products: ${error}`);
+		  }
+		}
+		
+		
+		//2.2: 
+		
+		async function fetchProducts() {
+		  const response = await fetch(
+			"https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+		  );
+		  if (!response.ok) {
+			throw new Error(`HTTP error: ${response.status}`);
+		  }
+		  const data = await response.json();
+		  return data;
+		}
+
+		const promise = fetchProducts();
+		promise
+		  .then((data) => {
+			console.log(data[0].name);
+		  })
+		  .catch((error) => {
+			console.error(`Could not get products: ${error}`);
+		  });
+		
+		
+		
+		// 3. promise.all
+		
+		
+		
+		// 4. promise.any 
+		
+
+    </script>
+  </body>
+</html>
