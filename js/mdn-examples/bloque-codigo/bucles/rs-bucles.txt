@@ -1,0 +1,565 @@
+Bucles: 
+
+	consisten en hacer lo mismo una y otra vez. 
+
+	completar rápidamente tareas repetitivas, desde múltiples cálculos básicos hasta casi cualquier otra situación en la que tengas muchos elementos de trabajo similares que completar.
+
+	Podemos dibujar 100 círculos aleatorios en un elemento <canvas> con un botón para dibujar una y otra vez diferentes conjuntos aleatorios
+
+	Si no estuviéramos usando un bucle, tendríamos que repetir el siguiente código para cada círculo que quisiéramos dibujar.
+
+
+Recorriendo una colección:
+
+	cuando utilice un bucle, tendrá una colección de elementos y querrá hacer algo con cada elemento.
+
+	array, set o map
+
+
+1. Bucle for...of:
+	
+	const cats = ["Leopard", "Serval", "Jaguar", "Tiger", "Caracal", "Lion"];
+
+	for (const cat of cats) {
+	  console.log(cat);
+	}
+
+	1. Dados los gatos de la colección, obtén el primer artículo de la colección.
+
+		for... cats
+
+	2. Asígnelo a la variable cat y luego ejecute el código entre llaves {}.
+
+		-> cat {//}
+
+	3. Obtenga el siguiente artículo y repita (2) hasta llegar al final de la colección.
+
+
+2. map and filter (): 
+	
+	Bucles especializados. 
+
+	operar y filtrar bucles y 
+	crear nuevas colecciones. 
+
+	se usan a menudo con expresiones de función.
+
+	con for of mostrabamos o asignabamos elementos. 
+
+
+	map: 	
+
+		Hacer algo con cada elemento de una colección y crear una nueva colección que contenga los elementos modificados.
+
+		function toUpper(string) {
+		  return string.toUpperCase();
+		}
+
+		const cats = ["Leopard", "Serval", "Jaguar", "Tiger", "Caracal", "Lion"];
+
+		const upperCats = cats.map(toUpper);
+
+		console.log(upperCats);
+		// [ "LEOPARD", "SERVAL", "JAGUAR", "TIGER", "CARACAL", "LION" ]
+
+
+		1. pasamos una función a cats.map(), y map() llama a la función una vez para cada elemento de la matriz, pasando el elemento.
+
+
+		2. Luego agrega el valor de retorno de cada llamada a función a una nueva matriz y finalmente devuelve la nueva matriz. 
+
+
+	filter(): 
+
+		probar cada elemento de una colección y crear una nueva colección que contenga solo elementos que coincidan.
+
+		function lCat(cat) {
+		  return cat.startsWith("L");
+		}
+
+		const cats = ["Leopard", "Serval", "Jaguar", "Tiger", "Caracal", "Lion"];
+
+		const filtered = cats.filter(lCat);
+
+		console.log(filtered);
+		// [ "Leopard", "Lion" ]
+
+
+		se parece mucho a map(), excepto que la función que pasamos devuelve un valor booleano: si devuelve verdadero, entonces el elemento se incluye en la nueva matriz. 
+
+		Nuestra función prueba que el elemento comience con la letra "L", por lo que el resultado es una matriz que contiene solo gatos cuyos nombres comienzan con "L".
+
+
+	expresiones de función: 
+
+		podríamos reescribir el ejemplo anterior para que sea mucho más compacto:
+
+ 		```js
+
+ 		const cats = ["Leopard", "Serval", "Jaguar", "Tiger", "Caracal", "Lion"];
+
+		const filtered = cats.filter((cat) => cat.startsWith("L"));
+		console.log(filtered);
+		// [ "Leopard", "Lion" ]
+
+ 		```
+
+
+
+3. bucle estándar for: 
+	
+	Si tenemos o no, una colección de elementos para recorrer. 
+
+	Solo queremos repetir el código unas cuantas veces. 
+
+	```js
+ 		
+ 		for (initializer; condition; final-expression) {
+		  // code to run
+		}
+
+	```
+
+	Palabra clave for, seguida de algunos paréntesis.
+		
+		Dentro del paréntesis tenemos tres elementos, separados por punto y coma:
+
+		 1. Un inicializador: 
+
+		 	suele ser una variable establecida en un número, que se incrementa para contar el número de veces que se ha ejecutado el bucle. A veces también se la denomina variable de contador.
+
+		 2. Una condición: 
+
+		 	esto define cuándo el bucle debe dejar de repetirse. Generalmente se trata de una expresión que presenta un operador de comparación, una prueba para ver si se ha cumplido la condición de salida.
+
+		 3. Una expresión final: 
+
+		 	siempre se evalúa (o ejecuta) cada vez que el bucle ha realizado una iteración completa. Generalmente sirve para incrementar (o en algunos casos disminuir) la variable del contador, para acercarla al punto donde la condición ya no es cierta.
+
+		Algunas llaves que contienen un bloque de código: este código se ejecutará cada vez que el bucle se repita.
+
+
+	Calcular cuadrados: 
+
+		function calculate() {
+		  for (let i = 1; i < 10; i++) {
+		    const newResult = `${i} x ${i} = ${i * i}`;
+		    results.textContent += `${newResult}\n`;
+		  }
+		  results.textContent += "\nFinished!\n\n";
+		}
+
+
+		1. let i = 1: 
+
+		 	la variable del contador, i, comienza en 1. 
+
+		 	Tenga en cuenta que tenemos que usar let para el contador, porque lo reasignamos cada vez que recorremos el ciclo.
+
+
+		 2. i < 10: 
+
+		 	continúa recorriendo el bucle mientras i sea menor que 10.
+		 
+
+		 3. i++: 
+
+		 	agregue uno a i cada vez que recorra el ciclo.
+
+
+		Dentro del bucle calculamos el cuadrado del valor actual de i, es decir: i * i. 
+
+		Creamos una cadena que expresa el cálculo que hicimos y el resultado, y agregamos esta cadena al texto de salida. 
+
+		También agregamos \n, por lo que la siguiente cadena que agreguemos comenzará en una nueva línea. Entonces:
+
+
+		1. Durante la primera ejecución, i = 1, entonces sumaremos 1 x 1 = 1.
+
+		2. Durante la segunda ejecución, i = 2, por lo que sumaremos 2 x 2 = 4.
+
+		3. Etcétera…
+		 
+		4. Cuando i sea igual a 10, dejaremos de ejecutar el ciclo y pasaremos directamente al siguiente fragmento de código debajo del ciclo, imprimiendo el mensaje ¡Terminado! mensaje en una nueva línea.		
+
+
+Bucle for: 
+
+		
+	errores: 
+
+		podemos cometer más errores usandolo. 
+
+
+		1. podrías comenzar i en 1, olvidando que el primer índice de la matriz es cero, no 1.
+		 
+		 2. puede detenerse en i <= cats.length, olvidando que el último índice de la matriz tiene una longitud de -1.
+
+		Por motivos como este, normalmente es mejor utilizar for...of si puedes.
+
+
+	A veces todavía necesitas usar un bucle for para iterar a través de una matriz. 
+
+	Por ejemplo, en el código siguiente queremos registrar un mensaje que enumere nuestros gatos.
+
+
+	Preferiríamos que manejara al último gato de manera diferente, así:
+
+		My cats are called Pete, Biggles, and Jasmine.
+
+	Pero para hacer esto necesitamos saber cuándo estamos en la iteración final del bucle, y para hacerlo podemos usar un bucle for y examinar el valor de i:
+
+
+	const cats = ["Pete", "Biggles", "Jasmine"];
+
+	let myFavoriteCats = "My cats are called ";
+
+	for (let i = 0; i < cats.length; i++) {
+	  if (i === cats.length - 1) {
+	    // We are at the end of the array
+	    myFavoriteCats += `and ${cats[i]}.`;
+	  } else {
+	    myFavoriteCats += `${cats[i]}, `;
+	  }
+	}
+
+	console.log(myFavoriteCats); // "My cats are called Pete, Biggles, and Jasmine."
+
+
+
+4. break:
+
+	sale del código cuando se cumple la condición. 
+
+	Agenda:
+
+		```js
+
+		const contacts = [
+		  "Chris:2232322",
+		  "Sarah:3453456",
+		  "Bill:7654322",
+		  "Mary:9998769",
+		  "Dianne:9384975",
+		];
+		const para = document.querySelector("p");
+		const input = document.querySelector("input");
+		const btn = document.querySelector("button");
+
+		btn.addEventListener("click", () => {
+		  const searchName = input.value.toLowerCase();
+		  input.value = "";
+		  input.focus();
+		  para.textContent = "";
+		  for (const contact of contacts) {
+		    const splitContact = contact.split(":");
+		    if (splitContact[0].toLowerCase() === searchName) {
+		      para.textContent = `${splitContact[0]}'s number is ${splitContact[1]}.`;
+		      break;
+		    }
+		  }
+		  if (para.textContent === "") {
+		    para.textContent = "Contact not found.";
+		  }
+		});
+
+
+		```
+
+		1. En primer lugar, tenemos algunas definiciones de variables:
+
+			tenemos una serie de información de contacto, y cada elemento es una cadena que contiene un nombre y un número de teléfono separados por dos puntos.
+
+		2. A continuación, adjuntamos un detector de eventos al botón (btn) para que cuando se presione se ejecute algún código para realizar la búsqueda y devolver los resultados.
+
+		3. Almacenamos el valor ingresado en la entrada de texto en una variable llamada 'searchName', antes de vaciar la entrada de texto y enfocarla nuevamente, lista para la siguiente búsqueda. 
+
+		Tenga en cuenta que también ejecutamos el método toLowerCase() en la cadena, por lo que las búsquedas no distinguirán entre mayúsculas y minúsculas.
+
+		4. Ahora pasemos a la parte interesante, el bucle for...of:
+
+			1. Dentro del bucle, primero dividimos el contacto actual en el carácter de dos puntos y almacenamos los dos valores resultantes en una matriz llamada 'splitContact'.
+
+			2. Luego usamos una declaración condicional para probar si splitContact[0] (el nombre del contacto, nuevamente en minúsculas con toLowerCase()) es igual al nombre de búsqueda ingresado. 
+
+			Si es así, ingresamos una cadena en el párrafo para informar cuál es el número del contacto y usamos break para finalizar el ciclo.
+
+		5. Después del ciclo, verificamos si configuramos un contacto y, en caso contrario, configuramos el texto del párrafo en "Contacto no encontrado".
+
+
+
+5. continue
+
+	salta las condiciones
+
+	cuadrados: 
+
+		```js
+
+		const para = document.querySelector("p");
+		const input = document.querySelector("input");
+		const btn = document.querySelector("button");
+
+		btn.addEventListener("click", () => {
+		  para.textContent = "Output: ";
+		  const num = input.value;
+		  input.value = "";
+		  input.focus();
+		  for (let i = 1; i <= num; i++) {
+		    let sqRoot = Math.sqrt(i);
+		    if (Math.floor(sqRoot) !== sqRoot) {
+		      continue;
+		    }
+		    para.textContent += `${i} `;
+		  }
+		});
+
+		```
+
+		1. En este caso, la entrada debe ser un número (num). 
+
+		El bucle for recibe un contador que comienza en 1 (ya que en este caso no estamos interesados ​​en 0), una condición de salida que dice que el bucle se detendrá cuando el contador sea mayor que el número de entrada y un iterador que suma 1 al contador cada vez.
+
+
+		2. Dentro del ciclo, encontramos la raíz cuadrada de cada número usando Math.sqrt(i), luego verificamos si la raíz cuadrada es un número entero probando si es igual a sí mismo cuando se ha redondeado hacia abajo al entero más cercano. 
+
+		(Esto es lo que Math.floor() hace con el número que se pasa).
+
+
+		3. Si la raíz cuadrada y la raíz cuadrada redondeada hacia abajo no son iguales (!==), significa que la raíz cuadrada no es un número entero, por lo que no nos interesa. 
+
+		En tal caso, usamos la instrucción continue para pasar a la siguiente iteración del ciclo sin registrar el número en ninguna parte.
+
+
+		4. Si la raíz cuadrada es un número entero, saltamos el bloque if por completo, por lo que la instrucción continuar no se ejecuta; en su lugar, concatenamos el valor i actual más un espacio al final del contenido del párrafo
+
+
+6. while:
+	
+
+	initializer
+	while (condition) {
+	  // code to run
+
+	  final-expression
+	}
+
+	"inicia de esta forma, mientras se cumpla la condición, haz algo"
+
+
+	la variable inicializadora se establece antes del bucle y la expresión final se incluye dentro del bucle después del código a ejecutar, en lugar de que estos dos elementos se incluyan entre paréntesis. 
+
+	La condición se incluye dentro de los paréntesis, que están precedidos por la palabra clave while en lugar de for.
+
+	Los mismos tres elementos todavía están presentes y todavía están definidos en el mismo orden en que están en el bucle for. 
+
+	Esto se debe a que debe tener un inicializador definido antes de poder verificar si la condición es verdadera o no. 
+
+	Luego, la expresión final se ejecuta después de que se haya ejecutado el código dentro del bucle (se haya completado una iteración), lo que solo sucederá si la condición sigue siendo verdadera
+
+
+7. do while:
+
+
+		initializer
+		do {
+		  // code to run
+
+		  final-expression
+		} while (condition)
+
+		"inicia de esta forma, haz algo, hasta/mientras se cumpla la condición"
+
+	el inicializador vuelve a ser lo primero, antes de que comience el ciclo. 
+
+	La palabra clave precede directamente a las llaves que contienen el código a ejecutar y la expresión final.
+
+	La principal diferencia entre un bucle do... while y un bucle while es que el código dentro de un bucle do... while siempre se ejecuta al menos una vez.
+
+	Esto se debe a que la condición viene después del código dentro del bucle.
+
+	Entonces siempre ejecutamos ese código y luego verificamos si necesitamos ejecutarlo nuevamente. 
+
+	En los bucles while y for, la verificación es lo primero, por lo que es posible que el código nunca se ejecute.
+	
+
+
+8. elección de bucle: 
+
+	Si está iterando a través de una matriz o algún otro objeto que lo admita y no necesita acceso a la posición del índice de cada elemento, entonces for...of es la mejor opción. 
+
+	Es más fácil de leer y hay menos posibilidades de equivocarse.
+
+	Para otros usos, los bucles for, while y do... while son en gran medida intercambiables. 
+
+	Todos se pueden utilizar para resolver los mismos problemas, y cuál utilice dependerá en gran medida de sus preferencias personales: 
+
+		cuál le resultará más fácil de recordar o más intuitivo.
+
+
+	1. for...of:
+
+		for (const item of array) {
+		  // code to run
+		}
+
+
+	2. for:
+
+		for (initializer; condition; final-expression) {
+		  // code to run
+		}
+
+
+	3. while:
+
+		initializer
+		while (condition) {
+		  // code to run
+
+		  final-expression
+		}
+
+
+	4. do...while:
+
+		initializer
+		do {
+		  // code to run
+
+		  final-expression
+			} while (condition)
+
+
+reto 1:
+	
+	const output = document.querySelector('.output');
+	output.innerHTML = '';
+
+	let i = 10;
+
+	while (i >= 0) {
+	  const para = document.createElement('p');
+	  if (i === 10) {
+	    para.textContent = `Countdown ${i}`;
+	  } else if (i === 0) {
+	    para.textContent = 'Blast off!';
+	  } else {
+	    para.textContent = i;
+	  }
+
+	  output.appendChild(para);
+
+	  i--;
+	}
+
+
+reto 2;
+
+	
+	const people = ['Chris', 'Anne', 'Colin', 'Terri', 'Phil', 'Lola', 'Sam', 'Kay', 'Bruce'];
+
+	const admitted = document.querySelector('.admitted');
+	const refused = document.querySelector('.refused');
+
+	admitted.textContent = 'Admit: ';
+	refused.textContent = 'Refuse: ';
+
+	for (const person of people) {
+	  if (person === 'Phil' || person === 'Lola') {
+	    refused.textContent += `${person}, `;
+	  } else {
+	    admitted.textContent += `${person}, `;
+	  }
+	}
+
+	refused.textContent = refused.textContent.slice(0,refused.textContent.length-2) + '.';
+	admitted.textContent = admitted.textContent.slice(0,admitted.textContent.length-2) + '.';
+
+
+Manipular DOM: 
+
+
+	1. 
+		const link = document.querySelector("a");
+
+		link.textContent = "Mozilla Developer Network";
+
+		link.href = "https://developer.mozilla.org";
+
+
+	Document.querySelector()
+	Document.querySelectorAll()
+
+
+	2. 
+		const sect = document.querySelector("section");
+
+		const para = document.createElement("p");
+		para.textContent = "We hope you enjoyed the ride.";
+
+
+	3. 
+
+		sect.appendChild(para);
+
+		const text = document.createTextNode(
+		  " — the premier source for web development knowledge.",
+		);
+
+		const linkPara = document.querySelector("p");
+		linkPara.appendChild(text);
+
+
+	4. 
+
+		sect.appendChild(linkPara);
+
+		sect.removeChild(linkPara);
+
+		linkPara.remove();
+
+		linkPara.parentNode.removeChild(linkPara);
+
+
+tarea: 
+	
+	1. 
+
+		bucle simple que recorra todos los elementos en el myArray proporcionado y los imprima en la pantalla dentro de los elementos de la lista (es decir, elementos <li>), que se adjuntan al archivo proporcionado. lista.
+
+
+	2. 
+
+		En la siguiente tarea, queremos que escriba un programa simple que, dado un nombre, busque una matriz de objetos que contengan nombres y números de teléfono (directorio telefónico) y, si encuentra el nombre, genere el nombre y el número de teléfono en el párrafo ( para) y luego sale del bucle antes de que haya seguido su curso.
+
+		Si aún no has leído sobre objetos, ¡no te preocupes! Por ahora, todo lo que necesita saber es cómo acceder a un par miembro-valor.
+
+		Para empezar, se le dan tres variables:
+
+		 nombre: contiene un nombre para buscar
+		 
+		 párrafo: contiene una referencia a un párrafo, que se utilizará para informar los resultados.
+		 
+		 agenda telefónica: contiene las entradas de la agenda telefónica para buscar.
+
+		Deberías usar un tipo de bucle que no hayas usado en la tarea anterior.
+
+
+	3. 
+
+		En esta tarea final, se le proporciona lo siguiente:
+
+		 i — comienza con un valor de 500; destinado a ser utilizado como iterador.
+
+		 párrafo: contiene una referencia a un párrafo que se utilizará para informar los resultados.
+
+		 isPrime(): una función que, cuando se le pasa un número, devuelve verdadero si el número es primo y falso en caso contrario.
+
+		Debe utilizar un bucle para recorrer los números del 2 al 500 hacia atrás (1 no se cuenta como número primo) y ejecutar la función isPrime() proporcionada en ellos. 
+
+		Para cada número que no sea primo, continúe con la siguiente iteración del ciclo. Para cada uno que sea un número primo, agréguelo al contenido del texto del párrafo junto con algún tipo de separador.
+
+		Deberías usar un tipo de bucle que no hayas usado en las dos tareas anteriores.
+
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>while</title>
+	</head>
+
+	<body>
+
+		<p></p>
+
+		<script>
+			
+			const cats = ['Bill', 'Jeff', 'Pete', 'Biggles', 'Jasmin'];
+		    let myFavoriteCats = 'My cats are called ';
+		    let para = document.querySelector('p');
+
+		    let i = 0;
+
+		    while (i < cats.length) {
+		      if (i === cats.length - 1) {
+		        myFavoriteCats += `and ${cats[i]}.`;
+		      } else {
+		        myFavoriteCats += `${cats[i]}, `;
+		      }
+
+		      i++;
+		    }
+
+		    para.textContent = myFavoriteCats;
+		</script>
+		
+	</body>
+</html>
