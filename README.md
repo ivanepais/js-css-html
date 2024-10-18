@@ -4226,45 +4226,9251 @@ Contenido de js, css y html.
 
 
 || Bucles
+	
+	Útiles para completar rápidamente tareas repetitivas, desde múltiples cálculos básicos hasta casi cualquier otra situación en la que tengas muchos elementos de trabajo similares que completar.
 
+	
+	Usos de los Bucles: 
+
+		Los bucles consisten en hacer lo mismo una y otra vez. 
+
+		A menudo, el código será ligeramente diferente cada vez que se realice el ciclo, o se ejecutará el mismo código pero con diferentes variables.
+
+
+	Ejemplo: 
+
+		Supongamos que queremos dibujar 100 círculos aleatorios en un elemento <canvas> (presione el botón Actualizar para ejecutar el ejemplo una y otra vez para ver diferentes conjuntos aleatorios):
+
+		```js
+
+		const btn = document.querySelector("button");
+		const canvas = document.querySelector("canvas");
+		const ctx = canvas.getContext("2d");
+
+		document.addEventListener("DOMContentLoaded", () => {
+		  canvas.width = document.documentElement.clientWidth;
+		  canvas.height = document.documentElement.clientHeight;
+		});
+
+		function random(number) {
+		  return Math.floor(Math.random() * number);
+		}
+
+		function draw() {
+		  ctx.clearRect(0, 0, canvas.width, canvas.height);
+		  for (let i = 0; i < 100; i++) {
+		    ctx.beginPath();
+		    ctx.fillStyle = "rgb(255 0 0 / 50%)";
+		    ctx.arc(
+		      random(canvas.width),
+		      random(canvas.height),
+		      random(50),
+		      0,
+		      2 * Math.PI,
+		    );
+		    ctx.fill();
+		  }
+		}
+
+		btn.addEventListener("click", draw);
+
+		```
+
+	
+	Implementación con bucles: 
+
+		Parte del código que realmente dibuja los 100 círculos:
+
+		```js
+
+		for (let i = 0; i < 100; i++) {
+		  ctx.beginPath();
+		  ctx.fillStyle = "rgb(255 0 0 / 50%)";
+		  ctx.arc(
+		    random(canvas.width),
+		    random(canvas.height),
+		    random(50),
+		    0,
+		    2 * Math.PI,
+		  );
+		  ctx.fill();
+		}
+
+		```
+
+		random(x), definido anteriormente en el código, devuelve un número entero entre 0 y x-1.
+
+		Estamos usando un bucle para ejecutar 100 iteraciones de este código, cada una de las cuales dibuja un círculo en una posición aleatoria en la página.
+
+		La cantidad de código necesaria sería la misma ya sea que dibujáramos 100 círculos, 1000 o 10 000. 
+
+		Sólo tiene que cambiar un número.
+
+
+
+	Implementación sin bubles: 		
+
+		Si no estuviéramos usando un bucle aquí, tendríamos que repetir el siguiente código para cada círculo que quisiéramos dibujar.
+
+		```js
+
+		ctx.beginPath();
+		ctx.fillStyle = "rgb(255 0 0 / 50%)";
+		ctx.arc(
+		  random(canvas.width),
+		  random(canvas.height),
+		  random(50),
+		  0,
+		  2 * Math.PI,
+		);
+		ctx.fill();
+
+		```
+
+		Esto se volvería muy aburrido y difícil de mantener.
+
+
+	Recorriendo una colección
+
+		La mayoría de las veces, cuando utilice un bucle, tendrá una colección de elementos y querrá hacer algo con cada elemento.
+
+		Un tipo de colección es el Array, que conocimos en el capítulo Arreglos de este curso. 
+
+		Pero también hay otras colecciones en JavaScript, incluidas Set y Map.
+
+	
+	El bucle for...of:
+
+		La herramienta básica para recorrer una colección es el bucle for...of.
+
+		```js
+
+		const cats = ["Leopard", "Serval", "Jaguar", "Tiger", "Caracal", "Lion"];
+
+		for (const cat of cats) {
+		  console.log(cat);
+		}
+
+		```
+
+		En este ejemplo, for (const cat of cats) dice:
+
+		1. Dados los gatos de la colección, obtén el primer artículo de la colección.
+
+
+		2. Asígnelo a la variable cat y luego ejecute el código entre llaves {}.
+
+		
+		3. Obtenga el siguiente artículo y repita (2) hasta llegar al final de la colección.
+
+
+	Map and filter: 
+
+		JavaScript también tiene bucles más especializados para colecciones, y mencionaremos dos de ellos aquí.
+
+		Puede usar map() para hacer algo con cada elemento de una colección y crear una nueva colección que contenga los elementos modificados.
+
+		```js
+
+		function toUpper(string) {
+		  return string.toUpperCase();
+		}
+
+		const cats = ["Leopard", "Serval", "Jaguar", "Tiger", "Caracal", "Lion"];
+
+		const upperCats = cats.map(toUpper);
+
+		console.log(upperCats);
+		// [ "LEOPARD", "SERVAL", "JAGUAR", "TIGER", "CARACAL", "LION" ]
+
+		```
+
+		Aquí pasamos una función a cats.map(), y map() llama a la función una vez para cada elemento de la matriz, pasando el elemento.
+
+		Luego agrega el valor de retorno de cada llamada a función a una nueva matriz y finalmente devuelve la nueva matriz. 
+
+		En este caso, la función que proporcionamos convierte el elemento a mayúsculas, por lo que la matriz resultante contiene todos nuestros gatos en mayúsculas:
+
+		```js
+
+		[ "LEOPARD", "SERVAL", "JAGUAR", "TIGER", "CARACAL", "LION" ]
+
+		```
+
+		Puede usar filter() para probar cada elemento de una colección y crear una nueva colección que contenga solo elementos que coincidan:
+
+		```js
+
+		function lCat(cat) {
+		  return cat.startsWith("L");
+		}
+
+		const cats = ["Leopard", "Serval", "Jaguar", "Tiger", "Caracal", "Lion"];
+
+		const filtered = cats.filter(lCat);
+
+		console.log(filtered);
+		// [ "Leopard", "Lion" ]
+
+		```
+
+
+		Esto se parece mucho a map(), excepto que la función que pasamos devuelve un valor booleano: si devuelve verdadero, entonces el elemento se incluye en la nueva matriz. 
+
+		Nuestra función prueba que el elemento comience con la letra "L", por lo que el resultado es una matriz que contiene solo gatos cuyos nombres comienzan con "L":
+
+
+		```js
+
+		[ "Leopard", "Lion" ]
+
+		```
+
+ 		Tenga en cuenta que map() y filter() se usan a menudo con expresiones de función, sobre las cuales aprenderemos en el módulo Funciones. 
+
+ 		Usando expresiones de función podríamos reescribir el ejemplo anterior para que sea mucho más compacto:
+
+
+ 		```js
+
+ 		const cats = ["Leopard", "Serval", "Jaguar", "Tiger", "Caracal", "Lion"];
+
+		const filtered = cats.filter((cat) => cat.startsWith("L"));
+		console.log(filtered);
+		// [ "Leopard", "Lion" ]
+
+ 		```
+
+
+ 	Bucle estándar: 
+
+ 		En el ejemplo anterior de "dibujar círculos", no tienes una colección de elementos para recorrer: en realidad solo deseas ejecutar el mismo código 100 veces. 
+
+ 		En un caso como ese, deberías usar el bucle for. Esto tiene la siguiente sintaxis:
+
+ 		```js
+ 		for (initializer; condition; final-expression) {
+		  // code to run
+		}
+
+		```
+
+		1. En el ejemplo anterior de "dibujar círculos", no tienes una colección de elementos para recorrer: en realidad solo deseas ejecutar el mismo código 100 veces. 
+
+		En un caso como ese, deberías usar el bucle for. Esto tiene la siguiente sintaxis
+
+
+		2. La palabra clave for, seguida de algunos paréntesis.
+		Dentro del paréntesis tenemos tres elementos, separados por punto y coma:
+
+		 1. Un inicializador: 
+
+		 	suele ser una variable establecida en un número, que se incrementa para contar el número de veces que se ha ejecutado el bucle. A veces también se la denomina variable de contador.
+
+		 2. Una condición: 
+
+		 	esto define cuándo el bucle debe dejar de repetirse. Generalmente se trata de una expresión que presenta un operador de comparación, una prueba para ver si se ha cumplido la condición de salida.
+
+		 3. Una expresión final: 
+
+		 	siempre se evalúa (o ejecuta) cada vez que el bucle ha realizado una iteración completa. Generalmente sirve para incrementar (o en algunos casos disminuir) la variable del contador, para acercarla al punto donde la condición ya no es cierta.
+
+		3. Algunas llaves que contienen un bloque de código: este código se ejecutará cada vez que el bucle se repita.
+
+
+	Calcular cuadrados: 
+
+		Veamos un ejemplo real para que podamos visualizar más claramente lo que hacen.
+
+
+		```js
+
+		const results = document.querySelector("#results");
+
+		function calculate() {
+		  for (let i = 1; i < 10; i++) {
+		    const newResult = `${i} x ${i} = ${i * i}`;
+		    results.textContent += `${newResult}\n`;
+		  }
+		  results.textContent += "\nFinished!\n\n";
+		}
+
+		const calculateBtn = document.querySelector("#calculate");
+		const clearBtn = document.querySelector("#clear");
+
+		calculateBtn.addEventListener("click", calculate);
+		clearBtn.addEventListener("click", () => (results.textContent = ""));
+
+		```
+
+		Este código calcula cuadrados para los números del 1 al 9 y escribe el resultado.
+
+		El núcleo del código es el bucle for que realiza el cálculo.
+
+
+		Dividamos la línea for (sea i = 1; i < 10; i++) en sus tres partes:
+
+		 1. let i = 1: 
+
+		 	la variable del contador, i, comienza en 1. 
+
+		 	Tenga en cuenta que tenemos que usar let para el contador, porque lo reasignamos cada vez que recorremos el ciclo.
+
+
+		 2. i < 10: 
+
+		 	continúa recorriendo el bucle mientras i sea menor que 10.
+		 
+
+		 3. i++: 
+
+		 	agregue uno a i cada vez que recorra el ciclo.
+
+
+		Dentro del bucle calculamos el cuadrado del valor actual de i, es decir: i * i. 
+
+		Creamos una cadena que expresa el cálculo que hicimos y el resultado, y agregamos esta cadena al texto de salida. 
+
+		También agregamos \n, por lo que la siguiente cadena que agreguemos comenzará en una nueva línea. Entonces:
+
+		 1. Durante la primera ejecución, i = 1, entonces sumaremos 1 x 1 = 1.
+
+		 2. Durante la segunda ejecución, i = 2, por lo que sumaremos 2 x 2 = 4.
+
+		 3. Etcétera…
+		 
+		 4. Cuando i sea igual a 10, dejaremos de ejecutar el ciclo y pasaremos directamente al siguiente fragmento de código debajo del ciclo, imprimiendo el mensaje ¡Terminado! mensaje en una nueva línea.		
+
+
+	Recorrer colecciones con un bucle for:
+
+		Puede utilizar un bucle for para iterar a través de una colección, en lugar de un bucle for...of.
+
+		```js
+
+		const cats = ["Leopard", "Serval", "Jaguar", "Tiger", "Caracal", "Lion"];
+
+		for (const cat of cats) {
+		  console.log(cat);
+		}
+
+		```
+
+		Podríamos reescribir ese código así:
+
+		```js
+
+		const cats = ["Leopard", "Serval", "Jaguar", "Tiger", "Caracal", "Lion"];
+
+		for (let i = 0; i < cats.length; i++) {
+		  console.log(cats[i]);
+		}
+
+
+		```	
+
+		 En este ciclo, comenzamos i en 0 y nos detenemos cuando alcanza la longitud de la matriz. 
+
+		 Luego, dentro del bucle, usamos i para acceder a cada elemento de la matriz por turno.
+
+
+		Esto funciona bien, y en las primeras versiones de JavaScript, for...of no existía, por lo que esta era la forma estándar de iterar a través de una matriz. 
+
+		Sin embargo, ofrece más posibilidades de introducir errores en su código. Por ejemplo:
+
+		 1. podrías comenzar i en 1, olvidando que el primer índice de la matriz es cero, no 1.
+		 
+		 2. puede detenerse en i <= cats.length, olvidando que el último índice de la matriz tiene una longitud de -1.
+
+		Por motivos como este, normalmente es mejor utilizar for...of si puedes.
+
+
+		A veces todavía necesitas usar un bucle for para iterar a través de una matriz. 
+
+		Por ejemplo, en el código siguiente queremos registrar un mensaje que enumere nuestros gatos.
+
+		```js
+
+		const cats = ["Pete", "Biggles", "Jasmine"];
+
+		let myFavoriteCats = "My cats are called ";
+
+		for (const cat of cats) {
+		  myFavoriteCats += `${cat}, `;
+		}
+
+		console.log(myFavoriteCats); // "My cats are called Pete, Biggles, Jasmine, "
+
+		```
+
+		La oración final no está muy bien formada:
+
+			My cats are called Pete, Biggles, Jasmine,
+
+		Preferiríamos que manejara al último gato de manera diferente, así:
+
+			My cats are called Pete, Biggles, and Jasmine.
+
+		Pero para hacer esto necesitamos saber cuándo estamos en la iteración final del bucle, y para hacerlo podemos usar un bucle for y examinar el valor de i:
+
+		```js
+		const cats = ["Pete", "Biggles", "Jasmine"];
+
+		let myFavoriteCats = "My cats are called ";
+
+		for (let i = 0; i < cats.length; i++) {
+		  if (i === cats.length - 1) {
+		    // We are at the end of the array
+		    myFavoriteCats += `and ${cats[i]}.`;
+		  } else {
+		    myFavoriteCats += `${cats[i]}, `;
+		  }
+		}
+
+		console.log(myFavoriteCats); // "My cats are called Pete, Biggles, and Jasmine."
+
+		```
+
+
+	Salir de bucles con break:
+
+		Si desea salir de un bucle antes de que se hayan completado todas las iteraciones, puede utilizar la instrucción break. 
+
+		Ya vimos esto en el artículo anterior cuando analizamos las declaraciones de switch: 
+
+			cuando se cumple un caso en una declaración de switch que coincide con la expresión de entrada, la declaración de interrupción sale inmediatamente de la declaración de switch y pasa al código posterior.
+
+
+		Lo mismo ocurre con los bucles: una instrucción break saldrá inmediatamente del bucle y hará que el navegador pase a cualquier código que le siga.
+
+		¿Supongamos que queremos buscar entre una serie de contactos y números de teléfono y devolver solo el número que queremos encontrar? Primero, algo de HTML simple: un texto <input> que nos permite ingresar un nombre para buscar, un elemento <button> para enviar una búsqueda y un elemento <p> para mostrar los resultados.
+
+		```html
+
+		<label for="search">Search by contact name: </label>
+		<input id="search" type="text" />
+		<button>Search</button>
+
+		<p></p>
+
+		```
+
+		Ahora pasemos al JavaScript:
+
+		```js
+
+		const contacts = [
+		  "Chris:2232322",
+		  "Sarah:3453456",
+		  "Bill:7654322",
+		  "Mary:9998769",
+		  "Dianne:9384975",
+		];
+		const para = document.querySelector("p");
+		const input = document.querySelector("input");
+		const btn = document.querySelector("button");
+
+		btn.addEventListener("click", () => {
+		  const searchName = input.value.toLowerCase();
+		  input.value = "";
+		  input.focus();
+		  para.textContent = "";
+		  for (const contact of contacts) {
+		    const splitContact = contact.split(":");
+		    if (splitContact[0].toLowerCase() === searchName) {
+		      para.textContent = `${splitContact[0]}'s number is ${splitContact[1]}.`;
+		      break;
+		    }
+		  }
+		  if (para.textContent === "") {
+		    para.textContent = "Contact not found.";
+		  }
+		});
+
+
+		```
+
+		1. En primer lugar, tenemos algunas definiciones de variables:
+
+			tenemos una serie de información de contacto, y cada elemento es una cadena que contiene un nombre y un número de teléfono separados por dos puntos.
+
+		2. A continuación, adjuntamos un detector de eventos al botón (btn) para que cuando se presione se ejecute algún código para realizar la búsqueda y devolver los resultados.
+
+		3. Almacenamos el valor ingresado en la entrada de texto en una variable llamada 'searchName', antes de vaciar la entrada de texto y enfocarla nuevamente, lista para la siguiente búsqueda. 
+
+		Tenga en cuenta que también ejecutamos el método toLowerCase() en la cadena, por lo que las búsquedas no distinguirán entre mayúsculas y minúsculas.
+
+		4. Ahora pasemos a la parte interesante, el bucle for...of:
+
+			1. Dentro del bucle, primero dividimos el contacto actual en el carácter de dos puntos y almacenamos los dos valores resultantes en una matriz llamada 'splitContact'.
+
+			2. Luego usamos una declaración condicional para probar si splitContact[0] (el nombre del contacto, nuevamente en minúsculas con toLowerCase()) es igual al nombre de búsqueda ingresado. 
+
+			Si es así, ingresamos una cadena en el párrafo para informar cuál es el número del contacto y usamos break para finalizar el ciclo.
+
+		5. Después del ciclo, verificamos si configuramos un contacto y, en caso contrario, configuramos el texto del párrafo en "Contacto no encontrado".
+
+
+	Continue: 
+
+		Saltar iteraciones con continuar
+
+		La instrucción continue funciona de manera similar a break, pero en lugar de salir del ciclo por completo, salta a la siguiente iteración del ciclo. 
+
+		Veamos otro ejemplo que toma un número como entrada y devuelve solo los números que son cuadrados de números enteros (números enteros).
+
+		El HTML es básicamente el mismo que el del último ejemplo: una entrada numérica simple y un párrafo para la salida.
+
+		```html
+
+		<label for="number">Enter number: </label>
+		<input id="number" type="number" />
+		<button>Generate integer squares</button>
+
+		<p>Output:</p>
+
+		```
+
+		El JavaScript también es prácticamente el mismo, aunque el bucle en sí es un poco diferente:
+
+		```js
+
+		const para = document.querySelector("p");
+		const input = document.querySelector("input");
+		const btn = document.querySelector("button");
+
+		btn.addEventListener("click", () => {
+		  para.textContent = "Output: ";
+		  const num = input.value;
+		  input.value = "";
+		  input.focus();
+		  for (let i = 1; i <= num; i++) {
+		    let sqRoot = Math.sqrt(i);
+		    if (Math.floor(sqRoot) !== sqRoot) {
+		      continue;
+		    }
+		    para.textContent += `${i} `;
+		  }
+		});
+
+		```
+
+		1. En este caso, la entrada debe ser un número (num). 
+
+		El bucle for recibe un contador que comienza en 1 (ya que en este caso no estamos interesados ​​en 0), una condición de salida que dice que el bucle se detendrá cuando el contador sea mayor que el número de entrada y un iterador que suma 1 al contador cada vez.
+
+
+		2. Dentro del ciclo, encontramos la raíz cuadrada de cada número usando Math.sqrt(i), luego verificamos si la raíz cuadrada es un número entero probando si es igual a sí mismo cuando se ha redondeado hacia abajo al entero más cercano. 
+
+		(Esto es lo que Math.floor() hace con el número que se pasa).
+
+
+		3. Si la raíz cuadrada y la raíz cuadrada redondeada hacia abajo no son iguales (!==), significa que la raíz cuadrada no es un número entero, por lo que no nos interesa. 
+
+		En tal caso, usamos la instrucción continue para pasar a la siguiente iteración del ciclo sin registrar el número en ninguna parte.
+
+
+		4. Si la raíz cuadrada es un número entero, saltamos el bloque if por completo, por lo que la instrucción continuar no se ejecuta; en su lugar, concatenamos el valor i actual más un espacio al final del contenido del párrafo
+
+
+	While y do While: 
+
+		for no es el único tipo de bucle disponible en JavaScript. 
+
+		En realidad, hay muchos otros y, aunque no es necesario que los entiendas todos ahora, vale la pena echar un vistazo a la estructura de un par de otros para que puedas reconocer las mismas características en funcionamiento de una manera ligeramente diferente.
+
+		Primero, echemos un vistazo al bucle while. 
+
+		La sintaxis de este bucle se ve así.
+
+		```
+		initializer
+		while (condition) {
+		  // code to run
+
+		  final-expression
+		}
+
+		```
+
+		Esto funciona de manera muy similar al bucle for, excepto que la variable inicializadora se establece antes del bucle y la expresión final se incluye dentro del bucle después del código a ejecutar, en lugar de que estos dos elementos se incluyan entre paréntesis. 
+
+		La condición se incluye dentro de los paréntesis, que están precedidos por la palabra clave while en lugar de for.
+
+		Los mismos tres elementos todavía están presentes y todavía están definidos en el mismo orden en que están en el bucle for. 
+
+		Esto se debe a que debe tener un inicializador definido antes de poder verificar si la condición es verdadera o no. 
+
+		Luego, la expresión final se ejecuta después de que se haya ejecutado el código dentro del bucle (se haya completado una iteración), lo que solo sucederá si la condición sigue siendo verdadera.
+
+		Echemos un vistazo nuevamente a nuestro ejemplo de lista de gatos, pero reescrito para usar un bucle while.
+
+		```js
+
+		const cats = ["Pete", "Biggles", "Jasmine"];
+
+		let myFavoriteCats = "My cats are called ";
+
+		let i = 0;
+
+		while (i < cats.length) {
+		  if (i === cats.length - 1) {
+		    myFavoriteCats += `and ${cats[i]}.`;
+		  } else {
+		    myFavoriteCats += `${cats[i]}, `;
+		  }
+
+		  i++;
+		}
+
+		console.log(myFavoriteCats); // "My cats are called Pete, Biggles, and Jasmine."
+
+		```
+
+
+		El bucle do... while es muy similar, pero proporciona una variación de la estructura while.
+
+		```js
+
+		initializer
+		do {
+		  // code to run
+
+		  final-expression
+		} while (condition)
+
+
+		```
+
+		En este caso, el inicializador vuelve a ser lo primero, antes de que comience el ciclo. 
+
+		La palabra clave precede directamente a las llaves que contienen el código a ejecutar y la expresión final.
+
+		La principal diferencia entre un bucle do... while y un bucle while es que el código dentro de un bucle do... while siempre se ejecuta al menos una vez. 
+
+		Esto se debe a que la condición viene después del código dentro del bucle. 
+
+		Entonces siempre ejecutamos ese código y luego verificamos si necesitamos ejecutarlo nuevamente.
+
+		En los bucles while y for, la verificación es lo primero, por lo que es posible que el código nunca se ejecute.
+
+		Reescribamos nuestro ejemplo de lista de gatos nuevamente para usar un bucle do... while
+
+		```js
+
+		const cats = ["Pete", "Biggles", "Jasmine"];
+
+		let myFavoriteCats = "My cats are called ";
+
+		let i = 0;
+
+		do {
+		  if (i === cats.length - 1) {
+		    myFavoriteCats += `and ${cats[i]}.`;
+		  } else {
+		    myFavoriteCats += `${cats[i]}, `;
+		  }
+
+		  i++;
+		} while (i < cats.length);
+
+		console.log(myFavoriteCats); // "My cats are called Pete, Biggles, and Jasmine."
+
+		```
+
+		Nota: Nuevamente, esto funciona igual que se esperaba: mírelo ejecutándose en vivo en GitHub (consulte también el código fuente completo).
+
+		Advertencia: Con while y do... while, como con todos los bucles, debes asegurarte de que el inicializador se incremente o, según el caso, se disminuya, para que la condición eventualmente se vuelva falsa. De lo contrario, el bucle continuará para siempre y el navegador lo obligará a detenerse o se bloqueará. Esto se llama bucle infinito.
+
+
+	Elección de Bucle: 
+
+		Si está iterando a través de una matriz o algún otro objeto que lo admita y no necesita acceso a la posición del índice de cada elemento, entonces for...of es la mejor opción. 
+
+		Es más fácil de leer y hay menos posibilidades de equivocarse.
+
+		Para otros usos, los bucles for, while y do... while son en gran medida intercambiables. 
+
+		Todos se pueden utilizar para resolver los mismos problemas, y cuál utilice dependerá en gran medida de sus preferencias personales: 
+
+			cuál le resultará más fácil de recordar o más intuitivo.
+
+
+		Recomendamos, al menos para empezar, ya que probablemente sea el más fácil para recordar todo:
+
+			el inicializador, la condición y la expresión final deben ir claramente entre paréntesis, por lo que es fácil ver dónde están y verificar. que no te los estás perdiendo.
+
+
+		Echemos un vistazo a todos de nuevo.
+
+
+		1. for...of:
+
+			for (const item of array) {
+			  // code to run
+			}
+
+
+		2. for:
+
+			for (initializer; condition; final-expression) {
+			  // code to run
+			}
+
+
+		3. while:
+
+			initializer
+			while (condition) {
+			  // code to run
+
+			  final-expression
+			}
+
+
+		4. do...while:
+
+			initializer
+			do {
+			  // code to run
+
+			  final-expression
+			} while (condition)
+
+
+		Nota: También hay otros tipos/funciones de bucle que son útiles en situaciones avanzadas/especializadas y que están fuera del alcance de este artículo.
 
 
 
 || Funciones 
 
+	
+	Bloques de código reutilizables.
+	
+	Permiten almacenar un fragmento de código que realiza una sola tarea
+	
+	Luego llamar a ese código cuando lo necesite utilizando un solo comando corto, en lugar de tener que escribir el mismo código varias veces. 
+	
+	
+	Funciones integradas del navegador:
+	
+		Cada vez que manipulamos una cadena de texto
+		
+		```
+		const myText = "I am a string";
+		const newString = myText.replace("string", "sausage");
+		console.log(newString);
+		// the replace() string function takes a source string,
+		// and a target string and replaces the source string,
+		// with the target string, and returns the newly formed string
+		
+		```
+		I am a sauge 
+		
+		
+		O cada vez que manipulamos una matriz:
+		
+		```
+		const myArray = ["I", "love", "chocolate", "frogs"];
+		const madeAString = myArray.join(" ");
+		console.log(madeAString);
+		// the join() function takes an array, joins
+		// all the array items together into a single
+		// string, and returns this new string
+		
+		```
+		I love chocolate frogs
+		
+		
+		```
+		const myNumber = Math.random();
+		// the random() function generates a random number between
+		// 0 and up to but not including 1, and returns that number
+
+		```
+		0.6861136003867523
+		
+		
+		Muchas de estas funciones no están escritas en JavaScipt. 
+		
+		Estan escritas en C++
+		
+		Están llamando a partes del código del navegador en segundo plano
+		
+		Algunas funciones integradas del navegador no son parte del lenguaje JavaScript central
+		
+		Algunas se definen como parte de las API del navegador. que se basan en el lenguaje predeterminado para brindar incluso más funcionalidad
+		
+	
+	Funciones vs Métodos: 
+		
+		Las funciones que forman parte de los objetos se denominan métodos.
+		
+		El código integrado viene en ambas formas: funciones y métodos. 
+		
+		Funciones integradas, así como los objetos integrados y sus métodos. 
+			
+		Las funciones personalizadas están definidas en tu código. 
+		
+		
+		Las funciones pueden contener cualquier código que desees; 
+		
+		Puedes llamar a otras funciones desde dentro de las funciones
+		
+		Siempre se incluye de forma que se pueda llamar a la función por encima de la definición de la función y funcionará correctamente
+		
+	
+	Parámetros de la funcion: 
+		
+		Van dentro de los paréntesis de la función. 
+		
+		Algunas funciones no lo requieren. 
+		
+		Como Math.random() que devuelve un numero random entre 0 y 1: 
+		
+		```
+		const myNumber = Math.random();
+		
+		```
+		
+		En cambio, replace() necesita dos parámetros. 
+		
+		a subcadena que se buscará en la cadena principal y la subcadena con la que se reemplazará esa cadena
+		
+		```
+		const myText = "I am a string";
+		const newString = myText.replace("string", "sausage");
+		
+		```
+	
+	
+	Parámetros Opcionales: 
+	
+		La función adoptará algún tipo de comportamiento predeterminado. 
+		
+		En join(), el parámetro del array es opcional. 
+		
+	
+	Funciones anónimas:
+	
+		Verás funciones anónimas cuando una función espera recibir otra función como parámetro
+		
+		Se conoce como expresión de función.
+		
+		Las expresiones de función no se transfieren
+		
+		A diferencia de las declaraciones de función.
+	
+		El parámetro de la función suele pasarse como una función anónima.
+		
+		Ej: addEventListener()
+		
+		Espera que le pase (al menos) dos parámetros
+		 
+		 
+		1. El nombre del evento que se va a escuchar
+		
+		Este caso es keydown 
+		
+		2. Una función que se ejecutará cuando se produzca el evento.
+		
+		Cuando el usuario presione una tecla, el navegador llamará a la función que proporcionó
+		
+		Le pasará un parámetro que contiene información sobre este evento, incluida la tecla específica que presionó el usuario
+		
+		```
+		function logKey(event) {
+		  console.log(`You pressed "${event.key}".`);
+		}
+
+		textBox.addEventListener("keydown", logKey);
+		
+		```
+		
+		En lugar de definir una función independiente. 
+		
+		Puede pasar un función anonima en addEventListener(). 
+		
+		
+	Funciones flechas: 
+		
+		Podemos usarlas para pasarlas a otras funciones. 
+		
+		En lugar de escribir 'function'
+		
+		Escribimos el parametro y un flecha. 
+		
+		```
+		textBox.addEventListener("keydown", (event) => {
+		console.log(`You pressed "${event.key}".`);
+		});
+		
+		```
+		
+		Si solo toma un parametro podemos escribir sin parentesis su parametro
+		
+		```
+		textBox.addEventListener("keydown", event => {
+		  console.log(`You pressed "${event.key}".`);
+		});
 
 
+		```
+		
+		Si su función contiene solo una línea	
+		
+		Es una declaración de retorno
+		
+		Puede omitir las llaves y la palabra clave return y devolver implícitamente la expresión.
+		
+		Ej: método map() de Array para duplicar cada valor en la matriz original
+		
+		```
+		const originals = [1, 2, 3];
 
+		const doubled = originals.map(item => item * 2);
 
-|| Funciones Propias
+		console.log(doubled); // [2, 4, 6]
+					
+		```
+		
+		item => item * 2 
+ 
+		Equivale a la función flecha:
+		
+		```
+		function doubleItem(item) {
+		  return item * 2;
+		}
+		
+		```
+		
+		Podemos reescribir el ej, de addEventListener()
+		
+		```
+		textBox.addEventListener("keydown", (event) =>
+		  console.log(`You pressed "${event.key}".`),
+		);
+				
+		```
+		
+		En este caso, el valor de console.log(), que no está definido
+		
+		Se devuelve implícitamente desde la función de devolución de llamada
+		
+		
+		Existen otras diferencias con las funciones normales y flechas. 
+		
+		Como el caso de la palabra this. 
+		
+		
+	Scope y conflictos: 
+	
+		Cuando creas una función, las variables y otras cosas definidas dentro de la función están dentro de su propio ámbito de aplicación
+		
+		Están bloqueadas en sus propios compartimentos separados, inaccesibles desde el código externo a las funciones
+		
+		
+		El nivel superior fuera de todas tus funciones se denomina ámbito global. 
+		
+		Los valores definidos en el ámbito global son accesibles desde cualquier parte del código
+		
+		
+		Por seguridad, los scripts externos que llamas desde otro lugar podrían comenzar a alterar tu código y causar problemas porque están usando los mismos nombres de variable que otras partes del código, lo que causa conflictos. 
+		
+		
+		Ej: archivo HTML que llama a dos archivos JavaScript externos y ambos tienen una variable y una función definidas que usan el mismo nombre:
+		
+		```
+		<!-- Excerpt from my HTML -->
+		<script src="first.js"></script>
+		<script src="second.js"></script>
+		
+		<script>
+		  greeting();
+		</script>
+		
+		```
+		
+		// first.js
+		const name = "Chris";
+		function greeting() {
+		  alert(`Hello ${name}: welcome to our company.`);
+		}
+		
+		
+		// second.js
+		const name = "Zaptec";
+		function greeting() {
+		  alert(`Our company is called ${name}.`);
+		}
 
+		
+		Las dos funciones que desea llamar se denominan greeting(), pero solo puede acceder a la función greeting() del archivo first.js (la segunda se ignora). 
+		
+		Además, se produce un error al intentar (en el archivo second.js) asignar un nuevo valor a la variable name, porque ya se declaró con const y, por lo tanto, no se puede reasignar
+		
+		
+	
+	Ej: 
+		
+		Dos funciones llamadas a() y b()
+		
+		tres variables (x, y, z)
+		
+		dos definidas dentro de las funciones
+		
+		una en el ámbito global.
+		
+		una tercera función llamada output()
+		
+		toma un único parámetro y lo genera en un párrafo de la página.
+		
+		```
+		const x = 1;
 
+		function a() {
+		  const y = 2;
+		}
 
+		function b() {
+		  const z = 3;
+		}
 
-|| Retorno de Funciones
+		function output(value) {
+		  const para = document.createElement('p');
+		  document.body.appendChild(para);
+		  para.textContent = `Value: ${value}`;
+		}
+		
+		```
+		
+	
+		
+		
+		
+|| Funciones Propias o personalizadas
 
+	Se llamará displayMessage(). 
+	
+	Mostrará un cuadro de mensaje personalizado en una página web
+	
+	Actuará como un reemplazo de alert()
+	
+	La función alert es limitada: puede modificar el mensaje, pero no puede variar fácilmente nada más, como el color, el ícono o cualquier otra cosa. 
+	
+	Se usan las mismas reglas para los nombres de las funciones y variables. 
+	
+	
+	El HTML es simple: el cuerpo contiene solo un botón.
+	
+	CSS básicos para diseñar el cuadro de mensaje personalizado 
+	
+	El elemento <script> vacío para colocar nuestro JavaScript.
+	
+	
+	Agregamos al script: 
+	
+	```
+	function displayMessage() {
+		const body = document.body;
 
+		const panel = document.createElement("div");
+		panel.setAttribute("class", "msgBox");
+		body.appendChild(panel);
+
+		const msg = document.createElement("p");
+		msg.textContent = "This is a message box";
+		panel.appendChild(msg);
+
+		const closeBtn = document.createElement("button");
+		closeBtn.textContent = "x";
+		panel.appendChild(closeBtn);
+
+		closeBtn.addEventListener("click", () =>
+		  panel.parentNode.removeChild(panel),
+		);
+	}}
+	
+	```
+	
+	La primera línea selecciona el elemento <body> utilizando la API DOM
+	
+	Para obtener la propiedad body del objeto de documento global y asignarla a una constante llamada body	
+	
+	Para que podamos hacer cosas con ella más adelante.
+
+	
+	Después sección utiliza una función de la API DOM llamada document.createElement()
+
+	Para crear un elemento <div> y almacenar una referencia a él en una constante llamada panel.
+	
+	
+	Luego usamos otra función de la API DOM llamada Element.setAttribute() 
+	
+	Para establecer un atributo de clase en nuestro panel con un valor de msgBox. 
+
+	Para facilitar el estilo del elemento: si observa el CSS en la página,
+	
+	Usando un selector de clase .msgBox para dar estilo al cuadro de mensaje y su contenido.
+	
+	
+	LLamamos a una función DOM llamada Node.appendChild() en la constante body que almacenamos anteriormente
+	 
+	Anida un elemento dentro de otro como un elemento secundario de este. 
+	
+	Especificamos el panel <div> como el elemento secundario que queremos agregar dentro del elemento <body>. 
+	
+	Necesitamos hacer esto ya que el elemento que creamos no aparecerá solo en la página; necesitamos especificar dónde colocarlo
+	
+	
+	Llamamos a addEventListener() para agregar una función que se llamará cuando el usuario haga clic en el botón "cerrar".
+	 
+	El código eliminará todo el panel de la página para cerrar el cuadro de mensaje.
+	
+	El método addEventListener() lo proporciona el botón (o, de hecho, cualquier elemento de la página) al que se le puede pasar una función y el nombre de un evento. 
+	  
+	El nombre del evento es "click", lo que significa que cuando el usuario haga clic en el botón, se ejecutará la función
+	
+	Dentro de la función usa la función de la API DOM Node.removeChild() 
+	
+	Para especificar que queremos eliminar un elemento secundario específico del elemento HTML, en este caso, el panel <div>
+	
+	
+	Todo este bloque de código genera un bloque de HTML que se ve así y lo inserta en la página:
+	
+	```
+	<div class="msgBox">
+	  <p>This is a message box</p>
+	  <button>x</button>
+	</div>
+	
+	```
+	
+	
+	lo principal, estructura y uso de la función: 
+	
+	Incluir: 
+	
+	```
+	displayMessage();
+	
+	```
+	
+	Cargar en el navegador, verás que el pequeño cuadro de mensaje aparece inmediatamente, solo una vez.
+	
+	Dado que solo lo llamamos una vez.
+	
+	ahora tenemos una función reutilizable que podemos llamar cuando queramos.
+	
+	
+	Queramos que aparezca en respuesta a las acciones del usuario y del sistema. 
+	
+	En una aplicación real, probablemente se llamaría a un cuadro de mensaje 
+	
+	Como respuesta a la disponibilidad de nuevos datos, a un error que se ha producido, a que el usuario intente eliminar su perfil ("¿está seguro de esto?"), o a que el usuario añada un nuevo contacto y la operación se complete correctamente, etc.
+	
+	Haremos que aparezca el cuadro de mensaje cuando el usuario haga clic en el botón.
+	
+	
+	Seleccionaremos el botón y almacenaremos una referencia a él en una constante.
+	
+	Agregue la siguiente línea a su código, encima de la definición de la función:
+	
+	```
+	const btn = document.querySelector("button");
+	
+	```
+	
+	```
+	btn.addEventListener("click", displayMessage);
+	
+	```
+	
+	Al controlador de eventos click de nuestro closeBtn, aquí estamos llamando a un código en respuesta a que se haga clic en un botón
+	
+	En lugar de llamar a una función anónima que contenga algún código, estamos llamando a nuestra función displayMessage() por su nombre.
+	
+	Debería ver aparecer el cuadro de mensaje cuando haga clic en el botón
+	
+	```
+	btn.addEventListener("click", displayMessage());
+	
+	```
+	
+	Dado que no queremos llamar a la función inmediatamente.
+	
+	Sino solo después de que se haya hecho clic en el botón
+	
+	Caerá en un bucle. 
+	
+	```
+	btn.addEventListener("click", displayMessage());
+	
+	```
+	
+	El cuadro de mensaje aparece sin que se haya hecho clic en el botón.
+	
+	Los paréntesis en este contexto a veces se denominan "operador de invocación de función". 
+	 
+	Solo los usas cuando quieres ejecutar la función inmediatamente en el ámbito actual. 
+	
+	Del mismo modo, el código dentro de la función anónima no se ejecuta inmediatamente,
+	
+	Está dentro del ámbito de la función.
+	 
+	 
+	No queremos mostrar siempre el mismo mensaje predeterminado. 
+	 
+	Agregando algunos parámetros que nos permitan llamarla con algunas opciones diferentes.
+	 
+	Actualizar displayMessage
+	
+	```
+	function displayMessage(msgText, msgType) {
+
+	```
+			
+	Cuando llamamos a la función, podemos proporcionar dos valores de variable dentro de los paréntesis
+	 
+	Para especificar el mensaje que se mostrará en el cuadro de mensaje y el tipo de mensaje que es.
+	
+	Para utilizar el primer parámetro
+	
+	De
+	
+	```
+	msg.textContent = "Este es un cuadro de mensaje";
+	
+	```
+	
+	A: 
+	
+	```
+	msg.textContent = msgText;
+	
+	```
+	
+	Actualizar su llamada de función para incluir un texto de mensaje actualizado. 
+	
+	De: 
+	
+	```
+	btn.addEventListener("click", displayMessage);
+	
+	```
+	
+	A:
+	
+	```
+	btn.addEventListener("click", () =>
+	displayMessage("Woo, this is a different message!"),
+	);
+	
+	```
+		
+	Especificar parámetros dentro de paréntesis para la función que estamos llamando
+	 
+	No podemos llamarla directamente; 	
+	
+	necesitamos ponerla dentro de una función anónima para que no esté en el alcance inmediato
+	
+	Y no se llame inmediatamente.
+	
+	No se llamará hasta que se haga clic en el botón.
+	
+	Ahora también puedes variar el mensaje dentro del parámetro para obtener diferentes mensajes que se muestran en el cuadro. 
+	
+	 
+	 
+	 
+|| Valores de Retorno en las Funciones
+
+	Algunas funciones no devuelven un valor significativo, pero otras sí. 
+	
+	Es importante comprender cuáles son sus valores, cómo usarlos en su código
+	
+	cómo hacer que las funciones devuelvan valores útiles.
+	
+	
+	Son los valores los valores que devuelve una función cuando se completa.
+	
+	```
+	const myText = "The weather is cold";
+	const newString = myText.replace("cold", "warm");
+	console.log(newString); // Should print "The weather is warm"
+	// the replace() string function takes a string,
+	// replaces one substring with another, and returns
+	// a new string with the replacement made
+	
+	```
+	
+	La función reemplazar() se invoca en la cadena myText y se le pasan dos parámetros:
+
+		La subcadena a encontrar ('fría')
+		La cadena para reemplazarla con ('cálida')
+
+	Cuando la función se completa (termina de ejecutarse)
+	
+	Devuelve un valor, que es una nueva cadena con el reemplazo realizado. 
+	
+	El resultado de este valor de retorno se guarda en la variable newString.
+
+	En la referencia de MDN de la función reemplazar(), verá una sección llamada valor de retorno. 	
+	
+	Es muy útil saber y comprender qué valores devuelven las funciones
+	
+	
+	Algunas funciones no devuelven ningún valor.
+	
+	Valor de retorno como nulo o indefinido.
+	
+	La función displayMessage() no se devuelve ningún valor específico cuando se invoca la función
+	
+	Simplemente hace que aparezca un cuadro
+	
+	
+	Se utiliza un valor de retorno cuando la función es un paso intermedio en un cálculo de algún tipo.
+	
+	Quiere llegar a un resultado final, que implica algunos valores que deben calcularse mediante una función. 
+	
+	Después de que la función calcula el valor, puede devolver el resultado para almacenarlo en una variable
+	
+	Puede utilizar esta variable en la siguiente etapa del cálculo.
+	
+	
+	Para devolver un valor de una función personalizada
+	
+	```
+	function draw() {
+	  ctx.clearRect(0, 0, WIDTH, HEIGHT);
+	  for (let i = 0; i < 100; i++) {
+		ctx.beginPath();
+		ctx.fillStyle = "rgb(255 0 0 / 50%)";
+		ctx.arc(random(WIDTH), random(HEIGHT), random(50), 0, 2 * Math.PI);
+		ctx.fill();
+	  }
+	}
+	
+	```
+	
+	Dentro de cada iteración del bucle, se realizan tres llamadas a la función aleatoria(),
+	
+	Para generar un valor aleatorio para la coordenada x, la coordenada y
+	
+	y el radio del círculo actual,
+	
+	La función random() toma un parámetro (un número entero) y devuelve un número aleatorio completo entre 0 y ese número.
+	
+	Parecido a: 
+	
+	```
+	function random(number) {
+	  return Math.floor(Math.random() * number);
+	}
+	
+	```
+	
+	Podría escribirse de la siguiente manera:
+	
+	```
+	function random(number) {
+	  const result = Math.floor(Math.random() * number);
+	  return result;
+	}
+
+	```
+
+	La primera versión es más rápida de escribir y más compacta.
+
+	Devolvemos el resultado del cálculo Math.floor(Math.random() * number) cada vez que se llama a la función.
+	
+	Este valor de retorno aparece en el punto en que se llamó a la función y el código continúa
+	
+	```
+	ctx.arc(random(WIDTH), random(HEIGHT), random(50), 0, 2 * Math.PI);
+
+	```
+	
+	Sin la función aleatoria, los valores de retorno son: 
+	
+	```
+	ctx.arc(500, 200, 35, 0, 2 * Math.PI);
+	
+	```
+	
+
+	Ej, página HTML simple que contiene un campo de texto <input> y un párrafo. 
+	
+	<script>, en el que hemos almacenado una referencia a ambos elementos HTML en dos variables.
+	
+	Esta página le permitirá ingresar un número en el cuadro de texto
+	
+	y mostrar diferentes números relacionados con él a continuación.
+
+	
+	Ej: 
+	
+	```
+	<input class="numberInput" type="text">
+	<p></p>
+ 
+    const input = document.querySelector('.numberInput');
+    const para = document.querySelector('p');
+
+	```
+	
+	En HTML, campo de texto <input> y un párrafo. 
+	
+	En JS, referencia a ambos elementos HTML en dos variables.
+	
+	Esta página le permitirá ingresar un número en el cuadro de texto y mostrar diferentes números relacionados con él a continuación.
+
+	```
+	function squared(num) {
+	  return num * num;
+	}
+
+	function cubed(num) {
+	  return num * num * num;
+	}
+
+	function factorial(num) {
+	  if (num < 0) return undefined;
+	  if (num === 0) return 1;
+	  let x = num - 1;
+	  while (x > 1) {
+		num *= x;
+		x--;
+	  }
+	  return num;
+	}
+
+	```
+	
+	Tres funciones para calcular números como parametro. 
+	
+	Cuadrado, Cubo y Factorial de un número. 
+	
+	
+	Imprimir información sobre el número ingresado en la entrada de texto agregando el siguiente controlador de eventos debajo de las funciones existentes:
+	
+	```
+	input.addEventListener("change", () => {
+	  const num = parseFloat(input.value);
+	  if (isNaN(num)) {
+		para.textContent = "You need to enter a number!";
+	  } else {
+		para.textContent = `${num} squared is ${squared(num)}. `;
+		para.textContent += `${num} cubed is ${cubed(num)}. `;
+		para.textContent += `${num} factorial is ${factorial(num)}. `;
+	  }
+	});
+
+	
+	```
+	
+	Al agregar un detector al evento de cambio
+	
+	esta función se ejecuta cada vez que el evento de cambio
+	
+	se activa en la entrada de texto
+	
+	cuando se ingresa un nuevo valor en la entrada de texto y se envía 
+	
+	ingresa un valor y luego desenfoca la entrada
+	
+	presionando Tab o Retorno
+	
+	Cuando se ejecuta esta función anónima
+	
+	el valor de la entrada se almacena en la constante numérica.
+	
+	La declaración if imprime un mensaje de error si el valor ingresado no es un número. 
+	
+	La condición comprueba si la expresión isNaN(num) devuelve verdadero.
+	
+	La función isNaN() prueba si el valor num no es un número
+	
+	si es así, devuelve verdadero y, si no, devuelve falso.
+
+	Si la condición devuelve falso
+	
+	el valor numérico es un número y la función imprime una oración dentro del elemento de párrafo que indica los valores cuadrado, cúbico y factorial del número.
+	
+	La sentancia llama a las funciones al cuadrado(), al cubo() y factorial() para calcular los valores requeridos.
+	
+	
+	Piense en la idea de crear una biblioteca de funciones. 
+	
+	A medida que avance en su carrera de programación, comenzará a hacer el mismo tipo de cosas una y otra vez. 
+	
+	Es una buena idea crear su propia biblioteca de funciones de utilidad para hacer este tipo de cosas. 
+	
+	Puede copiarlos en un código nuevo o incluso simplemente aplicarlos a páginas HTML donde los necesite.
+	
+	
+	Es una buena idea comprobar que todos los parámetros necesarios estén validados
+	
+	Que los parámetros opcionales tengan algún tipo de valor predeterminado proporcionado.
 
 
 
 || Intro a Eventos
+	
+	Son cosas que suceden en el sistema que estás programando
+	
+	De las que el sistema te informa para que tu código pueda reaccionar ante ellos.
+
+	Si el usuario hace clic en un botón en una página web
+
+	Es posible que desee reaccionar a esa acción mostrando un cuadro de información. 
+
+	
+	El sistema produce (o "dispara") una señal de algún tipo cuando ocurre un evento
+
+	Proporciona un mecanismo mediante el cual se puede realizar una acción automáticamente (es decir, ejecutar algún código).
+
+	Ejecutar código cuando ocurre el evento.
+
+	Los eventos se activan dentro de la ventana del navegador
+	
+	Tienden a adjuntarse a un elemento específico que reside en ella.
+	
+	Puede ser un solo elemento, un conjunto de elementos, el documento HTML cargado en la pestaña actual o toda la ventana del navegador. 
+	
+	Hay muchos tipos diferentes de eventos que pueden ocurrir.
+	
+	
+	El usuario selecciona, hace clic o pasa el cursor sobre un determinado elemento.
+
+	El usuario elige una tecla en el teclado.
+
+	El usuario cambia el tamaño o cierra la ventana del navegador.
+	
+	Una página web termina de cargarse.
+	
+	Se envía un formulario.
+
+	Un vídeo se reproduce, se pausa o finaliza.
+	
+	Se produce un error.
+	
+	
+	Para reaccionar ante un evento, se le adjunta un controlador de eventos.
+
+	(event handler)
+	
+	Es un bloque de código generalmente una función JS. 
+	
+	De ejecuta cuando se activa el evento.
+	
+	Cuando se define un bloque de código de este tipo para ejecutarse en respuesta a un evento
+	
+	Estamos registrando un controlador de eventos (event handler)
+
+	
+	Los controladores de eventos a veces se denominan detectores de eventos.
+	
+	Son prácticamente intercambiables para nuestros propósitos, aunque estrictamente hablando, funcionan juntos.
+	
+	El oyente (listener) escucha si ocurre el evento y el controlador es el código que se ejecuta en respuesta a que suceda.
+	
+
+	Los eventos web no forman parte del lenguaje principal de JavaScript
+
+	Se definen como parte de las API integradas en el navegador.
 
 
+	Ej, manejar un evento de clic. 
+	
+	```
+	<button>Change color</button>
+	
+	```
+	
+	
+	Con JS, agrega un controlador de eventos al evento "clic" del botón
+	
+	El controlador reacciona al evento estableciendo el fondo de la página en un color aleatorio. 
+
+	```
+	const btn = document.querySelector("button");
+
+	function random(number) {
+	  return Math.floor(Math.random() * (number + 1));
+	}
+
+	btn.addEventListener("click", () => {
+	  const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+	  document.body.style.backgroundColor = rndCol;
+	});
+
+	```
+	
+	
+	Usando addEventListener():
+		
+		Los objetos que pueden activar eventos tienen un método addEventListener()
+		
+		Este es el mecanismo recomendado para agregar controladores de eventos.
+		
+		```
+		const btn = document.querySelector("button");
+
+		function random(number) {
+		  return Math.floor(Math.random() * (number + 1));
+		}
+
+		btn.addEventListener("click", () => {
+		  const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+		  document.body.style.backgroundColor = rndCol;
+		});
+
+		```
+		
+		El elemento HTML <button> activará un evento cuando el usuario haga clic en el botón.
+		
+		Define una función addEventListener(), a la que llamamos aquí
+	
+		Estamos pasando dos parámetros:
+
+			1. la cadena "clic", para indicar que queremos escuchar el evento de clic.
+			
+				Los botones pueden activar muchos otros eventos
+				
+				Como "mouseover" cuando el usuario mueve el mouse sobre el botón, o "keydown" cuando el usuario presiona una tecla y el botón está enfocado.
+				
+			
+			2. una función para llamar cuando ocurre el evento.
+			
+				En nuestro caso, la función genera un color RGB aleatorio
+
+				Establece el color de fondo de la página <cuerpo> en ese color.
+
+		
+		Está bien hacer que la función del controlador sea una función con nombre independiente, como esta:
+		
+		```
+		const btn = document.querySelector("button");
+
+		function random(number) {
+		  return Math.floor(Math.random() * (number + 1));
+		}
+
+		function changeBackground() {
+		  const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+		  document.body.style.backgroundColor = rndCol;
+		}
+
+		btn.addEventListener("click", changeBackground);
+		
+		```
+		
+		
+	Otros eventos: 
+	
+		Hay muchos eventos diferentes que pueden ser activados por un elemento de botón.
+		
+		Àl Color aleatorio agregar. 
+		
+		
+		focus u blur (Enfocar. desenfocar): 
+			
+			El color cambia cuando el botón está enfocado y desenfocado
+			
+			Intente presionar la pestaña para enfocarse en el botón y presione la pestaña nuevamente para enfocarse fuera del botón.
+			
+			A menudo se utilizan para mostrar información sobre cómo completar los campos del formulario cuando están enfocados
+			
+			O para mostrar un mensaje de error si un campo del formulario se completa con un valor incorrecto.
+
+		
+		dblclick: 
+		
+			El color cambia solo cuando se hace doble clic en el botón.
+
+		
+		mouseover y mouseout:	
+			
+			El color cambia cuando el puntero del mouse se coloca sobre el botón o cuando el puntero se aleja del botón, respectivamente.
+		
+		
+		Algunos eventos, como el clic, están disponibles en casi cualquier elemento.
+		
+		Otros son más específicos y sólo útiles en determinadas situaciones
+			
+		Por ejemplo, el evento de reproducción sólo está disponible en algunos elementos, como <video>.
+		
+		
+		
+	Remover listener 	
+		
+		Si ha agregado un controlador de eventos usando addEventListener()
+		
+		Puede eliminarlo nuevamente usando el método removeEventListener().
+		
+		Por ejemplo, esto eliminaría el controlador de eventos changeBackground():
+		
+		```
+		btn.removeEventListener("click", changeBackground);
+		
+		```
+		
+		
+		Los controladores de eventos también se pueden eliminar pasando un AbortSignal a addEventListener()
+		
+		Luego llamando a abort() en el controlador que posee el AbortSignal.
+		
+		Agregar un controlador de eventos que podemos eliminar con AbortSignal:
+		
+		```
+		const controller = new AbortController();
+
+		btn.addEventListener("click",
+		  () => {
+			const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+			document.body.style.backgroundColor = rndCol;
+		  },
+		  { signal: controller.signal } // pass an AbortSignal to this handler
+		);
+	
+		```
+		
+		Luego, el controlador de eventos creado por el código anterior se puede eliminar de esta manera:
+		
+		```
+		controller.abort(); // removes any/all event handlers associated with this controller
+
+		```
+		
+		
+		Para programas pequeños y simples, no es necesario limpiar los controladores de eventos antiguos y no utilizados
+		
+		Pero para programas más grandes y complejos, puede mejorar la eficiencia
+			
+		Además, la capacidad de eliminar controladores de eventos
+
+		Le permite tener el mismo botón realizando diferentes acciones en diferentes circunstancias
+		
+		Todo lo que tiene que hacer es agregar o eliminar controladores.
+
+	
+	Agregar varios Listeners para un solo evento:
+	
+		Al realizar más de una llamada a addEventListener() y proporcionar diferentes controladores
+	
+		Puede tener varios controladores para un solo evento:
+		
+		```
+		myElement.addEventListener("click", functionA);
+		myElement.addEventListener("click", functionB);
+		
+		```
+		
+		Ambas funciones ahora se ejecutarán cuando se haga clic en el elemento.
 
 
+	Otros mecanismos para controlar eventos: 
+	
+		addEventListener() para registrar controladores de eventos.
+		
+		Es el método más potente y se adapta mejor a programas más complejos.
+		
+		Pero hay otras dos formas de registrar controladores de eventos
+		
+		Propiedades del controlador de eventos y controladores de eventos en línea.
 
 
+	1. Propiedades del controlador de eventos: 
+		
+		Los objetos (como los botones) que pueden activar eventos
+		
+		También suelen tener propiedades cuyo nombre va seguido del nombre del evento
+		
+		Por ejemplo, los elementos tienen una propiedad al hacer clic.
+		
+		Esto se denomina propiedad del controlador de eventos.
+		
+		Para escuchar el evento, puede asignar la función de controlador a la propiedad.
+		
+		
+		Podríamos reescribir el ejemplo de color aleatorio así:
+		
+		```
+		const btn = document.querySelector("button");
 
+		function random(number) {
+		  return Math.floor(Math.random() * (number + 1));
+		}
+
+		btn.onclick = () => {
+		  const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+		  document.body.style.backgroundColor = rndCol;
+		};
+
+		
+		```
+		
+		También puede establecer la propiedad del controlador en una función con nombre:
+		
+		
+		```
+		const btn = document.querySelector("button");
+
+		function random(number) {
+		  return Math.floor(Math.random() * (number + 1));
+		}
+
+		function bgChange() {
+		  const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+		  document.body.style.backgroundColor = rndCol;
+		}
+
+		btn.onclick = bgChange;
+	
+		```
+		
+		Con las propiedades del controlador de eventos
+		
+		No puede agregar más de un controlador para un solo evento.
+		
+		
+		Por ejemplo, puedes llamar a addEventListener('click', handler) en un elemento varias veces
+		
+		Con diferentes funciones especificadas en el segundo argumento:
+		
+		```
+		element.onclick = function1;
+		element.onclick = function2;
+		
+		```
+		
+		
+	2. Controladores de eventos en línea:
+	
+		No debería usarse. 
+		
+		```
+		<button onclick="bgChange()">Press me</button>
+		
+		function bgChange() {
+		  const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+		  document.body.style.backgroundColor = rndCol;
+		}
+
+		```
+				
+		El primer método para registrar controladores de eventos que se encuentra en la Web
+		
+		Involucraba atributos HTML del controlador de eventos
+		
+		El valor del atributo es literalmente el código JavaScript que desea ejecutar cuando ocurre el evento.
+		
+		
+		También puedes insertar JavaScript directamente dentro del atributo
+		
+		```
+		<button onclick="alert('Hello, this is my old-fashioned event handler!');">
+		  Press me
+		</button>
+		
+		```
+		
+		Puede parecer fácil usar un atributo de controlador de eventos si está haciendo algo realmente rápido, pero rápidamente se vuelven inmanejables e ineficientes.
+
+		Mezclar HTML y JavaScript, ya que resulta difícil de leer. Mantener su JavaScript separado es una buena práctica 
+		
+		Incluso en un único archivo, los controladores de eventos en línea no son una buena idea. 
+		
+		Un botón está bien, pero ¿y si tuvieras 100 botones? Tendrías que agregar 100 atributos al archivo
+		
+		Con JavaScript, puedes agregar fácilmente una función de controlador de eventos a todos los botones de la página sin importar cuántos haya
+		
+		
+		```
+		const buttons = document.querySelectorAll("button");
+
+		for (const button of buttons) {
+		  button.addEventListener("click", bgChange);
+		}
+		
+		```
+		
+		Muchas configuraciones de servidor comunes no permitirán JavaScript en línea, como medida de seguridad.
+
+		Nunca debes usar los atributos del controlador de eventos HTML; están desactualizados y usarlos es una mala práctica.
+		
+	
+	
+	Event Objects: 
+	
+		A veces, dentro de una función de controlador de eventos
+		
+		Verá un parámetro especificado con un nombre como evento, evt o e.
+		
+		Esto se denomina objeto de evento y se pasa automáticamente a los controladores de eventos
+		
+		Para proporcionar funciones e información adicionales.
+		
+		
+		Reescribamos color random: 
+		
+		```
+		const btn = document.querySelector("button");
+
+		function random(number) {
+		  return Math.floor(Math.random() * (number + 1));
+		}
+
+		function bgChange(e) {
+		  const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+		  e.target.style.backgroundColor = rndCol;
+		  console.log(e);
+		}
+
+		btn.addEventListener("click", bgChange);
+
+		```
+		
+		Estamos incluyendo un objeto de evento, e, en la función
+		
+		En la función configurando un estilo de color de fondo en e.target, que es el botón en sí. La
+		
+		La propiedad de destino del objeto de evento es siempre una referencia al elemento en el que ocurrió el evento. 
+		
+		En este ejemplo, configuramos un color de fondo aleatorio en el botón, no en la página.
+		
+		
+		Puede usar cualquier nombre que desee para el objeto de evento
+		
+		Solo necesita elegir un nombre que luego pueda usar para hacer referencia a él dentro de la función del controlador de eventos
+		
+	
+	Propiedades extra de los objetos de evento: 
+	
+		La mayoría de los objetos de evento tienen un conjunto estándar de propiedades y métodos disponibles
+		
+		Están en la referencia del objeto evento. 
+		
+		Algunos objetos de eventos añaden propiedades adicionales que son relevantes para ese tipo particular de evento
+		
+		Su objeto de evento es un KeyboardEvent
+		
+		Es un objeto de evento especializado con una propiedad clave que le indica qué tecla se presionó:
+		
+		```
+		<input id="textBox" type="text" />
+		<div id="output"></div>
+
+		const textBox = document.querySelector("#textBox");
+		const output = document.querySelector("#output");
+		textBox.addEventListener("keydown", (event) => {
+		  output.textContent = `You pressed "${event.key}".`;
+		});
+
+		```
+		
+		
+	Prevenir el comportamiento predeterminado:
+		
+		Situación en la que deseas evitar
+		
+		Que un evento haga lo que hace de forma predeterminada.
+	
+		El ejemplo más común es el de un formulario web
+		
+		Un formulario de registro personalizado
+	
+		Cuando completa los detalles y hace clic en el botón Enviar
+		
+		El comportamiento natural es que los datos se envíen a una página específica en el servidor
+		
+		Para su procesamiento y que el navegador sea redirigido a una página de "mensaje de éxito" de algún tipo (o la misma página, si no se especifica otra).
+
+		
+		El problema surge cuando el usuario no ha enviado los datos correctamente
+		
+		Como desarrollador, desea evitar el envío al servidor y mostrar un mensaje de error que indique qué está mal y qué se debe hacer para corregir las cosas.
+		
+		Algunos navegadores admiten funciones de validación automática de datos de formulario.
+		
+		Pero como muchos no lo hacen, se recomienda no confiar en ellas e implementar sus propias comprobaciones de validación.
+		
+		
+		Ej, un formulario HTML simple que requiere que ingrese su nombre y apellido:
+		
+		
+		```		
+		<form>
+		  <div>
+			<label for="fname">First name: </label>
+			<input id="fname" type="text" />
+		  </div>
+		  <div>
+			<label for="lname">Last name: </label>
+			<input id="lname" type="text" />
+		  </div>
+		  <div>
+			<input id="submit" type="submit" />
+		  </div>
+		</form>
+		<p></p>
+	
+		```
+		
+		
+		Para Js, implementamos una verificación muy simple dentro de un controlador
+		
+		Para el evento de envío (el evento de envío se activa en un formulario cuando se envía)
+		
+		Prueba si los campos de texto están vacíos.
+		
+		Si es así, llamamos a la función preventDefault() en el objeto de evento
+		
+		Que detiene el envío del formulario
+		
+		Luego mostramos un mensaje de error en el párrafo debajo de nuestro formulario para decirle al usuario qué está mal.
+		
+		```
+		const form = document.querySelector("form");
+		const fname = document.getElementById("fname");
+		const lname = document.getElementById("lname");
+		const para = document.querySelector("p");
+
+		form.addEventListener("submit", (e) => {
+		  if (fname.value === "" || lname.value === "") {
+			e.preventDefault();
+			para.textContent = "You need to fill in both names!";
+		  }
+		});
+
+		```
+		
+		
+	Los eventos no solo están en la web: 
+		
+		No son exclusivos de JavaScript
+		
+		La mayoría de los lenguajes de programación tienen algún tipo de modelo de eventos
+		
+		La forma en que funciona el modelo a menudo difiere
+		
+		El modelo de eventos en JavaScript para páginas web
+		
+		Difiere del modelo de eventos de JavaScript tal como se usa en otros entornos.
+
+		
+		Node.js es un tiempo de ejecución de JavaScript 
+		
+		Permite a los desarrolladores utilizar JavaScript para crear aplicaciones de red y del lado del servidor.
+		
+		El modelo de eventos de Node.js se basa en listeners
+	
+		Para escuchar eventos y emisores para emitir eventos periódicamente
+		
+		(events and emmiters). 
+		
+		El código es bastante diferente y utiliza funciones como 
+		
+		on() para registrar un listener de eventos
+		
+		once() para registrar un detector de eventos que se da de baja después de ejecutarse una vez.
+		
+		Los documentos del evento de conexión HTTP proporcionan un buen ejemplo.
+
+		
+		Puede utilizar JavaScript para crear complementos para varios navegadores
+		
+		Utilizando una tecnología llamada WebExtensions
+		
+		El modelo de eventos es similar al modelo de eventos web,
+		
+		Pero un poco diferente: las propiedades de los detectores de eventos están escritas en mayúsculas y minúsculas
+		
+		Como onMessage en lugar de onmessage
+		
+		Deben combinarse con la función addListener
+		
+		
+	En el ejemplo Prevención del comportamiento predeterminado
+	
+	Tenemos algunos cuadros de texto, colocados dentro de elementos <div>
+	
+	Que a su vez se colocan dentro de un elemento <form>. 
+	
+	¿Qué sucede cuando se adjunta un detector de eventos de clic al elemento <form> 
+	
+	Y el usuario hace clic dentro de uno de los cuadros de texto? 
+	
+	Esto se llama burbujeo de eventos. 
+	
+		
+		
+|| Event Bubbling
+
+	Una página web se compone de elementos (títulos, párrafos de texto, imágenes, botones, etc.)
+	
+	Puedes escuchar los eventos que les suceden a estos elementos.
+	
+	Puede agregar un detector a un botón
+	
+	Se ejecutará cuando el usuario haga clic en el botón.
+	
+	
+	Estos elementos pueden anidarse unos dentro de otros	
+	
+	Un <button> podría colocarse dentro de un elemento <div>.
+
+	Llamaríamos al elemento <div> elemento padre y al <botón> elemento hijo.
+
+	Podemos agregar un detector de eventos a un elemento principal y el usuario hace clic en el elemento secundario.
+
+
+	Intro event bubbling:
+		
+		Establecer un listener en un elemento padre.
+		
+		En una página: 
+		
+		```
+		<div id="container">
+		  <button>Click me!</button>
+		</div>
+		<pre id="output"></pre>
+	
+		```
+		
+		
+		El botón está dentro de otro elemento, un elemento <div>.
+		
+		El elemento <div> es el padre del elemento contenedor.
+		
+		¿Qué sucede si agregamos un controlador de evento de clic al padre y luego hacemos clic en el botón?
+
+		```
+		const output = document.querySelector("#output");
+		function handleClick(e) {
+		  output.textContent += `You clicked on a ${e.currentTarget.tagName} element\n`;
+		}
+
+		const container = document.querySelector("#container");
+		container.addEventListener("click", handleClick);
+				
+		```
+		
+		Verás que el padre activa un evento de clic cuando el usuario hace clic en el botón:
+			
+			'Hiciste clic en un elemento DIV'
+			
+		Tiene sentido: el botón está dentro del <div>,
+		
+		Cuando haces clic en el botón, también estás haciendo clic implícitamente en el elemento que está dentro.
+		
+		
+	Ej de Bubbling: 
+	
+		Si agregamos detectores de eventos al botón y al padre
+		
+		```
+		<body>
+		  <div id="container">
+			<button>Click me!</button>
+		  </div>
+		  <pre id="output"></pre>
+		</body>
+			
+		```
+			
+		Intentemos agregar controladores de eventos de clic al botón
+		
+		(el <div>) y al elemento <body> que contiene ambos:
+
+		```
+		const output = document.querySelector("#output");
+		function handleClick(e) {
+		  output.textContent += `You clicked on a ${e.currentTarget.tagName} element\n`;
+		}
+
+		const container = document.querySelector("#container");
+		const button = document.querySelector("button");
+
+		document.body.addEventListener("click", handleClick);
+		container.addEventListener("click", handleClick);
+		button.addEventListener("click", handleClick);
+
+		```
+		
+		Todo esto tiene un orden de activación: 
+		desde el elemento más interno (primero) 
+		hasta el externo (ultimo)
+
+		BUTTON
+		DIV
+		BODY 
+		
+		
+		Este comportamiento puede resultar útil y también puede provocar problemas inesperados.
+
+		Veremos el problema que causa y encontraremos la solución.
+
+
+	Reproductor de video: 
+		
+		nuestra página contiene un vídeo
+		
+		inicialmente está oculto
+		
+		un botón denominado "Mostrar vídeo".
+
+
+		Queremos la siguiente interacción:
+		
+		Cuando el usuario hace clic en el botón "Mostrar video"
+
+		1. muestra el cuadro que contiene el video
+
+		pero no comienza a reproducirlo todavía.
+
+		2. Cuando el usuario hace clic en el video, comienza a reproducirlo.
+
+		3. Cuando el usuario haga clic en cualquier parte del cuadro fuera del video, oculte el cuadro.
+		
+		
+		En el html: 
+		
+		```
+		<button>Display video</button>
+
+		<div class="hidden">
+		  <video>
+			<source
+			  src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm"
+			  type="video/webm" />
+			<p>
+			  Your browser doesn't support HTML video. Here is a
+			  <a href="rabbit320.mp4">link to the video</a> instead.
+			</p>
+		  </video>
+		</div>
+		
+		```
+		
+		Tiene <button>
+		
+		<div> class="hidden"
+		
+		<video> dentro de <div>
+		
+		
+		Estamos usando CSS para ocultar elementos con el conjunto de clases "oculto".
+		
+		
+		JavaScript:
+		
+		```
+		const btn = document.querySelector("button");
+		const box = document.querySelector("div");
+		const video = document.querySelector("video");
+
+		btn.addEventListener("click", () => box.classList.remove("hidden"));
+		video.addEventListener("click", () => video.play());
+		box.addEventListener("click", () => box.classList.add("hidden"));
+
+		```
+		
+		Tres detectores de eventos de "clic":
+		
+		1. uno en el <button>:
+			
+			muestra el <div> que contiene el <video>
+
+		2. uno en el <video>: 
+			
+			que comienza a reproducir el video
+		
+		3. uno en el <div>:
+			
+			que oculta el vídeo
+		
+		
+		Al hacer clic en el botón se muestra el cuadro y el vídeo que contiene.
+		
+		Pero luego, cuando haces clic en el video, el video comienza a reproducirse
+		
+		¡pero el cuadro vuelve a estar oculto!
+		
+		El vídeo está dentro del <div> (es parte de él),
+		
+		Por lo que al hacer clic en el vídeo se ejecutan ambos controladores de eventos
+		
+	
+	Solucionando el problema con stopPropagation():
+	
+		El objeto Evento tiene una función disponible llamada stopPropagation()
+		
+		Cuando se llama dentro de un controlador de eventos
+		
+		Evita que el evento se propague a otros elementos.
+		
+		
+		Cambiando el JavaScript:
+			
+		```
+		const btn = document.querySelector("button");
+		const box = document.querySelector("div");
+		const video = document.querySelector("video");
+
+		btn.addEventListener("click", () => box.classList.remove("hidden"));
+
+		video.addEventListener("click", (event) => {
+		  event.stopPropagation();
+		  video.play();
+		});
+
+		box.addEventListener("click", () => box.classList.add("hidden"));
+
+		```	
+		
+		llamar a stopPropagation() en el objeto de evento
+		
+		en el controlador para el evento 'clic' del elemento <video>.
+		
+		Esto evitará que ese evento llegue a la caja. 
+		
+		intenta hacer clic en el botón y luego en el vídeo
+		
+	
+	Event Capture:
+	
+		Una forma alternativa de propagación de eventos
+		
+		Es la captura de eventos
+	
+		Invierte el orden de la propagación de eventos. 
+		
+		En lugar de que el evento se active primero en el elemento más interno objetivo
+		
+		Luego en elementos sucesivamente menos anidados
+		
+		
+		El evento se activa primero en el elemento menos anidado
+		
+		Luego en elementos sucesivamente más anidados. hasta alcanzar el objetivo.
+
+
+		La captura de eventos está deshabilitada de forma predeterminada.
+
+		Para habilitarlo debes pasar la opción de capture en addEventListener().
+
+
+		En un ej igual al anterior: 
+		
+		```
+		<body>
+		  <div id="container">
+			<button>Click me!</button>
+		  </div>
+		  <pre id="output"></pre>
+		</body>
+
+		const output = document.querySelector("#output");
+		function handleClick(e) {
+		  output.textContent += `You clicked on a ${e.currentTarget.tagName} element\n`;
+		}
+
+		const container = document.querySelector("#container");
+		const button = document.querySelector("button");
+
+		document.body.addEventListener("click", handleClick, { capture: true });
+		container.addEventListener("click", handleClick, { capture: true });
+		button.addEventListener("click", handleClick);
+		
+		```
+
+		You clicked on a BODY element
+		You clicked on a DIV element
+		You clicked on a BUTTON element
+
+		
+		Capturing and bubbling:
+		
+			De forma predeterminada, casi todos los controladores de eventos
+		
+			Se registran en la fase de propagación (bubbling phase)
+		
+			Esto tiene más sentido la mayor parte del tiempo.
+		
+		
+		
+	Event delegation:
+		
+		Event bubbling permite la delegación de evento. 
+		
+		Cuando queremos que se ejecute algún código
+		
+		Cuando el usuario interactúa con cualquiera de una gran cantidad de elementos secundarios
+		
+		Configuramos el detector de eventos en su elemento principal
+		
+		Y hacemos que los eventos que suceden en ellos
+		
+		Se transmitan a su elemento principal en lugar de tener que hacerlo.
+		
+		Configure el detector de eventos en cada hijo individualmente.
+
+		
+		Ej: la página está dividida en 16 mosaicos y queremos configurar cada mosaico con un color aleatorio 
+		
+		```
+		div id="container">
+		  <div class="tile"></div>
+		  <div class="tile"></div>
+		  <div class="tile"></div>
+		  <div class="tile"></div>
+		  <div class="tile"></div>
+		  <div class="tile"></div>
+		  ....
+		  
+		<div class="tile"></div>
+
+		.tile {
+		  height: 100px;
+		  width: 25%;
+		  float: left;
+		}
+
+		```
+		
+		En JavaScript, podríamos agregar un controlador de eventos de clic para cada mosaico.
+		
+		Pero una opción mucho más simple y eficiente es configurar el controlador de eventos de clic
+		
+		En el padre y confiar en la propagación de eventos para garantizar que el controlador se ejecute cuando el usuario haga clic en un mosaico:
+		
+		```
+		function random(number) {
+		  return Math.floor(Math.random() * number);
+		}
+
+		function bgChange() {
+		  const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+		  return rndCol;
+		}
+
+		const container = document.querySelector("#container");
+
+		container.addEventListener("click", (event) => {
+		  event.target.style.backgroundColor = bgChange();
+		});
+
+		```
+		
+		Usamos event.target para obtener el elemento que fue el objetivo del evento
+		(es decir, el elemento más interno)
+
+		Si quisiéramos acceder al elemento que maneja este evento
+		(en este caso el contenedor)
+		podríamos usar event.currentTarget.
+		
+	
+	target and currentTarget:
+		
+		Son dos propiedades diferentes del objeto de evento
+		
+		Para acceder al elemento en el que se hizo clic.
+		
+		Al configurar un oyente en un elemento principal, usamos event.currentTarget.
+		
+		Pero en la delegación de eventos, usamos event.target.
+
+			
+		target se refiere al elemento en el que se activó inicialmente el evento
+		
+		currentTarget se refiere al elemento al que se adjuntó este controlador de eventos.
+
+			
+		Si bien el objetivo sigue siendo el mismo
+		
+		Mientras surge un evento
+		
+		currentTarget será diferente para los controladores de eventos
+		
+		que están adjuntos a diferentes elementos en la jerarquía.
+
+		Podemos ver esto si adaptamos ligeramente el ejemplo anterior de Bubbling
+
+		```
+		<body>
+		  <div id="container">
+			<button>Click me!</button>
+		  </div>
+		  <pre id="output"></pre>
+		</body>
+
+		
+		const output = document.querySelector("#output");
+		function handleClick(e) {
+		  const logTarget = `Target: ${e.target.tagName}`;
+		  const logCurrentTarget = `Current target: ${e.currentTarget.tagName}`;
+		  output.textContent += `${logTarget}, ${logCurrentTarget}\n`;
+		}
+
+		const container = document.querySelector("#container");
+		const button = document.querySelector("button");
+
+		document.body.addEventListener("click", handleClick);
+		container.addEventListener("click", handleClick);
+		button.addEventListener("click", handleClick);
+
+		```
+		
+		Cuando hacemos clic en el botón
+		
+		el objetivo es el elemento del botón cada vez
+		
+		ya sea que el controlador de eventos esté adjunto al botón mismo, al <div> o al <body>. 
+		
+		
+		Sin embargo, currentTarget identifica el elemento
+		
+		cuyo controlador de eventos estamos ejecutando actualmente
+		
+			
+			Target: BUTTON, Current target: BUTTON
+			
+			Target: PRE, Current target: BODY
+			
+			Target: BODY, Current target: BODY
+
+		
+		La propiedad target se usa comúnmente en la delegación de eventos
+		
+		
+	
+	Los eventos no son realmente parte del JavaScript central
+	
+	Se definen en las API web del navegador.
+	
+	Los diferentes contextos en los que se utiliza JavaScript
+	
+	Tienen diferentes modelos de eventos
+	
+	Desde API web hasta otras áreas como WebExtensions
+	
+	Del navegador y Node.js (JavaScript del lado del servidor).
+	
+	
+	
+		
 || 3. OOP en JS
 
 
 	Guia: 
 
-		1. 
+		1. Conceptos básicos de objetos
+			
+			Analiza los objetos de JavaScript
+			
+			Sintaxis, características, 
+			
+		
+		2. Prototipos de objetos
+			
+			Mecanismo por el cual los objetos JavaScript heredan características entre sí
+			
+			Funcionan de manera diferente a los mecanismos de herencia
+			
+			De los lenguajes de programación clasicos orientados a objetos. 
+			
+			Además de como funcionan las cadenas prototipo	
+		
+		
+		3. Programación Orientada a Objetos
+			
+			Los principios básicos de la programación orientada a objetos "clásica"
+			
+			Las diferencias del modelo prototipo en JavaScript.
+		
+		
+		4. Clases 
+		
+			Características para implementar programas "clásicos" orientados a objetos
+			
+			
+		5. Trabajar con datos JSON
+
+			Es un formato estándar basado en texto.
+			
+			Para representar datos estructurados según la sintaxis de objetos JavaScript
+			
+			Se usa comúnmente para representar y transmitir datos en la web
+
+			Enviar algunos datos desde el servidor al cliente, para que se puede mostrar en una página web
+			
+			Análisis del JSON, acceder a los elementos de datos que contiene y escribir su propio JSON 
+
+
+		6. Construir objetos
+			
+			Práctica en la creación de objetos JavaScript personalizados
+			
+		
+		
+		
+
+
+|| Introducción a Objetos
+
+	En JavaScript, la mayoría de las cosas son objetos. 
+	
+	Desde las funciones principales de JavaScript
+	
+	Como matrices, hasta las API del navegador creadas sobre JavaScript.
+	
+	Incluso puede crear sus propios objetos para encapsular funciones y variables relacionadas en paquetes eficientes
+	
+	Para actuar como prácticos contenedores de datos
+	
+	
+	Objeto: 
+	
+		Un objeto es una colección de datos y/o funcionalidades relacionadas.
+	
+		Suelen constar de varias variables y funciones
+	
+		Se denominan propiedades y métodos cuando están dentro de objetos
+		
+		
+		La creación de un objeto a menudo comienza con la definición e inicialización de una variable.
+		
+		
+		En un archivo definimos: 
+		
+		```
+		const person = {};
+		
+		```
+		
+		En la consola escribimos person;
+		
+		se ve:
+		
+		```
+		[object Object]
+		Object { }
+		{ }
+		
+		```
+		
+		Este es un objeto vacío.
+		
+		
+		Puede tener propiedades y métodos. 
+		
+		```
+		const person = {
+		  name: ["Bob", "Smith"],
+		  age: 32,
+		  bio: function () {
+			console.log(`${this.name[0]} ${this.name[1]} is ${this.age} years old.`);
+		  },
+		  introduceSelf: function () {
+			console.log(`Hi! I'm ${this.name[0]}.`);
+		  },
+		};
+		
+		```
+		
+		person.name;
+		person.name[0];
+		person.age;
+		person.bio();
+		// "Bob Smith is 32 years old."
+		person.introduceSelf();
+		// "Hi! I'm Bob."
+
+		
+		Ahora tiene algunos datos y funcionalidades dentro de su objeto
+		
+		Puede acceder a ellos con una sintaxis simple
+		
+		
+		Un objeto se compone de varios miembros
+		
+		Cada uno de los cuales tiene un nombre
+		
+		Por ejemplo, nombre y edad
+			
+		Y un valor ej, ['Bob', 'Smith'] y 32
+	
+		(un array y un entero). 
+		
+		
+		Cada par de nombre/valor debe estar separado por una coma
+		
+		El nombre y el valor están separados por dos puntos. 
+		
+		La sintaxis siempre sigue este valor: 
+		
+		```
+		const objectName = {
+		  member1Name: member1Value,
+		  member2Name: member2Value,
+		  member3Name: member3Value,
+		};
+		
+		```
+		
+		El valor de un miembro de objeto puede ser prácticamente cualquier cosa
+		
+		Tenemos un número, una matriz y dos funciones.
+		
+		
+		1. propiedades del objeto:
+		
+			Son elementos de datos: 
+			
+			Los dos primeros elementos son
+		
+		
+		2. Métodos del objeto 
+		
+			Las funciones: 
+			
+			permiten al objeto manipular esos datos. 
+			
+		
+		Cuando los miembros del objeto son funciones, hay una sintaxis más simple
+		
+		En lugar de bio: función () 
+		
+		Podemos escribir bio().
+	
+		```
+		const person = {
+		  name: ["Bob", "Smith"],
+		  age: 32,
+		  bio() {
+			console.log(`${this.name[0]} ${this.name[1]} is ${this.age} years old.`);
+		  },
+		  introduceSelf() {
+			console.log(`Hi! I'm ${this.name[0]}.`);
+		  },
+		};
+		
+		```
+		
+		Usaremos esta sintaxis más corta.
+		
+		Un objeto como este se conoce como objeto literal
+		
+		Literalmente, hemos escrito el contenido del objeto a medida que lo creamos
+
+		
+		Esto es diferente en comparación con los objetos instanciados a partir de clases.
+		
+		
+		Es muy común crear un objeto utilizando un literal de objeto
+		
+		Cuando se desea transferir una serie de elementos de datos estructurados y relacionados de alguna manera
+		
+		Ej, enviando una solicitud al servidor para que se coloque en una base de datos
+		
+		Enviar un solo objeto es mucho más eficiente que enviar varios elementos individualmente
+
+		Es más fácil trabajar con él.
+		
+		Que con una matriz, cuando desea identificar elementos individuales por su nombre.
+
+
+	Notación de puntos/Dot Notation:
+	
+		Antes se accedió a las propiedades y métodos del objeto 
+		
+		Usando notación de puntos.
+		
+		El nombre del objeto (persona) actúa como espacio de nombres
+		
+		Primero debe ingresarse para acceder a cualquier cosa dentro del objeto
+		
+		Luego escribe un punto, luego el elemento al que desea acceder
+		
+		Este puede ser el nombre de una propiedad simple
+		
+		Un elemento de una propiedad de matriz
+		
+		O una llamada a uno de los métodos del objeto
+		
+		```
+		person.age;
+		person.bio();
+
+		```
+		
+		
+		Objeto como propiedades de objeto: 
+				
+			Una propiedad de objeto puede ser en sí misma un objeto.
+			
+			Intente cambiar el nombre del miembro de
+			
+			De
+			
+			```
+			const person = {
+			  name: ["Bob", "Smith"],
+			};
+
+			
+			```
+		
+			a: 
+			
+			```
+			const person = {
+			  name: {
+				first: "Bob",
+				last: "Smith",
+			  },
+			  // …
+			};
+
+			
+			```
+			
+			Para acceder a estos elementos sólo necesitas encadenar el paso adicional al final con otro punto.
+			
+			```
+			person.name.first;
+			person.name.last;
+			
+			```
+			
+			Si hace esto, también necesitará revisar el código de su método y cambiar cualquier instancia de
+
+			De:
+	
+			```
+			name[0];
+			name[1];	
+			
+			```
+		
+			A: 
+			
+			```
+			name.first;
+			name.last;
+			
+			```
+			
+			De lo contrario, sus métodos ya no funcionarán.
+		
+		
+	Notación de corchete: 
+		
+		Alternativa de acceder a las propiedades de los objetos.
+		
+		En lugar de utilizar notación de puntos:
+		
+		```
+		person.age;
+		person.name.first;
+
+		```
+		
+		Podemos usar corchetes: 
+		
+		```
+		person["age"];
+		person["name"]["first"];
+
+		```
+		
+		Esto se parece mucho a cómo se accede a los elementos de una matriz
+		
+		En lugar de usar un número de índice para seleccionar un elemento
+		
+		se utiliza el nombre asociado con el valor de cada miembro
+		
+		a los objetos a veces se les llame matrices asociativas
+		
+		asignan cadenas a valores de la misma manera que las matrices asignan números a valores
+		
+		
+		Generalmente se prefiere la notación de puntos a la notación entre corchetes porque es más concisa y más fácil de leer
+		
+		Pero hay algunos casos en los que es necesario utilizar corchetes.
+		
+		Ej, si el nombre de una propiedad de un objeto se encuentra en una variable
+		
+		entonces no puede usar la notación de puntos para acceder al valor
+		
+		pero puede acceder al valor usando la notación entre corchetes.
+		
+		
+		Ej, la función logProperty() puede usar 
+		
+		person[propertyName]
+		
+		para recuperar el valor de la propiedad nombrada en propertyName.
+		
+		```
+		const person = {
+		  name: ["Bob", "Smith"],
+		  age: 32,
+		};
+
+		function logProperty(propertyName) {
+		  console.log(person[propertyName]);
+		}
+
+		logProperty("name");
+		// ["Bob", "Smith"]
+		logProperty("age");
+		// 32
+		
+		```
+		
+		
+	Establecer miembros de objetos:
+			
+		Hasta ahora solo hemos analizado la recuperación (u obtención) de miembros de objetos;
+			
+		también puede establecer (actualizar) el valor de los miembros de objetos declarando el miembro que desea configurar
+		
+		usando notación de puntos o corchetes
+		
+	
+		```
+		person.age = 45;
+		person["name"]["last"] = "Cratchit";
+		
+		```	
+	
+		no se limita sólo a actualizar los valores de las propiedades y métodos existentes; 
+		
+		También puedes crear miembros completamente nuevos
+	
+		```
+		person["eyes"] = "hazel";
+		person.farewell = function () {
+		  console.log("Bye everybody!");
+		};
+		
+		```
+		
+		Podemos acceder a los nuevos propiedades y métodos: 
+		
+		```
+		person["eyes"];
+		person.farewell();
+		// "Bye everybody!"
+		
+		```
+		
+		Un aspecto útil de la notación entre corchetes
+		
+		se puede utilizar para establecer no sólo valores de miembros de forma dinámica
+	
+		sino también nombres de miembros
+		
+		
+		Digamos que queremos que los usuarios puedan almacenar tipos de valores personalizados
+		
+		en los datos de sus personas
+		
+		escribiendo el nombre del miembro y el valor en dos entradas de texto.
+		
+		Podríamos obtener esos valores así:
+		
+		```
+		const myDataName = nameInput.value;
+		const myDataValue = nameValue.value;
+
+		```
+		
+		Luego podríamos agregar este nuevo nombre de miembro y valor al objeto persona de esta manera:
+		
+		```
+		person[myDataName] = myDataValue;
+		
+		```
+		
+		Intente agregar las siguientes líneas en su código, justo debajo de la llave de cierre del objeto persona:
+		
+		```
+		const myDataName = "height";
+		const myDataValue = "1.75m";
+		person[myDataName] = myDataValue;
+		
+		```
+		
+		intente guardar y actualizar e ingrese lo siguiente en su entrada de texto:
+
+		```
+		person.height;
+
+		```
+		
+		Agregar una propiedad a un objeto usando el método anterior no es posible con la notación de puntos
+		
+		que solo puede aceptar un nombre de miembro literal
+		
+		no un valor de variable que apunte a un nombre
+		
+	
+	This: 
+		
+		Para mostrar el valor de una propiedad del objeto
+		
+		Tuvimos que usar ${this.name[0]} en un método. 
+		
+		Dado que este valor estaba en un array. 
+		
+		o  ${this.name.first} que estaba en otro objeto. 
+		
+		
+		```
+		introduceSelf() {
+		  console.log(`Hi! I'm ${this.name[0]}.`);
+		}
+
+		```
+		
+		Normalmente se refiere al objeto actual en el que se ejecuta el código		
+		
+		En el contexto de un método de objeto.
+		
+		Se refiere al objeto sobre el que se invocó el método.
+
+		
+		Ej: En este par de objetos
+		
+		```
+		const person1 = {
+		  name: "Chris",
+		  introduceSelf() {
+			console.log(`Hi! I'm ${this.name}.`);
+		  },
+		};
+
+		const person2 = {
+		  name: "Deepti",
+		  introduceSelf() {
+			console.log(`Hi! I'm ${this.name}.`);
+		  },
+		};
+		
+		```
+		
+		person1.introduceSelf() genera "¡Hola! Soy Chris.";
+		
+		person2.introduceSelf() genera "¡Hola! Soy Deepti".
+		
+		
+		Sucede porque cuando se llama al método
+		
+		this se refiere al objeto en el que se llama el método
+		
+		Lo que permite que la misma definición de método funcione para múltiples objetos.
+
+
+		No es muy útil cuando se escriben literales de objetos a mano
+
+		ya que usar el nombre del objeto
+		
+		persona1 y persona2
+		
+		conduce exactamente al mismo resultado
+		
+		
+		Pero será esencial cuando comencemos a usar constructores
+		
+		Para crear más de un objeto a partir de una única definición de objeto
+		
+	
+	Introducción a Constructores: 
+		
+		Usar objetos literales está bien cuando sólo necesitas crear un objeto
+		
+		pero si tienes que crear más de uno
+		
+		son muy inadecuados. 	
+		
+		
+		Tenemos que escribir el mismo código para cada objeto que creamos
+		
+		y si queremos cambiar algunas propiedades del objeto
+		
+		agregar una propiedad de altura, debemos recordar actualizar cada objeto.
+
+			
+		Necesitamos una forma de definir la "forma" de un objeto
+		
+		El conjunto de métodos y las propiedades que puede tener
+		
+		y luego crear tantos objetos como queramos
+		
+		simplemente actualizando los valores de las propiedades que son diferentes.
+		
+		
+		Como primera version, podemos usar una función: 
+			
+		```
+		function createPerson(name) {
+		  const obj = {};
+		  obj.name = name;
+		  obj.introduceSelf = function () {
+			console.log(`Hi! I'm ${this.name}.`);
+		  };
+		  return obj;
+		}
+		
+		```
+		
+		Esta función crea y devuelve un nuevo objeto cada vez que la llamamos.
+		
+		El objeto tendrá dos miembros:
+			
+			un nombre de propiedad
+			un método introducirSelf().
+
+		createPerson() toma un nombre de parámetro para establecer el valor de la propiedad del nombre
+			
+		pero el valor del método introduceSelf() será el mismo para todos los objetos creados con esta función. 
+		
+		Este es un patrón muy común para crear objetos
+		
+		
+		Ahora podemos crear tantos objetos como queramos, reutilizando la definición:
+		
+		```
+		const salva = createPerson("Salva");
+		salva.introduceSelf();
+		// "Hi! I'm Salva."
+
+		const frankie = createPerson("Frankie");
+		frankie.introduceSelf();
+		// "Hi! I'm Frankie."
+		
+		```
+		
+		Funciona bien pero es un poco largo
+		
+		Tenemos que crear un objeto vacío, inicializarlo y devolverlo.
+		
+		
+		Una mejor manera es utilizar un constructor
+		
+		es simplemente una llamada a una función
+		
+		Usando 'new'. 
+		
+		
+		Cuando llamamos al constructor, puede:
+		
+			crear un nuevo objeto
+			
+			vincular this al nuevo objeto
+			para que pueda hacer referencia
+			a this en su código de constructor
+			
+			ejecutar el código en el constructor
+			
+			devolver el nuevo objeto
+		
+		
+		Los constructores, por convención, comienzan con una letra mayúscula
+		
+		Reciben nombres según el tipo de objeto que crean.
+		
+		Podríamos reescribir nuestro ejemplo:
+		
+		```
+		function Person(name) {
+		  this.name = name;
+		  this.introduceSelf = function () {
+			console.log(`Hi! I'm ${this.name}.`);
+		  };
+		}
+
+		```
+		
+		Para llamar a Person() como constructor, usamos new:
+		
+		```
+		const salva = new Person("Salva");
+		salva.introduceSelf();
+		// "Hi! I'm Salva."
+
+		const frankie = new Person("Frankie");
+		frankie.introduceSelf();
+		// "Hi! I'm Frankie."
+
+		```
+		
+		
+	Hay objetos en todos lados: 
+	
+		La notación de puntos que ha estado usando le resulta muy familiar
+		
+		Cada vez que hemos estado trabajando en un ejemplo que utiliza una API de navegador integrada
+		
+		o un objeto JavaScript
+		
+		porque dichas características se crean utilizando exactamente el mismo tipo de estructuras de objetos
+		
+		Aunque más complejos. 
+		
+		
+		En métodos de cadena como
+		
+		```
+		myString.split(",");
+		
+		```
+		Estabas usando un método disponible en un objeto String.
+		
+		
+		Cada vez que crea una cadena en su código
+		
+		Esa cadena se crea automáticamente como una instancia de String
+		
+		Por lo tanto, tiene varios métodos y propiedades comunes disponibles.
+
+		
+		Cuando accedió al modelo de objetos del documento usando:
+		
+		```
+		const myDiv = document.createElement("div");
+		const myVideo = document.querySelector("video");
+		
+		```
+		
+		Estabas utilizando métodos disponibles en un objeto Documento
+		
+		Para cada página web cargada, se crea una instancia de Documento
+		
+		llamada documento, que representa la estructura completa de la página
+		
+		el contenido y otras características como su URL. 
+		
+		Esto significa que tiene varios métodos y propiedades comunes disponibles.
+				
+		Lo mismo ocurre con prácticamente cualquier otro objeto integrado
+		
+		o API que haya estado utilizando: Array, Math, etc.
+
+		
+		Los objetos integrados y las API no siempre crean instancias de objetos automáticamente.
+
+		Ej, la API de notificaciones, que permite a los navegadores modernos activar notificaciones del sistema
+		
+		Requiere que cree una nueva instancia de objeto utilizando el constructor para cada notificación que desee activar
+		
+		En la consola: 
+		
+		```
+		const myNotification = new Notification("Hello!");
+		
+		```
+		
+	
+	Fue una idea de cómo trabajar con objetos en JavaScript, incluida la creación de sus propios objetos simples.
+	
+	los objetos son muy útiles como estructuras para almacenar datos y funcionalidades relacionados
+	
+	si intentara realizar un seguimiento de todas las propiedades y métodos de nuestro objeto persona
+	
+	como variables y funciones separadas, sería ineficiente y frustrante,
+	
+	corre el riesgo de chocar con otras variables y funciones que tienen los mismos nombres.
+	
+	
+	Los objetos nos permiten mantener la información guardada de forma segura en su propio paquete, fuera de peligro.
+	
+	Los prototipos, que es la forma fundamental en que JavaScript permite que un objeto herede propiedades de otros objetos.
+	
+		
+		
+|| Prototipos
+
+	Mecanismo por el cual los objetos JavaScript heredan características entre sí
+
+	Con un funcionamiento un poco diferente al de los lenguajes clasicos. 
+	
+	Existe una definición para los prototipos. 
+	
+	Cadena de prototipos y también un objeto puede ser un prototipo. 
+	
+
+	Cadena prototipo: 
+		
+		En la consola, creamos un objeto literal:
+		
+		```
+		const myObject = {
+		  city: "Madrid",
+		  greet() {
+			console.log(`Greetings from ${this.city}`);
+		  },
+		};
+
+		myObject.greet(); // Greetings from Madrid
+
+		```
+		
+		Es un objeto con una propiedad de datos, ciudad, y un método, saludar().
+		
+		Si escribe el nombre del objeto seguido de un punto en la consola, como myObject.
+		
+		la consola mostrará una lista de todas las propiedades disponibles para este objeto
+		
+		```
+		myObject.
+		
+		```
+
+		Hay más propiedades además de city y greet(). 
+		
+		__defineGetter__
+		__defineSetter__
+		__lookupGetter__
+		__lookupSetter__
+		__proto__
+		city
+		constructor
+		greet
+		hasOwnProperty
+		isPrototypeOf
+		propertyIsEnumerable
+		toLocaleString
+		toString
+		valueOf
+
+		
+		Al acceder a estas propiedades 
+		
+		```
+		myObject.toString(); // "[object Object]"
+
+		```
+		
+		Funciona (incluso si no es obvio qué hace toString()).
+
+		Propiedades adicionales, de dónde vienen
+
+		
+		Cada objeto en JavaScript tiene una propiedad incorporada
+		
+		se llama prototipo
+	
+		El prototipo es en sí mismo un objeto
+		
+		por lo que tendrá su propio prototipo
+		
+		formando lo que se llama una cadena de prototipos.
+		
+		La cadena termina cuando llegamos a un prototipo que tiene nulo como su propio prototipo
+	
+		
+		La propiedad de un objeto que apunta a su prototipo no se llama prototipo. 
+		
+		Su nombre no es estándar
+		
+		pero en la práctica todos los navegadores utilizan __proto__.
+		
+		La forma estándar de acceder al prototipo de un objeto es el método Object.getPrototypeOf().
+	
+		```
+		Object.getPrototypeOf(myObject); 
+		
+		```
+		
+		```
+		Object.__proto__; 
+
+		```
+		
+		```
+		myObject.__proto__; 
+		
+		```
+			
+		
+		Cuando se intenta acceder a una propiedad de un objeto
+		
+		Si la propiedad no se puede encontrar en el objeto mismo		
+		
+		se busca la propiedad en el prototipo.
+		
+		Si aún no se puede encontrar la propiedad
+		
+		entonces se busca el prototipo del prototipo
+		
+		sucesivamente hasta que se encuentra la propiedad o se llega al final de la cadena, en cuyo caso se devuelve undefinido.
+		
+		
+		Ej, cuando llamamos a myObject.toString():
+		
+			busca toString en myObject
+			
+			No puedo encontrarlo allí
+			
+			así que busca en el objeto prototipo de myObject toString.
+			
+			lo encuentra allí y lo llama.
+
+		
+		Objeto prototipo de myObject: 
+		
+		```
+		Object.getPrototypeOf(myObject); 
+		// Object { }
+	
+		```
+		
+		Es un objeto llamado Object.prototype
+		
+		es el prototipo más básico que todos los objetos tienen por defecto.
+		
+		El prototipo de Object.prototype es nulo
+			
+		por lo que está al final de la cadena del prototipo:
+		
+		```
+		myObject				Object.prototype
+		city	-> __proto__ -> hasOwnProperty() -> __proto__ -> null
+		greet()					isPrototypeOf()
+		
+		```
+		
+		
+		El prototipo de un objeto no siempre es Object.prototype
+		
+		Puede haber otros en el medio. 
+		
+		```
+		const myDate = new Date();
+		let object = myDate;
+
+		do {
+		  object = Object.getPrototypeOf(object);
+		  console.log(object);
+		} while (object);
+
+		// Date.prototype
+		// Object { }
+		// null
+		
+		```
+		
+		Este código crea un objeto Date
+		
+		Luego recorre la cadena de prototipos y registra los prototipos.
+		
+		Nos muestra que el prototipo de myDate es un objeto Date.prototype
+		
+		y su prototipo es Object.prototype.
+		
+			
+		```
+		myDate -> __proto__ -> Date.prototype -> __proto__ -> Object.prototype -> __proto__ -> null
+							   getMonth()					  hasOwnProperty()
+							   getYear()				      isPrototypeOf()
+		
+		```
+			
+		cuando llamas a métodos familiares
+		
+		como myDate2.getTime(),
+		
+		estás llamando a un método definido en Date.prototype.
+		
+		
+	Shadowing Properties: 
+		
+		Si define una propiedad en un objeto
+		
+		cuando se define una propiedad con el mismo nombre en el prototipo del objeto
+		
+		```
+		const myDate = new Date(1995, 11, 17);
+
+		console.log(myDate.getTime()); // 819129600000
+
+		myDate.getTime = function () {
+		  console.log("something else!");
+		};
+
+		myDate.getTime(); // 'something else!'
+
+		```
+		
+		Esto debería ser predecible
+		
+		dada la descripción de la cadena del prototipo
+		
+		Cuando llamamos a getTime(),
+		
+		El navegador primero busca en myDate una propiedad con ese nombre
+		
+		y solo verifica el prototipo si myDate no lo define. 
+		
+		agregamos getTime() a myDate, se llama a la versión en myDate.
+
+
+		Se le llama "seguimiento" de la propiedad.
+		
+			
+	Configurando un Prototipo: 
+	
+		Hay varias formas de configurar el prototipo de un objeto
+		
+			1. Object.create()
+		
+			2. Constructor
+		
+		
+		Object.create():
+		
+			El método Object.create() crea un nuevo objeto
+		
+			y le permite especificar un objeto que se utilizará como prototipo del nuevo objeto.
+
+			```
+			const personPrototype = {
+			  greet() {
+				console.log("hello!");
+			  },
+			};
+
+			const carl = Object.create(personPrototype);
+			carl.greet(); // hello!
+
+			```
+			
+			creamos un objeto personPrototype
+			
+			que tiene un método greet().
+			
+			Luego usamos Object.create()
+			
+			para crear un nuevo objeto con personPrototype
+			
+			como prototipo.
+			
+			Ahora podemos llamar a greet() en el nuevo objeto y el prototipo proporciona su implementación.
+			
+			
+	Constructor:
+		
+		En JavaScript, todas las funciones tienen una propiedad denominada prototipo
+		
+		Cuando llamas a una función como constructor, 
+		
+		esta propiedad se establece como el prototipo del objeto recién construido
+				
+		por convención, en la propiedad denominada __proto__
+		
+		Entonces, si configuramos el prototipo de un constructor
+		
+		podemos asegurarnos de que todos los objetos creados con ese constructor reciban ese prototipo.
+		
+		```
+		const personPrototype = {
+		  greet() {
+			console.log(`hello, my name is ${this.name}!`);
+		  },
+		};
+
+		function Person(name) {
+		  this.name = name;
+		}
+
+		Object.assign(Person.prototype, personPrototype);
+		// or
+		// Person.prototype.greet = personPrototype.greet;
+
+		```
+		
+		un objeto personPrototype, que tiene un método greet()
+		
+		una función constructora Person() que inicializa el nombre de la persona a crear.
+
+		Luego colocamos los métodos definidos en personPrototype
+		
+		en la propiedad prototipo de la función Person usando Object.assign.
+		
+		
+		Después de este código, los objetos creados usando Person()
+		
+		obtendrán Person.prototype como prototipo, que contiene automáticamente el método de bienvenida.
+
+		```
+		
+		const reuben = new Person("Reuben");
+		reuben.greet(); // hello, my name is Reuben!
+
+		```
+
+		Esto también explica por qué dijimos anteriormente que el prototipo de myDate se llama Date.prototype:
+		
+		es la propiedad prototipo del constructor Date.
+		 
+		 
+	Propiedades Propias: 
+	
+		creamos un objeto usando el constructor Persona
+		
+		tienen dos propiedades:
+
+			1.una propiedad de nombre, que se establece en el constructor
+			
+			por lo que aparece directamente en los objetos Persona	
+			
+ 			2. un método greet(), que se establece en el prototipo.
+
+		
+		Es común ver este patrón, en el que los métodos se definen en el prototipo
+		
+		pero las propiedades de los datos se definen en el constructor. 
+		
+		Esto se debe a que los métodos suelen ser los mismos para cada objeto que creamos,
+		
+		mientras que a menudo queremos que cada objeto tenga su propio valor para sus propiedades de datos
+		
+		como aquí donde cada persona tiene un nombre diferente
+		
+		
+		Las propiedades que se definen directamente en el objeto
+		
+		como el nombre aquí, se denominan propiedades propias
+		
+		puede comprobar si una propiedad es una propiedad propia utilizando el método estático Object.hasOwn():
+		
+		```
+		const irma = new Person("Irma");
+
+		console.log(Object.hasOwn(irma, "name")); // true
+		console.log(Object.hasOwn(irma, "greet")); // false
+		
+		```
+		
+		También puede utilizar el método no estático Object.hasOwnProperty()
+		
+		recomendamos que utilice Object.hasOwn() si puede.
+		
+		
+	Prototipos y herencia:
+	
+		Los prototipos permiten reutilizar código y combinar objetos.
+		
+		soportan una versión de herencia
+		
+		
+		La herencia es una característica de los lenguajes de programación orientados a objetos
+		
+		permite a los programadores expresar la idea de que algunos objetos en un sistema son versiones más especializadas de otros objetos.
+
+		
+		Ej, si estamos modelando una escuela, podríamos tener profesores y estudiantes:
+		
+		ambos son personas, por lo que tienen algunas características en común
+		
+		por ejemplo, ambos tienen nombres
+		
+		pero cada uno podría agregar características adicionales
+		
+		por ejemplo, profesores tienen una materia que enseñan
+		
+		o podrían implementar la misma característica de diferentes maneras. 
+		
+		En un sistema POO podríamos decir que tanto los profesores como los estudiantes heredan de las personas.
+
+		
+		Si los objetos Profesor y Estudiante pueden tener prototipos de Persona,
+		
+		entonces pueden heredar las propiedades comunes
+		
+		al tiempo que agregan y redefinen aquellas propiedades que deben diferir.
+
+	
+	Las cadenas de objetos de prototipos permiten que los objetos hereden características entre sí
+	
+	la propiedad del prototipo y cómo se puede usar para agregar métodos a los constructores
+	
+	
+	
+|| POO			
+	
+	La programación orientada a objetos
+	
+	Paradigma de programación fundamental para muchos lenguajes
+	
+	Como JS, Python, incluidos Java y C++.
+			
+	Sus conceptos principales: clases e instancias, herencia y encapsulación
+		
+	Un estilo particular de programación orientada a objetos
+		
+	Es llamado programación orientada a objetos basada en clases o "clásica".
+		
+	
+	En JS, veremos cómo los constructores y la cadena de prototipos 
+	
+	Se relacionan con estos conceptos de programación orientada a objetos 
+	
+	Pero también se diferencian. 
+	
+	Además posee características que facilitan la implementación de programas orientados a objetos.
+	
+	
+	La programación orientada a objetos 
+	
+	Consiste en modelar un sistema como una colección de objetos
+	
+	Donde cada objeto representa algún aspecto particular del sistema
+	
+	Los objetos contienen funciones (o métodos) y datos.
+	
+	Un objeto proporciona una interfaz pública
+	
+	a otro código que quiere usarlo pero mantiene su propio estado interno privado
+
+	otras partes del sistema no tienen que preocuparse por lo que sucede dentro del objeto.
+
+	
+	Clases e instancias: 
+	
+		Cuando modelamos un problema en términos de objetos en programación orientada a objetos
+		
+		creamos definiciones abstractas 
+		
+		representan los tipos de objetos que queremos tener en nuestro sistema
+
+		
+		Ej, si estuviéramos modelando una escuela
+		
+		es posible que queramos tener objetos que representen a los profesores
+		
+		Cada profesor tiene algunas propiedades en común
+		
+		todos tienen un nombre y una materia que imparten
+		
+		cada profesor puede hacer ciertas cosas: todos pueden calificar un trabajo y pueden presentarse a sus alumnos a principios de año
+		
+		
+		Entonces Profesor podría ser una clase en nuestro sistema.
+		
+		La definición de la clase enumera los datos y métodos que tiene cada profesor.
+
+		En pseudocódigo:
+		
+		```
+		class Professor
+			properties
+				name
+				teaches
+			methods
+				grade(paper)
+				introduceSelf()
+		
+		```
+		
+		define una clase de Profesor con:
+		
+			dos propiedades de datos: 	
+				
+				name y teaches
+				
+			dos métodos:
+				
+				grade(): para calificar un trabajo
+				
+				introduceSelf(): para presentarse.
+		
+		
+		Por sí sola, una clase no hace nada
+		
+		es una plantilla para crear objetos ese tipo
+		
+		Cada profesor concreto que creamos 
+		
+		se denomina instancia de la clase Profesor
+		
+		El proceso de creación de una instancia
+		
+		lo realiza una función especial 
+		
+		llamada constructor.
+		
+		
+		Pasamos valores al constructor
+		
+		para cualquier estado interno
+		
+		que queramos inicializar en la nueva instancia.
+
+		
+		el constructor se escribe como parte 
+		
+		de la definición de la clase
+
+		normalmente tiene el mismo nombre 
+		
+		que la clase misma.
+		
+		
+		```
+		class Professor
+			properties
+				name
+				teaches
+			constructor
+				Professor(name, teaches)
+			methods
+				grade(paper)
+				introduceSelf()
+		
+		```
+		
+		Este constructor toma dos parámetros
+		
+		podemos inicializar name y teaches
+		
+		cuando creamos un nuevo profesor concreto.
+
+		
+		Con un constructor 
+		
+		podemos crear algunos profesores.
+
+		Los lenguajes suelen utilizar 'new'
+		
+		para indicar que se está llamando a un constructor.
+				
+		```
+		walsh = new Professor("Walsh", "Psychology");
+		lillian = new Professor("Lillian", "Poetry");
+
+		walsh.teaches; // 'Psychology'
+		walsh.introduceSelf(); // 'My name is Professor Walsh and I will be your Psychology professor.'
+
+		lillian.teaches; // 'Poetry'
+		lillian.introduceSelf(); // 'My name is Professor Lillian and I will be your Poetry professor.'
+		
+		```
+		
+		crea dos objetos, ambas instancias de la clase Profesor.
+		
+		
+	Herencia/Inheritance:
+		
+		Si también queremos representar a los estudiantes
+		
+		A diferencia de los profesores
+		
+		los estudiantes no pueden calificar trabajos, no enseñan
+		
+		y pertenecen a un año en particular.
+
+		
+		Pero tienen en común el nombre 
+		
+		Y también pueden presentarse 
+		
+		podríamos escribir la definición de una clase de estudiante:
+		
+		```
+		class Student
+			properties
+				name
+				year
+			constructor
+				Student(name, year)
+			methods
+				introduceSelf()
+		
+		```
+		
+		Sería útil si pudiéramos representar
+		
+		estudiantes y profesores comparten algunas propiedades
+		
+		o más exactamente, el hecho de que, en algún nivel, son el mismo tipo de cosas.
+		 
+		La herencia nos permite hacer esto.
+
+
+		tanto estudiantes como profesores son personas
+		
+		las personas tienen nombres y quieren presentarse
+	
+		Podemos modelar esto definiendo una nueva clase Persona
+		
+		donde definimos todas las propiedades comunes de las personas
+		
+		
+		Profesor y Estudiante pueden derivar de Persona
+		
+		agregando sus propiedades adicionales
+		
+		```
+		class Person
+			properties
+				name
+			constructor
+				Person(name)
+			methods
+				introduceSelf()
+
+		class Professor : extends Person
+			properties
+				teaches
+			constructor
+				Professor(name, teaches)
+			methods
+				grade(paper)
+				introduceSelf()
+
+		class Student : extends Person
+			properties
+				year
+			constructor
+				Student(name, year)
+			methods
+				introduceSelf()
+		
+		```
+		
+		Persona es la superclase o clase padre
+		
+		tanto del Profesor como del Estudiante.
+		
+		Profesor y Estudiante son subclases o clases secundarias de Persona.
+
+		
+		introduceSelf() está definido en las tres clases.
+		
+		si bien todas las personas quieren presentarse, la forma en que lo hacen es diferente:
+		
+		```
+		walsh = new Professor("Walsh", "Psychology");
+		walsh.introduceSelf(); // 'My name is Professor Walsh and I will be your Psychology professor.'
+
+		summers = new Student("Summers", 1);
+		summers.introduceSelf(); // 'My name is Summers and I'm in the first year.'
+		
+		```
+		
+		Es posible que tengamos una implementación predeterminada de introduceSelf()
+		
+		para personas que no son estudiantes ni profesores:
+
+		```
+		pratt = new Person("Pratt");
+		pratt.introduceSelf(); // 'My name is Pratt.'
+
+		```
+		
+		Esta característica
+		
+		cuando un método tiene el mismo nombre
+		
+		pero una implementación diferente en diferentes clases
+		
+		se llama polimorfismo.
+		
+		Cuando un método en una subclase reemplaza la implementación de la superclase
+		
+		decimos que la subclase anula la versión de la superclase.
+		
+		
+	Encapsulación: 
+		
+		Los objetos proporcionan una interfaz para otro código que quiere usarlos
+		
+		pero mantienen su propio estado interno
+		
+		El estado interno del objeto se mantiene privado
+		
+		lo que significa que solo se puede acceder a él
+		
+		mediante los métodos propios del objeto
+		
+		no desde otros objetos
+		
+		
+		Mantener privado el estado interno de un objeto
+		
+		y en general, hacer una división clara entre su interfaz pública 
+		
+		y su estado interno privado
+		
+		se denomina encapsulación.
+
+
+		es una característica útil
+		
+		porque permite al programador cambiar la implementación interna de un objeto
+
+		sin tener que buscar y actualizar todo el código que lo utiliza: 
+
+		crea una especie de firewall entre este objeto y el resto del sistema.
+
+
+		Ej, supongamos que a los estudiantes se les permite estudiar tiro con arco 
+		
+		si están en el segundo año o más
+		
+		Podríamos implementar esto simplemente exponiendo la propiedad del año del estudiante
+		
+		y otro código podría examinarla para decidir si el estudiante puede tomar el curso.
+		
+		```
+		if (student.year > 1) {
+		  // allow the student into the class
+		}
+
+		```
+		
+		El problema es que, si decidimos cambiar los criterios
+		
+		para permitir que los estudiantes estudien tiro con arco
+		
+		por ejemplo, exigiendo también que el padre o tutor dé su permiso
+		
+		necesitaríamos actualizar todos los lugares de nuestro sistema que realizan esta prueba
+		
+		Sería mejor tener un método canStudyArchery() 
+		
+		en objetos Student, que implemente la lógica en un solo lugar:
+		
+		```
+		class Student : extends Person
+			properties
+			   year
+			constructor
+			   Student(name, year)
+			methods
+			   introduceSelf()
+			   canStudyArchery() { return this.year > 1 }
+		
+		```
+		
+		```
+		if (student.canStudyArchery()) {
+		  // allow the student into the class
+		}
+		
+		```
+			
+		De esa manera, si queremos cambiar las reglas sobre el estudio del tiro con arco
+		
+		sólo tendremos que actualizar la clase Estudiante
+		
+		y todo el código que la utilice seguirá funcionando.
+		 
+		
+		En muchos lenguajes de programación orientada a objetos, podemos evitar que otro código acceda al estado interno de un objeto
+		
+		marcando algunas propiedades como privadas.
+		
+		Esto generará un error si el código externo al objeto intenta acceder a ellos:
+		
+		```
+		class Student : extends Person
+			properties
+			   private year
+			constructor
+				Student(name, year)
+			methods
+			   introduceSelf()
+			   canStudyArchery() { return this.year > 1 }
+
+		student = new Student('Weber', 1)
+		student.year // error: 'year' is a private property of Student
+		
+		```
+		 
+		En lenguajes que no imponen un acceso como este
+		
+		los programadores usan convenciones de nomenclatura
+		
+		como comenzar el nombre con un guión bajo
+		
+		para indicar que la propiedad debe considerarse privada
+		
+		
+	Programación orientada a objetos y JavaScript:
+	
+		Algunas de estas características básicas de la programación orientada a objetos
+	 
+		basada en clases, son implementada en lenguajes como Java y C++.
+
+		Y anteriormente analizamos un par de características principales de JavaScript: 
+		
+		constructores y prototipos
+		
+		tienen alguna relación con algunos de los conceptos de programación orientada a objetos
+	
+	
+		Los constructores en JavaScript nos proporcionan algo así como una definición de clase
+		
+		lo que nos permite definir la "forma" de un objeto,
+		
+		incluidos los métodos que contiene, en un solo lugar
+		
+		Pero aquí también se pueden utilizar prototipos. 
+		
+		si un método se define en la propiedad prototipo de un constructor
+		
+		entonces todos los objetos creados usando ese constructor 
+		
+		obtienen ese método a través de su prototipo
+		
+		y no necesitamos definirlo en el constructor.
+
+		
+		la cadena de prototipos parece una forma natural de implementar la herencia.
+		
+		si podemos tener un objeto Estudiante cuyo prototipo sea Persona
+		
+		entonces puede heredar el nombre y anular introduceSelf().
+		
+		
+		vale la pena comprender las diferencias entre estas características 
+		
+		y los conceptos de programación orientada a objetos "clásicos"
+		
+		
+		Primero, en la programación orientada a objetos basada en clases
+		
+		las clases y los objetos son dos construcciones separadas
+		
+		y los objetos siempre se crean como instancias de clases.
+		
+		Además, existe una distinción entre la característica utilizada para definir una clase
+		
+		la sintaxis de la clase misma
+		
+		y la característica utilizada para crear una instancia de un objeto
+		
+		un constructor
+		
+		
+		En JavaScript, podemos crear objetos
+		
+		sin ninguna definición de clase separada
+		
+		ya sea usando una función o un objeto literal.
+		
+		Esto puede hacer que trabajar con objetos sea mucho más liviano 
+		
+		que en la programación orientada a objetos clásica.
+		
+		
+		En segundo lugar, aunque una cadena prototipo parece una jerarquía de herencia
+		
+		y se comporta como ella en algunos aspectos, es diferente en otros. 
+		
+		Cuando se crea una instancia de una subclase
+		
+		se crea un único objeto que combina las propiedades definidas en la subclase con las propiedades definidas más arriba en la jerarquía.
+		
+		Con la creación de prototipos, cada nivel de la jerarquía está representado por un objeto separado
+		
+		y están vinculados entre sí mediante la propiedad __proto__.
+		
+		El comportamiento de la cadena de prototipos se parece menos a una herencia y más a una delegación
+		
+		La delegación es un patrón de programación en el que un objeto, cuando se le pide que realice una tarea
+		
+		puede realizarla él mismo o pedirle a otro objeto (su delegado) que realice la tarea en su nombre.
+		
+		En muchos sentidos, la delegación es una forma más flexible de combinar objetos que la herencia
+		
+		por un lado, es posible cambiar o reemplazar completamente el delegado en tiempo de ejecución
+		
+		
+		Se pueden utilizar constructores y prototipos
+		
+		para implementar patrones de programación orientada a objetos basados ​​en clases en JavaScript
+		
+		Pero usarlos directamente para implementar funciones como la herencia es complicado
+		
+		por lo que JavaScript proporciona funciones adicionales
+		
+		superpuestas al modelo prototipo, que se asignan más directamente a los conceptos de programación orientada a objetos basada en clases.
+		
+			
+
+|| Clases JS
+			
+	Prototipos y constructores para implementar un modelo como POO
+	
+	No son una nueva forma de combinar objetos
+	
+	Bajo el capó, todavía usan prototipos
+			
+	Para facilitar la configuración de una cadena prototipo.
+		
+	
+	Clases y Constructores: 
+		
+		declarar una clase utilizando la palabra clave class
+		
+		Ej, para un persona:
+	
+		```
+		class Person {
+		  name;
+
+		  constructor(name) {
+			this.name = name;
+		  }
+
+		  introduceSelf() {
+			console.log(`Hi! I'm ${this.name}`);
+		  }
+		}
+
+		```
+		
+		Tiene: 
+		
+			1. propiedad de nombre.
+			
+			2. constructor que toma un parámetro de nombre
+		
+			para inicializar la propiedad el objeto nuevos
+			
+			3. método introduceSelf() y this 
+			
+			hace referencia a las propiedades del objeto usando this
+			
+		
+		La declaración name; es opcionl, podemos omitirla
+		
+		y la línea this.name = name; en el constructor
+		
+		creará la propiedad nombre antes de inicializarla
+			
+			
+		enumerar propiedades explícitamente en la declaración de clase 
+		
+		podría facilitar que las personas que lean su código	
+			
+		para que vean qué propiedades forman parte de esta clase.
+
+		
+		También puede inicializar la propiedad a un valor predeterminado cuando la declara
+		
+		con una línea como nombre = '';.
+
+		
+		El constructor se define utilizando la palabra clave constructor.
+		
+		Al igual que un constructor fuera de una definición de clase, 
+		
+		hará lo siguiente:
+
+			1. crear un nuevo objeto
+			
+			2. vincular this al nuevo objeto 
+			 
+			para que pueda hacer referencia a this
+			
+			en su código de constructor
+		
+			3. ejecutar el código en el constructor
+			
+			4. devolver el nuevo objeto.
+			
+		
+		Puedes crear y usar una nueva instancia de Persona
+		
+		```
+		const giles = new Person("Giles");
+
+		giles.introduceSelf(); // Hi! I'm Giles
+
+		```
+		
+		
+		Omitiendo constructores:
+			
+			Si no necesita realizar ninguna inicialización especial
+			
+			puede omitir el constructor y se generará un constructor predeterminado
+			
+			```
+			class Animal {
+			  sleep() {
+				console.log("zzzzzzz");
+			  }
+			}
+
+			const spot = new Animal();
+
+			spot.sleep(); // 'zzzzzzz'
+			
+			```
+	
+	Herencia: 
+	
+		A nuestra clase anterior, Persona
+		
+		Podemos definir la subclase Profesor.
+		
+		```
+		class Professor extends Person {
+		  teaches;
+
+		  constructor(name, teaches) {
+			super(name);
+			this.teaches = teaches;
+		  }
+
+		  introduceSelf() {
+			console.log(
+			  `My name is ${this.name}, and I will be your ${this.teaches} professor.`,
+			);
+		  }
+
+		  grade(paper) {
+			const grade = Math.floor(Math.random() * (5 - 1) + 1);
+			console.log(grade);
+		  }
+		}
+
+		```
+		
+		Usamos la palabra clave extends
+		
+		para decir que esta clase hereda de otra clase.
+		
+		La clase Profesor agrega una nueva propiedad teaches 
+		
+		La declaramos con this, etc. 
+		
+		
+		Como queremos configurar teaches
+		
+		Cuando se crea un nuevo profesor
+		
+		definimos un constructor
+		
+		Que tomará name y teaches como argumentos
+		
+		Lo primero que hace este constructor
+		
+		es llamar al constructor de la superclase 
+		
+		usando super(), pasando el parámetro nombre.
+		
+		El constructor de la superclase se encarga de establecer el nombre. 
+		
+		El constructor Profesor establece la propiedad teaches
+		
+		
+		Si una subclase tiene que realizar su propia inicialización
+		
+		primero debe llamar al constructor de la superclase usando super(),
+		
+		pasando cualquier parámetro que el constructor de la superclase esté esperando.
+
+		
+		anulamos el método introduceSelf() de la superclase 
+		
+		agregamos un nuevo método grade() para calificar un trabajo
+		
+		(El profe asigna calificaciones aleatorias a los trabajos)
+		
+		
+		Con esta declaración ahora podemos crear
+		
+		y utilizar profesores:
+		
+		```
+		const walsh = new Professor("Walsh", "Psychology");
+		walsh.introduceSelf(); // 'My name is Walsh, and I will be your Psychology professor'
+
+		walsh.grade("my paper"); // some random grade
+
+		```
+		
+		
+	Encapsulación: 
+	
+		Nos gustaría hacer que la propiedad del año de Estudiante sea privada
+		
+		Para poder cambiar las reglas sobre las clases de tiro con arco 
+		
+		sin romper ningún código que use la clase Estudiante.
+		
+		```
+		class Student extends Person {
+		  #year;
+
+		  constructor(name, year) {
+			super(name);
+			this.#year = year;
+		  }
+
+		  introduceSelf() {
+			console.log(`Hi! I'm ${this.name}, and I'm in year ${this.#year}.`);
+		  }
+
+		  canStudyArchery() {
+			return this.#year > 1;
+		  }
+		}
+		
+		```
+		
+		#year es una propiedad de datos privados.
+			
+		Podemos construir un objeto Estudiante
+		
+		puede usar #año internamente
+			
+		si código externo al objeto intenta acceder a #año 
+		
+		el navegador arroja un error:
+		
+		```
+		const summers = new Student("Summers", 2);
+
+		summers.introduceSelf(); // Hi! I'm Summers, and I'm in year 2.
+		summers.canStudyArchery(); // true
+
+		summers.#year; // SyntaxError
+		
+		```	
+			
+		El código ejecutado en la consola de Chrome
+		
+		puede acceder a propiedades privadas fuera de la clase.
+			
+		Esta es una relajación de la restricción de sintaxis de JavaScript exclusiva de DevTools.
+			
+		
+		Las propiedades de datos privados:
+			
+			1. deben declararse en la declaración de clase
+			
+			2. sus nombres comienzan con #.
+		
+		
+		Métodos Privados: 
+			
+			sus nombres comienzan con # 
+			
+			solo pueden ser llamados mediante los métodos propios del objeto
+			
+			```
+			class Example {
+			  somePublicMethod() {
+				this.#somePrivateMethod();
+			  }
+
+			  #somePrivateMethod() {
+				console.log("You called me?");
+			  }
+			}
+
+			const myExample = new Example();
+
+			myExample.somePublicMethod(); // 'You called me?'
+
+			myExample.#somePrivateMethod(); // SyntaxError
+			
+			```
+		
+		
+		
+|| JSON 
+		
+	JavaScript Object Notation
+	
+	es un formato estándar basado en texto
+	
+	para representar datos estructurados
+	
+	basados ​​en la sintaxis de objetos JavaScript
+	
+	
+	Se usa comúnmente para transmitir datos en aplicaciones web
+	
+	Ej, enviar algunos datos desde el servidor al cliente
+	
+	para que puedan mostrarse en una página web, o viceversa. 
+	
+	
+	Aunque se parece mucho a la sintaxis literal de objetos de JavaScript
+	
+	Se puede utilizar independientemente de JavaScript
+	
+	muchos entornos de programación cuentan con la capacidad de leer (analizar) y generar JSON.
+
+
+	JSON existe como una cadena
+	
+	lo que resulta útil cuando desea transmitir datos a través de una red.
+	
+	Debe convertirse en un objeto JavaScript nativo
+	
+	cuando desee acceder a los datos.
+	
+	JavaScript proporciona un objeto JSON global
+	
+	tiene métodos disponibles para convertir entre los dos.
+
+
+	Convertir una cadena en un objeto nativo
+	
+	se llama deserialización
+	
+	convertir un objeto nativo en una cadena
+			
+	para que pueda transmitirse a través de la red 
+	
+	se llama serialización.
+			
+			
+	Una cadena JSON se puede almacenar en su propio archivo
+	
+	es básicamente solo un archivo de texto
+	
+	con una extensión .json y un tipo MIME de aplicación/json.
+
+
+	Estructura de JSON: 
+		
+		Es una cadena cuyo formato se parece mucho al formato literal del objeto JavaScript
+
+		Puede incluir los mismos tipos de datos básicos dentro de JSON que en un objeto JavaScript estándar
+		
+		cadenas, números, matrices, booleanos y otros objetos literales.
+
+		Esto le permite construir una jerarquía de datos
+		
+		```
+		{
+		  "squadName": "Super hero squad",
+		  "homeTown": "Metro City",
+		  "formed": 2016,
+		  "secretBase": "Super tower",
+		  "active": true,
+		  "members": [
+			{
+			  "name": "Molecule Man",
+			  "age": 29,
+			  "secretIdentity": "Dan Jukes",
+			  "powers": ["Radiation resistance", "Turning tiny", "Radiation blast"]
+			},
+			{
+			  "name": "Madame Uppercut",
+			  "age": 39,
+			  "secretIdentity": "Jane Wilson",
+			  "powers": [
+				"Million tonne punch",
+				"Damage resistance",
+				"Superhuman reflexes"
+			  ]
+			},
+			{
+			  "name": "Eternal Flame",
+			  "age": 1000000,
+			  "secretIdentity": "Unknown",
+			  "powers": [
+				"Immortality",
+				"Heat Immunity",
+				"Inferno",
+				"Teleportation",
+				"Interdimensional travel"
+			  ]
+			}
+		  ]
+		}
+
+		
+		```
+		
+		La jerarquía empieza con el nombre del/grupo
+		
+		Después sigue otra con el nombre de/miembros
+		
+		etc. 
+		
+		
+		Si cargamos esta cadena en un programa JavaScript
+		
+		y la analizamos (parsed) en una variable llamada superhéroes
+		
+		podríamos acceder a los datos que contiene
+		
+		usando la misma notación de punto/corchete
+		
+		```
+		superHeroes.homeTown;
+		superHeroes["active"];
+
+		```
+		
+		Para acceder a datos más abajo en la jerarquía	
+		
+		debe encadenar los nombres de propiedad requeridos y los índices de matriz
+		
+		Ej, para acceder al tercer superpoder del segundo héroe
+		
+		que figura en la lista de miembros
+		
+		```
+		superHeroes["members"][1]["powers"][2];
+
+		```
+			
+			1. nombre de la variable: superhéroes.
+			
+			2. Dentro de eso, queremos acceder a la propiedad de miembros
+			
+			por eso usamos ["miembros"].
+
+			3. Members contiene una matriz poblada por objetos.
+			
+			Queremos acceder al segundo objeto dentro de la matriz
+		
+			usamos [1]. 		
+			
+			4. Dentro de este objeto, queremos acceder a la propiedad powers
+			
+			usamos ["powers"].
+
+			5. Dentro de la propiedad de powers
+			
+			hay una matriz que contiene los superpoderes del héroe seleccionado
+			
+			Queremos el tercero, así que usamos [2].
+			
+		
+		Código JSON: 
+			
+			Hemos hecho que el JSON visto arriba esté disponible dentro de una variable
+			
+			En el archivo de test. 
+			
+			cargar y acceder a los datos dentro de la variable a través de la consola JavaScript de su navegador.
+			
+			
+	Arrays como JSON : 
+			
+		el texto JSON básicamente parece un objeto JavaScript 
+		
+		dentro de una cadena.
+		
+		podemos convertir matrices a/desde JSON
+		
+		se muestra un JSON valido: 
+		
+		```			
+		[
+		  {
+			"name": "Molecule Man",
+			"age": 29,
+			"secretIdentity": "Dan Jukes",
+			"powers": ["Radiation resistance", "Turning tiny", "Radiation blast"]
+		  },
+		  {
+			"name": "Madame Uppercut",
+			"age": 39,
+			"secretIdentity": "Jane Wilson",
+			"powers": [
+			  "Million tonne punch",
+			  "Damage resistance",
+			  "Superhuman reflexes"
+			]
+		  }
+		]
+		
+		```
+		
+		Los miembros del squad / o todos los datos 
+		
+		están dentro de una matriz
+		
+		Sólo tendría que acceder a los elementos de la matriz (en su versión analizada)
+		
+		comenzando con un índice de matriz
+		
+		por ejemplo:
+		
+		```
+		[0]["powers"][0]
+
+		```
+	
+		JSON es puramente una cadena
+		
+		con un formato de datos específico:
+		
+		solo contiene propiedades, no métodos.
+
+		requiere el uso de comillas dobles alrededor de cadenas y nombres de propiedades
+		
+		Las comillas simples no son válidas más que rodear toda la cadena JSON.
+
+		Incluso una sola coma o dos puntos mal colocados puede hacer que un archivo JSON funcione mal y no funcione
+
+		
+		Debe tener cuidado al validar cualquier dato 
+		
+		que intente utilizar
+		
+		(aunque es menos probable que el JSON generado por computadora incluya errores, siempre que el programa generador funcione correctamente).
+		
+		Puede validar JSON utilizando una aplicación como JSONLint.
+
+
+		JSON puede tomar la forma de cualquier tipo de datos que sea válido
+		
+		para su inclusión dentro de JSON
+		
+		no solo matrices u objetos.
+		
+		por ejemplo, una sola cadena o número sería JSON válido.
+
+		
+		A diferencia del código JavaScript
+		
+		en el que las propiedades de los objetos pueden estar sin comillas
+		
+		en JSON solo se pueden usar cadenas entre comillas como propiedades.
+		
+		
+	Trabajando con JSON: 
+	
+		para mostrar cómo podríamos utilizar algunos datos con formato JSON en un sitio web.
+
+		copias locales de nuestros archivos heroes.html y style.css
+
+		El HTML contiene un body y un script. 
+		
+		```
+		<header>
+		...
+		</header>
+
+		<section>
+		...
+		</section>
+
+		<script>
+		...
+		</script>
+
+		```
+		
+		Estan a disposición nuestros datos JSON en github
+		
+		cargar el JSON en nuestro script
+		
+		Usar alguna manipulación DOM
+		
+		```
+		async function populate() {
+		  const requestURL =
+			"https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json";
+		  const request = new Request(requestURL);
+
+		  const response = await fetch(request);
+		  const superHeroes = await response.json();
+
+		  populateHeader(superHeroes);
+		  populateHeroes(superHeroes);
+		}
+
+		```
+		
+		//Funcion async populate()
+		//guarda una url en requestURL
+		//crea un objeto/instancia de Request
+		//pasandole una url a su constructor
+		 
+		//guardamos una respuesta de fetch en response
+		//pasandole a su consturctor 
+		//el objeto request/url
+		//guardamos los superheroes con el .json() 
+		//el archivo será la respuesta/fetch
+		//que tenía el objeto request/url 
+		
+		//tenemos dos llamadas a funciones
+		//toman el json.  
+		//para llenar los elementos de html
+		
+		
+		Para obtener el JSON utilizamos una API llamada Fetch.
+		
+		Esta API nos permite realizar solicitudes de red 
+		
+		(network requests)
+		
+		para recuperar recursos de un servidor a través de JavaScript
+		
+		por ejemplo, imágenes, texto, JSON e incluso fragmentos de HTML
+		
+		Significa que podemos actualizar pequeñas secciones de contenido sin tener que recargar toda la página.
+
+		
+		En la función
+		
+		las primeras cuatro líneas utilizan la API Fetch
+		
+		para recuperar (fetch) el JSON del servidor:
+
+		
+		declaramos la variable requestURL
+		
+		para almacenar la URL de GitHub
+
+		
+		Usamos la URL para inicializar 
+		
+		un nuevo objeto request (objeto de solicitud)
+
+		
+		hacemos la solicitud de red usando (network request)
+		
+		usando la función fetch()
+		
+		y esto devuelve un objeto Response
+
+		
+		La API fetch() es asíncrona.
+		
+		necesitamos agregar la palabra clave async
+		
+		antes del nombre de la función 
+		
+		que usa la API Fetch
+		
+		y agregar la palabra clave await 
+		
+		antes de llamadar a cualquier 
+		
+		función asincrónica.
+		
+		
+		Después de todo eso
+		
+		la variable superHeroes
+		
+		contendrá el objeto JavaScript
+		
+		basado en JSON
+		
+		(empezamos con un json)
+		
+		
+		Luego pasamos ese objeto a dos llamadas a funciones
+		
+		la primera llena el <header>
+		
+		con los datos correctos
+		
+		la segunda crea una tarjeta de información
+		
+		para cada héroe del equipo y la inserta
+		
+		en <section>. 
+		
+		
+	Completando HTML: 
+		
+		Header: 
+		
+			Ahora que recuperamos los datos JSON
+			
+			y los convertimos en un objeto JavaScript
+			
+			usémoslos escribiendo las dos funciones
+			
+			funciones a las que hicimos referencia
+			
+			agregue código en las funciones: 
+			
+			```
+			function populateHeader(obj) {
+			  const header = document.querySelector("header");
+			  const myH1 = document.createElement("h1");
+			  myH1.textContent = obj.squadName;
+			  header.appendChild(myH1);
+
+			  const myPara = document.createElement("p");
+			  myPara.textContent = `Hometown: ${obj.homeTown} // Formed: ${obj.formed}`;
+			  header.appendChild(myPara);
+			}
+			
+			```
+			
+			primero creamos un elemento h1 con createElement(),
+			
+			configuramos su textContent
+			
+			para que sea igual a la propiedad squadName
+			
+			del objeto
+			
+			luego lo agregamos al encabezado usando appendChild().
+			
+			
+			creamos un p, configuramos su contenido de texto
+			
+			lo agregamos al encabezado
+		
+		
+		Tarjetas de información: 
+		
+			```
+			function populateHeroes(obj) {
+			  const section = document.querySelector("section");
+			  const heroes = obj.members;
+
+			  for (const hero of heroes) {
+				const myArticle = document.createElement("article");
+				const myH2 = document.createElement("h2");
+				const myPara1 = document.createElement("p");
+				const myPara2 = document.createElement("p");
+				const myPara3 = document.createElement("p");
+				const myList = document.createElement("ul");
+
+				myH2.textContent = hero.name;
+				myPara1.textContent = `Secret identity: ${hero.secretIdentity}`;
+				myPara2.textContent = `Age: ${hero.age}`;
+				myPara3.textContent = "Superpowers:";
+
+				const superPowers = hero.powers;
+				for (const power of superPowers) {
+				  const listItem = document.createElement("li");
+				  listItem.textContent = power;
+				  myList.appendChild(listItem);
+				}
+
+				myArticle.appendChild(myH2);
+				myArticle.appendChild(myPara1);
+				myArticle.appendChild(myPara2);
+				myArticle.appendChild(myPara3);
+				myArticle.appendChild(myList);
+
+				section.appendChild(myArticle);
+			  }
+			}
+					
+			```
+			almacenamos la propiedad members
+			
+			del objeto JavaScript en una nueva variable.
+			
+			matriz contiene múltiples objetos
+			
+			contienen la información de cada héroe.
+
+			
+			utilizamos un bucle for...of para recorrer 
+			
+			cada objeto de la matriz
+			
+			para cada uno, haremos algo: 
+			
+			
+			Cree varios elementos nuevos:
+			
+			un <article>, un <h2>, tres <p>s 
+			
+			y un <ul>.
+		
+					
+			Establece <h2> para que contenga 
+			
+			el nombre del héroe actual.
+
+
+			Complete los tres párrafos con su 
+			
+			identidad secreta
+
+			edad y una línea que diga "Superpoderes:"
+			
+			para introducir la información en la lista.
+
+			
+			Almacene la propiedad de poderes
+			
+			en otra nueva constante llamada superPoderes; 
+			
+			contiene una matriz
+			
+			enumera los superpoderes del héroe actual.
+
+			
+			Utilice otro bucle for...of
+			
+			para recorrer los superpoderes
+			
+			del héroe actual
+			
+			
+			para cada uno creamos un elemento <li>,
+			
+			colocamos el superpoder dentro de él
+			
+			luego colocamos el elemento listItem
+			
+			dentro del elemento <ul> (myList)
+			
+			usando appendChild().
+
+
+			Lo último que hacemos es agregar
+			    
+			<h2>, <p>s y <ul> dentro del 
+			
+			<artículo> (myArticle),
+			
+			
+			El orden en el que se agregan los elementos es importante
+			
+			es el orden en que se mostrarán dentro del HTML.
+			
+
+			Si tiene problemas para seguir la notación de punto/corchete
+			
+			para acceder al objeto JavaScript
+			
+			es útil tener el archivo superheroes.json abierto
+			
+			y consultarlo. 
+			
+		
+		Llamar a la función principal: 
+		
+			```
+			populate();
+			
+			```
+	
+	
+	Convertir entre Objetos y Texto 
+		
+		El ejemplo anterior fue simple en términos de acceso al objeto JavaScript
+		
+		convertimos la respuesta de la red directamente en un objeto JavaScript 
+		
+		usando Response.json().
+
+		
+		A veces no lo tenemos
+		
+		recibimos una cadena JSON sin formato
+		
+		y necesitamos convertirla en un objeto nosotros mismos.
+		 
+		Y cuando queremos enviar un objeto JavaScript
+		
+		a través de la red
+		
+		debemos convertirlo a JSON
+		
+		(una cadena)
+		
+		antes de enviarlo.
+		
+		
+		estos dos problemas son tan comunes
+		
+		hay un objeto JSON integrado
+		
+		disponible en los navegadores
+		
+		contiene los dos métodos siguientes:
+		
+		
+		1. parse():
+			
+			acepta una cadena JSON como parámetro
+			
+			devuelve el objeto JavaScript correspondiente
+			
+			
+		2. stringify():
+			
+			acepta un objeto como parámetro
+			
+			devuelve la cadena JSON equivalente
+			
+		
+		En un ej: 
+			
+			heroes-finished-json-parse.html
+			
+			hace exactamente lo mismo que el anterior 
+			
+			Pero cambia: 
+			
+			1. fetch/recuperacion de response 
+				
+				como texto en lugar de JSON
+				
+				llamando al método text()
+				
+				de response 
+				
+				
+			2. usamos parse():
+			
+				para convertir el texto en un objeto JavaScript.
+
+			
+			```
+			async function populate() {
+
+			  const requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
+			  const request = new Request(requestURL);
+
+			  const response = await fetch(request);
+			  const superHeroesText = await response.text();
+
+			  const superHeroes = JSON.parse(superHeroesText);
+			  populateHeader(superHeroes);
+			  populateHeroes(superHeroes);
+
+			}
+				
+			```
+			
+			stringify() funciona al revés. 
+			
+			ingresar las siguientes líneas en la consola:
+			
+			```
+			let myObj = { name: "Chris", age: 38 };
+			myObj;
+			let myString = JSON.stringify(myObj);
+			myString;
+			
+			```
+			
+			devuelve el objeto en string 
+			
+			'{"name":"Chris","age":38}' 
+			
+				
+			estamos creando un objeto JavaScript
+			
+			luego comprobamos lo que contiene,
+			
+			luego lo convertimos en una cadena JSON 
+			
+			usando stringify()
+			
+			guardamos el valor de retorno en una nueva variable
+			
+			luego lo comprobamos nuevamente.
+			
+			
+					
+				
+						
+|| 4. Asynchronous JavaScript
+
+	JavaScript asincrónico
+	
+	se puede utilizar para manejar
+	
+	posibles operaciones de bloqueo
+	
+	como la recuperación de recursos de un servidor.
+	
+	
+	
+	Guia: 
+
+		1. Intro a JavaScript asincrónico
+
+			Programación sincrónica y asincrónica
+			
+			a menudo necesitamos usar técnicas asincrónicas
+			
+			problemas relacionados  
+			
+			implementado las funciones asincrónicas
+			
+		
+		2. Usar Promises
+			
+			Presentaremos a las promesas
+			
+			usar API basadas en promesas
+			
+			palabras clave async y await.
+			
+		
+		3. Implementación de promise-based API
+			
+			implementar su propia API
+			
+			basada en promesas
+			
+			
+		4. Introducción a workers
+		
+			Los workers permiten ejecutar ciertas tareas
+		
+			en un hilo separado
+			
+			para mantener su código principal receptivo/responsive.			
+			
+			reescribiremos una async function 
+			
+			de larga duración
+			
+			para utilizar un worker 
 
 
 
+|| Intro a JavaScript asincrónico
+
+	La programación asincrónica es una técnica que permite
+	
+	que el programa inicie una tarea potencialmente de larga duración
+	
+	y aún pueda responder a otros eventos
+	
+	mientras se ejecuta esa tarea
+	
+	en lugar de tener que esperar hasta que finalice.
+	
+	Una vez que la tarea ha finalizado
+	
+	se presenta el resultado a su programa.
+
+	
+	Muchas funciones proporcionadas por los navegadores
+	
+	especialmente las más interesantes
+	
+	pueden tardar mucho tiempo
+	
+	por tanto, son asincrónicas
+	
+	
+	Ej: 
+		
+		Realizar solicitudes HTTP 
+			
+			usando fetch()
+		
+		Acceder a la cámara o al micrófono
+		
+			usando getUserMedia()
+
+		Pedirle a un usuario que seleccione archivos 
+			
+			showOpenFilePicker()
+
+			
+	aunque no tenga que implementar
+	
+	sus propias funciones asincrónicas con frecuencia. 
+	
+	es probable que necesite usarlas correctamente.
+
+	
+	comenzaremos analizando el problema
+	
+	con las funciones síncronas de larga ejecución
+	
+	que hacen que la programación asincrónica
+	
+	sea una necesidad.
+	
+
+	Programación sincrónica:
+		
+		Considere el código
+		
+		```
+		const name = "Miriam";
+		const greeting = `Hello, my name is ${name}!`;
+		console.log(greeting);
+		// "Hello, my name is Miriam!"
+
+		```
+		
+		Declara una cadena name
+	
+		Declara otra cadena greeting, usa name 
+		
+		Envía greeting a la consola JavaScript.
+			
+		
+		el navegador recorre el programa 
+		
+		una línea a la vez
+		
+		en el orden en que lo escribimos
+		
+		
+		En cada punto
+		
+		el navegador espera
+		
+		a que la línea termine su trabajo
+		
+		antes de pasar a la siguiente línea.
+		
+		Tiene que hacer esto porque
+		
+		cada línea depende del trabajo realizado en las líneas anteriores
+		
+		
+		Hace que este sea un programa sincrónico
+		
+		Seguiría siendo sincrónico incluso si llamaramos a una función separada
+			
+		```
+		function makeGreeting(name) {
+		  return `Hello, my name is ${name}!`;
+		}
+
+		const name = "Miriam";
+		const greeting = makeGreeting(name);
+		console.log(greeting);
+		// "Hello, my name is Miriam!"
+		
+		```
+
+		makeGreeting() es una función sincrónica
+		
+		porque la persona que llama
+		
+		tiene que esperar a que la función termine su trabajo
+		
+		y devuelva un valor antes de que la persona que llama pueda continuar.
+		
+		
+	Una función síncrona de larga duración:
+	
+		El siguiente programa utiliza un algoritmo muy ineficiente
+		
+		para generar múltiples números primos grandes
+		
+		cuando un usuario hace clic en el botón "Generar números primos". 
+		
+		Cuanto mayor sea el número de números primos
+		
+		que especifique un usuario
+		
+		más tardará la operación
+		
+		```
+		<label for="quota">Number of primes:</label>
+		<input type="text" id="quota" name="quota" value="1000000" />
+
+		<button id="generate">Generate primes</button>
+		<button id="reload">Reload</button>
+
+		<div id="output"></div>
+		
+		```
+		
+		```
+		const MAX_PRIME = 1000000;
+
+		function isPrime(n) {
+		  for (let i = 2; i <= Math.sqrt(n); i++) {
+			if (n % i === 0) {
+			  return false;
+			}
+		  }
+		  return n > 1;
+		}
+
+		const random = (max) => Math.floor(Math.random() * max);
+
+		function generatePrimes(quota) {
+		  const primes = [];
+		  while (primes.length < quota) {
+			const candidate = random(MAX_PRIME);
+			if (isPrime(candidate)) {
+			  primes.push(candidate);
+			}
+		  }
+		  return primes;
+		}
+
+		const quota = document.querySelector("#quota");
+		const output = document.querySelector("#output");
+
+		document.querySelector("#generate").addEventListener("click", () => {
+		  const primes = generatePrimes(quota.value);
+		  output.textContent = `Finished generating ${quota.value} primes!`;
+		});
+
+		document.querySelector("#reload").addEventListener("click", () => {
+		  document.location.reload();
+		});
+		
+		```
+		
+		Dependiendo de qué tan rápida sea su computadora
+			
+		probablemente pasarán unos segundos 
+		
+		antes de que el programa muestre el mensaje "¡Terminado!" 
+		
+		
+	El problema de las funciones síncronas de larga duración:
+	
+		El siguiente ejemplo es igual al anterior
+		
+		excepto que agregamos un cuadro de texto para que usted escriba
+		
+		haga clic en "Generar números primos" e intente escribir en el cuadro de texto inmediatamente después.
+
+
+		Descubrirá que mientras nuestra función
+		
+		generatePrimes() se está ejecutando
+		
+		nuestro programa no responde en absoluto
+		
+		no puede escribir nada, hacer clic en nada
+		
+		ni hacer nada más.
+		
+		
+		La razón de esto es que este programa JavaScript
+		
+		tiene un solo subproceso.
+		
+		Un hilo es una secuencia de instrucciones
+		
+		que sigue un programa. 
+		
+		Debido a que el programa consta de un solo hilo
+		
+		solo puede hacer una cosa a la vez
+		
+		si está esperando que regrese nuestra llamada sincrónica de larga duración
+		
+		no puede hacer nada más.
+
+
+		Lo que necesitamos es una manera 
+		
+		para que nuestro programa
+
+		
+		1. Inicie una operación de larga duración
+			
+			llamando a una función.
+
+		2. Haga que esa función inicie la operación y regrese inmediatamente
+			
+			para que nuestro programa
+			
+			pueda responder a otros eventos.
+
+		3. Haga que la función ejecute la operación
+		
+			de una manera que no bloquee el hilo principal
+			
+			por ejemplo iniciando un nuevo
+		
+		4. Notificarnos con el resultado de la operación
+			
+			cuando finalmente se complete.
+
+			
+		Es precisamente lo que nos permiten hacer las funciones asincrónicas
+		
+	
+	Event Handlers: 
+		
+		La descripción de recien sobre las funciones asincrónicas
+		
+		puede recordarle a los controladores de eventos
+		
+		Son una forma de programación asincrónica
+	
+		usted proporciona una función
+		
+		(el controlador de eventos)
+		
+		que será llamada, no de inmediato
+		
+		sino cada vez que ocurra el evento
+		
+		Si "el evento" es "la operación asincrónica se ha completado"
+		
+		entonces ese evento podría usarse
+		
+		para notificar a la persona que llama
+		
+		sobre el resultado de una llamada
+		
+		a una función asincrónica.
+		
+		
+		Algunas de las primeras API asincrónicas
+		
+		usaban eventos precisamente de esta manera
+		
+		La API XMLHttpRequest
+		
+		le permite realizar solicitudes HTTP
+		
+		a un servidor remoto mediante JavaScript
+		
+		Dado que esto puede llevar mucho tiempo
+		
+		es una API asincrónica
+		
+		se le notifica sobre el progreso
+		
+		y la eventual finalización de una solicitud
+		
+		adjuntando detectores de eventos
+		
+		al objeto XMLHttpRequest.
+
+
+		El siguiente ejemplo muestra esto. 
+		
+		Presione "Haga clic para iniciar solicitud"
+		
+		para enviar una solicitud.
+		
+		Creamos una nueva XMLHttpRequest
+		
+		y escuchamos su evento de carga
+		
+		El controlador registra un "¡Terminado!"
+		
+		junto con el código de estado.
+
+		
+		Después de agregar el detector de eventos
+
+		enviamos la solicitud
+		
+		Tenga en cuenta que después de esto
+		
+		podemos registrar la "Solicitud XHR iniciada":
+		
+		nuestro programa puede continuar ejecutándose
+		
+		mientras se realiza la solicitud
+		
+		y se llamará a nuestro controlador de eventos
+		
+		cuando se complete la solicitud.
+		
+		```
+		<button id="xhr">Click to start request</button>
+		<button id="reload">Reload</button>
+
+		<pre readonly class="event-log"></pre>
+		
+		```
+		
+		```
+		const log = document.querySelector(".event-log");
+
+		document.querySelector("#xhr").addEventListener("click", () => {
+		  log.textContent = "";
+
+		  const xhr = new XMLHttpRequest();
+
+		  xhr.addEventListener("loadend", () => {
+			log.textContent = `${log.textContent}Finished with status: ${xhr.status}`;
+		  });
+
+		  xhr.open(
+			"GET",
+			"https://raw.githubusercontent.com/mdn/content/main/files/en-us/_wikihistory.json",
+		  );
+		  xhr.send();
+		  log.textContent = `${log.textContent}Started XHR request\n`;
+		});
+
+		document.querySelector("#reload").addEventListener("click", () => {
+		  log.textContent = "";
+		  document.location.reload();
+		});
+		
+		```
+		
+		Similar a los controladores de eventos usados hasta ahora. 
+		
+		excepto que en lugar de que el evento sea una acción del usuario
+		
+		como que el usuario haga clic en un botón
+		
+		el evento es un cambio en el estado de algún objeto.
+		
+	
+	Callbacks: 
+		
+		Un event handler es un tipo particular de callback
+		
+		Un callback es simplemente una función
+		
+		que se pasa a otra función
+		
+		con la expectativa de que se llame al callback 
+		
+		en el momento adecuado. 
+		
+		solían ser la forma principal en que se implementaban las funciones asincrónicas en JS. 
+		
+		
+		El código basado en un callback 
+		
+		puede resultar difícil de entender
+		
+		cuando la devolución de llamada tiene que llamar a funciones
+		
+		que aceptan una devolución de llamada
+		
+		Es una situación común
+		
+		si necesita realizar alguna operación
+		
+		que se divide en una serie de funciones asincrónicas
+		
+		```
+		function doStep1(init) {
+		  return init + 1;
+		}
+
+		function doStep2(init) {
+		  return init + 2;
+		}
+
+		function doStep3(init) {
+		  return init + 3;
+		}
+
+		function doOperation() {
+		  let result = 0;
+		  result = doStep1(result);
+		  result = doStep2(result);
+		  result = doStep3(result);
+		  console.log(`result: ${result}`);
+		}
+
+		doOperation();
+	
+		```
+		
+		tenemos una única operación que se divide en tres pasos
+		
+		donde cada paso depende del último paso
+		
+		el primer paso suma 1 a la entrada
+		
+		el segundo suma 2
+		
+		el tercero suma 3. 
+		
+		Comenzando con una entrada de 0
+		
+		el resultado final es 6
+		
+		(0 + 1 + 2 + 3)
+		
+		
+		Como programa sincrónico es sencillo
+		
+		si implementáramos los pasos mediante callbacks
+		
+		```
+		function doStep1(init, callback) {
+		  const result = init + 1;
+		  callback(result);
+		}
+
+		function doStep2(init, callback) {
+		  const result = init + 2;
+		  callback(result);
+		}
+
+		function doStep3(init, callback) {
+		  const result = init + 3;
+		  callback(result);
+		}
+
+		function doOperation() {
+		  doStep1(0, (result1) => {
+			doStep2(result1, (result2) => {
+			  doStep3(result2, (result3) => {
+				console.log(`result: ${result3}`);
+			  });
+			});
+		  });
+		}
+
+		doOperation();
+		
+		```
+		
+		Debido a que tenemos que llamar a callbacks
+		
+		dentro de callbacks, obtenemos una función doOperation()
+		
+		profundamente anidada, que es mucho más difícil de leer y depurar
+		
+		A esto se llama callback hell o pyramid of doom. 
+		
+		Cuando anidamos devoluciones de llamada
+		
+		puede resultar muy difícil manejar los errores
+		
+		hay que manejar los errores en cada nivel de la "pirámide",
+		
+		en lugar de manejar los errores solo una vez en el nivel superior.
+
+
+		La mayoría de las API asincrónicas modernas no utilizan callbacks
+		
+		La base de la programación asincrónica en JS
+		
+		es Promise.
+		
+		
+|| Promise 
+		
+	Las promesas son la base de la programación asincrónica en JavaScript moderno.
+	
+	es un objeto devuelto por una función asincrónica
+	
+	que representa el estado actual de la operación
+	
+	En el momento en que se devuelve la promesa
+	
+	a la persona que llama, la operación a menudo no finaliza
+	
+	pero el objeto de promesa proporciona métodos
+	
+	para manejar el eventual éxito o fracaso de la operación.
+	
+	
+	Con el uso de callbacks para implementar funciones asincrónicas 
+	
+	llamas a la función asincrónica y pasas tu función callback
+	
+	La función regresa inmediatamente
+	
+	y llama a su llama a su callback 
+	
+	cuando finaliza la operación.
+	
+	
+	Con una API basada en promesas
+	
+	la función asincrónica inicia la operación
+	
+	y devuelve un objeto Promise
+	
+	Luego puede adjuntar controladores 
+	
+	a este objeto de promesa
+	
+	estos controladores se ejecutarán
+	
+	cuando la operación haya tenido éxito
+	
+	o haya fallado.
+	
+	
+	Usando fetch() API: 
+		
+		Exploraremos las promesas copiando ejemplos de código en la consola 
+		
+		Para configurar: 
+			
+		Entrar en https://example.org
+
+		abrir la consola 
+		
+		copiar los ejemplos, recargar 
+		
+		o la consola se quejará de que ha vuelto a declarar fetchPromise.
+		
+		Usar el archivo JSON 
+		
+		registraremos (log) información al respecto.
+		
+		
+		Para hacer esto, realizaremos una HTTP request al servidor
+		
+		En una solicitud HTTP, enviamos un mensaje de solicitud
+		
+		(request message) a un servidor remoto
+		
+		y este nos envía una respuesta
+		
+		enviaremos una solicitud para obtener un archivo JSON del servidor.
+		
+		Realizamos solicitudes HTTP
+		
+		API fetch() que es el reemplazo moderno 
+		
+		y basado en promesas de XMLHttpRequest del ej anterior. 
+		
+		
+		Copiar en la consola: 
+		
+		```
+		const fetchPromise = fetch(
+		  "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+		);
+
+		console.log(fetchPromise);
+
+		fetchPromise.then((response) => {
+		  console.log(`Received response: ${response.status}`);
+		});
+
+		console.log("Started request…");
+		
+		```
+		
+		Consola: 
+		
+			Started request... 
+			
+			Received response: 200 
+		
+		
+		1. llamar a la API fetch()
+			
+			asignar el valor de retorno
+			
+			a la variable fetchPromise
+			
+		
+		2. después, registrando la variable fetchPromise
+			
+			Esto debería generar algo como
+			
+			Promise { <state>: "pending" }
+			
+			nos indica que tenemos un objeto Promise
+			
+			y que tiene un estado 
+			
+			cuyo valor es "pending".
+					
+			El estado "pendiente" 
+			
+			significa que la operación fetch (recuperación)
+			
+			aún continúa.
+
+		3. pasando una función de controlador
+			
+			controlador al método then() de Promise
+			
+			Cuando (y si)
+			
+			la operación fetch tiene éxito
+			
+			la promesa llamará a nuestro controlador
+			
+			y pasará un objeto Response
+			
+			que contiene la respuesta del servidor
+			
+		4. registrando un mensaje
+				
+			de que hemos iniciado la request/solicitud 
+			
+			
+		La salida completa sería: 
+			
+			Promise { <state>: "pending" }
+			Started request…
+			Received response: 200
+
+		
+		Tenga en cuanta que Star request...
+		
+		se registra antes
+		
+		de que recibamos la respuesta
+		
+		A diferencia de una función síncrona,
+		
+		fetch() regresa mientras la request 
+		
+		aún está en curso
+		
+		permite que el programa siga respondiendo
+			
+		La respuesta muestra el código de estado 200 (OK)
+		
+		significa que nuestra request 
+		
+		se realizó correctamente. 
+		
+		
+		Se puede parecer al ejemplo de XML
+		
+		donde agregamos controladores de eventos
+		
+		al objeto XMLHttpRequest
+		
+		
+		En lugar de eso
+		
+		pasamos un controlador al método then()
+		
+		de la promesa devuelta
+		
+		
+	Encadenando Promesas: 
+		
+		Con la API fetch()
+		
+		una vez que obtienes un objeto response
+		
+		necesitas llamar a otra función
+		
+		para obtener los datos de response. 
+		
+		
+		En este caso queremos obtener 
+		
+		los datos de respuesta como JSON
+		
+		por lo que llamaríamos al método json()
+		
+		del objeto Response.
+		
+		json() también es asincrónico
+		
+		Este es un caso en el que tenemos que llamar
+		
+		a dos funciones asincrónicas sucesivas
+		
+		Intentemos: 
+		
+		```
+		const fetchPromise = fetch(
+		  "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+		);
+
+		fetchPromise.then((response) => {
+		  const jsonPromise = response.json();
+		  jsonPromise.then((data) => {
+			console.log(data[0].name);
+		  });
+		});
+
+		```
+		
+		como antes
+		
+		agregamos un controlador then()
+		
+		a la promesa devuelta por fetch().
+		
+		Pero esta vez nuestro controlador llama a 
+		
+		response.json()
+		
+		y luego pasa un nuevo controlador then()
+		
+		a la promesa devuelta por response.json().
+		
+		
+		Esto debería registrar baked beans
+		
+		el nombre del primer producto enumerado en "products.json"
+		
+		
+		Con los callback podiamos producir 
+		
+		un callback hell al anidarlos sucesivamente 
+		
+		hacía que nuestro código fuera difícil de entender
+		
+		
+		con las llamadas then()
+		
+		también puede pasar
+		
+		la característica elegante de promises 
+		
+		es que el propio then() 
+		
+		devuelve una promesa
+		
+		que se completará con el resultado de la función que se le pasa
+		
+		significa que podemos y deberíamos 
+		
+		reescribir el código
+		
+		```
+		const fetchPromise = fetch(
+		  "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+		);
+
+		fetchPromise
+		  .then((response) => response.json())
+		  .then((data) => {
+			console.log(data[0].name);
+		  });
+
+		```
+		
+		En lugar de llamar al segundo then() 
+		
+		dentro del controlador del primer then()
+		
+		podemos devolver la promesa por json()
+		
+		y llamar al segundo then() 
+		
+		con ese valor de retorno
+		
+		
+		Esto se llama encadenamiento de promesas
+		
+		significa que podemos evitar niveles
+		
+		cada vez mayores de sangría
+		
+		cuando necesitamos realizar llamadas a
+		
+		funciones asincrónicas consecutivas.
+		
+		
+		Hay una pieza más que agregar
+		
+		Necesitamos verificar que el servidor 
+		
+		aceptó y pudo manejar la request 
+		 
+		antes de intentar leerla
+		
+		Haremos esto verificando 
+		
+		el código de estado en la respuesta
+		
+		y arrojando un error si no estaba "OK"
+		
+		```
+		const fetchPromise = fetch(
+		  "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+		);
+
+		fetchPromise
+		  .then((response) => {
+			if (!response.ok) {
+			  throw new Error(`HTTP error: ${response.status}`);
+			}
+			return response.json();
+		  })
+		  .then((data) => {
+			console.log(data[0].name);
+		  });
+		
+		```
+		
+	
+	Capturar Errores: 
+	
+		Manejar errores en la API fetch() 
+		
+		puede generar un error por muchas razones
+		
+		Ej, no había conectividad de red 
+		
+		o la URL tenía un formato incorrecto
+		
+		y nosotros mismos estamos generando un error
+		
+		si el servidor devolvió un error.
+
+		
+		El manejo de errores puede resultar dificil 
+		
+		usando callbacks, obliga a manejar errores
+		
+		en todos los niveles de anidamiento
+		
+		
+		los objetos Promise
+		
+		proporcionan un método catch().
+		
+		parecido a then():
+		
+		lo llamas y le pasas una función de controlador
+		
+		mientras que el controlador pasado a then()
+		
+		se llama cuando la operación asincrónica
+		
+		tiene éxito, el controlador pasado a catch()
+		
+		se llama cuando la operación asincrónica falla.
+
+		
+		Si agrega catch()
+		
+		al final de una cadena de promesa
+		
+		se llamará cuando falle
+		
+		cualquiera de las llamadas a funciones asincrónicas
+		
+		puede implementar una operación
+		
+		como varias llamadas a funciones asincrónicas consecutivas 
+		
+		y tener un solo lugar para manejar todos los errores.
+		
+		
+		Agregamos un controlador de errores usando catch()
+		
+		también modificamos la URL para que la solicitud falle.
+		
+		```
+		const fetchPromise = fetch(
+		  "bad-scheme://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+		);
+
+		fetchPromise
+		  .then((response) => {
+			if (!response.ok) {
+			  throw new Error(`HTTP error: ${response.status}`);
+			}
+			return response.json();
+		  })
+		  .then((data) => {
+			console.log(data[0].name);
+		  })
+		  .catch((error) => {
+			console.error(`Could not get products: ${error}`);
+		  });
+		
+		```
+		
+		
+	Terminología en Promesas: 
+		
+		Una promesa puede estar en uno de tres estados
+		
+		1. pending: 
+			
+			la promesa se ha creado
+			
+			la función asincrónica 
+			
+			a la que está asociada
+			
+			no ha tenido éxito o no ha fallado todavía.
+			
+			Este es el estado en el que se encuentra
+			
+			su promesa cuando se devuelve
+			
+			de una llamada a fetch()
+			
+			y la request aún se está realizando.
+			
+		
+		2. fulfilled:
+			
+			la función asincrónica ha tenido éxito.
+			
+			Cuando se cumple una promesa
+			
+			se llama a su controlador then().
+
+
+		3. rejected:
+			
+			 la función asincrónica ha fallado.
+			 
+			 Cuando se rechaza una promesa
+			 
+			 se llama a su controlador catch().
+
+
+		Lo que significa: "tuvo éxito" o "falló"
+			
+		depende de la API en cuestión
+		
+		fetch() rechaza la promesa devuelta
+		
+		si (entre otras razones)
+		
+		un error de red impidió
+		
+		que se enviara la solicitud
+		
+		pero cumple la promesa		
+		
+		si el servidor envió response
+			
+		incluso si la respuesta fue un error como 404 No encontrado.
+
+		
+		A veces se usa el termino settled
+		
+		para el cumplimiento como el rechazo.
+		
+		(fulfilled o rejected)
+		
+		
+		Una promesa se resuelve/resolve
+		
+		si se liquida o si ha sido "bloqueada"
+		
+		(settled o locked in)
+		 
+		para seguir el estado de otra promesa.
+
+	
+	Combinar multiples promesas: 
+		
+		La cadena de promesas es lo que necesita
+		
+		cuando su operación 
+		
+		consta de varias funciones asincrónicas
+		
+		y necesita que cada una
+		
+		se complete antes de comenzar la siguiente
+		
+		Pero hay otras formas en las que es posible
+		
+		que necesites combinar
+		
+		llamadas a funciones asincrónicas
+		
+		y la API de Promise proporciona 
+		
+		algunas ayudas para ellas
+		
+		
+		A veces es necesario que se cumplan 
+		
+		todas las promesas
+		
+		pero no dependen unas de otras
+		
+		En un caso como ese,
+		
+		es mucho más eficiente 
+		
+		comenzar con todos juntos y 
+		
+		luego recibir una notificación 
+		
+		cuando se hayan cumplido.
+		
+		El método Promise.all()
+		
+		es lo que necesita aquí. 
+		
+		Toma una serie de promesas
+		
+		y devuelve una única promesa.
+
+
+		La promesa devuelta por Promise.all():		
+		
+		1. fulfilled
+		
+			cuando y si se cumplen todas
+			
+			las promesas del conjunto
+			
+			En este caso se llama al controlador then()
+			
+			con una matriz de todas las respuestas
+			
+			en el mismo orden en que se pasaron las promesas a all().
+		
+		
+		2. rejected
+			
+			cuando y si alguna de las promesas de la matriz es rechazada
+			
+			se llama al controlador catch()
+			
+			con el error arrojado por la promesa que rechazó
+			
+			```
+			const fetchPromise1 = fetch(
+			  "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+			);
+			const fetchPromise2 = fetch(
+			  "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/not-found",
+			);
+			const fetchPromise3 = fetch(
+			  "https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json",
+			);
+
+			Promise.all([fetchPromise1, fetchPromise2, fetchPromise3])
+			  .then((responses) => {
+				for (const response of responses) {
+				  console.log(`${response.url}: ${response.status}`);
+				}
+			  })
+			  .catch((error) => {
+				console.error(`Failed to fetch: ${error}`);
+			  });
+			
+			```
+			
+			Estamos realizando tres solicitudes fetch()
+			
+			a tres URL diferentes.
+			
+			Si todos tienen éxito, 
+			
+			registraremos el estado de respuesta
+			
+			de cada uno.
+			
+			Si alguno de ellos falla, 
+			
+			registraremos el error.
+
+			
+			Con las URL que hemos proporcionado
+			
+			todas las solicitudes deberían cumplirse
+			
+			aunque para la segunda el servidor devolverá 404
+			
+			(No encontrado)
+						
+			en lugar de 200 (OK)
+			
+			porque el archivo solicitado no existe
+			
+			
+			La salida debería ser: 
+			
+			```
+			https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json: 200
+			https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/not-found: 404
+			https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json: 200
+			
+			```
+			
+			
+			Si probamos el mismo código con una URL mal formada
+			
+			```
+			const fetchPromise1 = fetch(
+			  "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+			);
+			const fetchPromise2 = fetch(
+			  "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/not-found",
+			);
+			const fetchPromise3 = fetch(
+			  "bad-scheme://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json",
+			);
+
+			Promise.all([fetchPromise1, fetchPromise2, fetchPromise3])
+			  .then((responses) => {
+				for (const response of responses) {
+				  console.log(`${response.url}: ${response.status}`);
+				}
+			  })
+			  .catch((error) => {
+				console.error(`Failed to fetch: ${error}`);
+			  });
+			
+			```
+			
+			Entonces podemos esperar
+			
+			que se ejecute el controlador catch()
+			
+			y deberíamos ver algo como:
+
+			```
+			Failed to fetch: TypeError: Failed to fetch
+			
+			```
+			
+			
+			A veces, es posible que necesites
+			
+			cumplir cualquiera de un conjunto de promesas
+			
+			y no te importa cuál.
+			
+			En ese caso, desea Promise.any().
+			
+			se cumple tan pronto como se cumple
+			
+			cualquiera de las promesas
+			
+			o se rechaza si se rechazan todas:
+		
+			```
+			
+			const fetchPromise1 = fetch(
+			  "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+			);
+			const fetchPromise2 = fetch(
+			  "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/not-found",
+			);
+			const fetchPromise3 = fetch(
+			  "https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json",
+			);
+
+			Promise.any([fetchPromise1, fetchPromise2, fetchPromise3])
+			  .then((response) => {
+				console.log(`${response.url}: ${response.status}`);
+			  })
+			  .catch((error) => {
+				console.error(`Failed to fetch: ${error}`);
+			  });
+			
+			```
+			
+			este caso no podemos predecir
+			
+			qué solicitud de recuperación 
+			
+			se completará primero
+			
+			
+			son sólo dos de las funciones adicionales
+			
+			de Promise para combinar múltiples promesas
+			
+	
+	Async y Await 
+		
+		La palabra clave async
+		
+		ofrece una forma más sencilla de trabajar
+		
+		con código asincrónico basado en promesas.
+		
+		Agregar async al inicio de una función
+		
+		la convierte en una función asíncrona:
+		
+		```
+		async function myFunction() {
+		  // This is an async function
+		}
+
+		```
+			
+		Dentro puede utilizar await
+		
+		antes de llamar a una función
+		
+		que devuelve una promesa
+		
+		Esto hace que el código espere en ese punto
+		
+		hasta que se resuelva la promesa
+		
+		momento en el cual el valor cumplido de la promesa
+		
+		se trata como un valor de retorno
+		
+		o se arroja el valor rejected.
+
+		
+		Esto le permite escribir código
+		
+		que utiliza funciones asincrónicas
+		
+		pero que parece código sincrónico
+		
+		podríamos usarlo para reescribir
+		
+		nuestro ejemplo de búsqueda:
+		
+		```
+		async function fetchProducts() {
+		  try {
+			// después de esta línea, nuestra función esperará a que se resuelva la llamada `fetch()`
+			// la llamada `fetch()` devolverá una respuesta o lanzará un error
+			const response = await fetch(
+			  "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+			);
+			if (!response.ok) {
+			  throw new Error(`HTTP error: ${response.status}`);
+			}
+			// después de esta línea, nuestra función esperará a que se resuelva la llamada `response.json()`
+			// la llamada `response.json()` devolverá el objeto JSON analizado o arrojará un error
+			const data = await response.json();
+			console.log(data[0].name);
+		  } catch (error) {
+			console.error(`Could not get products: ${error}`);
+		  }
+		}
+
+		fetchProducts();
+		
+		```
+		
+		estamos llamando a await fetch(),
+		
+		y en lugar de obtener una Promesa
+		
+		nuestra persona que llama
+		
+		obtiene un objeto de respuesta 
+		
+		completamente completo
+		
+		como si fetch() fuera una función sincrónica!
+
+		
+		Incluso podemos usar un bloque try...catch
+		
+		para el manejo de errores
+		
+		exactamente como lo haríamos si el código
+		
+		fuera sincrónico
+		
+		tenga en cuenta que las funciones asíncronas
+		
+		siempre devuelven una promesa
+		
+		por lo que no puede hacer algo como:
+		
+		```
+		async function fetchProducts() {
+		  try {
+			const response = await fetch(
+			  "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+			);
+			if (!response.ok) {
+			  throw new Error(`HTTP error: ${response.status}`);
+			}
+			const data = await response.json();
+			return data;
+		  } catch (error) {
+			console.error(`Could not get products: ${error}`);
+		  }
+		}
+
+		const promise = fetchProducts();
+		console.log(promise[0].name); // "promise" is a Promise object, so this will not work
+		
+		```
+		
+		En su lugar, necesitarías hacer algo como:
+		
+		```
+		async function fetchProducts() {
+		  const response = await fetch(
+			"https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+		  );
+		  if (!response.ok) {
+			throw new Error(`HTTP error: ${response.status}`);
+		  }
+		  const data = await response.json();
+		  return data;
+		}
+
+		const promise = fetchProducts();
+		promise
+		  .then((data) => {
+			console.log(data[0].name);
+		  })
+		  .catch((error) => {
+			console.error(`Could not get products: ${error}`);
+		  });
+	
+		```
+		
+		Aquí, movimos el try...catch
+		
+		nuevamente al controlador de captura
+		
+		en la promesa devuelta. 
+		
+		Esto significa que nuestro controlador then()
+		
+		no tiene que lidiar con el caso
+		
+		en el que se detectó un error
+		
+		dentro de la función fetchProducts
+		
+		lo que provocó que los datos
+		
+		no estuvieran definidos
+		
+		Maneje los errores
+		
+		como último paso de su cadena de promesas.
+
+		
+		tenga en cuenta que solo puede usar await
+		
+		dentro de una función asíncrona
+		
+		a menos que su código esté 
+		
+		en un módulo de JavaScript
+		
+		Eso significa que no puedes hacer esto
+		
+		en un script normal:
+		
+		```
+		try {
+		  // using await outside an async function is only allowed in a module
+		  const response = await fetch(
+			"https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+		  );
+		  if (!response.ok) {
+			throw new Error(`HTTP error: ${response.status}`);
+		  }
+		  const data = await response.json();
+		  console.log(data[0].name);
+		} catch (error) {
+		  console.error(`Could not get products: ${error}`);
+		  throw error;
+		}
+
+		```
+		
+		Tenga en cuenta que
+		
+		al igual que una cadena de promesas
+		
+		await obliga a que las operaciones asincrónicas
+				
+		se completen en serie. 
+		
+		Esto es necesario si el resultado
+		
+		de la siguiente operación depende 
+		
+		del resultado de la última
+		
+		pero si ese no es el caso, entonces 
+		
+		algo como Promise.all() 
+		
+		tendrá más rendimiento.
+		
+	
+	Como conclusión: 
+	
+		Las promesas son la base de la programación asincrónica
+		
+		Hacen que sea más fácil expresar y razonar
+		
+		sobre secuencias de operaciones asincrónicas
+		
+		sin callbacks profundamente anidadas
+		
+		y admiten un estilo de manejo de errores
+		
+		similar a la declaración try...catch sincrónica
+		
+		
+		async y await
+		
+		facilitan la creación de una operación
+		
+		a partir de una serie de llamadas 
+		
+		a funciones asincrónicas consecutivas
+		
+		lo que evita la necesidad de
+		
+		crear cadenas de promesas explícitas
+		
+		y le permite escribir código
+		
+		que parece código sincrónico
+		
+		
+		Muchas API web modernas
+		
+		se basan en promesas
+		
+		incluidas WebRTC
+		
+		Web Audio API
+		
+		Media Capture
+		
+		Streams API
+		
+		y más 
+		
+	
+		
+|| APIs basadas en Promise 	
+	
+	Utilizamos APIs que devuelven promesas
+		
+	Ahora implementar APIs que devuelvan promesas
+	
+	Una tarea mucho menos común que usar API basadas
+
+	
+	Cuando implementas una API basada en promesas
+
+	estarás envolviendo una operación asincrónica
+	
+	que puede usar eventos, devoluciones de llamadas simples
+	
+	o un modelo de paso de mensajes
+	
+	Hará los arreglos para que un objeto Promise
+	
+	maneje adecuadamente el éxito o el fracaso de esa operación
+	
+	
+	Implementar API alarm(): 
+		
+		API de alarma basada en promesas
+		
+		llamada alarm(), Tomará como argumentos
+		
+		nombre de la persona a despertar
+		
+		y un retraso en milisegundos que se esperará
+		
+		antes de despertar a la persona
+		
+		Después del retraso, la función enviará
+		
+		un "¡Despierta!", incluyendo el nombre de la persona
+
+		que necesitamos despertar.
+
+		
+	Envolviendo setTimeout():
+	
+		Para implementar nuestra función alarm().
+
+		toma como argumentos una función callback
+		
+		y un retraso, expresado en milisegundos
+		
+		Cuando se llama a setTimeout(),
+		
+		inicia un temporizador configurado con el retraso dado
+		
+		y, cuando el tiempo expira,
+		
+		llama a la función dada.
+
+		
+		Ej, llamamos a setTimeout()
+		
+		con una función callback 
+		
+		y un retraso de 1000 milisegundos
+		
+		```
+		<button id="set-alarm">Set alarm</button>
+		<div id="output"></div>
+
+		```
+		
+		```
+		const output = document.querySelector("#output");
+		const button = document.querySelector("#set-alarm");
+
+		function setAlarm() {
+		  setTimeout(() => {
+			output.textContent = "Wake up!";
+		  }, 1000);
+		}
+
+		button.addEventListener("click", setAlarm);
+		
+		```
+	
+	
+	Constructor Promise(): 
+		
+		Nuestra función alarm()
+		
+		devolverá una Promesa
+		
+		que se cumplirá cuando expire el temporizador
+			
+		Pasará un "¡Despierta!" 
+		
+		en el controlador then()
+		
+		y rechazará la promesa
+		
+		si la persona que llama proporciona 
+		
+		un valor de retraso negativo
+		
+		
+		El componente clave aquí es el constructor Promise().
+		
+		El constructor Promise()
+		
+		toma una única función como argumento
+		
+		Llamaremos a esta función executor
+		
+		Cuando crea una nueva promesa
+		
+		proporciona la implementación del executor.
+
+		
+		executor en sí misma toma dos argumentos
+		
+		que también son funciones
+		
+		convencionalmente se denominan resolve
+		
+		y reject 
+		
+		En la implementación de executor 
+		
+		llama a la función asincrónica subyacente
+		
+		Si la función asincrónica tiene éxito
+		
+		llama a resolve y
+		
+		si falla, llama a reject 
+		
+		Si la función ejecutora arroja un error
+		
+		se llama automáticamente a reject 
+		
+		Puede pasar un único parámetro
+		
+		de cualquier tipo para resolve y reject
+		
+		podemos implementar alarm() como:
+		
+		```
+		function alarm(person, delay) {
+		  return new Promise((resolve, reject) => {
+			if (delay < 0) {
+			  throw new Error("Alarm delay must not be negative");
+			}
+			setTimeout(() => {
+			  resolve(`Wake up, ${person}!`);
+			}, delay);
+		  });
+		}
+
+		```
+		
+		Esta función crea y devuelve una nueva Promesa
+		
+		Dentro de executor de la promesa: 
+		
+			1. compruebe que el retraso no sea negativo
+			
+			arroje un error si lo es
+					
+			
+			2. llame a setTimeout(),
+		
+			pasando un callback y delay 
+			
+			El callback se llamará 
+			
+			cuando expire el temporizador
+			
+			y en la devolución de llamada 
+			 
+			llamamos a resolve 
+			 
+			pasando "¡Despertar!
+			
+		
+		Usando alarm() API: 
+			
+			Esta parte debería resultarte bastante familiar por el artículo anterior
+			
+			Podemos llamar a alarm(),
+			
+			y en la promesa devuelta 
+			
+			llamar a then()
+			
+			() y catch() para configurar
+			
+			controladores para el cumplimiento
+			
+			y rechazo de la promesa.
+			
+			```
+			const name = document.querySelector("#name");
+			const delay = document.querySelector("#delay");
+			const button = document.querySelector("#set-alarm");
+			const output = document.querySelector("#output");
+
+			function alarm(person, delay) {
+			  return new Promise((resolve, reject) => {
+				if (delay < 0) {
+				  throw new Error("Alarm delay must not be negative");
+				}
+				setTimeout(() => {
+				  resolve(`Wake up, ${person}!`);
+				}, delay);
+			  });
+			}
+
+			button.addEventListener("click", () => {
+			  alarm(name.value, delay.value)
+				.then((message) => (output.textContent = message))
+				.catch((error) => (output.textContent = `Couldn't set alarm: ${error}`));
+			});
+			
+			```
+			
+			Intente configurar valores diferentes para "Nombre" y "Retraso".
+
+			Intente establecer un valor negativo para "Retraso".
+			
+			
+			
+	Usar async y await para la API alarm(): 
+		
+		Dado que alarm()
+		
+		devuelve una Promesa
+		
+		podemos hacer con ella
+		
+		todo lo que podríamos hacer con cualquier otra promesa
+		
+		encadenamiento de promesas,
+		
+		Promise.all() y async/await:
+
+		```	
+		const name = document.querySelector("#name");
+		const delay = document.querySelector("#delay");
+		const button = document.querySelector("#set-alarm");
+		const output = document.querySelector("#output");
+
+		function alarm(person, delay) {
+		  return new Promise((resolve, reject) => {
+			if (delay < 0) {
+			  throw new Error("Alarm delay must not be negative");
+			}
+			setTimeout(() => {
+			  resolve(`Wake up, ${person}!`);
+			}, delay);
+		  });
+		}
+
+		button.addEventListener("click", async () => {
+		  try {
+			const message = await alarm(name.value, delay.value);
+			output.textContent = message;
+		  } catch (error) {
+			output.textContent = `Couldn't set alarm: ${error}`;
+		  }
+		});
+
+		```
+
+
+
+|| Workers 
+
+	Los workers permiten ejecutar algunas tareas
+	
+	en un hilo de ejecución separado
+
+	
+	Vimos lo que sucede cuando tienes 
+	
+	una tarea sincrónica de larga duración
+	
+	toda la ventana deja de responder por completo.
+	
+	la razón de esto es que el programa 
+	
+	es de un solo subproceso
+	
+	
+	Un hilo es una secuencia de instrucciones 
+	
+	que sigue un programa
+	
+	Debido a que el programa consta de un solo hilo
+	
+	solo puede hacer una cosa a la vez
+	
+	por lo tanto, si está esperando
+	
+	que regrese nuestra llamada sincrónica
+	
+	de larga duración, no puede hacer nada más
+			
+	
+	Los workers brindan la posibilidad de ejecutar
+	
+	algunas tareas en un subproceso diferente
+	
+	de modo que pueda iniciar la tarea
+	
+	continuar con otro procesamiento
+	
+	(como manejar las acciones del usuario).
+
+	
+	Una preocupación es que si varios subprocesos
+	
+	pueden tener acceso a los mismos datos compartidos
+	
+	es posible que los cambien de forma
+	
+	independiente e inesperada (entre sí). 
+	
+	Esto puede provocar errores difíciles de encontrar
+	
+	
+	Para evitar estos problemas en la web
+	
+	su código principal y su código de trabajo
+	
+	nunca obtienen acceso directo a las variables
+	
+	de cada uno y solo pueden "compartir" datos
+	
+	en casos muy específicos
+	
+	Los workers y el código principal
+	
+	se ejecutan en mundos completamente separados
+	
+	y solo interactúan enviándose mensajes entre sí. 
+	
+	significa que los workers no pueden acceder
+	
+	al DOM  (la ventana, el documento, los elementos de la página, etc.).
+	
+	
+	Hay tres tipos diferentes de trabajadores
+	
+		dedicated workers 
+		
+		shared workers 
+		
+		service workers 
+	
+	
+	Usando web workers: 
+		
+		Antes teníamos una página 
+		
+		que calculaba números primos
+		
+		Usaremos un worker para ejecutar el cálculo
+		
+		de modo que nuestra página siga respondiendo
+		
+		a las acciones del usuario.
+		
+	
+	Generador primario síncrono:
+	
+		Tenía una forma como está: 
+		
+		```
+		function generatePrimes(quota) {
+		  function isPrime(n) {
+			for (let c = 2; c <= Math.sqrt(n); ++c) {
+			  if (n % c === 0) {
+				return false;
+			  }
+			}
+			return true;
+		  }
+
+		  const primes = [];
+		  const maximum = 1000000;
+
+		  while (primes.length < quota) {
+			const candidate = Math.floor(Math.random() * (maximum + 1));
+			if (isPrime(candidate)) {
+			  primes.push(candidate);
+			}
+		  }
+
+		  return primes;
+		}
+
+		document.querySelector("#generate").addEventListener("click", () => {
+		  const quota = document.querySelector("#quota").value;
+		  const primes = generatePrimes(quota);
+		  document.querySelector("#output").textContent =
+			`Finished generating ${quota} primes!`;
+		});
+
+		document.querySelector("#reload").addEventListener("click", () => {
+		  document.querySelector("#user-input").value =
+			'Try typing in here immediately after pressing "Generate primes"';
+		  document.location.reload();
+		});
+
+		```
+		
+		después de llamar a generatePrimes()
+		
+		el programa deja de responder por completo.
+
+
+	Generar primos con un worker 
+		
+		Podemos ver que el código del worker 
+		
+		se mantiene en un script separado del código principal
+		
+		En el index.html solo está el main.js 
+		
+		```
+		// Create a new worker, giving it the code in "generate.js"
+		const worker = new Worker("./generate.js");
+
+		// When the user clicks "Generate primes", send a message to the worker.
+		// The message command is "generate", and the message also contains "quota",
+		// which is the number of primes to generate.
+		document.querySelector("#generate").addEventListener("click", () => {
+		  const quota = document.querySelector("#quota").value;
+		  worker.postMessage({
+			command: "generate",
+			quota,
+		  });
+		});
+
+		// When the worker sends a message back to the main thread,
+		// update the output box with a message for the user, including the number of
+		// primes that were generated, taken from the message data.
+		worker.addEventListener("message", (message) => {
+		  document.querySelector("#output").textContent =
+			`Finished generating ${message.data} primes!`;
+		});
+
+		document.querySelector("#reload").addEventListener("click", () => {
+		  document.querySelector("#user-input").value =
+			'Try typing in here immediately after pressing "Generate primes"';
+		  document.location.reload();
+		});
+		
+		```
+	
+		Primero, estamos creando el worker 
+		
+		usando el constructor Worker().
+		
+		Le pasamos una URL que apunta al script 
+		
+		del worker.
+		
+		Tan pronto como se crea el worker
+		
+		se ejecuta el script del trabajador.
+
+		
+		A continuación, como en la versión síncrona
+		
+		controlador de eventos de clic al botón 
+		
+		"Generar números primos". 
+		
+		Pero ahora, en lugar de llamar a una 
+		
+		función generatePrimes(), 
+		
+		enviamos un mensaje al worker 
+		
+		worker.postMessage().
+		
+		Este mensaje puede recibir un argumento
+		
+		en este caso, pasamos un objeto JSON
+				
+		que contiene dos propiedades:
+		
+		command:
+		
+			una cadena que identifica lo que 
+			
+			queremos que haga el worker 
+			
+			(en caso de que nuestro worker 
+			
+			pueda hacer más de una cosa)
+			
+		quota:
+			
+			el número de números primos a generar
+		
+		
+		A continuación, agregamos
+		
+		un controlador de eventos de mensaje 
+		
+		al worker, es para que el worker 
+		
+		pueda decirnos cuando ha terminado
+		
+		y pasarnos los datos resultantes. 
+		
+		Nuestro controlador toma los datos
+		
+		de la propiedad de datos del mensaje
+		
+		y los escribe en el elemento de salida
+		
+		(los datos son exactamente
+		
+		los mismos que la cuota,
+		
+		por lo que esto es un poco inútil
+		
+		pero muestra el principio).
+
+		
+		Finalmente, implementamos
+		
+		el controlador de eventos
+		
+		de clic para el botón "Recargar". 
+		
+		Esto es exactamente igual que en la versión síncrona.
+		
+		
+		The worker code in "generate.js"
+		
+		```
+		// Listen for messages from the main thread.
+		// If the message command is "generate", call `generatePrimes()`
+		addEventListener("message", (message) => {
+		  if (message.data.command === "generate") {
+			generatePrimes(message.data.quota);
+		  }
+		});
+
+		// Generate primes (very inefficiently)
+		function generatePrimes(quota) {
+		  function isPrime(n) {
+			for (let c = 2; c <= Math.sqrt(n); ++c) {
+			  if (n % c === 0) {
+				return false;
+			  }
+			}
+			return true;
+		  }
+
+		  const primes = [];
+		  const maximum = 1000000;
+
+		  while (primes.length < quota) {
+			const candidate = Math.floor(Math.random() * (maximum + 1));
+			if (isPrime(candidate)) {
+			  primes.push(candidate);
+			}
+		  }
+
+		  // When we have finished, send a message to the main thread,
+		  // including the number of primes we generated.
+		  postMessage(primes.length);
+		}
+
+		```
+		
+		Esto se ejecuta tan pronto como el 
+		
+		script principal crea el worker 
+		
+		Lo primero que hace el worker 
+		
+		es empezar a escuchar
+		
+		mensajes del script principal
+		
+		Lo hace usando addEventListener()
+		
+		que es una función global en un worker 
+		
+		Dentro del controlador de eventos del mensaje
+		
+		la propiedad de datos del evento
+		
+		contiene una copia del argumento pasado
+		
+		desde el script principal
+		
+		Si el script principal pasó el comando generar
+		
+		llamamos a generarPrimes(),  
+		
+		pasando el valor de cuota del evento del mensaje.
+
+		
+		La función generatePrimes()
+		
+		es como la versión síncrona
+		
+		excepto que en lugar de devolver un valor
+		
+		enviamos un mensaje al script principal
+		
+		cuando terminamos
+		
+		Usamos la función postMessage() para esto
+		
+		que al igual que addEventListener() 
+		
+		es una función global en un trabajador
+		
+		Como ya vimos, el script principal
+		
+		está escuchando este mensaje
+		
+		y actualizará el DOM cuando se reciba el mensaje.
+
+
+		Para ejecutar este sitio
+		
+		deberá ejecutar un servidor web local
+		
+		porque las URL file://
+		
+		no pueden cargar workers 
+		
+		configurar un servidor de pruebas local
+		
+		con node(js) o django(python)
+		
+		Una vez hecho esto
+		
+		debería poder hacer clic en "Generar números primos"
+		
+		y hacer que su página principal siga respondiendo.
+
+		
+	Otros tipos de workers: 
+	
+		El worker que creamos es dedicado
+		
+		significa que lo utiliza una única
+		
+		instancia de script	
+		
+		
+		shared workers: 
+			
+			pueden ser compartidos por varios 
+			
+			scripts diferentes que se ejecutan
+			
+			en diferentes ventanas
+		
+		
+		service workers
+			
+			actúan como servidores proxy
+	
+			almacenando en caché los recursos
+			
+			para que las aplicaciones web puedan funcionar
+	
+			cuando el usuario está desconectado.
+			
+			Son un componente clave de las 
+			
+			aplicaciones web progresivas
+			
+	
+	Los web workers permiten que una aplicación web 
+	
+	descargue tareas a un hilo separado
+	
+	El hilo principal y el trabajador no comparten 
+	
+	directamente ninguna variable, sino que se
+	
+	comunican enviando mensajes
+	
+	que el otro lado recibe como eventos de mensaje
+
+	
+	Pueden ser una forma eficaz de mantener
+	
+	la capacidad de respuesta de la aplicación principal
+	
+	aunque no pueden acceder a todas las API
+	
+	a las que puede acceder la aplicación principal
+	
+	y, en particular, no pueden acceder al DOM.
+	
+
+
+
+|| 5. Client-side web APIs
+	
+	Al escribir JavaScript del lado del cliente para sitios web o aplicaciones
+	
+	rápidamente encontrará interfaces de programación de aplicaciones (API).
+	
+	Las API son funciones de programación
+	
+	para manipular diferentes aspectos del navegador y el sistema operativo
+	
+	en el que se ejecuta el sitio o manipular datos de otros sitios web o servicios
+	
+	Es difícil escribir ejemplos de JavaScript del lado del cliente sin ellos
+	
+	
+	Guia: 
+	
+		1. Intro a las APIs web
+			
+			¿qué son, cómo funcionan, cómo se usan en el código y cómo están estructuradas? 
+			
+			diferentes clases principales de API
+			
+			qué tipo de usos tienen.
+
+		
+		2. Manipulación del Documentos  
+			
+			Al escribir páginas web y aplicaciones
+			
+			una de las cosas más comunes que querrás hacer es manipular documentos web
+			
+			se hace mediante el modelo de objetos de documento (DOM),
+			
+			un conjunto de API para controlar HTML
+			
+			aplicar estilos a la información que hace un uso intensivo del objeto de documento
+			
+			El DOM junto con algunas otras API interesantes que pueden alterar su entorno de maneras interesantes.
+			
+		
+		3. Obteniendo datos del servidor (fetch)
+		
+			Otra tarea muy común es recuperar elementos de datos individuales
+			
+			del servidor para actualizar secciones de una página web
+			
+			sin tener que cargar una página completamente nueva
+			
+			ha tenido un gran impacto en el rendimiento y el comportamiento de los sitios
+			
+			tecnologías que lo hacen posible, como XMLHttpRequest y Fetch API. 
+		
+		
+		4. APIs de terceros 
+			
+			Las API que hemos cubierto hasta ahora están integradas en el navegador, pero no todas las API lo están
+		
+			Muchos sitios web y servicios grandes, como Google Maps, Facebook, PayPal, etc.
+			
+			proporcionan API que permiten a los desarrolladores hacer uso de sus datos o servicios
+			
+			por ejemplo, mostrar Google Maps personalizados en su sitio
+			
+			o utilizar el inicio de sesión de Facebook para iniciar sesión con sus usuarios
+			
+			analiza la diferencia entre las API del navegador y las API de terceros
+			
+			muestra algunos usos típicos de estas últimas
+			
+			
+		5. Dibujar gráficos
+			
+			El navegador contiene algunas herramientas de programación de gráficos
+			
+			desde el lenguaje de gráficos vectoriales escalables (SVG) 
+			
+			hasta API para dibujar en elementos HTML <canvas> (API de Canvas y WebGL)
+			 
+		
+		6. API de vídeo y audio
+
+			HTML viene con elementos para incrustar medios enriquecidos en documentos (<video> y <audio>)
+			
+			que a su vez vienen con sus propias API para controlar la reproducción, la búsqueda, etc.
+			
+			
+		7. Almacenamiento del lado del cliente
+			
+			Los navegadores web modernos cuentan con una serie de tecnologías diferentes que le permiten almacenar datos relacionados con sitios web y recuperarlos cuando sea necesario
+			
+			permite conservar datos a largo plazo, guardar sitios sin conexión y más
+			
+	
+			
+|| Intro a las API web del lado del cliente 
+
+
+	Una API: 
+		
+		Las interfaces de programación de aplicaciones (API)
+		
+		son construcciones disponibles en lenguajes de programación
+		
+		para permitir a los desarrolladores crear funciones complejas más fácilmente
+		
+		Abstraen código más complejo, proporcionando una sintaxis más fácil de usar en su lugar
+		
+		
+		Si quiere programar algunos gráficos 3D, es mucho más fácil hacerlo usando una API escrita en un lenguaje de nivel superior como JavaScript o Python,
+		
+		en lugar de intentar escribir directamente código de bajo nivel  (C o C++). 
+		
+		que controla directamente la GPU de la computadora u otras funciones gráficas.
+		
+	
+	API en JavaScript del lado del cliente:
+	
+		Tiene muchas API disponibles
+	
+		estas no son parte del lenguaje JavaScript en sí
+		
+		sino que están construidas sobre el lenguaje JavaScript central
+		
+		le brinda superpoderes adicionales para usar en su código JavaScript. 
+		
+		se dividen en dos categorías:
+
+
+			1. Las API del navegador
+				
+				están integradas en su navegador web
+				
+				y pueden exponer datos del navegador y del entorno informático circundante
+				
+				y hacer cosas complejas y útiles con ellos.
+				
+				Web Audio API proporciona construcciones de JavaScript
+				
+				para manipular audio en el navegador
+				
+				tomar una pista de audio, alterar su volumen, aplicarle efectos, etc
+				
+				En segundo plano, el navegador en realidad utiliza algún código complejo
+				
+				de nivel inferior (p. ej. C++ o Rust) para realizar el procesamiento de audio real
+				
+				Pero nuevamente, la API le abstrae esta complejidad.
+
+
+			2. Las API de terceros no están integradas en el navegador de forma predeterminada
+			
+				y, por lo general, es necesario recuperar su código e información desde algún lugar de la Web
+				
+				Por ejemplo, la API de Google Maps le permite hacer cosas como mostrar un mapa interactivo de su oficina en su sitio web
+				
+				Proporciona un conjunto especial de construcciones que puede utilizar para consultar el servicio Google Maps y devolver información específica.
+
+							
+	Relación entre JavaScript, API y otras herramientas de JavaScript:
+	
+		JavaScript: un lenguaje de scripting de alto nivel integrado en los navegadores
+			
+		permite implementar funciones en páginas web/aplicaciones
+		
+		también está disponible en otros entornos de programación, como Node.
+
+		
+		API del navegador: construcciones integradas en el navegador
+		
+		que se ubican sobre el lenguaje JavaScript
+		
+		y le permiten implementar funciones más fácilmente.
+		 
+		
+		API de terceros: construcciones integradas en plataformas de terceros 
+		 
+		que le permiten utilizar algunas de las funciones de esas plataformas en sus propias páginas web
+		
+		por ejemplo, Disqus, Facebook y , mostrar sus comentarios de Disqus en una página web).
+	
+
+		Bibliotecas/Librerias de JavaScript: normalmente uno o más archivos JavaScript
+		
+		que contienen funciones personalizadas
+		
+		que puede adjuntar a su página web para acelerar o permitir la escritura de funciones comunes
+		
+		Los ejemplos incluyen jQuery, Mootools y React
+			
+			
+		Frameworks de JavaScript: el siguiente paso de las bibliotecas
+		
+		por ejemplo, Angular y Ember
+		
+		tienden a ser paquetes de HTML, CSS, JavaScript y otras tecnologías
+		
+		tecnologías que se instalan y luego se usan para escribir una aplicación web completa desde cero
+		
+		La diferencia clave entre una biblioteca y un marco es la "inversión de control".
+		
+		Cuando se llama a un método desde una biblioteca
+				
+		el desarrollador tiene el control
+		
+		Con el framework, el control se invierte
+		
+		el marco llama al código del desarrollador
+		
+	
+	Funciones de una API: 
+		
+		Hay una gran cantidad de API disponibles en los navegadores
+		
+		permiten hacer una amplia variedad de cosas en su código
+		
+		Podemos encontrarlas en MDN API index 
+		
+		Las categorías más comunes de API de navegador que utilizará
+			
+		
+		1. API para manipular documentos cargados en el navegador.
+			
+			es la API DOM (Document Object Model),
+			
+			permite manipular HTML y CSS
+			
+			crear, eliminar y cambiar HTML, aplicar dinámicamente nuevos estilos a su página, etc
+			
+			Cada vez que ve aparecer una ventana emergente en un página
+			
+			o algún contenido nuevo mostrado
+			
+			ese es el DOM en acción. 
+			
+			
+		2. Fetch API 
+			
+			obtienen datos del servidor para actualizar pequeñas secciones de una página web por sí solas.
+			
+			ha tenido un gran impacto en el rendimiento y el comportamiento de los sitios
+			
+			si solo necesita actualizar una lista de acciones o una lista de nuevas historias disponibles, hacerlo instantáneamente
+			
+			sin tener que volver a cargar toda la página desde el servidor
+			
+			puede hacer que El sitio o la aplicación se sienten mucho más receptivos y "ágiles".
+			
+			La API principal utilizada para esto es la API Fetch
+			
+			aunque es posible que el código anterior aún use la API XMLHttpRequest
+			
+			También puedes encontrarte con el término Ajax que describe esta técnica
+			
+			
+		3. API para dibujar y manipular gráficos:
+			
+			son ampliamente compatibles con los navegadores
+			
+			las más populares son Canvas y WebGL,
+			
+			le permiten actualizar mediante programación
+			
+			los datos de píxeles contenidos en un elemento HTML <canvas>
+			
+			para crear escenas 2D y 3D.
+			
+			puede dibujar formas como rectángulos o círculos
+			
+			importar una imagen al lienzo y aplicarle un filtro como sepia o escala de grises usando la API de Canvas
+			
+			o crear una escena 3D compleja con iluminación y texturas usando WebGL. 
+			
+			Estas API a menudo se combinan con API para crear bucles de animación
+			
+			como window.requestAnimationFrame() y otras 
+			
+			para crear escenas que se actualizan constantemente como dibujos animados y juegos.
+
+		
+		4. API de audio y video
+		
+			como HTMLMediaElement, Web Audio API y WebRTC
+			
+			permiten hacer cosas como crear controles de interfaz de usuario personalizados para reproducir audio y video
+			
+			mostrar pistas de texto como leyendas y subtítulos junto con sus videos, capturar videos
+			
+			manipular su cámara web a través de un lienzo (ver arriba) o mostrarla en la computadora de otra persona en una conferencia web
+			
+			o agregar efectos a las pistas de audio (como ganancia, distorsión, panorámica, etc.).
+			
+		
+		5. Las API del dispositivo
+		
+			permiten interactuar con el hardware del dispositivo
+			
+			acceder al GPS del dispositivo para encontrar la posición del usuario mediante la API de geolocalización.
+
+
+		6. Las API de almacenamiento del lado del cliente
+		
+			permiten almacenar datos en el lado del cliente
+			
+			puede crear una aplicación que guardará su estado entre cargas de página
+			
+			y tal vez incluso funcione cuando el dispositivo esté fuera de línea
+			
+			Hay varias opciones disponibles
+			
+			Para almacenamiento nombre/valor con  Web Storage AP
+			
+			y almacenamiento de bases de datos más complejo con la API IndexedDB.
+			
+			
+	API de terceros:
+			
+		Algunos de los más populares que probablemente utilizará tarde o temprano son:
+		
+		
+			1. API de mapas, como Mapquest y la API de Google Maps
+				
+				permiten hacer todo tipo de cosas con mapas en sus páginas web
+				
+			
+			2. Facebook suite of APIs
+				
+				permite utilizar varias partes del ecosistema de Facebook para beneficiar su aplicación
+				
+				como proporcionar inicio de sesión en la aplicación mediante el inicio de sesión de Facebook
+				
+				aceptar pagos dentro de la aplicación, implementar campañas publicitarias específicas, etc.
+				
+				
+			3. Telegram APIs
+				
+				permiten incrustar contenido de canales de Telegram en su sitio web, además de brindar soporte para bots.
+
+
+			4. YouTube API
+				
+				permite insertar vídeos de YouTube en su sitio
+				
+				realizar búsquedas en YouTube, crear listas de reproducción y más.
+				
+				
+			5. Pinterest API
+				
+				proporciona herramientas para administrar tableros y pines de Pinterest para incluirlos en su sitio web.
+
+
+			6. Twilio API
+			
+				proporciona un framework para crear funciones de llamadas de voz y video en su aplicación
+				
+				enviar SMS/MMS desde sus aplicaciones y más.
+
+
+			7. Disqus API
+				
+				proporciona una plataforma de comentarios que se puede integrar en su sitio.
+
+
+			8. Mastodon API
+				
+				permite manipular funciones de la red social Mastodon mediante programación
+				
+			
+			9. IFTTT API
+				
+				permite integrar múltiples API a través de una plataforma
+				
+				
+	Funcionamiento de las APIs: 
+	
+		Las diferentes API de JavaScript funcionan de maneras ligeramente diferentes
+		
+		en general tienen características comunes y temas similares en su funcionamiento.
+		
+		
+	Basadas en objetos: 
+			
+		Su código interactúa con las API utilizando uno o más objetos JavaScript
+		
+		sirven como contenedores para los datos que utiliza la API
+		
+		(contenidos en las propiedades del objeto)
+		
+		y la funcionalidad que la API pone a disposición
+		
+		(contenida en los métodos del objeto)
+
+		
+		Ejemplo de la API Web Audio:
+			
+			Se trata de una API bastante compleja que consta de varios objetos
+			
+			Objetos más comunes: 
+			
+			
+			AudioContext:
+				
+				representa un gráfico de audio (audio graph) que se puede utilizar para manipular la reproducción de audio dentro del navegador
+				
+				y tiene varios métodos y propiedades disponibles para manipular ese audio.
+
+
+			MediaElementAudioSourceNode:
+				
+				representa un elemento <audio>
+				
+				que contiene el sonido que desea reproducir
+				
+				y manipular dentro audio context.
+			
+			
+			AudioDestinationNode:
+					
+				representa el destino del audio, es decir, el dispositivo de su computadora que realmente lo emitirá
+				
+				generalmente sus parlantes o auriculares.
+				
+				
+		Interacción entre estos objetos:
+		
+			Ejemplo de audio web 	
+		
+			```
+			<audio src="outfoxing.mp3"></audio>
+
+			<button class="paused">Play</button>
+			<br />
+			<input type="range" min="0" max="1" step="0.01" value="1" class="volume" />
+		
+			```
+			
+			Incluimos un elemento <audio> con el que incrustamos un MP3 en la página
+			
+			No incluimos ningún control de navegador predeterminado
+			
+			incluimos un <button> que usaremos para reproducir y detener la música
+			
+			un elemento <input> de tipo rango
+			
+			que usaremos para ajustar el volumen de la pista mientras se reproduce
+			
+			
+			En el JS: 
+			
+			Comenzamos creando una instancia AudioContext
+			
+			dentro de la cual manipular nuestra pista:
+			
+			```
+			const audioCtx = new AudioContext();
+
+			```
+			
+			creamos constantes que almacenan referencias
+			
+			a nuestros elementos <audio>, <button> y <input>,
+			
+			y  usamos el método AudioContext.createMediaElementSource()
+			
+			para crear un MediaElementAudioSourceNode
+			
+			que represente la fuente de nuestro audio
+		
+			el elemento <audio> se reproduce desde
+
+			```
+			const audioElement = document.querySelector("audio");
+			const playBtn = document.querySelector("button");
+			const volumeSlider = document.querySelector(".volume");
+
+			const audioSource = audioCtx.createMediaElementSource(audioElement);
+	
+			```
+			
+			A continuación, incluimos un par de controladores de eventos
+			
+			que sirven para alternar entre reproducción y pausa
+			
+			cuando se presiona el botón y restablecer la pantalla al principio cuando la canción ha terminado de reproducirse
+			
+			```
+			// play/pause audio
+			playBtn.addEventListener("click", () => {
+			  // check if context is in suspended state (autoplay policy)
+			  if (audioCtx.state === "suspended") {
+				audioCtx.resume();
+			  }
+
+			  // if track is stopped, play it
+			  if (playBtn.getAttribute("class") === "paused") {
+				audioElement.play();
+				playBtn.setAttribute("class", "playing");
+				playBtn.textContent = "Pause";
+				// if track is playing, stop it
+			  } else if (playBtn.getAttribute("class") === "playing") {
+				audioElement.pause();
+				playBtn.setAttribute("class", "paused");
+				playBtn.textContent = "Play";
+			  }
+			});
+
+			// if track ends
+			audioElement.addEventListener("ended", () => {
+			  playBtn.setAttribute("class", "paused");
+			  playBtn.textContent = "Play";
+			});
+
+			```
+			
+			pueden notar que los métodos play() y pause()
+			
+			que se utilizan para reproducir y pausar la pista
+			
+			no son parte de la API de Web Audio
+			
+			son parte de la API HTMLMediaElement
+			
+			que es diferente pero está estrechamente relacionada.
+
+
+			A continuación, creamos un objeto GainNode
+			
+			usando el método AudioContext.createGain()
+			
+			que se puede usar para ajustar el volumen del audio que pasa a través de él
+			
+			y creamos otro controlador de eventos
+			
+			que cambia el valor de la ganancia (volumen)
+			
+			del gráfico de audio cada vez que se mueve el control deslizante. se cambia el valor
+			
+			```
+			// volume
+			const gainNode = audioCtx.createGain();
+
+			volumeSlider.addEventListener("input", () => {
+			  gainNode.gain.value = volumeSlider.value;
+			});
+	
+			```
+			
+			Lo último que hay que hacer para que esto funcione
+			
+			es conectar los diferentes nodos en el gráfico de audio
+			
+			lo cual se hace usando el método AudioNode.connect()
+			
+			disponible en cada tipo de nodo:
+			
+			```
+			audioSource.connect(gainNode).connect(audioCtx.destination);
+			
+			```
+			
+			El audio comienza en la fuente
+			
+			que luego se conecta al nodo de ganancia
+			
+			para que se pueda ajustar el volumen del audio. 
+			
+			Luego, el nodo de ganancia se conecta al nodo de destino
+			
+			para que el sonido se pueda reproducir en su computadora
+			
+			(la propiedad AudioContext.destination
+			
+			representa el AudioDestinationNode
+			
+			predeterminado disponible en el hardware de su computadora
+			
+			por ejemplo, sus parlantes).
+	
+	
+	Puntos de entrada reconocibles:
+		
+		Al utilizar una API 
+		
+		debe asegurarse de saber dónde está 
+		
+		el punto de entrada de la API
+		
+		En Web Audio API, es simple 
+		
+		es el objeto AudioContext
+		
+		que debe usarse para realizar cualquier
+		
+		manipulación de audio.
+
+		
+		La API del Modelo de objetos de documento (DOM)
+		
+		también tiene un punto de entrada simple
+		
+		sus características tienden a encontrarse colgando
+		
+		del objeto Documento o en una instancia de un elemento HTML
+		
+		que desea afectar de alguna manera, por ejemplo.
+		
+		```
+		const em = document.createElement("em"); // create a new em element
+		const para = document.querySelector("p"); // reference an existing p element
+		em.textContent = "Hello there!"; // give em some text content
+		para.appendChild(em); // embed em inside para
+	
+		```
+		
+		También se basa en obtener un objeto de contexto
+		
+		para manipular cosas, aunque en este caso
+		
+		es un contexto gráfico en lugar de un contexto de audio.	
+		
+		Su objeto de contexto se crea obteniendo una referencia
+		
+		al elemento <canvas> que desea dibujar
+		
+		y luego llamando a su método HTMLCanvasElement.getContext():
+		
+		```
+		const canvas = document.querySelector("canvas");
+		const ctx = canvas.getContext("2d");
+		
+		```
+		
+		Todo lo que queramos hacer con el lienzo
+		
+		se logra llamando a las propiedades
+		
+		y métodos del objeto de contexto
+		
+		(que es una instancia de CanvasRenderingContext2D)	
+		
+		```
+		Ball.prototype.draw = function () {
+		  ctx.beginPath();
+		  ctx.fillStyle = this.color;
+		  ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+		  ctx.fill();
+		};
+		
+		```
+		
+		
+	Usar eventos para manejar cambios de estado:
+		
+		Algunas API web no contienen eventos
+		
+		pero la mayoría contiene al menos algunos
+		
+		Las propiedades del controlador
+		
+		que nos permiten ejecutar funciones
+		
+		cuando se activan eventos
+		
+		generalmente se enumeran en "Event handlers"
+		
+		
+		Vimos varios controladores de eventos
+		
+		en uso en nuestro ejemplo de Web Audio API
+	
+		```
+		// play/pause audio
+		playBtn.addEventListener("click", () => {
+		  // check if context is in suspended state (autoplay policy)
+		  if (audioCtx.state === "suspended") {
+			audioCtx.resume();
+		  }
+
+		  // if track is stopped, play it
+		  if (playBtn.getAttribute("class") === "paused") {
+			audioElement.play();
+			playBtn.setAttribute("class", "playing");
+			playBtn.textContent = "Pause";
+			// if track is playing, stop it
+		  } else if (playBtn.getAttribute("class") === "playing") {
+			audioElement.pause();
+			playBtn.setAttribute("class", "paused");
+			playBtn.textContent = "Play";
+		  }
+		});
+
+		// if track ends
+		audioElement.addEventListener("ended", () => {
+		  playBtn.setAttribute("class", "paused");
+		  playBtn.textContent = "Play";
+		});
+		
+		```
+		
+		
+	Mecanismos de seguridad en las APIs: 
+		
+		Las funciones de WebAPI
+		
+		están sujetas a las mismas consideraciones
+		
+		que JavaScript y otras tecnologías web
+		
+		(por ejemplo, la política del mismo origen), 
+		
+		pero a veces cuentan con mecanismos de seguridad adicionales
+		
+		Por ejemplo, algunas de las WebAPI más modernas 
+		
+		solo funcionarán en páginas servidas a través de HTTPS
+		
+		debido a que transmiten datos potencialmente confidenciales
+		
+		los ejemplos incluyen Service Workers y Push
+		
+		
+		Además, algunas WebAPI solicitan permiso al usuario
+		
+		para habilitarlas una vez que se realizan llamadas en su código
+		
+		la API de notificaciones solicita permiso mediante un cuadro de diálogo emergente
+		
+		
+		Las API Web Audio y HTMLMediaElement
+		
+		están sujetas a un mecanismo de seguridad
+		
+		llamado política de reproducción automática
+		
+		significa que no puedes reproducir audio automáticamente
+		
+		cuando se carga una página; debes permitir que tus usuarios
+		
+		inicien la reproducción de audio a través de un control como un botón
+		
+		la reproducción automática de audio suele ser realmente molesta
+		
+		no deberíamos someter a nuestros usuarios a ella.
+
+
+		Dependiendo de cuán estricto sea el navegador
+		
+		dichos mecanismos de seguridad podrían incluso impedir que el ejemplo funcione localmente
+		
+		si carga el archivo de ejemplo local en su navegador en lugar de ejecutarlo desde un servidor web
+		
+		nuestro ejemplo de Web Audio API no funcionaba localmente en Google Chrome
+		
+		tuvimos que cargarlo en GitHub antes de que funcionara.
+		
+		
+		
+|| DOM API 
+	
+	Una de las cosas más comunes que querrás hacer es
+	
+	manipular la estructura del documento de alguna manera
+	
+	Generalmente se hace mediante el modelo de objetos de documento (DOM)
+		
+	Un conjunto de APIs para controlar HTML y aplicar estilos a la información
+		
+	que hace un uso intensivo del objeto Document. 
+	
+	
+	Partes importantes de un navegador web:
+		
+		Los navegadores web son piezas de software muy complicadas
+		
+		con muchas partes móviles muchas de las cuales no pueden ser controladas
+		
+		ni manipuladas por un desarrollador web que utilice JavaScript
+		
+		bloqueados por buenas razones, principalmente centradas en la seguridad
+		
+		
+		Las API web todavía nos brindan acceso a muchas funciones
+			
+		que nos permiten hacer muchas cosas con las páginas web.
+		
+		Hay algunas partes obvias a las que hará referencia regularmente en su código
+		
+		
+		Diagrama que representa las partes principales de un navegador
+
+		directamente involucradas en la visualización de páginas web
+		
+			Navigator 
+			
+			Window 
+			
+			Document 
+			
+			
+		Window:
+			
+			es la pestaña del navegador en la que se carga una página web
+				
+			está representado en JavaScript por el objeto Window
+			
+			Usando los métodos disponibles en este objeto
+			
+			puede hacer cosas como devolver el tamaño de la ventana
+			
+			(Window.innerWidth y Window.innerHeight)
+			
+			manipular el documento cargado en esa ventana
+			
+			almacenar datos específicos de ese documento en el lado del cliente
+			
+			por ejemplo, usando un base de datos local u otro mecanismo de almacenamiento
+				
+			adjuntar un controlador de eventos a la ventana actual y más
+			
+			
+		Navigator:
+			
+			representa el estado y la identidad del navegador
+			
+			(es decir, el agente de usuario) 
+			
+			tal como existe en la web
+			
+			En JavaScript, esto está representado por el objeto Navigator
+			
+			Puede utilizar este objeto para recuperar cosas como el idioma preferido del usuario
+			
+			una transmisión multimedia de la cámara web del usuario, etc. 
+			
+		
+		Document: 
+			
+			(representado por el DOM en los navegadores)
+			
+			es la página real cargada en la ventana
+			
+			y está representada en JavaScript por el objeto Document
+			
+			Puede utilizar este objeto para devolver y manipular información sobre
+			
+			HTML y CSS que compone el documento
+			
+			por ejemplo, obtener una referencia a un elemento en el DOM
+			
+			cambiar su contenido de texto
+			
+			aplicarle nuevos estilos
+			
+			crear nuevos elementos y agregarlos a el elemento actual como hijo
+			
+			o incluso eliminarlo por completo
+			
+			
+	El DOM: 
+	
+		El documento actualmente cargado en cada una de las pestañas de su navegador
+	
+		está representado por un modelo de objetos de documento
+		
+		Se trata de una representación de "estructura de árbol" 
+		
+		creada por el navegador que permite que los lenguajes de programación accedan fácilmente a la estructura HTML
+		
+		por ejemplo, el propio navegador la utiliza para aplicar estilo y otra información a los elementos correctos a medida que representa una página
+		
+		y los desarrolladores pueden manipular el DOM con JavaScript después de que se haya renderizado la página.
+
+		
+		una página de ejemplo sencilla en dom-example.html
+		
+		Intente abrir esto en su navegador
+		
+		contiene un elemento <section> 
+		
+		dentro del cual puede encontrar una imagen 
+		
+		un párrafo con un enlace dentro
+		
+		```
+		<!doctype html>
+		<html lang="en-US">
+		  <head>
+			<meta charset="utf-8" />
+			<title>Simple DOM example</title>
+		  </head>
+		  <body>
+			<section>
+			  <img
+				src="dinosaur.png"
+				alt="A red Tyrannosaurus Rex: A two legged dinosaur standing upright like a human, with small arms, and a large head with lots of sharp teeth." />
+			  <p>
+				Here we will add a link to the
+				<a href="https://www.mozilla.org/">Mozilla homepage</a>
+			  </p>
+			</section>
+		  </body>
+		</html>
+
+		```
+		
+		Como un arbol, el DOM tiene sus ramificaciones 
+		
+		Empieza con el elemento HTML que el la raíz. 
+		
+		tiene como ramas al HEAD y al BODY 
+		
+		A su vez, estos tiene como ramas a otros elementos. 
+		
+		
+		Cada entrada del árbol se llama nodo
+		
+		algunos nodos representan elementos
+		
+		(identificados como HTML, HEAD, META, etc.)
+		
+		y otros representan texto
+		
+		(identificado como #text)
+		
+		También existen otros tipos de nodos
+		
+		
+		También se hace referencia a los nodos por su posición
+		
+		en el árbol en relación con otros nodos:
+		
+		
+		Nodo raíz/root:	
+			
+			Nodo superior del árbol
+			
+			en el caso de HTML
+			
+			siempre el nodo HTML
+			
+			(otros lenguajes de marcado como SVG y XML tendran otro root)
+			
+			
+		Nodo hijo/child:
+			
+			Nodo directamente dentro de otro nodo
+			
+			En el ej, IMG es hijo de SECTION
+		
+		
+		Nodo descenciente/descendent: 
+			
+			Nodo en cualquier lugar dentro de otro nodo
+			
+			IMG es hijo de SECTION, tambien descenciente
+			
+			IMG no es hijo de BODY, está dos niveles debajo del body
+			
+			pero es descendiente de BODY
+			
+			
+		Nodo principal/parent: 
+			
+			Nodo que tiene otro nodo en su interior
+			
+			BODY es el nodo padre de SECTION
+			
+			
+		Nodos hermanos/sibling: 
+			
+			Nodos que se encuentran en el mismo nivel en el árbol DOM
+			
+			IMG y P son hermanos
+			
+			
+		Es útil familiarizarse con esta terminología
+		
+		antes de trabajar con el DOM
+		
+		ya que varios de los términos de código
+		
+		que encontrará hacen uso de ellos
+		
+			
+	Ejercicio: 
+			
+		Para manipular un elemento dentro del DOM
+		
+		primero debe seleccionarlo y almacenar una referencia dentro de una variable
+			
+		En script agrege la linea: 
+		
+		```
+		const link = document.querySelector("a");
+	
+		```
+		
+		podemos comenzar a manipularla
+		
+		usando las propiedades y métodos disponibles
+		
+		(estos se definen en interfaces como
+		
+		HTMLAnchorElement en el caso del elemento <a>,
+		
+		su interfaz principal/parent más general HTMLElement
+		
+		y Node que representa todos los nodos en un DOM).
+		
+		
+		En primer lugar, cambiemos el texto dentro del enlace
+		
+		actualizando el valor de la propiedad Node.textContent
+		
+		con la siguiente linea:
+			
+		```
+		link.textContent = "Mozilla Developer Network";
+		
+		```
+		
+		También deberíamos cambiar la URL
+		
+		a la que apunta el enlace, para que no vaya al lugar equivocado
+		
+		```
+		link.href = "https://developer.mozilla.org";
+		
+		```
+		
+		
+		hay muchas formas de seleccionar un elemento
+		
+		y almacenar una referencia a él en una variable.
+		
+		Document.querySelector() es el enfoque moderno recomendado
+		
+		Es conveniente porque le permite seleccionar elementos usando selectores CSS
+		
+		La llamada a querySelector() anterior coincidirá 
+		
+		coincidirá con el primer elemento <a>
+		
+		que aparece en el documento
+		
+		
+		Si desea hacer coincidir y hacer cosas con varios elementos
+		
+		puede usar Document.querySelectorAll(),
+		
+		coincide con cada elemento del documento que coincide con el selector
+		
+		y almacena referencias a ellos en un objeto similar a una matriz
+		
+		llamado NodeList.
+		
+		
+		Hay métodos más antiguos disponibles para capturar referencias de elementos			
+		
+		Document.getElementById():
+			
+			selecciona un elemento con un valor de atributo de identificación
+			
+			<p id="myId">Mi párrafo</p>.
+			
+			El ID se pasa a la función como parámetro
+			
+			const elementRef = document.getElementById('myId').
+		
+		Document.getElementsByTagName()
+			
+			devuelve un objeto similar a una matriz
+			
+			que contiene todos los elementos de la página de un tipo determinado
+			
+			ej, <p>s, <a>s, etc
+			 
+			El tipo de elemento se pasa a la función como parámetro
+			
+			const elementRefArray = document.getElementsByTagName('p').
+			
+			
+		Estos dos funcionan mejor en navegadores antiguos
+			
+		
+	Creando y colocando nuevos nodos.
+		
+		tomando una referencia a nuestro elemento <section>:	
+		
+		despues de la ultima linea en script: 
+		
+		```
+		const sect = document.querySelector("section");
+
+		```
+		
+		creemos un nuevo párrafo usando Document.createElement()
+		
+		y le damos algo de contenido de texto
+		
+		```
+		const para = document.createElement("p");
+		para.textContent = "We hope you enjoyed the ride.";
+
+		```
+		
+		agregar el nuevo párrafo al final de la sección usando Node.appendChild():
+		
+		```
+		sect.appendChild(para);
+
+		```
+			
+		agreguemos un nodo de texto al párrafo 
+		
+		dentro del cual se encuentra el enlace
+		
+		para redondear bien la oración
+		
+		Primero crearemos el nodo de texto usando Document.createTextNode():
+		
+		```
+		const text = document.createTextNode(
+		  " — the premier source for web development knowledge.",
+		);
+		
+		```
+		
+		tomaremos una referencia al párrafo dentro del enlace
+		
+		enlace y le agregaremos el nodo de texto
+		
+		```
+		const linkPara = document.querySelector("p");
+		linkPara.appendChild(text);
+
+		```
+		
+		es la mayor parte de lo que necesita para agregar nodos al DOM
+		
+		utilizará mucho estos métodos al crear interfaces dinámicas
+		
+	
+	Mover y eliminar elementos:
+		
+		Puede haber ocasiones en las que desee mover nodos
+		
+		o eliminarlos del DOM por completo
+		
+		Si quisiéramos mover el párrafo con el enlace
+		
+		dentro al final de la sección
+		
+		```
+		sect.appendChild(linkPara);
+		
+		```
+		
+		Esto mueve el párrafo hacia la parte inferior de la sección
+		
+		Es posible que haya pensado que haría una segunda copia
+		
+		pero este no es el caso:
+		
+		linkPara es una referencia a la única copia de ese párrafo
+		
+		Si desea hacer una copia y agregarla también
+		
+		deberá usar Node.cloneNode() en su lugar.
+
+		
+		
+		Eliminar un nodo, es sencillo 
+		
+		al menos cuando se tiene una referencia al nodo
+		
+		que se va a eliminar y a su padre.
+		
+		En nuestro caso actual
+		
+		usamos Node.removeChild()
+		
+		```
+		sect.removeChild(linkPara);
+		
+		```
+		
+		
+		Cuando desee eliminar un nodo basándose
+		
+		únicamente en una referencia a sí mismo
+		
+		puede usar Element.remove():
+		
+		```
+		linkPara.remove();
+		
+		```
+		
+		Este método no es compatible con navegadores más antiguos
+		
+		No tienen ningún método para decirle a un nodo que se elimine		
+		
+		tendría que hacer
+		
+		```
+		linkPara.parentNode.removeChild(linkPara);
+
+		```
+		
+		
+	Manipular estilos: 
+		
+		puede obtener una lista de todas las hojas de estilo
+		
+		adjuntas a un documento usando Document.stylesheets
+		
+		que devuelve un objeto similar a una matriz con objetos CSSStyleSheet
+		
+		Luego puede agregar/eliminar estilos como desee. 
+		
+		
+		La primera forma es agregar estilos en línea
+		
+		directamente a los elementos a los que desea aplicar estilo dinámicamente
+		
+		Esto se hace con la propiedad HTMLElement.style
+		
+		contiene información de estilo en línea para cada elemento del documento
+		
+		Puede configurar las propiedades de este objeto
+		
+		para actualizar directamente los estilos de los elementos.
+		
+		
+		```
+		para.style.color = "white";
+		para.style.backgroundColor = "black";
+		para.style.padding = "10px";
+		para.style.width = "250px";
+		para.style.textAlign = "center";
+		
+		```
+		
+		Al cargar la página y verá que los estilos se han aplicado al párrafo.
+		
+		estas líneas efectivamente agregan estilos en línea al documento
+		
+		```
+		<p
+		  style="color: white; background-color: black; padding: 10px; width: 250px; text-align: center;">
+		  We hope you enjoyed the ride.
+		</p>
+		
+		```
+		
+		las versiones de las propiedades de JavaScript de los estilos CSS
+		
+		están escritas en minúsculas camel,
+		
+		mientras que las versiones de CSS están divididas con guiones (kebab-case) 
+		
+		
+		Otra forma común de manipular dinámicamente estilos
+		
+		Primero, eliminar lo anterior del script. 
+		
+		y agregar en head, un style 
+		
+		```
+		<style>
+		  .highlight {
+			color: white;
+			background-color: black;
+			padding: 10px;
+			width: 250px;
+			text-align: center;
+		  }
+		</style>
+	
+		```
+		
+		Ahora un método muy util 
+		
+		para la manipulación general de HTML: Element.setAttribute()
+		
+		requiere dos argumentos
+		
+		el atributo que desea establecer en el elemento
+		
+		y el valor que desea establecer
+		
+		En este caso estableceremos un nombre de clase
+		
+		para resaltar en nuestro párrafo
+		
+		```
+		para.setAttribute("class", "highlight");
+		
+		```
+		
+		Actualice su página y no verá ningún cambio
+		
+		el CSS aún se aplica al párrafo,
+		
+		pero esta vez dándole una clase seleccionada por nuestra regla CSS
+		
+		no como estilos CSS en línea
+		
+		
+		El método que elijas depende de ti
+		
+		Ambos tienen sus ventajas y desventajas
+		
+		El primer método requiere menos configuración
+		
+		es bueno para usos simples
+		 
+		mientras que el segundo método es más purista
+		
+		(sin mezclar CSS y JavaScript, sin estilos en línea, que se consideran una mala práctica).
+		
+		A medida que empieces a crear aplicaciones más grandes y complejas
+		
+		probablemente empezarás a utilizar más el segundo método
+		
+		
+		En este punto, realmente no hemos hecho nada útil
+		
+		No tiene sentido usar JavaScript para crear contenido estático
+		
+		también puedes escribirlo en tu HTML y no usar JavaScript
+		
+		Es más complejo que HTML y la creación de contenido con JavaScript
+		
+		también conlleva otros problemas
+		
+		(como no ser legible por los motores de búsqueda).
+		
+		
+		
+	Lista de compras: 
+	
+		permita agregar artículos dinámicamente a la lista
+		
+		usando una entrada de formulario y un botón. 
+		
+		Cuando agrega un artículo a la entrada y presiona el botón:
+		
+			El artículo debería aparecer en la lista.
+			
+			Cada artículo debería tener un botón
+				
+				que se pueda presionar 
+				
+				para eliminar ese artículo de la lista.
+				
+			La entrada debería estar vacía y enfocada 
+				
+				lista para que ingrese otro artículo.
+				
+		
+		siga los pasos a continuación
+		
+		asegúrese de que la lista se comporte como se describe arriba
+		 
+		
+		archivo de inicio shopping-list.html
+		
+		tiene un CSS mínimo,
+		
+		un div con una etiqueta
+		
+		un elemento de entrada y un botón
+		
+		y una lista vacía y un elemento <script>
+		 
+		
+		Crea tres variables que contengan referencias a los elementos de lista (<ul>), <input> y <button>.
+		
+		Crea una función que se ejecutará en respuesta al clic en el botón.
+		
+		Dentro del cuerpo de la función, comienza almacenando el valor actual del elemento de entrada en una variable.
+		
+		A continuación, vacía el elemento de entrada estableciendo su valor en una cadena vacía: ''.
+		
+		Crea tres elementos nuevos: un elemento de lista (<li>), <span> y <button>, y almacénalos en variables.
+		
+		Agrega el span y el botón como elementos secundarios del elemento de lista.
+		
+		Establece el contenido de texto del span en el valor del elemento de entrada que guardaste anteriormente y el contenido de texto del botón en 'Eliminar'.
+		
+		Agrega el elemento de lista como elemento secundario de la lista.
+		
+		Adjunte un controlador de eventos al botón de eliminar para que, al hacer clic, elimine todo el elemento de la lista (<li>...</li>).
+		
+		Por último, utilice el método focus() para enfocar el elemento de entrada y dejarlo listo para ingresar el siguiente elemento de la lista de compras.
+		
+
+
+|| Fetch 
+
+	recuperar elementos de datos individuales del servidor
+	
+	para actualizar secciones de una página web
+	
+	sin tener que cargar una página nueva completa
+	
+	pequeño ha tenido un gran impacto en el rendimiento y el comportamiento de los sitios
+	
+	
+	Un problema: 
+		
+		Una página web consta de una página HTML
+		
+		varios otros archivos, como hojas de estilo, scripts e imágenes. 
+		
+		El modelo básico de carga de páginas en la Web
+		
+		su navegador realiza una o más solicitudes HTTP al servidor de los archivos
+		
+		de los archivos necesarios para mostrar la página
+		
+		y el servidor responde con los archivos solicitados.
+		
+		Lo mismo si visitas otra página. 
+		
+		Diagrama: 
+		
+			Navegador -> Request Page (html, css, js...) -> Server
+			
+			Navegador <- Request Page (html, css, js...) <- Server
+				
+		
+		Este modelo funciona perfectamente para muchos sitios
+		
+		Pero considere un sitio web que se base en gran medida en datos
+		
+		Por ejemplo, el sitio web de una biblioteca como la Biblioteca Pública de Vancouver
+		
+		Entre otras cosas, se podría pensar en un sitio como este
+		
+		como una interfaz de usuario para una base de datos
+		
+		Podría permitirle buscar un género de libro en particular
+		
+		o mostrarle recomendaciones de libros que podrían gustarle
+		
+		basándose en libros que haya tomado prestados anteriormente
+		
+		Cuando hace esto, es necesario actualizar la página
+		
+		con el nuevo conjunto de libros para mostrar
+		
+		Pero tenga en cuenta que la mayor parte del contenido de la página
+		
+		incluidos elementos como el encabezado, la barra lateral y el pie de página, permanece igual.
+		
+		
+		El problema con el modelo tradicional
+		
+		es que tendríamos que buscar y cargar la página completa
+		
+		incluso cuando solo necesitamos actualizar una parte de ella
+		
+		Esto es ineficiente y puede resultar en una mala experiencia de usuario.
+
+		
+		Entonces, en lugar del modelo tradicional
+		
+		muchos sitios web utilizan API de JavaScript
+		
+		para solicitar datos del servidor y actualizar
+		
+		el contenido de la página sin cargar la página.
+		
+		Entonces, cuando el usuario busca un nuevo producto
+		
+		el navegador solo solicita los datos necesarios para actualizar la página
+		
+		el conjunto de libros nuevos que se mostrarán, por ejemplo
+		
+		Diagrama: 
+			
+			Navegador -> Request Page (html, css, js...) -> Server
+			
+			Search -> Request Data -> Server 
+			
+			Update Page <- Request Data <- Server 
+
+		
+		La API principal aquí es la API Fetch
+		
+		permite que JavaScript se ejecute en una página
+		
+		para realizar una solicitud HTTP a un servidor
+		
+		para recuperar recursos específicos
+		
+		Cuando el servidor los proporciona
+		
+		JavaScript puede usar los datos para actualizar la página
+		
+		generalmente mediante el uso de API de manipulación DOM
+		
+		Los datos solicitados suelen ser JSON
+		
+		que es un buen formato para transferir datos estructurados
+		
+		pero también pueden ser HTML o simplemente texto.
+
+		Este es un patrón común para sitios basados ​​en datos como Amazon, YouTube, eBay
+		
+		
+		1. Las actualizaciones de la página son mucho más rápidas
+		
+			no es necesario esperar a que se actualice
+			
+			significa que el sitio se siente más rápido y con mayor capacidad de respuesta
+			
+			
+		2. Se descargan menos datos en cada actualización
+		
+			significa menos ancho de banda desperdiciado
+			
+			Puede que esto no sea un problema tan grande
+			
+			en una computadora de escritorio
+			
+			con una conexión de banda ancha
+			
+			pero es un problema importante en dispositivos móviles
+			
+			y en países que no tienen un servicio de Internet rápido y ubicuo.
+			
+		
+		Al principio, esta técnica general
+			
+		se conocía como JavaScript y XML asincrónicos (Ajax)
+		
+		porque tendía a solicitar datos XML.
+		
+		Normalmente, este no es el caso hoy en día
+		
+		(sería más probable que solicite JSON)
+		
+		pero el resultado sigue siendo el mismo
+		
+		
+		Para acelerar aún más las cosas
+		
+		algunos sitios también almacenan recursos 
+		
+		y datos en la computadora del usuario
+		
+		cuando se solicitan por primera vez
+		
+		significa que en visitas posteriores
+		
+		usan las versiones locales
+		
+		locales en lugar de descargar copias
+		
+		El contenido sólo se recarga desde 
+		
+		el servidor cuando ha sido actualizado
+		
+	
+	Fetch API: 
+	
+		Recuperar u obtener datos o recursos
+		
+	
+	Fetch contenido de texto: 
+		
+		solicitaremos datos de archivos de texto
+	
+		para completar un área de contenido
+		
+		Esta serie de archivos actuará
+		
+		como nuestra base de datos falsa
+		
+		en una aplicación real
+		
+		sería más probable que usáramos
+		
+		un lenguaje del lado del servidor
+		
+		para solicitar nuestros datos de una base de datos
+		
+		como PHP, Python o Node
+		
+		Porque un lenguaje de backend interactuar
+		
+		con una computadora/servidor que almacena archivos, datos, recursos 
+	
+		Un lenguaje frontend interactua con el navegador
+		
+		cliente/programa
+		
+		
+		Hacemos una copia local de fetch-start.html
+		
+		y los cuatro archivos de texto
+		
+		en un nuevo directorio de su computadora
+		
+		Buscaremos un verso diferente del poema
+		
+		cuando esté seleccionado en el menú desplegable
+			
+		
+		Dentro del elemento <script> agregamos código
+		
+		almacena referencias a los elementos <select> y <pre>
+		
+		y agrega un detector al elemento <select>
+		
+		de modo que cuando el usuario selecciona un nuevo valor
+		
+		el nuevo valor se pasa a la función 
+		
+		updateDisplay() como parámetro.
+		
+		```
+		const verseChoose = document.querySelector("select");
+		const poemDisplay = document.querySelector("pre");
+
+		verseChoose.addEventListener("change", () => {
+		  const verse = verseChoose.value;
+		  updateDisplay(verse);
+		});
+	
+		```
+		
+		Definamos nuestra función updateDisplay()
+		
+		```
+		function updateDisplay(verse) {
+
+		}
+
+		```
+		
+		Comenzaremos construyendo una URL relativa
+		
+		que apunte al archivo de texto que queremos cargar
+		
+		ya que lo necesitaremos más adelante
+		
+		El valor del elemento <select>
+		
+		en cualquier momento es el mismo
+		
+		que el texto dentro de la <opción> 
+		
+		seleccionada (a menos que especifique un valor diferente en un atributo de valor),
+		
+		por ejemplo, "Verso 1"
+		
+		El archivo de texto de verse correspondiente es "verse1.txt"
+		
+		está en el mismo directorio que el archivo HTML
+		
+		bastará con el nombre del archivo.
+
+		
+		Sin embargo, los servidores web
+		
+		tienden a distinguir entre mayúsculas y minúsculas
+		
+		y el nombre del archivo no tiene espacios. 
+		
+		Para convertir "Verse 1" a "verse1.txt"
+		
+		necesitamos convertir la 'V' a minúscula
+		
+		eliminar el espacio y agregar ".txt" al final
+		
+		Esto se puede hacer con replace(),
+		
+		toLowerCase() y literal de plantilla. 
+		
+		```
+		verse = verse.replace(" ", "").toLowerCase();
+		const url = `${verse}.txt`;
+		
+		```
+		 
+		 
+		Después usamos Fetch: 
+		
+		```
+		// Llama a `fetch()`, pasando la URL.
+		fetch(url)
+		  // fetch() devuelve una promesa. Cuando hayamos recibido una respuesta del servidor,
+		  // el controlador `then()` de la promesa se llama con la respuesta.
+			.then((response) => {
+			// Nuestro controlador arroja un error si la solicitud no tuvo éxito.
+			if (!response.ok) {
+			  throw new Error(`HTTP error: ${response.status}`);
+			}
+			// De lo contrario (si la respuesta fue exitosa), nuestro controlador recupera la respuesta
+			// como texto llamando a respuesta.text(), y devuelve inmediatamente la promesa
+			// devuelto por `respuesta.text()`
+			return response.text();
+			})
+		  // Cuando respuesta.text() ha tenido éxito, se llama al controlador `then()` con
+		  // el texto, y lo copiamos en el cuadro `poemDisplay`.
+		  .then((text) => {
+			poemDisplay.textContent = text;
+		  })
+		  // Detecta cualquier error que pueda ocurrir y muestra un mensaje
+		  // en el cuadro `poemDisplay`.
+		  .catch((error) => {
+			poemDisplay.textContent = `Could not fetch verse: ${error}`;
+		  });
+			
+		```
+			
+		Primero, el punto de entrada a Fetch API
+		
+		es una función global llamada fetch(),
+		
+		que toma la URL como parámetro
+		
+		(toma otro parámetro opcional para configuraciones personalizadas)
+		
+		
+		fetch() es una API asincrónica
+		
+		que devuelve una Promesa
+		
+		debido a que fetch() devuelve una promesa
+		
+		pasamos una función al método then()
+		
+		de la promesa devuelta
+		
+		Este método se llamará
+		
+		cuando la solicitud HTTP haya recibido una respuesta del servidor
+		
+		En el controlador, verificamos 
+		
+		que la solicitud se realizó correctamente
+		
+		y arrojamos un error si no fue así
+		
+		De lo contrario, llamamos a Response.text()
+		
+		para obtener el cuerpo de la respuesta
+		
+		como texto.
+
+
+		Response.text() también es asíncrono
+		
+		por lo que devolvemos la promesa que devuelve
+		
+		y pasamos una función al método then() de esta nueva promesa
+		
+		Esta función será llamada cuando el texto de respuesta esté listo
+		
+		y dentro de ella actualizaremos nuestro bloque <pre> con el texto.
+		
+		
+		Encadenamos un controlador catch() al final
+		
+		para detectar cualquier error arrojado
+		
+		en cualquiera de las funciones asincrónicas que llamamos
+		
+		o sus controladores.
+		
+	
+		Un problema con el ejemplo tal como está
+		
+		es que no mostrará nada del poema 
+		
+		cuando se carga por primera vez.
+		
+		Para solucionar este problema
+		
+		Agregar al final del código 
+		
+		para cargar el verso 1 
+		
+		de forma predeterminada y asegúrese 
+		
+		de que el elemento <select>
+		
+		siempre muestre el valor correcto
+		 
+		```
+		updateDisplay("Verse 1");
+		verseChoose.value = "Verse 1";
+
+		``` 
+
+
+	Correr ejemplo desde un servidor:
+	
+		Los navegadores modernos no ejecutarán solicitudes HTTP
+		
+		si simplemente ejecuta el ejemplo desde un archivo local
+		
+		Esto se debe a restricciones de seguridad
+		
+		debemos probar el ejemplo ejecutándolo
+		
+		a través de un servidor web local
+		
+		
+	Can store: 
+		
+		
+
+		
+		
+			
 || RS
+
+
+
 
 	1. 
 
