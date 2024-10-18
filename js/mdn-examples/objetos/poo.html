@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Object-oriented JavaScript example</title>
+  </head>
+
+  <body>
+    <p>This example requires you to enter commands in your browser's JavaScript console (see <a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools">What are browser developer tools</a> for more information).</p>
+    
+    <script>
+		/*
+		
+		Clases JS
+		 ----------------------------------------------
+		
+		// Clase-plantilla: props/mets
+		// Constructor-objetos
+		 
+		// Herencia-extends: objeto base/padre - subobjetos
+		// metodos base->metodos particulares
+		
+		// Polomorfismo: sobrescribir metodos 
+
+		// Encapsulacion:
+		// uso interno de propiedades privadas
+		// metodos publicos que acceden a props privadas
+		// de lo contrario, codigo externo al objeto
+		// no puede invocar props priv
+
+		// Toda la logica este en un solo lugar/método
+		// lo más importante 
+		// sin romper ningún código que use la clase y sus metodos.
+
+		*/
+		
+
+		/*
+		Palabras claves: 
+		class 
+		constructor(props) y this 
+		extends y super(prop) 
+		metodos literal: sin function, solo nombre() y this
+		#, encapsulación
+		*/
+
+
+		class Person {
+		  name;
+
+		  constructor(name) {
+			this.name = name;
+		  }
+
+		  introduceSelf() {
+			console.log(`Hi! I'm ${this.name}`);
+		  }
+		}
+
+
+		const giles = new Person("Giles");
+
+		giles.introduceSelf(); // Hi! I'm Giles
+
+
+		// omintir constructores 
+		class Animal {
+		  sleep() {
+			console.log("zzzzzzz");
+		  }
+		}
+
+		const spot = new Animal();
+
+		spot.sleep(); // 'zzzzzzz'
+
+
+		
+		//Herencia 
+		class Professor extends Person {
+		  teaches;
+
+		  constructor(name, teaches) {
+			super(name);
+			this.teaches = teaches;
+		  }
+
+		  introduceSelf() {
+			console.log(
+			  `My name is ${this.name}, and I will be your ${this.teaches} professor.`,
+			);
+		  }
+
+		  grade(paper) {
+			const grade = Math.floor(Math.random() * (5 - 1) + 1);
+			console.log(grade);
+		  }
+		}
+
+
+		const walsh = new Professor("Walsh", "Psychology");
+		walsh.introduceSelf(); // 'My name is Walsh, and I will be your Psychology professor'
+
+		walsh.grade("my paper"); // some random grade
+
+		
+		
+		// Encapsulación
+		class Student extends Person {
+		  #year;
+		  
+		  constructor(name, year) {
+			super(name);
+			this.#year = year;
+		  }
+
+		  introduceSelf() {
+			console.log(`Hi! I'm ${this.name}, and I'm in year ${this.#year}.`);
+		  }
+
+		  canStudyArchery() {
+			return this.#year > 1;
+		  }
+		}
+
+
+		const summers = new Student("Summers", 2);
+
+		summers.introduceSelf(); // Hi! I'm Summers, and I'm in year 2.
+		summers.canStudyArchery(); // true
+
+		summers.#year; // SyntaxError
+
+		
+		
+		// Métodos Privados
+
+		class Example {
+		  somePublicMethod() {
+			this.#somePrivateMethod();
+		  }
+
+		  #somePrivateMethod() {
+			console.log("You called me?");
+		  }
+		}
+
+		const myExample = new Example();
+
+		myExample.somePublicMethod(); // 'You called me?'
+
+		myExample.#somePrivateMethod(); // SyntaxError
+
+		
+		
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Our superheroes</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+	<style type="text/css">
+		/* || general styles */
+
+		html {
+		  font-family: 'helvetica neue', helvetica, arial, sans-serif;
+		}
+
+		body {
+		  width: 800px;
+		  margin: 0 auto;
+		}
+
+		h1, h2 {
+		  font-family: 'Faster One', cursive;
+		}
+
+		/* header styles */
+
+		h1 {
+		  font-size: 4rem;
+		  text-align: center;
+		}
+
+		header p {
+		  font-size: 1.3rem;
+		  font-weight: bold;
+		  text-align: center;
+		}
+
+		/* section styles */
+
+		section article {
+		  width: 33%;
+		  float: left;
+		}
+
+		section p {
+		  margin: 5px 0;
+		}
+
+		section ul {
+		  margin-top: 0;
+		}
+
+		h2 {
+		  font-size: 2.5rem;
+		  letter-spacing: -5px;
+		  margin-bottom: 10px;
+		}
+	</style>
+
+  </head>
+
+  <body>
+
+      <header>
+
+      </header>
+
+      <section>
+		  
+
+      </section>
+
+      <script>
+		async function populate() {
+		  const requestURL =
+			"https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json";
+		  const request = new Request(requestURL);
+
+		  const response = await fetch(request);
+		  const superHeroes = await response.json();
+
+		  populateHeader(superHeroes);
+		  populateHeroes(superHeroes);
+		}
+		
+		/*
+		Funcion async populate()
+		guarda una url en requestURL
+		crea un objeto/instancia de Request
+		pasandole una url a su constructor
+		 
+		guardamos una respuesta de fetch en response
+		pasandole a su consturctor 
+		el objeto request/url
+		guardamos los superheroes con el .json() 
+		el archivo será la respuesta/fetch
+		que tenía el objeto request/url 
+
+		tenemos dos llamadas a funciones
+		toman el json.  
+		para llenar los elementos de html
+		*/
+		
+		function populateHeader(obj) {
+		  const header = document.querySelector("header");
+		  const myH1 = document.createElement("h1");
+		  myH1.textContent = obj.squadName;
+		  header.appendChild(myH1);
+
+		  const myPara = document.createElement("p");
+		  myPara.textContent = `Hometown: ${obj.homeTown} // Formed: ${obj.formed}`;
+		  header.appendChild(myPara);
+		}
+		
+		/*
+		funcion completar header, toma obj
+		guarda el elem html header
+		creamos el elem html h1
+		modifica contendio h1: 
+		será el parámetro llamando a squadName (json)
+		agregamos h1 al header
+
+		
+		creamos un elem p
+		modifica con el contenido del json, llamandoló.
+		agregamos el p al header
+		*/
+		
+		
+		function populateHeroes(obj) {
+		  const section = document.querySelector("section");
+		  const heroes = obj.members;
+
+		  for (const hero of heroes) {
+			const myArticle = document.createElement("article");
+			const myH2 = document.createElement("h2");
+			const myPara1 = document.createElement("p");
+			const myPara2 = document.createElement("p");
+			const myPara3 = document.createElement("p");
+			const myList = document.createElement("ul");
+
+			myH2.textContent = hero.name;
+			myPara1.textContent = `Secret identity: ${hero.secretIdentity}`;
+			myPara2.textContent = `Age: ${hero.age}`;
+			myPara3.textContent = "Superpowers:";
+
+			const superPowers = hero.powers;
+			for (const power of superPowers) {
+			  const listItem = document.createElement("li");
+			  listItem.textContent = power;
+			  myList.appendChild(listItem);
+			}
+
+			myArticle.appendChild(myH2);
+			myArticle.appendChild(myPara1);
+			myArticle.appendChild(myPara2);
+			myArticle.appendChild(myPara3);
+			myArticle.appendChild(myList);
+
+			section.appendChild(myArticle);
+		  }
+		}
+		
+		/*
+		la funcion populateHeroes toma un obj
+		para completar las tarjetas de información. 
+		 
+		section será el elem html section 
+		heroes será el obj.members 
+
+		//Con un bucle recorreremos cada objeto 
+		de la matriz members del obj json. 
+		//para para cada uno, haremos algo:
+
+		recorremos en hero, los elementos que guardamos
+		en heroes que son todos los elem del obj.members
+
+		en cada iteracion/por cada heroe: 
+		creamos articulo html 
+		un h2, 3 p, y una lista no ordenada
+
+		// con el obj json que guardamos en heroes
+		// modificamos los elem creados: 
+
+		h2 será gual a hero.name 
+		p1 será hero.sercretIdentity del  
+		p2 sera la edad 
+		p3 será una cadena a completar 
+
+		// Al terminar de recorrer todo el contenido hero
+		// del obj, cada objeto, uno a uno, haremos algo. 
+
+		// recorremos otro como son los poderes
+
+		en superPowers guardamos hero.powers
+		recorremos superPowers con power
+
+		por cada elem, crearémos: 
+
+		un li, modificamos su contenido, será power
+		incluimos listItem en myList 
+
+		después incluimos h2, p1, p2, p3 y myList
+		en myArticle 
+
+		al final incluimos myArticle en section  
+
+		*/
+		
+		//llamar a la funcion principal 
+		
+		populate();
+
+
+      </script>
+  </body>
+</html>

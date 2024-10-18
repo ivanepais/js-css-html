@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Object-oriented JavaScript example</title>
+  </head>
+
+  <body>
+    <p>This example requires you to enter commands in your browser's JavaScript console (see <a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools">What are browser developer tools</a> for more information).</p>
+    
+    <script>
+		/*
+		const person = {
+			
+		  name: ["Bob", "Smith"],
+		  age: 32,
+		  bio: function () {
+			console.log(`${this.name[0]} ${this.name[1]} is ${this.age} years old.`);
+		  },
+		  introduceSelf: function () {
+			console.log(`Hi! I'm ${this.name[0]}.`);
+		  },
+		  
+		 */
+		  
+		  /*
+		  const person = {
+			  name: ["Bob", "Smith"],
+			  age: 32,
+			  bio() {
+				console.log(`${this.name[0]} ${this.name[1]} is ${this.age} years old.`);
+			  },
+			  introduceSelf() {
+				console.log(`Hi! I'm ${this.name[0]}.`);
+			  },
+			
+		  }; 
+		  
+		  */
+		  
+		  //person.age;
+		  //person.bio();
+			
+			/*
+		  const person = {
+			  name: {
+				first: "Bob",
+				last: "Smith",
+			  },
+			  age: 32,
+			  bio() {
+				console.log(`${this.name[0]} ${this.name[1]} is ${this.age} years old.`);
+			  },
+			  introduceSelf() {
+				console.log(`Hi! I'm ${this.name[0]}.`);
+			  },
+			
+		  };
+		  */
+		  
+		  //para acceder: necesitamos un paso extra
+		  //person.name.first;
+		  //person.name.last;
+			
+			
+		  //Tambien debemos cambiar la sintaxis de 
+		  //todo lo que mencione al array anterior
+		  //como la sintaxis del método
+		  
+		  //de:	
+		  //name[0];
+		  //name[1];
+		  
+		  
+		  //a:
+		  //name.first;
+		  //name.last;
+		  
+		  
+		 const person = {
+			  name: {
+				first: "Bob",
+				last: "Smith",
+			  },
+			  age: 32,
+			  bio() {
+				console.log(`${this.name.first} ${this.name.last} is ${this.age} years old.`);
+			  },
+			  introduceSelf() {
+				console.log(`Hi! I'm ${this.name.first}.`);
+			  },
+			
+		  };
+		  
+		
+			
+			/*
+			const person = {
+			  name: ["Bob", "Smith"],
+			  age: 32,
+			};
+
+			function logProperty(propertyName) {
+			  console.log(person[propertyName]);
+			}
+
+			logProperty("name");
+			// ["Bob", "Smith"]
+			logProperty("age");
+			// 32
+			*/
+			
+			//Modificando miembros del objeto:
+			/*
+			
+			person.name.first = "Cratchit";
+			"Cratchit"
+			person["name"] ["last"] = "IVN";
+			"IVN" 
+			
+			*/
+			
+			const myDataName = "height";
+			const myDataValue = "1.75m";
+			person[myDataName] = myDataValue;
+		
+    </script>
+  </body>
+
+</html>
