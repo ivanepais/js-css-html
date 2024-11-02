@@ -13460,23 +13460,3706 @@ Contenido de js, css y html.
 		a través de un servidor web local
 		
 		
-	Can store: 
+	The Can store: 
+		
+		Un supermercado ficticio
+
+		De forma predeterminada, el sitio muestra todos los productos
+
+		pero puede usar los controles del formulario en la columna de la izquierda para filtrarlos por categoría, término de búsqueda o ambos
+
+		Hay una gran cantidad de código complejo que se ocupa de filtrar los productos por categoría y términos de búsqueda
+
+		para que los datos se muestren correctamente en la interfaz de usuario, etc.
+
+		explicaremos el código Fetch.
+
+		El primer bloque que usa Fetch:
+
+		```
+		fetch("products.json")
+		  .then((response) => {
+		    if (!response.ok) {
+		      throw new Error(`HTTP error: ${response.status}`);
+		    }
+		    return response.json();
+		  })
+		  .then((json) => initialize(json))
+		  .catch((err) => console.error(`Fetch problem: ${err.message}`));
+
+		```
+
+		La función fetch() devuelve una promesa
+
+		Si esto se completa correctamente
+
+		la función dentro del primer bloque .then()
+
+		contiene la respuesta devuelta por la red.
+
+		
+		Dentro de esta función nosotros:
+
+			1. Verificamos que el servidor no haya devuelto un error (como 404 No encontrado).
+
+				Si es así, arrojamos el error.
+
+			2. Llamamos a json() en la respuesta.
+
+				Esto recuperará los datos como un objeto JSON
+
+				Devolvemos la promesa devuelta por Response.json().
+
+
+		A continuación pasamos una función al método then() de esa promesa devuelta.
+		
+		A esta función se le pasará un objeto que contiene los datos de respuesta como JSON
+
+		que pasamos a la función inicializar().
+
+		Esta función inicia el proceso de mostrar todos los productos en la interfaz de usuario.
+
+		Para manejar errores, encadenamos un bloque .catch() al final de la cadena de promesas. 
+
+		Esto se ejecuta si la promesa falla por algún motivo.
+
+		Dentro de él, incluimos una función que se pasa como parámetro, un objeto err.
+
+		Este objeto err se puede utilizar para informar la naturaleza del error que ha ocurrido, 
+
+		en este caso lo hacemos con un simple console.error().
+
+
+		Un sitio web completo manejaría este error de manera más elegante
+
+		mostrando un mensaje en la pantalla del usuario
+
+		quizás ofreciendo opciones para remediar la situación
+
+
+		Esto funciona de manera muy similar al anterior
+
+		excepto que en lugar de usar json(), usamos blob().
+
+		En este caso queremos devolver nuestra respuesta como un archivo de imagen
+
+		el formato de datos que usamos para eso es Blob
+
+ 		"Binary Large Object" 		
+
+		se puede usar para representar objetos grandes similares a archivos
+
+		como como imágenes o archivos de vídeo.
+
+		Una vez que hayamos recibido exitosamente nuestro blob
+
+		lo pasamos a nuestra función showProduct(), que lo muestra.
+
+
+	 XMLHttpRequest API:
+
+		Especialmente en código antiguo
+
+		utilizada para realizar solicitudes HTTP. 
+
+		ampliamente utilizada para implementar AJAX
+
+		```
+		const request = new XMLHttpRequest();
+
+		try {
+		  request.open("GET", "products.json");
+
+		  request.responseType = "json";
+
+		  request.addEventListener("load", () => initialize(request.response));
+		  request.addEventListener("error", () => console.error("XHR error"));
+
+		  request.send();
+		} catch (error) {
+		  console.error(`XHR error ${request.status}`);
+		}
+
+		```		
+
+		1. Creación de un nuevo objeto XMLHttpRequest.
+
+		2. Llamada a su método open() para inicializarlo.
+
+		3. Agregar un detector de eventos a su evento de carga
+
+			que se activa cuando la respuesta se completa correctamente
+
+			En el listener llamamos a inicializar() con los datos.
+
+		4. Agreguar un detector de eventos a su evento de error
+
+			se activa cuando la solicitud encuentra un error
+
+		5. Enviar la solicitud
+
+		
+
+|| APIs de Terceros 
+
+	Las API que hemos cubierto hasta ahora están integradas en el navegador
+	
+	Muchos sitios web y servicios grandes, como Google Maps, Twitter, Facebook, PayPal, etc
+	
+	proporcionan API que permiten a los desarrolladores hacer uso de sus datos
+	
+	(por ejemplo, mostrar su timeline de Twitter en su blog)
+	
+	servicios (por ejemplo, usar el inicio de sesión de Facebook para iniciar sesión con sus usuarios).
+	
+	
+	Permiten acceder a su funcionalidad a través de JavaScript y utilizarla en su sitio
+	
+	Uno de los ejemplos más obvios es el uso de API de mapas para mostrar mapas personalizados en sus páginas.
+
+	Ejemplo de API Mapquest. 
+	
+	
+	Se encuentran en servidores de terceros: 
+	
+		Las API del navegador están integradas en el navegador
+		
+		puede acceder a ellas desde JavaScript inmediatamente.
+		
+		Por ejemplo, se accede a la API Web Audio
+		
+		mediante el objeto AudioContext nativo.
+		
+		```
+		const audioCtx = new AudioContext();
+		// …
+		const audioElement = document.querySelector("audio");
+		// …
+		const audioSource = audioCtx.createMediaElementSource(audioElement);
+		// etc.
+
+		```
+	
+	
+		Las API de terceros están ubicadas en servidores de terceros.
+		
+		Para acceder a ellos desde JavaScript
+		
+		primero debe conectarse a la funcionalidad API
+		
+		implica primero vincular a una biblioteca de JavaScript disponible en el servidor
+		
+		a través de un elemento <script>
+		
+		```
+		<script
+		  src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"
+		  defer></script>
+		<link
+		  rel="stylesheet"
+		  href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
+
+		```
+
+		Luego puede comenzar a utilizar los objetos disponibles en esa biblioteca
+		
+		```
+		const map = L.mapquest.map("map", {
+		  center: [53.480759, -2.242631],
+		  layers: L.mapquest.tileLayer("map"),
+		  zoom: 12,
+		});
+	
+		```
+		estamos creando una variable para almacenar la información del mapa
+		
+		luego creamos un nuevo mapa usando el método mapquest.map(),
+		
+		toma como parámetro el ID de un elemento <div>
+		
+		en el que desea mostrar el mapa ('map '),
+		
+		y un objeto de opciones que contiene los detalles del mapa particular que queremos mostrar.
+		
+		En este caso especificamos las coordenadas del centro del mapa
+		
+		una capa de mapa de tipo mapa para mostrar (creada usando el método mapquest.tileLayer()) 
+		
+		y el nivel de zoom predeterminado.
+		
+		
+		Algunas API manejan el acceso a su funcionalidad de manera ligeramente diferente
+		
+		lo que requiere que el desarrollador realice una solicitud HTTP
+		 
+		a un patrón de URL específico para recuperar datos.
+		 
+		Se denominan API RESTful
+	
+	
+	Generalmente requieren claves API:
+		
+		La seguridad de las API del navegador tiende a gestionarse mediante solicitudes de permiso
+		
+		(permission prompts), como la que utilizamos para mostrar notificaciones al usuario. 
+		
+		El propósito de estos es que el usuario sepa lo que sucede en los sitios web que visita
+		
+		y sea menos probable que sea víctima de que alguien use una API de manera maliciosa.
+		
+		
+		Las API de terceros tienen un sistema de permisos ligeramente diferente
+		
+		tienden a utilizar claves de desarrollador
+		
+		para permitir que los desarrolladores accedan a la funcionalidad de la API
+		
+		sirve más para proteger al proveedor de la API que al usuario.
+		
+		
+		En la API de Mapquest
+		
+		```
+		L.mapquest.key = "YOUR-API-KEY-HERE";
+
+		```
+		Esta línea especifica una API
+		
+		o clave de desarrollador para usar en su aplicación
+		
+		el desarrollador de la aplicación debe solicitar obtener una clave
+		
+		y luego incluirla en su código para poder acceder a la funcionalidad de la API
+		
+		En nuestro ejemplo acabamos de proporcionar un marcador de posición.
+
+		Al crear sus propios ejemplos, utilizará su propia clave API en lugar de cualquier marcador de posición.
+		
+		
+		Es posible que otras API requieran que incluya la clave de una manera ligeramente diferente
+		
+		pero el patrón es relativamente similar para la mayoría de ellas.
+
+		
+		Requerir una clave permite al proveedor de API responsabilizar a los usuarios de la API por sus acciones
+		
+		Cuando el desarrollador se ha registrado para obtener una clave
+
+		el proveedor de API lo conoce y se pueden tomar medidas si comienza a hacer algo malicioso con la API
+		
+		(como rastrear la ubicación de las personas o intentar enviar spam a la API con un montón de solicitudes para dejar de funcionar, por ejemplo).
+		
+		La acción más sencilla sería simplemente revocar sus privilegios de API.
+		
+	
+	Ejemplo de Mapquest: 
+			
+		Agregar funciones de Mapquest para usar
+		
+		Copiar los archivos 
+		
+		Ir al sitio para desarrolladores de Mapquest 
+		
+		crear una cuenta y luego crear una clave de desarrollador
+		
+		para usar con su ejemplo.
+		
+		Abra su archivo inicial y reemplace el marcador de posición 
+		
+		de la clave API con su clave propia.
+		
+		
+|| Client-side Storage 
+
+	Una serie de tecnologías diferentes que le permiten almacenar datos relacionados con sitios web y recuperarlos cuando sea necesario
+	
+	lo que le permite conservar datos a largo plazo, guardar sitios sin conexión y más.
+	
+	
+	La mayoría de los principales sitios web modernos son dinámicos
+	
+	almacenan datos en el servidor utilizando algún tipo de base de datos (almacenamiento del lado del servidor)
+		
+	luego ejecutan código del lado del servidor para recuperar los datos necesarios
+	
+	los insertan en plantillas de páginas estáticas y entregan el HTML resultante al cliente 
+	
+	que será mostrado por el navegador del usuario.
+
+	
+	El almacenamiento del lado del cliente funciona con principios similares, pero tiene usos diferentes
+	
+	Consiste en API de JavaScript que le permiten almacenar datos en el cliente (es decir, en la máquina del usuario)
+	
+	y luego recuperarlos cuando sea necesario.
+	
+	Esto tiene muchos usos distintos:
+		
+		Personalizar las preferencias del sitio (por ejemplo, mostrar la elección del usuario de widgets personalizados, combinación de colores o tamaño de fuente).
+		
+		Actividad persistente del sitio anterior (por ejemplo, almacenar el contenido de un carrito de compras de una sesión anterior, recordar si un usuario inició sesión anteriormente).
+		
+		Guardar datos y activos localmente para que un sitio sea más rápido (y potencialmente menos costoso) de descargar o se pueda utilizar sin una conexión de red
+		
+		Guardar documentos generados por aplicaciones web localmente para usarlos sin conexión
+		
+		
+		A menudo, el almacenamiento del lado del cliente y del servidor se utilizan juntos
+		
+		Por ejemplo, podría descargar un lote de archivos de música
+		
+		(quizás utilizados por un juego web o una aplicación de reproducción de música),
+		
+		almacenarlos dentro de una base de datos del lado del cliente y reproducirlos según sea necesario.
+		
+		El usuario sólo tendría que descargar los archivos de música una vez
+		
+		en visitas posteriores, se recuperarían de la base de datos.
+
+		
+		Existen límites en la cantidad de datos que puede almacenar utilizando las API de almacenamiento del lado del cliente
+		
+		posiblemente tanto por API individual como de forma acumulativa);
+		
+		el límite exacto varía según el navegador y posiblemente según la configuración del usuario.
+		
+		(storage quotas and eviction criteria)
+		
+	
+	Cookies a la antigua:
+		
+		El concepto de almacenamiento del lado del cliente existe desde hace mucho tiempo
+		
+		Desde los primeros días de la web, los sitios han utilizado cookies
+		
+		para almacenar información y personalizar la experiencia del usuario en los sitios web.
+		
+		Son la forma más antigua de almacenamiento del lado del cliente que se utiliza habitualmente en la web.
+		
+		Hoy en día, existen mecanismos más sencillos disponibles para almacenar datos del lado del cliente
+		
+		esto no significa que las cookies sean completamente inútiles en la web moderna
+		
+		todavía se usan comúnmente para almacenar datos relacionados con la personalización y el estado del usuario, p. ID de sesión y tokens de acceso
+		
+		(cookies HTTP)
+		
+	
+	Nuevas formas de almacenamiento: 
+			
+		Web Storage e IndexedDB son las funciones más sencillas para almacenar datos del lado del cliente. 
+		
+		
+		Web Storage API: 
+			
+			Proporciona un mecanismo para almacenar y recuperar elementos de datos más pequeños
+			
+			constan de un nombre y un valor correspondiente.
+			
+			es útil cuando sólo necesitas almacenar algunos datos simples
+			
+			como el nombre del usuario, si ha iniciado sesión, qué color usar para el fondo de la pantalla, etc.
+		
+		
+		IndexedDB:	
+		
+			Proporciona al navegador un sistema de base de datos completo para almacenar datos complejos.
+			
+			se puede utilizar para cosas que van desde conjuntos completos de registros de clientes
+			
+			hasta incluso tipos de datos complejos como archivos de audio o vídeo.
+
+
+	Cache API: 	
+		
+		Está diseñada para almacenar respuestas HTTP a solicitudes específicas
+		
+		es muy útil para hacer cosas como almacenar assets del sitio web sin conexión
+		
+		para que el sitio pueda usarse posteriormente sin una conexión de red.
+		
+		Generalmente se usa en combinación con Service Worker API, aunque no es necesario.
+ 
+	
+	Web storage: Almacenamiento de datos simples
+		
+		es muy fácil de usar: almacena pares de datos de nombre/valor simples
+		
+		(limitados a cadenas, números, etc.)
+		
+		recupera estos valores cuando es necesario.
+		
+		
+		En web-storage-blank-template, abrimos la consola 
+		
+		Todos los datos de almacenamiento web están contenidos en dos estructuras
+		
+		similares a objetos dentro del navegador
+		
+		sessionStorage y localStorage
+		
+		El primero conserva los datos mientras el navegador está abierto
+		
+		(los datos se pierden cuando se cierra el navegador) 
+		
+		el segundo conserva los datos incluso después de cerrar el navegador y luego abrirlo nuevamente
+		
+		Usaremos el segundo ya que es generalmente más útil.
+		
+		El método Storage.setItem() le permite guardar un elemento de datos en el almacenamiento
+		    
+		requiere dos parámetros
+		
+		el nombre del elemento y su valor.
+		
+		escribir esto en su consola JavaScript (¡cambie el valor a su propio nombre, si lo desea!):
+		
+		```
+		localStorage.setItem("name", "Chris");
+		
+		``` 
+		
+		
+		El método Storage.getItem() toma un parámetro
+		
+		(el nombre de un elemento de datos que desea recuperar)
+		
+		y devuelve el valor del elemento
+		
+		```
+		let myName = localStorage.getItem("name");
+		myName;
+
+		```
+		'Chris'
+		
+		variable myName ahora contiene el valor del elemento de datos del nombre
+				
+		
+		El método Storage.removeItem()
+			
+		toma un parámetro
+		
+		(el nombre de un elemento de datos que desea eliminar)
+		
+		elimina ese elemento del almacenamiento web.
+		
+		```
+		localStorage.removeItem("name");
+		myName = localStorage.getItem("name");
+		myName;
+	
+		```
+		La tercera línea ahora debería devolver nulo
+		
+		el elemento de nombre ya no existe en el almacenamiento web
+		
+	
+	Persistencia de datos: 
+		
+		los datos persisten entre cargas de página
+		
+		(e incluso cuando se cierra el navegador, en el caso de localStorage). 
+		 
+		en un navegador diferente
+		
+		```
+		localStorage.setItem("name", "Chris");
+		let myName = localStorage.getItem("name");
+		myName;
+
+		```
+		
+		Debería ver el elemento de nombre devuelto
+		
+		Ahora cierra el navegador y ábrelo nuevamente.
+		
+		Ingrese las siguientes líneas nuevamente:
+		
+		```
+		let myName = localStorage.getItem("name");
+		myName;
+		
+		```
+		
+		Debería ver que el valor todavía está disponible
+		
+		aunque el navegador se haya cerrado y luego se haya vuelto a abrir.
+		
+	
+	Almacenamiento separado para cada dominio:
+		
+		Hay un almacén de datos independiente para cada dominio
+		
+		(cada dirección web independiente cargada en el navegador). 
+		
+		Verá que si carga dos sitios web (por ejemplo, google.com y amazon.com)
+		
+		e intenta almacenar un elemento en un sitio web, no estará disponible para el otro sitio web.
+		
+		Por problemas de seguridad que surgirían si los sitios web pudieran ver los datos de los demás
+
+
+	Ejemplo: 
+		
+		para darle una idea de cómo se puede utilizar el almacenamiento web
+		
+		Le permitirá ingresar un nombre, después de lo cual la página se actualizará para brindarle un saludo personalizado
+		
+		Este estado también persistirá durante las recargas de página/navegador
+		
+		porque el nombre se almacena en el almacenamiento web.
+
+		En personal-greeting.html 
+
+		nuestro HTML hace referencia a un archivo JavaScript llamado index.js
+		
+		Necesitamos crear esto y escribir nuestro código JavaScript en él
+		
+		Cree un archivo index.js en el mismo directorio que su archivo HTML.
+		
+		
+		Comenzaremos creando referencias a todas las funciones HTML que necesitamos manipular en este ejemplo
+		
+		las crearemos todas como constantes
+		
+		ya que estas referencias no necesitan cambiar en el ciclo de vida de la aplicación
+		
+		Agregue las siguientes líneas a su archivo JavaScript
+			
+		```
+		// create needed constants
+		const rememberDiv = document.querySelector(".remember");
+		const forgetDiv = document.querySelector(".forget");
+		const form = document.querySelector("form");
+		const nameInput = document.querySelector("#entername");
+		const submitBtn = document.querySelector("#submitname");
+		const forgetBtn = document.querySelector("#forgetname");
+
+		const h1 = document.querySelector("h1");
+		const personalGreeting = document.querySelector(".personal-greeting");		
+		
+		```
+		
+		A continuación, debemos incluir un pequeño detector de eventos
+		
+		para evitar que el formulario se envíe solo cuando se presiona el botón de enviar
+		
+		ya que este no es el comportamiento que queremos.
+		
+		Agregue este fragmento debajo de su código anterior:
+		
+		```
+		// Stop the form from submitting when a button is pressed
+		form.addEventListener("submit", (e) => e.preventDefault());
+
+		```
+		
+		Ahora necesitamos agregar un detector de eventos
+		
+		cuya función de controlador se ejecutará cuando se haga clic en el botón "Saludar".
+		
+		Los comentarios explican en detalle lo que hace cada bit
+		
+		tomamos el nombre que el usuario ingresó en el cuadro de entrada de texto
+		
+		lo guardamos en el almacenamiento web usando setItem(),
+		
+		luego ejecutamos una función llamada nameDisplayCheck() que manejará actualizar el texto real del sitio web
+		
+		```
+		// run function when the 'Say hello' button is clicked
+		submitBtn.addEventListener("click", () => {
+		  // store the entered name in web storage
+		  localStorage.setItem("name", nameInput.value);
+		  // run nameDisplayCheck() to sort out displaying the personalized greetings and updating the form display
+		  nameDisplayCheck();
+		});
+		
+		```
+		
+		En este punto, también necesitamos un controlador de eventos
+		
+		para ejecutar una función cuando se hace clic en el botón "Olvidar
+		
+		esto solo se muestra después de hacer clic en el botón "Saludar"
+		
+		(los dos estados del formulario alternan hacia adelante y hacia atrás).
+		
+		En esta función eliminamos el elemento de nombre del almacenamiento web usando removeItem(),
+		
+		luego ejecutamos nuevamente nameDisplayCheck() para actualizar la pantalla. Añade esto al final:
+		
+		```
+		// run function when the 'Forget' button is clicked
+		forgetBtn.addEventListener("click", () => {
+		  // Remove the stored name from web storage
+		  localStorage.removeItem("name");
+		  // run nameDisplayCheck() to sort out displaying the generic greeting again and updating the form display
+		  nameDisplayCheck();
+		});
+		
+		```
+		
+		Ahora es el momento de definir la función nameDisplayCheck().
+		
+		Aquí verificamos si el elemento de nombre se ha almacenado en el almacenamiento web 
+		
+		usando localStorage.getItem('name') como prueba condicional.
+		
+		Si el nombre se ha almacenado, esta llamada se evaluará como verdadera
+		
+		de lo contrario, la llamada se evaluará como falsa
+		
+		Si la llamada se evalúa como verdadera
+		
+		mostramos un saludo personalizado
+		
+		mostramos la parte "olvidar" del formulario y 
+		
+		ocultamos la parte "Saludar" del formulario
+		
+		Si la llamada se evalúa como falsa
+		
+		mostramos un saludo genérico y hacemos lo contrario
+		
+		Nuevamente, coloque el siguiente código en la parte inferior:
+		
+		```
+		// define the nameDisplayCheck() function
+		function nameDisplayCheck() {
+		  // check whether the 'name' data item is stored in web Storage
+		  if (localStorage.getItem("name")) {
+			// If it is, display personalized greeting
+			const name = localStorage.getItem("name");
+			h1.textContent = `Welcome, ${name}`;
+			personalGreeting.textContent = `Welcome to our website, ${name}! We hope you have fun while you are here.`;
+			// hide the 'remember' part of the form and show the 'forget' part
+			forgetDiv.style.display = "block";
+			rememberDiv.style.display = "none";
+		  } else {
+			// if not, display generic greeting
+			h1.textContent = "Welcome to our website ";
+			personalGreeting.textContent =
+			  "Welcome to our website. We hope you have fun while you are here.";
+			// hide the 'forget' part of the form and show the 'remember' part
+			forgetDiv.style.display = "none";
+			rememberDiv.style.display = "block";
+		  }
+		}
+
+		```
+		
+		Por último, pero no menos importante
+		
+		debemos ejecutar la función nameDisplayCheck() 
+		
+		cuando se carga la página
+		
+		Si no hacemos esto, el saludo personalizado no persistirá durante las recargas de la página
+		
+		Agregue lo siguiente al final de su código:
+		
+		
+		En el header de HTML está el elemento style y script 
+		
+		El atributo defer de script especifica que el contenido del elemento <script>
+		
+		no se ejecutará hasta que la página haya terminado de cargarse.
+		
+	
+	IndexDB: 
+	
+		Es un sistema de base de datos completo disponible en el navegador
+		
+		Puede almacenar datos relacionados complejos, cuyos tipos no se limitan a valores simples como cadenas o números
+		
+		Almacenar vídeos, imágenes y prácticamente cualquier otra cosa en una instancia de IndexedDB.
+
+		
+		La API IndexedDB le permite crear una base de datos
+		
+		luego crear almacenes de objetos dentro de esa base de datos
+		
+		Los almacenes de objetos son como tablas en una base de datos relacional
+		
+		cada almacén de objetos puede contener varios objetos
+		
+		Sin embargo, esto tiene un costo: IndexedDB es mucho más complejo de usar que la API de almacenamiento web
+		
+		solo arañaremos la superficie de lo que es capaz de hacer, pero le daremos lo suficiente para comenzar.
+
+		
+		Copiamos index.html, style.css e index-start.js
+		
+		
+	Configuración de la DB: 
+	
+		Debajo de las declaraciones constantes
+		
+		```
+		// Create an instance of a db object for us to store the open database in
+		let db;
+		
+		```
+		
+		declaramos una variable llamada db
+		
+		esto se usará más adelante para almacenar un objeto que represente nuestra base de datos
+		
+		Usaremos esto en algunos lugares
+		
+		por lo que lo declaramos globalmente aquí para facilitar las cosas.
+
+
+		```
+		// Open our database; it is created if it doesn't already exist
+		// (see the upgradeneeded handler below)
+		const openRequest = window.indexedDB.open("notes_db", 1);
+
+		```
+		
+		Esta línea crea una solicitud para abrir la versión 1 de una base de datos llamada notes_db
+		
+		Si aún no existe, se creará mediante un código posterior.
+		
+		Verá que este patrón de solicitud se usa con mucha frecuencia en IndexedDB
+		
+		Las operaciones de bases de datos toman tiempo. 
+		
+		No desea bloquear el navegador mientras espera los resultados
+		
+		por lo que las operaciones de la base de datos son asincrónicas
+		
+		lo que significa que en lugar de ocurrir inmediatamente
+		
+		sucederán en algún momento en el futuro
+		
+		recibirá una notificación cuando terminen
+		
+		Para manejar esto en IndexedDB
+		
+		crea un objeto de solicitud (que puede llamarse como desee; aquí lo llamamos openRequest
+		
+		Luego utiliza controladores de eventos para ejecutar código cuando la solicitud se completa, falla, etc.,
+		
+		
+		El número de versión es importante
+		
+		Si desea actualizar su base de datos
+		
+		(por ejemplo, cambiando la estructura de la tabla)
+		
+		debe ejecutar su código nuevamente con un número de versión aumentado
+		
+		un esquema diferente especificado dentro del controlador de actualización necesaria
+		
+		
+		Agregamos controladores de eventos justo debajo
+		
+		```
+		// error handler signifies that the database didn't open successfully
+		openRequest.addEventListener("error", () =>
+		  console.error("Database failed to open"),
+		);
+
+		// success handler signifies that the database opened successfully
+		openRequest.addEventListener("success", () => {
+		  console.log("Database opened successfully");
+
+		  // Store the opened database object in the db variable. This is used a lot below
+		  db = openRequest.result;
+
+		  // Run the displayData() function to display the notes already in the IDB
+		  displayData();
+		});
+
+		```
+		
+		El controlador de eventos de error se ejecutará si el sistema vuelve diciendo que la solicitud falló
+		
+		Esto le permite responder a este problema
+		
+		En nuestro ejemplo, simplemente imprimimos un mensaje en la consola de JavaScript.
+		
+		El controlador de eventos de éxito se ejecutará si la solicitud regresa exitosamente
+		
+		lo que significa que la base de datos se abrió exitosamente
+		
+		Si este es el caso, un objeto que representa la base de datos abierta queda disponible en la propiedad openRequest.result
+		
+		lo que nos permite manipular la base de datos
+		
+		Almacenamos esto en la variable db que creamos anteriormente para su uso posterior
+		
+		También ejecutamos una función llamada displayData(),
+		
+		que muestra los datos en la base de datos dentro de <ul>.
+		 
+		Lo ejecutamos ahora para que las notas que ya están en la base de datos se muestren tan pronto como se cargue la página 
+		
+		Verás displayData() definido más adelante
+
+		
+		Agregaremos probablemente el controlador de eventos más importante para configurar la base de datos
+		
+		actualización necesaria
+		
+		Este controlador se ejecuta si la base de datos aún no se ha configurado
+		
+		o si la base de datos se abre con un número de versión mayor que la base de datos almacenada existente
+		
+		(al realizar una actualización)
+		
+		```
+		// Set up the database tables if this has not already been done
+		openRequest.addEventListener("upgradeneeded", (e) => {
+		  // Grab a reference to the opened database
+		  db = e.target.result;
+
+		  // Create an objectStore in our database to store notes and an auto-incrementing key
+		  // An objectStore is similar to a 'table' in a relational database
+		  const objectStore = db.createObjectStore("notes_os", {
+			keyPath: "id",
+			autoIncrement: true,
+		  });
+
+		  // Define what data items the objectStore will contain
+		  objectStore.createIndex("title", "title", { unique: false });
+		  objectStore.createIndex("body", "body", { unique: false });
+
+		  console.log("Database setup complete");
+		});
+
+		```
+		
+		Aquí es donde definimos el esquema (estructura) de nuestra base de datos;
+		
+		es decir, el conjunto de columnas (o campos) que contiene.
+		
+		primero tomamos una referencia a la base de datos existente de la propiedad
+		
+		resultado del objetivo del evento (e.target.result)
+		
+		que es el objeto de solicitud.
+		
+		Esto es equivalente a la línea db = openRequest.result; dentro del controlador de eventos de éxito
+		
+		pero necesitamos hacer esto por separado aquí porque el controlador de eventos de actualización necesaria (si es necesario)
+		
+		se ejecutará antes que el controlador de eventos de éxito
+		
+		lo que significa que el valor de la base de datos no estaría disponible si no hiciéramos esto.
+
+
+		Luego usamos IDBDatabase.createObjectStore() 
+		
+		para crear un nuevo almacén de objetos dentro de nuestra base de datos abierta llamada notes_os.
+		
+		Esto equivale a una sola tabla en un sistema de base de datos convencional
+		
+		Le hemos dado el nombre notas y también hemos especificado un campo clave de autoIncremento llamado id
+		
+		(en cada nuevo registro se le dará automáticamente un valor incrementado);
+		
+		el desarrollador no necesita configurar esto explícitamente
+		
+		Al ser la clave, el campo de identificación se utilizará para identificar registros de forma única, como al eliminar o mostrar un registro.
+		
+		
+	Con este esquema de base de datos configurado
+		
+	cuando comencemos a agregar registros a la base de datos
+	
+	cada uno se representará como un objeto de la siguiente manera:
+
+	```json
+	
+	{
+	  "title": "Buy milk",
+	  "body": "Need both cows milk and soy.",
+	  "id": 8
+	}
+	
+	```
+
+	
+	Agregar datos a la DB: 
+			
+		Podemos agregar registros a la base de datos.
+		
+		Esto se hará utilizando el formulario de nuestra página.
+		
+		agregando la siguiente línea
+		
+		configura un controlador de eventos de envío que ejecuta una función llamada addData()
+		
+		cuando se envía el formulario (cuando se presiona el <botón> de envío
+		
+		lo que conduce a un envío exitoso del formulario):
+		
+		```
+		// Create a submit event handler so that when the form is submitted the addData() function is run
+		form.addEventListener("submit", addData);
+		
+		```
+		
+		definamos la función addData(). Agregue esto debajo de su línea anterior:
+
+		```
+		// Define the addData() function
+		function addData(e) {
+		  // prevent default - we don't want the form to submit in the conventional way
+		  e.preventDefault();
+
+		  // grab the values entered into the form fields and store them in an object ready for being inserted into the DB
+		  const newItem = { title: titleInput.value, body: bodyInput.value };
+
+		  // open a read/write db transaction, ready for adding the data
+		  const transaction = db.transaction(["notes_os"], "readwrite");
+
+		  // call an object store that's already been added to the database
+		  const objectStore = transaction.objectStore("notes_os");
+
+		  // Make a request to add our newItem object to the object store
+		  const addRequest = objectStore.add(newItem);
+
+		  addRequest.addEventListener("success", () => {
+			// Clear the form, ready for adding the next entry
+			titleInput.value = "";
+			bodyInput.value = "";
+		  });
+
+		  // Report on the success of the transaction completing, when everything is done
+		  transaction.addEventListener("complete", () => {
+			console.log("Transaction completed: database modification finished.");
+
+			// update the display of data to show the newly added item, by running displayData() again.
+			displayData();
+		  });
+
+		  transaction.addEventListener("error", () =>
+			console.log("Transaction not opened due to error"),
+		  );
+		}
+		
+		```
+		
+		Ejecutar Event.preventDefault() 
+		
+		en el objeto de evento para detener el envío del formulario de la manera convencional
+		
+		(esto provocaría una actualización de la página y arruinaría la experiencia).
+		
+		Se crea un objeto que represente un registro para ingresar a la base de datos
+		
+		completándolo con valores de las entradas del formulario
+		
+		Tenga en cuenta que no tenemos que incluir explícitamente un valor de identificación
+		
+		esto se completa automáticamente
+		
+		Se Abre una transacción de lectura y escritura en el almacén de objetos notes_os
+		
+		
+		utilizando el método IDBDatabase.transaction().
+		
+		Este objeto de transacción nos permite acceder al almacén de objetos para que podamos hacerle algo
+		
+		por ejemplo. agregar un nuevo registro.
+
+		
+		Se Accede al almacén de objetos utilizando el método IDBTransaction.objectStore(),
+
+		guardando el resultado en la variable objectStore
+		
+		Agregue el nuevo registro a la base de datos usando IDBObjectStore.add()
+		
+		Esto crea un objeto de solicitud, de la misma manera que hemos visto antes
+		
+		
+		Se agrega controladores de eventos a la solicitud y a los objetos de transacción para ejecutar código en puntos críticos del ciclo de vida
+		
+		Una vez que la solicitud ha sido exitosa,
+		
+		limpiamos los ingresos del formulario listos para ingresar la siguiente nota
+		
+		Una vez que se ha completado la transacción, ejecutamos la función displayData() nuevamente 
+		
+		para actualizar la visualización de notas en la página.
+
+
+	Mostrando datos: 
+		
+		Hemos hecho referencia a displayData() dos veces en nuestro código
+		
+		por lo que probablemente será mejor que lo definamos.
+		
+		Agregue:
+		
+		```
+		// Define the displayData() function
+		function displayData() {
+		  // Here we empty the contents of the list element each time the display is updated
+		  // If you didn't do this, you'd get duplicates listed each time a new note is added
+		  while (list.firstChild) {
+			list.removeChild(list.firstChild);
+		  }
+
+		  // Open our object store and then get a cursor - which iterates through all the
+		  // different data items in the store
+		  const objectStore = db.transaction("notes_os").objectStore("notes_os");
+		  objectStore.openCursor().addEventListener("success", (e) => {
+			// Get a reference to the cursor
+			const cursor = e.target.result;
+
+			// If there is still another data item to iterate through, keep running this code
+			if (cursor) {
+			  // Create a list item, h3, and p to put each data item inside when displaying it
+			  // structure the HTML fragment, and append it inside the list
+			  const listItem = document.createElement("li");
+			  const h3 = document.createElement("h3");
+			  const para = document.createElement("p");
+
+			  listItem.appendChild(h3);
+			  listItem.appendChild(para);
+			  list.appendChild(listItem);
+
+			  // Put the data from the cursor inside the h3 and para
+			  h3.textContent = cursor.value.title;
+			  para.textContent = cursor.value.body;
+
+			  // Store the ID of the data item inside an attribute on the listItem, so we know
+			  // which item it corresponds to. This will be useful later when we want to delete items
+			  listItem.setAttribute("data-note-id", cursor.value.id);
+
+			  // Create a button and place it inside each listItem
+			  const deleteBtn = document.createElement("button");
+			  listItem.appendChild(deleteBtn);
+			  deleteBtn.textContent = "Delete";
+
+			  // Set an event handler so that when the button is clicked, the deleteItem()
+			  // function is run
+			  deleteBtn.addEventListener("click", deleteItem);
+
+			  // Iterate to the next item in the cursor
+			  cursor.continue();
+			} else {
+			  // Again, if list item is empty, display a 'No notes stored' message
+			  if (!list.firstChild) {
+				const listItem = document.createElement("li");
+				listItem.textContent = "No notes stored.";
+				list.appendChild(listItem);
+			  }
+			  // if there are no more cursor items to iterate through, say so
+			  console.log("Notes all displayed");
+			}
+		  });
+		}
+
+		```
+		
+		Primero, vaciamos el contenido del elemento <ul>
+		
+		antes de llenarlo con el contenido actualizado
+		
+		Si no hiciera esto, terminaría con una lista enorme de contenido duplicado que se agregaría con cada actualización
+		
+		
+		Obtenemos una referencia al almacén de objetos notes_os usando IDBDatabase.transaction() e IDBTransaction.objectStore() 
+		
+		como lo hicimos en addData(), excepto que aquí los encadenamos en una línea.
+
+
+		El siguiente paso es utilizar el método IDBObjectStore.openCursor() para abrir una solicitud de cursor
+		
+		esta es una construcción que se puede utilizar para iterar sobre los registros en un almacén de objetos
+		
+		Encadenamos un controlador de eventos de éxito al final de esta línea para que el código sea más conciso:
+		
+		cuando el cursor regresa correctamente, se ejecuta el controlador.
+
+	
+	Borrando nota: 
+		
+		cuando se presiona el botón de eliminar de una nota, la nota se elimina
+		
+		Esto se logra mediante la función deleteItem(), que tiene este aspecto
+		
+		```
+		// Define the deleteItem() function
+		function deleteItem(e) {
+		  // retrieve the name of the task we want to delete. We need
+		  // to convert it to a number before trying to use it with IDB; IDB key
+		  // values are type-sensitive.
+		  const noteId = Number(e.target.parentNode.getAttribute("data-note-id"));
+
+		  // open a database transaction and delete the task, finding it using the id we retrieved above
+		  const transaction = db.transaction(["notes_os"], "readwrite");
+		  const objectStore = transaction.objectStore("notes_os");
+		  const deleteRequest = objectStore.delete(noteId);
+
+		  // report that the data item has been deleted
+		  transaction.addEventListener("complete", () => {
+			// delete the parent of the button
+			// which is the list item, so it is no longer displayed
+			e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+			console.log(`Note ${noteId} deleted.`);
+
+			// Again, if list item is empty, display a 'No notes stored' message
+			if (!list.firstChild) {
+			  const listItem = document.createElement("li");
+			  listItem.textContent = "No notes stored.";
+			  list.appendChild(listItem);
+			}
+		  });
+		}
+
+		```
+		
+		La primera parte de esto podría necesitar algunas explicaciones
+		 
+		recuperamos el ID del registro que se eliminará usando Number(e.target.parentNode.getAttribute('data-note-id'));
+		 
+		recordamos que el ID del registro se guardó. en un atributo data-note-id en <li> cuando se mostró por primera vez.
+		 
+		Sin embargo, necesitamos pasar el atributo a través del objeto global integrado Number() ya que es de tipo de datos cadena y
+		
+		por lo tanto, no sería reconocido por la base de datos, que espera un número.
+		
+		Luego obtenemos una referencia al almacén de objetos usando el mismo patrón que vimos anteriormente y usamos el método IDBObjectStore.delete()
+		
+		para eliminar el registro de la base de datos, pasándole el ID.
+	
+		Cuando se completa la transacción de la base de datos, eliminamos el <li> de la nota del DOM
+		
+		y nuevamente verificamos si el <ul> ahora está vacío, insertando una nota según corresponda.
+		 
+		 
+	Almacenando datos complejos a través de IndexedDB: 
+		
+		IndexedDB se puede utilizar para almacenar más que solo cadenas de texto.
+		
+		Puede almacenar prácticamente cualquier cosa que desee
+		
+		incluidos objetos complejos como vídeos o imágenes.
+		
+		Y no es mucho más difícil de conseguir que cualquier otro tipo de datos.
+
+		
+		En otro ejemplo llamado Videoclub IndexedDB
+		
+		Cuando ejecuta el ejemplo por primera vez, descarga todos los videos de la red
+		
+		los almacena en una base de datos IndexedDB
+		
+		luego muestra los videos en la interfaz de usuario dentro de los elementos <video>.
+		
+		La segunda vez que lo ejecuta, busca los videos en la base de datos y los obtiene de allí antes de mostrarlos
+		
+		esto hace que las cargas posteriores sean mucho más rápidas y consuman menos ancho de banda.
+
+		
+		Las partes más interesantes.
+		
+		hemos almacenado los nombres de los vídeos para recuperar en una serie de objetos
+		
+		```
+		const videos = [
+		  { name: "crystal" },
+		  { name: "elf" },
+		  { name: "frog" },
+		  { name: "monster" },
+		  { name: "pig" },
+		  { name: "rabbit" },
+		];
+
+		```
+		
+		Para empezar, una vez que la base de datos se abre correctamente, ejecutamos una función init()
+		
+		Esto recorre los diferentes nombres de videos, intentando cargar un registro identificado por cada nombre de la base de datos de videos.
+
+		Si cada video se encuentra en la base de datos
+		
+		(se verifica viendo si request.result se evalúa como verdadero; si el registro no está presente, no estará definido)
+		
+		sus archivos de video (almacenados como blobs) y el nombre del video se pasan directamente a la base de datos.
+		
+		función displayVideo() para colocarlos en la interfaz de usuario.
+		
+		De lo contrario, el nombre del vídeo se pasa a la función fetchVideoFromNetwork() para, como habrás adivinado, recuperar el vídeo de la red.
+		
+		````
+		function init() {
+		  // Loop through the video names one by one
+		  for (const video of videos) {
+			// Open transaction, get object store, and get() each video by name
+			const objectStore = db.transaction("videos_os").objectStore("videos_os");
+			const request = objectStore.get(video.name);
+			request.addEventListener("success", () => {
+			  // If the result exists in the database (is not undefined)
+			  if (request.result) {
+				// Grab the videos from IDB and display them using displayVideo()
+				console.log("taking videos from IDB");
+				displayVideo(
+				  request.result.mp4,
+				  request.result.webm,
+				  request.result.name,
+				);
+			  } else {
+				// Fetch the videos from the network
+				fetchVideoFromNetwork(video);
+			  }
+			});
+		  }
+		}
+
+		```
+
+		El siguiente fragmento está tomado del interior de fetchVideoFromNetwork()
+		
+		aquí recuperamos las versiones MP4 y WebM del video usando dos solicitudes fetch() separadas.
+		
+		Luego usamos el método Response.blob() para extraer el cuerpo de cada respuesta como un blob,
+		
+		lo que nos brinda una representación de objeto de los videos que se puede almacenar y mostrar más adelante.
+
+		Sin embargo, tenemos un problema aquí: estas dos solicitudes son asincrónicas
+		
+		pero solo queremos intentar mostrar o almacenar el video cuando ambas promesas se hayan cumplido.
+		
+		Afortunadamente, existe un método integrado que soluciona este problema: Promise.all().
+		
+		Esto toma un argumento (referencias a todas las promesas individuales cuyo cumplimiento desea verificar colocadas en una matriz)
+		 
+		y devuelve una promesa que se cumple cuando se cumplen todas las promesas individuales.
+
+		
+		Dentro del controlador then() para esta promesa, llamamos a la función displayVideo() 
+		
+		como lo hicimos antes para mostrar los videos en la interfaz de usuario,
+		
+		luego también llamamos a la función storeVideo() para almacenar esos videos dentro de la base de datos.
+
+		```
+		// Fetch the MP4 and WebM versions of the video using the fetch() function,
+		// then expose their response bodies as blobs
+		const mp4Blob = fetch(`videos/${video.name}.mp4`).then((response) =>
+		  response.blob(),
+		);
+		const webmBlob = fetch(`videos/${video.name}.webm`).then((response) =>
+		  response.blob(),
+		);
+
+		// Only run the next code when both promises have fulfilled
+		Promise.all([mp4Blob, webmBlob]).then((values) => {
+		  // display the video fetched from the network with displayVideo()
+		  displayVideo(values[0], values[1], video.name);
+		  // store it in the IDB using storeVideo()
+		  storeVideo(values[0], values[1], video.name);
+		});
+
+		```
+	
+		storeVideo(). Esto es muy similar al patrón que vio en el ejemplo anterior para agregar datos a la base de datos
+		
+		abrimos una transacción de lectura y escritura y obtenemos una referencia a nuestro almacén de objetos videos_os,
+		
+		creamos un objeto que representa el registro para agregar a la base de datos y luego lo agregamos. utilizando IDBObjectStore.add()
+		
+		```
+		// Define the storeVideo() function
+		function storeVideo(mp4, webm, name) {
+		  // Open transaction, get object store; make it a readwrite so we can write to the IDB
+		  const objectStore = db
+			.transaction(["videos_os"], "readwrite")
+			.objectStore("videos_os");
+
+		  // Add the record to the IDB using add()
+		  const request = objectStore.add({ mp4, webm, name });
+
+		  request.addEventListener("success", () =>
+			console.log("Record addition attempt finished"),
+		  );
+		  request.addEventListener("error", () => console.error(request.error));
+		}
+		
+		```
+ 
+		Finalmente, tenemos displayVideo(), que crea los elementos DOM necesarios para insertar el vídeo en la interfaz de usuario y luego los agrega a la página
+		
+		Las partes más interesantes de esto son las que se muestran a continuación:
+		
+		para mostrar realmente nuestros blobs de video en un elemento <video>,
+		
+		necesitamos crear URL de objetos (URL internas que apunten a los blobs de video almacenados en la memoria) usando URL.createObjectURL().
+		
+		Una vez hecho esto, podemos configurar las URL de los objetos para que sean los valores de los atributos src de nuestro elemento <source>, y funciona bien.
+
+		```
+		// Define the displayVideo() function
+		function displayVideo(mp4Blob, webmBlob, title) {
+		  // Create object URLs out of the blobs
+		  const mp4URL = URL.createObjectURL(mp4Blob);
+		  const webmURL = URL.createObjectURL(webmBlob);
+
+		  // Create DOM elements to embed video in the page
+		  const article = document.createElement("article");
+		  const h2 = document.createElement("h2");
+		  h2.textContent = title;
+		  const video = document.createElement("video");
+		  video.controls = true;
+		  const source1 = document.createElement("source");
+		  source1.src = mp4URL;
+		  source1.type = "video/mp4";
+		  const source2 = document.createElement("source");
+		  source2.src = webmURL;
+		  source2.type = "video/webm";
+
+		  // Embed DOM elements into page
+		  section.appendChild(article);
+		  article.appendChild(h2);
+		  article.appendChild(video);
+		  video.appendChild(source1);
+		  video.appendChild(source2);
+		}
+
+		```
+		
+		
+	Almacenamiento de assets offline: 
+	
+		El ejemplo anterior ya muestra cómo crear una aplicación que almacenará grandes recursos en una base de datos IndexedDB
+		
+		evitando la necesidad de descargarlos más de una vez.
+		
+		Esto ya supone una gran mejora en la experiencia del usuario, pero todavía falta una cosa
+		
+		los archivos principales HTML, CSS y JavaScript aún deben descargarse cada vez que se accede al sitio
+		
+		lo que significa que no funcionará cuando haya sin conexión de red
+
+		
+		Aquí es donde entran en juego los Service Workers 
+		
+		y la closely-related Cache API
+		
+		
+		Un service worker es un archivo JavaScript que se registra en un origen particular
+
+		(sitio web o parte de un sitio web en un dominio determinado)
+		
+		cuando un navegador accede a él.
+		
+		Cuando se registra, puede controlar las páginas disponibles en ese origen.
+		
+		Para ello, se sitúa entre una página cargada y la red e intercepta las solicitudes de red dirigidas a ese origen.
+		
+		
+		Cuando intercepta una solicitud, puede hacer lo que desee
+		
+		pero el ejemplo clásico es guardar las respuestas de la red fuera de línea y luego proporcionarlas en respuesta a una solicitud en lugar de las respuestas de la red. 
+		
+		De hecho, le permite hacer que un sitio web funcione completamente sin conexión.
+
+		
+		La API de caché es otro mecanismo de almacenamiento del lado del cliente, con una pequeña diferencia
+		
+		está diseñada para guardar respuestas HTTP y, por lo tanto, funciona muy bien con los trabajadores del servicio.
+
+	
+	Ejemplo de service worker: 
+		
+		del ejemplo de tienda de videos que vimos en la sección anterior;
+		
+		funciona de manera idéntica, excepto que también guarda HTML, CSS y JavaScript 
+		
+		en la API de caché a través de un service worker 
+		
+		lo que permite que el ejemplo se ejecute sin conexión.
+		
+		hay un código adicional colocado en el archivo JavaScript principal (consulte index.js).
+		
+		
+		Primero, hacemos una prueba de detección de funciones para ver si el miembro serviceWorker está disponible en el objeto Navigator
+		
+		Si esto es cierto, entonces sabemos que al menos se admiten los conceptos básicos de los service worker.
+		
+		El método ServiceWorkerContainer.register()
+		
+		se utiliza para registrar un worker de servicio contenido en el archivo sw.js
+		
+		en el origen en el que reside, de modo que pueda controlar páginas en el mismo directorio o subdirectorios
+		
+		Cuando se cumple su promesa, el worker de servicio se considera registrado.
+		
+		```
+		// Register service worker to control making site work offline
+		if ("serviceWorker" in navigator) {
+		  navigator.serviceWorker
+			.register(
+			  "/learning-area/javascript/apis/client-side-storage/cache-sw/video-store-offline/sw.js",
+			)
+			.then(() => console.log("Service Worker Registered"));
+		}
+		
+		```
+		
+		La ruta proporcionada al archivo sw.js es relativa al origen del sitio
+		
+		no al archivo JavaScript que contiene el código
+
+		El servicio funciona en https://mdn.github.io/learning-area/javascript/apis/client-side-storage/cache-sw/video-store-offline/sw.js.
+		
+		El origen es https://mdn.github.io y, por lo tanto, la ruta proporcionada debe ser /learning-area/javascript/apis/client-side-storage/cache-sw/video-store-offline/sw.js
+		
+		Si desea alojar este ejemplo en su propio servidor, deberá cambiarlo en consecuencia.
+		
+	
+	Instalar service worker: 
+		
+		La próxima vez que se acceda a cualquier página bajo el control del worker de servicio
+		
+		(por ejemplo, cuando se recarga el ejemplo), el worker se instala en esa página
+		
+		lo que significa que comenzará a controlarla
+		
+		Cuando esto ocurre, se activa un evento de instalación contra el worker de servicio
+		
+		puede escribir código dentro del propio worker servicio que responderá a la instalación.
+
+		
+		 Un ejemplo, en el archivo sw.js (service worker)
+		
+		Verá que el oyente de instalación está registrado contra sí mismo.
+		
+		Esta palabra clave self es una forma de hacer referencia al alcance global del trabajador del servicio desde el archivo del trabajador del servicio.
+
+		
+		En el controlador de instalación, utilizamos el método ExtendableEvent.waitUntil(),
+		
+		disponible en el objeto de evento, para indicar que el navegador no debe completar la instalación del worker.
+		
+		hasta que la promesa interna se haya cumplido con éxito.
+
+		Aquí es donde vemos la API de caché en acción. Usamos el método CacheStorage.open() 
+		
+		para abrir un nuevo objeto de caché en el que se pueden almacenar las respuestas (similar a un almacén de objetos IndexedDB). 
+		
+		Esta promesa se cumple con un objeto Cache que representa el caché del videoclub
+		
+		Luego usamos el método Cache.addAll() para recuperar una serie de activos y agregar sus respuestas al caché.
+		
+		```
+		self.addEventListener("install", (e) => {
+		  e.waitUntil(
+			caches
+			  .open("video-store")
+			  .then((cache) =>
+				cache.addAll([
+				  "/learning-area/javascript/apis/client-side-storage/cache-sw/video-store-offline/",
+				  "/learning-area/javascript/apis/client-side-storage/cache-sw/video-store-offline/index.html",
+				  "/learning-area/javascript/apis/client-side-storage/cache-sw/video-store-offline/index.js",
+				  "/learning-area/javascript/apis/client-side-storage/cache-sw/video-store-offline/style.css",
+				]),
+			  ),
+		  );
+		});
+
+		```
+			
+		La instalación está completada
+
+		
+	Respondiendo a más solicitudes:
+		
+		Con el worker de servicio registrado e instalado 
+		
+		en nuestra página HTML y todos los activos relevantes agregados a nuestro caché
+		
+		queda escribir código para responder a más solicitudes de red.
+
+		Esto es lo que hace el segundo fragmento de código en SW.JS
+		
+		
+		Agregamos otro oyente al alcance global del trabajador del servicio
+		
+		que ejecuta la función de controlador cuando se genera el evento de recuperación
+		
+		Esto sucede cada vez que el navegador solicita un activo en el directorio en el que está registrado el trabajador del servicio.
+		
+		Dentro del controlador, primero registramos la URL del activo solicitado. 
+		
+		Luego proporcionamos una respuesta personalizada a la solicitud, utilizando el método FetchEvent.respondWith().
+		
+		
+		Dentro de este bloque, usamos CacheStorage.match() para comprobar si se puede encontrar una solicitud coincidente (es decir, que coincida con la URL) en algún caché.
+		
+		Esta promesa se cumple con la respuesta coincidente si se encuentra una coincidencia, o indefinida si no la encuentra.
+
+		
+		Si se encuentra una coincidencia, la devolvemos como respuesta personalizada
+		
+		Si no, recuperamos() la respuesta de la red y la devolvemos en su lugar.
+		
+		```
+		self.addEventListener("fetch", (e) => {
+		  console.log(e.request.url);
+		  e.respondWith(
+			caches.match(e.request).then((response) => response || fetch(e.request)),
+		  );
+		});
+		
+		```
+		
+		Hay muchas más cosas que puedes hacer con ellos; para obtener muchos más detalles, consulta The Service Worker Cookbook
+		
+		
+	Probando el ejemplo sin conexión:
+		
+		deberá cargarlo un par de veces para asegurarse de que esté instalado
+		
+		Una vez hecho esto, podrás
+		
+			Intente desconectar su red/apagar su Wi-Fi.
+			
+			Si está utilizando Firefox, seleccione Archivo > Trabajar sin conexión.
+			
+			Si está utilizando Chrome, marque la casilla Sin conexión
+		
+		
+		Si actualiza su página de ejemplo nuevamente, aún debería verla cargarse bien
+		
+		Todo se almacena sin conexión: los recursos de la página en un caché y los videos en una base de datos IndexedDB.
+		
+	
+	
+|| Web Forms
+
+	Los formularios web son una herramienta muy poderosa para interactuar con los usuarios
+	
+	más comúnmente se usan para recopilar datos de los usuarios o permitirles controlar una interfaz de usuario
+	
+	Sin embargo, por razones históricas y técnicas, no siempre es obvio cómo utilizarlos en todo su potencial
+	
+	Incluye el marcado de su estructura HTML
+
+	el diseño de los controles del formulario
+	
+	la validación de los datos del formulario
+	
+	y el envío de datos al servidor.
+	
+	
+	Dominar los formularios requiere algo más que conocimientos de HTML:
+	
+	también es necesario aprender algunas técnicas específicas para diseñar controles de formularios
+	
+	se requieren algunos conocimientos de scripting para manejar cosas como la validación
+	
+	la creación de controles de formularios personalizados.
+	
+	
+	Los elementos del formulario son más complejos que la mayoría del resto de los elementos HTML
+	
+	requieren una combinación estrecha de técnicas CSS y JavaScript relacionadas para aprovecharlos al máximo.
+
+	
+
+|| Intro a Formularios
+
+	1. Primer form
+		
+		Creación de un formulario web
+		
+		Diseño de un formulario simple
+		
+		Implementación utilizando los elementos HTML correctos
+		
+		La adición de un estilo muy simple mediante CSS
+		
+		Cómo se envían los datos a un servidor.
+		
+	
+	2. Estructura de un form
+	
+		Detalles en los elementos utilizados para proporcionar estructura
+		
+		Significado a las diferentes partes de un formulario.
+
+
+
+|| Controles de Formularios
+	
+	
+	1. Controles de formulario nativos básicos
+
+		analizando en detalle la funcionalidad de los tipos HTML <input> originales
+	
+		opciones están disponibles para recopilar diferentes tipos de datos.
+	
+	
+	2. Inputs de HTML5 
+		
+		inmersión profunda en el elemento <input>
+		
+		tipos de entrada adicionales proporcionados cuando se lanzó HTML5
+		
+		los diversos controles de interfaz de usuario y mejoras en la recopilación de datos que brindan
+		
+		nos fijamos en el elemento <output>.
+
+
+	3. Otros controles de formulario
+		
+		controles de formulario que no son <input>
+		
+		herramientas asociadas, como <select>, <textarea>, <meter> y <progress>.
+
+	
+|| Estilo a los Formularios
+	
+	1. Diseñar un formulario 
+		
+		introducción al diseño de formularios con CSS
+		
+		incluidos todos los conceptos básicos que puede necesitar saber para las tareas básicas de diseño.
+
+
+	2. Estilo avanzado
+		
+		algunas técnicas de diseño de formularios más avanzadas
+		
+		deben usarse al tratar de lidiar con algunos de los elementos de formulario más difíciles de diseñar
+		
+		
+	3. Pseudoclases de UI
+		
+		introducción a las pseudoclases de la interfaz de usuario
+		
+		permiten orientar los controles de formulario HTML en función de su estado actual.
+
+
+
+|| Validar y enviar datos del formulario
+	
+	
+	1. Validación de formulario del lado del cliente
+		
+		Enviar datos no es suficiente
+		
+		también debemos asegurarnos de que los datos que los usuarios ingresan en los formularios tengan el formato correcto
+		
+		para procesarlos exitosamente y que no dañen nuestras aplicaciones.
+		
+		También queremos ayudar a nuestros usuarios a completar nuestros formularios correctamente
+		
+		no frustrarse al intentar utilizar nuestras aplicaciones
+		
+		
+	2. Envío de datos del formulario
+
+		lo que sucede cuando un usuario
+		
+		a dónde van los datos y cómo los manejamos cuando llegan allí
+		
+		analizamos algunos de los problemas de seguridad asociados con el envío de datos de formularios
+		
+		
+|| Formularios Avanzados 	
+
+	1. crear controles de formulario personalizados
+
+		casos en los que los widgets de formulario nativos simplemente no proporcionan lo que necesitas por estilo o funcionalidad
+		
+		es posible que necesites crear tu propio widget de formulario a partir de HTML sin formato
+	
+		las consideraciones que debe tener en cuenta al hacerlo
+		
+	
+	2. 	Envío de formularios a través de JavaScript
+		
+		formas de utilizar un formulario para ensamblar una solicitud HTTP
+		
+		enviarla mediante JavaScript personalizado
+		
+		en lugar del envío de formulario estándar.
+		
+		analiza por qué querrías hacer esto y las implicaciones de hacerlo
+		
+	
+	3. Compatibilidad de propiedades CSS para controles de formulario
+		
+		qué propiedades CSS son compatibles con qué elementos del formulario
+	
+
+
+|| Primer Form
+	
+	Creación de un form simple y su diseño 
+	
+	controles de formulario HTML correctos y otros elementos HTML
+	
+	agregando algunos estilos muy simples a través de CSS
+	
+	describiendo cómo funcionan los datos. se envía a un servidor.
+	
+	
+	Los formularios web son uno de los principales puntos de interacción entre un usuario y un sitio web o aplicación.
+	
+	Permiten a los usuarios ingresar datos, que generalmente se envían a un servidor web para su procesamiento y almacenamiento
+
+	O se usan en el lado del cliente para actualizar inmediatamente la interfaz de alguna manera
+	
+	(por ejemplo, agregar otro elemento a una lista, o mostrar u ocultar una característica de la interfaz de usuario).
+
+	
+	El HTML de un formulario web se compone de uno o más controles de formulario (a veces llamados widgets),
+	
+	además de algunos elementos adicionales para ayudar a estructurar el formulario general
+	
+	a menudo se los denomina formularios HTML.
+	
+	Los controles pueden ser campos de texto de una o varias líneas
+	
+	cuadros desplegables, botones, casillas de verificación o botones de opción
+	
+	en su mayoría se crean utilizando el elemento <input>
+	
+	aunque también hay algunos otros elementos
+	
+	
+	Los controles de formulario también se pueden programar para imponer formatos
+	
+	o valores específicos que se deben ingresar (validación de formulario) 
+	
+	combinarlos con etiquetas de texto que describan su propósito tanto para usuarios videntes como para usuarios con discapacidad visual.
+
+
+	Diseñar un form: 
+		
+		Antes de comenzar a codificar
+		
+		siempre es mejor dar un paso atrás y tomarse el tiempo para pensar en su formulario
+		
+		Diseñar una maqueta rápida le ayudará a definir el conjunto correcto de datos
+		
+		que desea pedirle a su usuario que ingrese
+		
+		Desde el punto de vista de la experiencia del usuario (UX),
+		
+		es importante recordar que cuanto más grande sea su formulario
+		
+		mayor será el riesgo de frustrar a las personas y perder usuarios
+		
+		Mantenlo simple y mantente concentrado
+		
+		solicita solo los datos que absolutamente necesitas.
+
+		
+		Diseñar formularios es un paso importante cuando se crea un sitio o una aplicación
+		
+		Smashing Magazine tiene algunos buenos artículos sobre formularios UX
+		
+		UXMatters también es un recurso muy reflexivo con buenos consejos, desde las mejores prácticas básicas hasta inquietudes complejas como formularios de varias páginas.
+		
+		
+		Crearemos un formulario de contacto simple. Hagamos un boceto
+		
+		ej: Contacto (titulo), nombre, email y mensaje (campos) y botón enviar mensaje al final. 
+
+		Contiene tres campos de texto y un botón. 
+		
+		Al presionar el botón se enviarán sus datos a un servidor web.
+	
+	
+		Crear el HTML para nuestro formulario
+		
+		Usaremos los siguientes elementos HTML:
+		
+		<form>, <label>, <input>, <textarea> y <button>.
+
+		
+	Elemento form: 
+		
+		Todos los formularios comienzan con un elemento <form>
+		
+		```
+		<form action="/my-handling-form-page" method="post">…</form>
+		
+		```
+		
+		Define un formulario 
+		
+		Es un elemento contenedor como un elemento <section> o <footer>,
+		
+		también admite algunos atributos específicos para configurar la forma en que se comporta el formulario
+		
+		Todos sus atributos son opcionales
+		
+		es una práctica estándar establecer siempre al menos los atributos action y method:
+
+		El atributo de acción define la ubicación (URL)
+		
+		donde se deben enviar los datos recopilados del formulario cuando se envía.
+
+		El atributo de método define con qué método HTTP enviar los datos 
+		
+		(normalmente fetch o post)
+	
+		
+		Agregue el elemento <form> anterior a su HTML <body>.
+
+	
+	Elementos <label>, <input> y <textarea>:
+		
+		la parte de entrada de datos contiene tres campos de texto
+		
+		cada uno con su correspondiente <label> 
+		
+		El campo de entrada para el nombre es un campo de texto de una sola línea
+		
+		El campo de entrada para el correo electrónico es una entrada de tipo correo electrónico
+			
+		un campo de texto de una sola línea que acepta solo direcciones de correo electrónico.
+		
+		El campo de entrada para el mensaje es <textarea>
+		
+		un campo de texto de varias líneas.
+
+		Para implementarlos, necesitamos: 
+		
+		```
+		<form action="/my-handling-form-page" method="post">
+		  <p>
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="user_name" />
+		  </p>
+		  <p>
+			<label for="mail">Email:</label>
+			<input type="email" id="mail" name="user_email" />
+		  </p>
+		  <p>
+			<label for="msg">Message:</label>
+			<textarea id="msg" name="user_message"></textarea>
+		  </p>
+		</form>
+		
+		```
+		
+		Los elementos <p> están ahí para estructurar convenientemente nuestro código
+		
+		y facilitar el estilo (ver más adelante en el artículo).
+		
+		Por motivos de usabilidad y accesibilidad
+		
+		incluimos una etiqueta explícita para cada control de formulario
+		
+		Tenga en cuenta el uso del atributo for en todos los elementos <label>,
+		
+		toma como valor la identificación del control de formulario con el que está asociado
+		
+		así es como se asocia un control de formulario con su etiqueta.
+
+
+		Hacer esto tiene un gran beneficio: asocia la etiqueta con el control de formulario
+	
+		lo que permite a los usuarios de mouse, trackpad y dispositivos táctiles 
+		
+		hacer clic en la etiqueta para activar el control correspondiente
+		
+		también proporciona un nombre accesible para que los lectores de pantalla lo lean en voz alta
+		
+		
+		En el elemento <input>, el atributo más importante es el atributo de tipo
+		
+		Este atributo es extremadamente importante
+		
+		define la forma en que aparece y se comporta el elemento <input>.
+		
+		
+		En nuestro ejemplo simple, usamos texto como valor para la primera entrada
+		
+		valor predeterminado para este atributo.
+		
+		Representa un campo de texto básico de una sola línea
+		
+		acepta cualquier tipo de entrada de texto.
+
+		Para la segunda entrada, utilizamos el valor correo electrónico
+		
+		define un campo de texto de una sola línea
+		
+		solo acepta una dirección de correo electrónico bien formada
+		
+		Esto convierte un campo de texto básico en una especie de campo "inteligente"
+		
+		realizará algunas comprobaciones de validación de los datos escritos por el usuario
+		
+		También hace que aparezca una distribución de teclado más apropiada para ingresar direcciones de correo electrónico
+		
+		(por ejemplo, con un símbolo @ de forma predeterminada)
+		
+		en dispositivos con teclados dinámicos, como teléfonos inteligentes
+		
+		
+		Por último, pero no menos importante
+		
+		tenga en cuenta la sintaxis de <input> frente a <textarea></textarea>. 
+		
+		Ésta es una de las rarezas del HTML.
+		
+		La etiqueta <input> es un elemento vacío
+		
+		lo que significa que no necesita una etiqueta de cierre
+		
+		<textarea> no es un elemento vacío
+		
+		significa que debe cerrarse con la etiqueta final adecuada.
+		
+		Esto tiene un impacto en una característica específica de los formularios
+		
+		la forma en que se define el valor predeterminado
+		
+		Para definir el valor predeterminado de un elemento <input>
+		
+		usar el atributo de valor
+		
+		```
+		<input type="text" value="by default this element is filled with this text" />
+		
+		```
+
+		
+		Por otro lado, si desea definir un valor predeterminado para <textarea>,
+		
+		colóquelo entre las etiquetas de apertura y cierre del elemento <textarea>
+		
+		```
+		<textarea>
+		by default this element is filled with this text
+		</textarea>
+
+		```
+	
+	Elemento <button>:
+		
+		El marcado de nuestro formulario está casi completo
+		
+		solo necesitamos agregar un botón para permitir al usuario enviar sus datos una vez que haya completado el formulario.
+		
+		Esto se hace usando el elemento <button>
+		
+		Después del form, agregar:
+		
+		```
+		<p class="button">
+		  <button type="submit">Send your message</button>
+		</p>
+		
+		```
+		
+		El elemento <button> también acepta un atributo de tipo
+		
+		este acepta uno de tres valores: enviar, restablecer o botón.
+		
+		Un click en un botón de envío (el valor predeterminado)
+		
+		envía los datos del formulario a la página web definida por el atributo de acción del elemento <form>.
+
+
+		Un clic en un botón de reinicio restablece todos los widgets del formulario a su valor predeterminado inmediatamente
+
+		Desde el punto de vista de UX, esto se considera una mala práctica
+		
+		por lo que debes evitar usar este tipo de botones a menos que realmente tengas una buena razón para incluir uno.
+		
+		es increíblemente útil para crear botones personalizados: 
+		
+		puedes definir la funcionalidad elegida con JavaScript.
+
+		
+		También puede utilizar el elemento <input> con el tipo correspondiente para generar un botón,
+		
+		por ejemplo <input type="submit">.
+		
+		La principal ventaja del elemento <button> es que el elemento <input> solo permite texto sin formato en su etiqueta
+		
+		mientras que el elemento <button> permite contenido HTML completo, lo que permite contenido de botón más complejo y creativo.
+
+		
+	Estilo simple: 
+		
+		Después de terminar de escribir el código HTML 
+		
+		Los formularios son notoriamente difíciles de diseñar correctamente
+		
+		Agregamos: 
+		
+		```
+		body {
+		  /* Center the form on the page */
+		  text-align: center;
+		}
+
+		form {
+		  display: inline-block;
+		  /* Form outline */
+		  padding: 1em;
+		  border: 1px solid #ccc;
+		  border-radius: 1em;
+		}
+
+		p + p {
+		  margin-top: 1em;
+		}
+
+		label {
+		  /* Uniform size & alignment */
+		  display: inline-block;
+		  min-width: 90px;
+		  text-align: right;
+		}
+
+		input,
+		textarea {
+		  /* To make sure that all text fields have the same font settings
+			 By default, text areas have a monospace font */
+		  font: 1em sans-serif;
+		  /* Uniform text field size */
+		  width: 300px;
+		  box-sizing: border-box;
+		  /* Match form field borders */
+		  border: 1px solid #999;
+		}
+
+		input:focus,
+		textarea:focus {
+		  /* Set the outline width and style */
+		  outline-style: solid;
+		  /* To give a little highlight on active elements */
+		  outline-color: #000;
+		}
+
+		textarea {
+		  /* Align multiline text fields with their labels */
+		  vertical-align: top;
+		  /* Provide space to type some text */
+		  height: 5em;
+		}
+
+		.button {
+		  /* Align buttons with the text fields */
+		  padding-left: 90px; /* same size as the label elements */
+		}
+
+		button {
+		  /* This extra margin represent roughly the same space as the space
+			 between the labels and their text fields */
+		  margin-left: 0.5em;
+		}
+
+		```
+	
+	Enviar Datos: 	
+		
+		La última parte, y quizás la más complicada
+		
+		manejar los datos del formulario en el lado del servidor
+		
+		El elemento <form> define dónde y cómo enviar los datos gracias a los atributos de acción y método.
+
+		
+		Proporcionamos un atributo de nombre para cada control de formulario
+		
+		Los nombres son importantes tanto en el lado del cliente como en el del servidor
+		
+		le dicen al navegador qué nombre darle a cada dato y, en el lado del servidor, permiten que el servidor maneje cada dato por su nombre
+		
+		Los datos del formulario se envían al servidor como pares de nombre/valor.
+
+		
+		Para nombrar los datos en un formulario
+		
+		debe usar el atributo de nombre en cada widget de formulario que recopilará un dato específico
+		
+		En nuestro ejemplo, el formulario enviará 3 datos
+		
+		nombre_usuario, correo electrónico_usuario y mensaje_usuario
+		
+		Esos datos se enviarán a la URL /mi-página-de-formulario-de-manejo utilizando el método HTTP POST.
+
+		En el lado del servidor, el script en la URL /my-handling-form-page
+		
+		recibirá los datos como una lista de 3 elementos clave/valor contenidos en la solicitud HTTP.
+		
+		La forma en que este script manejará esos datos depende de usted
+		
+		Cada lenguaje del lado del servidor (PHP, Python, Ruby, Java, C#, etc.)
+
+		tiene su propio mecanismo para manejar los datos del formulario.
+		
+	
+		
+|| Estructurar Formulario Web: 
+	
+	Para proporcionar estructura y significado a las diferentes partes de un formulario
+	
+	La flexibilidad de los formularios los convierte en una de las estructuras más complejas de HTML
+	
+	puede crear cualquier tipo de formulario básico utilizando elementos y atributos de formulario dedicados
+	
+	Usar la estructura correcta al crear un formulario HTML ayudará a garantizar que el formulario sea utilizable y accesible
+	
+	
+	Elemento form: 
+		
+		define formalmente un formulario y los atributos que determinan el comportamiento del formulario
+		
+		Cada vez que quieras crear un formulario HTML, debes iniciarlo usando este elemento
+		
+		anidando todo el contenido en su interior
+		
+		Muchas tecnologías de asistencia y complementos de navegador pueden descubrir elementos <form>
+		
+		e implementar enlaces especiales para hacerlos más fáciles de usar.
+
+
+		Está estrictamente prohibido anidar un formulario dentro de otro formulario
+
+		puede provocar que los formularios se comporten de forma impredecible,
+		
+		Siempre es posible utilizar un control de formulario fuera de un elemento <form>
+		
+		Si lo hace, de forma predeterminada ese control no tiene nada que ver con ningún formulario
+		
+		a menos que lo asocie con un formulario utilizando su atributo de formulario
+		
+		Esto se introdujo para permitirle vincular explícitamente un control con un formulario incluso si no está anidado dentro de él.
+		
+	
+	Elementos <fieldset> y <legend>:
+		
+		<fieldset> es una forma conveniente de crear grupos de widgets que comparten el mismo propósito
+		
+		por motivos semánticos y de estilo.
+		
+		Puede etiquetar un <fieldset> incluyendo un elemento <legend> justo debajo de la etiqueta <fieldset> de apertura. 
+		
+		El contenido del texto de <legend> describe formalmente el propósito del <fieldset> en el que se incluye.
+
+		
+		Muchas tecnologías de asistencia utilizarán el elemento <legend>
+		
+		como si fuera parte de la etiqueta de cada control dentro del elemento <fieldset> correspondiente.
+		
+		Por ejemplo, algunos lectores de pantalla como Jaws y NVDA leerán el contenido de la leyenda antes de pronunciar la etiqueta de cada control.
+
+		```
+		<form>
+		  <fieldset>
+			<legend>Fruit juice size</legend>
+			<p>
+			  <input type="radio" name="size" id="size_1" value="small" />
+			  <label for="size_1">Small</label>
+			</p>
+			<p>
+			  <input type="radio" name="size" id="size_2" value="medium" />
+			  <label for="size_2">Medium</label>
+			</p>
+			<p>
+			  <input type="radio" name="size" id="size_3" value="large" />
+			  <label for="size_3">Large</label>
+			</p>
+		  </fieldset>
+		</form>
+
+		```
+		
+		Al leer el formulario anterior, un lector de pantalla dirá "Tamaño de jugo de fruta pequeño" para el primer widget
+		
+		"Tamaño de jugo de fruta mediano" para el segundo
+		
+		y "Tamaño de jugo de fruta grande" para el tercero.
+
+		
+		El caso de uso en este ejemplo es uno de los más importantes
+		
+		Cada vez que tenga un conjunto de botones de opción
+		
+		debe anidarlos dentro de un elemento <fieldset>. 
+		
+		Hay otros casos de uso y, en general, el elemento <fieldset>
+		
+		también se puede utilizar para seccionar un formulario.
+		
+		Lo ideal es que los formularios largos se distribuyan en varias páginas
+		
+		pero si un formulario se vuelve largo y debe estar en una sola página
+		
+		colocar las diferentes secciones relacionadas dentro de diferentes conjuntos de campos mejora la usabilidad
+		
+		Debido a su influencia sobre la tecnología de asistencia
+		
+		el elemento <fieldset> es uno de los elementos clave para construir formas accesibles
+		
+		sin embargo, es su responsabilidad no abusar de él
+		
+		Si es posible, cada vez que cree un formulario
+		
+		intente escuchar cómo lo interpreta un lector de pantalla
+		
+		Si suena extraño, intenta mejorar la estructura del formulario.
+
+	
+	Elemento <label>
+		
+		es la forma formal de definir una etiqueta para un widget de formulario HTML.
+		
+		Este es el elemento más importante si desea crear formularios accesibles:
+		
+		cuando se implementa correctamente
+		
+		los lectores de pantalla leerán la etiqueta de un elemento del formulario junto con las instrucciones relacionadas
+		
+		además de ser útil para usuarios videntes. 
+		
+		```
+		<label for="name">Name:</label> <input type="text" id="name" name="user_name" />
+
+		```
+		
+		Con la <label> asociada correctamente con la <input>
+		
+		a través de su atributo for (que contiene el atributo id del elemento <input>),
+		
+		un lector de pantalla leerá algo como "Nombre, editar texto".
+
+		
+		Hay otra forma de asociar un control de formulario con una etiqueta
+		
+		anidar el control de formulario dentro de <label>, asociándolo implícitamente.
+
+		```
+		<label for="name">
+		  Name: <input type="text" id="name" name="user_name" />
+		</label>
+
+		```
+		
+		Pero se considera una buena práctica establecer el atributo for
+		
+		para garantizar que todas las tecnologías de asistencia comprendan la relación entre la etiqueta y el widget.
+
+		Si no hay ninguna etiqueta, o si el control de formulario no está asociado implícita ni explícitamente con una etiqueta
+		
+		un lector de pantalla leerá algo como "Editar texto en blanco", lo cual no es de mucha ayuda.
+
+	
+	Hacer click en las etiquetas:
+		
+		Otra ventaja de configurar etiquetas correctamente es que puede hacer click.
+		
+		o tocar la etiqueta para activar el widget correspondiente.
+		
+		Esto es útil para controles como entradas de texto,
+		
+		donde puede hacer clic en la etiqueta y en la entrada para enfocarla
+		
+		pero es especialmente útil para botones de opción y casillas de verificación:
+		
+		el área de impacto de dicho control puede ser muy pequeña
+		
+		por lo que es útil para que su activación sea lo más fácil posible.
+		
+		
+		Al hacer click en el texto de la etiqueta "Me gusta la cereza" en el siguiente ejemplo
+		
+		se alternará el estado seleccionado de la casilla de verificación sabor_cereza.
+
+		```
+		<form>
+		  <p>
+			<input type="checkbox" id="taste_1" name="taste_cherry" value="cherry" />
+			<label for="taste_1">I like cherry</label>
+		  </p>
+		  <p>
+			<input type="checkbox" id="taste_2" name="taste_banana" value="banana" />
+			<label for="taste_2">I like banana</label>
+		  </p>
+		</form>
+	
+		```
+
+
+	Multiple labels: 
+		
+		puedes poner varias etiquetas en un solo widget
+		
+		pero no es una buena idea ya que algunas tecnologías de asistencia pueden tener problemas para manejarlas
+		
+		En el caso de varias etiquetas, debes anidar un widget
+		
+		y sus etiquetas dentro de un único elemento <label>.
+		
+		```
+		<p>Required fields are followed by <span aria-label="required">*</span>.</p>
+
+		<!-- So this: -->
+		<!--div>
+		  <label for="username">Name:</label>
+		  <input id="username" type="text" name="username" required>
+		  <label for="username"><span aria-label="required">*</label>
+		</div-->
+
+		<!-- would be better done like this: -->
+		<!--div>
+		  <label for="username">
+			<span>Name:</span>
+			<input id="username" type="text" name="username" required>
+			<span aria-label="required">*</span>
+		  </label>
+		</div-->
+
+		<!-- But this is probably best: -->
+		<div>
+		  <label for="username">Name: <span aria-label="required">*</span></label>
+		  <input id="username" type="text" name="username" required />
+		</div>
+		
+		```
+		```
+		```
+		```
+		
+		El párrafo en la parte superior establece una regla para los elementos requeridos
+		
+		La regla debe incluirse antes de usarse para que los usuarios videntes y los usuarios de tecnologías de asistencia
+		
+		puedan aprender lo que significa antes de encontrar un elemento requerido.
+		
+		Si bien esto ayuda a informar a los usuarios qué significa un asterisco no se puede confiar en él.
+		
+		Un lector de pantalla pronunciará un asterisco como "estrella" cuando lo encuentre
+		
+		Cuando un usuario vidente pasa el ratón por encima, debería aparecer "requerido"
+		
+		lo que se consigue mediante el uso del atributo de título.
+		
+		Los títulos que se leen en voz alta dependen de la configuración del lector de pantalla
+		
+		por lo que es más confiable incluir también el atributo aria-label, que siempre leen los lectores de pantalla.
+
+		
+		Las variantes anteriores aumentan en efectividad a medida que las recorre
+		
+		En el primer ejemplo, la etiqueta no se lee en absoluto con la entrada; simplemente aparece "editar texto en blanco
+		
+		además las etiquetas reales se leen por separado.
+		
+		Los múltiples elementos <label> confunden al lector de pantalla.
+
+		En el segundo ejemplo, las cosas son un poco más claras:
+		
+		la etiqueta leída junto con la entrada es "nombre estrella nombre editar texto requerido"
+		
+		y las etiquetas aún se leen por separado.
+		 
+		Las cosas todavía son un poco confusas, pero esta vez es un poco mejor porque <input> tiene una etiqueta
+		
+		tiene una etiqueta asociada
+		
+		
+		El tercer ejemplo es el mejor: la etiqueta real se lee en voz alta 
+		
+		y la etiqueta que se lee con la entrada es "nombre requerido editar texto".
+
+
+		Es posible que obtenga resultados ligeramente diferentes, dependiendo de su lector de pantalla.
+		
+		Esto se probó en VoiceOver (y NVDA se comporta de manera similar).
+		
+		
+	Estructura común en formularios: 
+		
+		Más allá de las estructuras específicas de los formularios web
+		
+		recordar que el marcado de formularios es solo HTML.
+		
+		significa que puede utilizar todo el poder del HTML para estructurar un formulario web.
+		
+		
+		Como puede ver en los ejemplos
+		
+		es una práctica común envolver una etiqueta y su widget con un elemento <li> dentro de una lista <ul> o <ol>.
+		
+		Los elementos <p> y <div> también se utilizan habitualmente
+		
+		Se recomiendan listas para estructurar múltiples casillas de verificación o botones de opción.
+		
+		
+		Además del elemento <fieldset>, también es una práctica común
+		
+		utilizar títulos HTML (por ejemplo, h1, h2) y secciones (por ejemplo, <section>) para estructurar formularios complejos
+		
+		
+		Sobre todo, depende de usted encontrar un estilo de codificación cómodo que dé como resultado formularios accesibles y utilizables
+		
+		Cada sección separada de funcionalidad debe estar contenida en un elemento <section> separado
+		
+		con elementos <fieldset> para contener botones de opción.
+
+
+	Construir estructra: 
+		
+		un formulario un poco más complejo: un formulario de pago
+		
+		contendrá una serie de tipos de control que quizás aún no comprenda.
+		
+		comience a apreciar qué elementos envolventes estamos usando para estructurar el formulario y por qué.
+
+		copiamos el html de inicio. 
+		
+		agregamos un form 
+		
+		agregue un encabezado y un párrafo para informar a los usuarios cómo se marcan los campos obligatorios
+
+		
+		Ahora envolviendo los campos de información de contacto dentro de un elemento <section> distinto
+		
+		tenemos un conjunto de tres botones de opción, cada uno de los cuales colocamos dentro de su propio elemento de lista (<li>). 
+		
+		También tenemos dos <input> de texto estándar y sus elementos <label> asociados
+		
+		cada uno contenido dentro de un <p>, y una entrada de contraseña para ingresar una contraseña.
+		
+		```
+		<section>
+		  <h2>Contact information</h2>
+		  <fieldset>
+			<legend>Title</legend>
+			<ul>
+			  <li>
+				<label for="title_1">
+				  <input type="radio" id="title_1" name="title" value="A" />
+				  Ace
+				</label>
+			  </li>
+			  <li>
+				<label for="title_2">
+				  <input type="radio" id="title_2" name="title" value="K" />
+				  King
+				</label>
+			  </li>
+			  <li>
+				<label for="title_3">
+				  <input type="radio" id="title_3" name="title" value="Q" />
+				  Queen
+				</label>
+			  </li>
+			</ul>
+		  </fieldset>
+		  <p>
+			<label for="name">
+			  <span>Name: </span>
+			  <strong><span aria-label="required">*</span></strong>
+			</label>
+			<input type="text" id="name" name="username" required />
+		  </p>
+		  <p>
+			<label for="mail">
+			  <span>Email: </span>
+			  <strong><span aria-label="required">*</span></strong>
+			</label>
+			<input type="email" id="mail" name="user-mail" required />
+		  </p>
+		  <p>
+			<label for="pwd">
+			  <span>Password: </span>
+			  <strong><span aria-label="required">*</span></strong>
+			</label>
+			<input type="password" id="pwd" name="password" required />
+		  </p>
+		</section>
+
+		```
+		
+		
+		La segunda <sección> de nuestro formulario es la información de pago
+
+		Tenemos tres controles distintos junto con sus etiquetas
+		
+		cada uno contenido dentro de un <p>. 
+		
+		El primero es un menú desplegable (<seleccionar>) para seleccionar el tipo de tarjeta de crédito
+		
+		El segundo es un elemento <input> de tipo tel, para ingresar un número de tarjeta de crédito
+		
+		Si bien podríamos haber usado el tipo de número, no queremos la interfaz de usuario giratoria del número. 
+		
+		El último es un elemento <input> de tipo texto, para ingresar la fecha de vencimiento de la tarjeta;
+		
+		esto incluye un atributo de marcador de posición que indica el formato correcto y un patrón que prueba que la fecha ingresada tiene el formato correcto.
+		
+		Estos tipos de entrada más nuevos se reintroducen en Los tipos de entrada HTML5.
+
+		```
+		<section>
+		  <h2>Payment information</h2>
+		  <p>
+			<label for="card">
+			  <span>Card type:</span>
+			</label>
+			<select id="card" name="user-card">
+			  <option value="visa">Visa</option>
+			  <option value="mc">Mastercard</option>
+			  <option value="amex">American Express</option>
+			</select>
+		  </p>
+		  <p>
+			<label for="number">
+			  <span>Card number:</span>
+			  <strong><span aria-label="required">*</span></strong>
+			</label>
+			<input type="tel" id="number" name="card-number" required />
+		  </p>
+		  <p>
+			<label for="expiration">
+			  <span>Expiration date:</span>
+			  <strong><span aria-label="required">*</span></strong>
+			</label>
+			<input
+			  type="text"
+			  id="expiration"
+			  name="expiration"
+			  required
+			  placeholder="MM/YY"
+			  pattern="^(0[1-9]|1[0-2])\/([0-9]{2})$" />
+		  </p>
+		</section>
+
+		```
+
+		última sección que agregaremos es mucho más simple y contiene solo un <botón> de tipo enviar
+		
+		para enviar los datos del formulario
+		 
+		```
+		<section>
+		  <p>
+			<button type="submit">Validate the payment</button>
+		  </p>
+		</section>
+
+		```
+
+
+|| Los Controles de Formularios
+	
+	Incluye los controles basicos y nativos de los formularios. 
+	
+	Los tipos de input de HTML5 y otros controles de formularios. 
+	
+
+|| Controles Basicos y Nativos
+		
+	Anteriormente vimos algunos controles de formulario y elementos estructurales comunes
+	
+	centrándonos en las mejores prácticas de accesibilidad
+					
+	Ahora veremos en detalle la funcionalidad de los diferentes controles de formulario
+	
+	estudiando todas las diferentes opciones disponibles para recopilar diferentes tipos de datos
+	
+	veremos el conjunto original de controles de formulario
+	
+	disponibles en todos los navegadores desde los primeros días de la web
+	
+	
+	Campos de entrada de texto: 
+	
+		Los campos de texto <input> son los widgets de formulario más básicos
+		
+		Son una forma muy cómoda de permitir al usuario introducir cualquier tipo de datos 
+		
+		
+		Los campos de texto del formulario HTML son controles simples de entrada de texto sin formato
+		
+		no puede utilizarlos para realizar edición de texto enriquecido (negrita, cursiva, etc.). 
+		
+		Todos los editores de texto enriquecido que encontrará son widgets personalizados creados con HTML, CSS y JavaScript
+		
+		
+		Todos los controles de texto básicos comparten algunos comportamientos comunes
+
+		
+		Se pueden marcar como de solo lectura
+		
+		(el usuario no puede modificar el valor de entrada pero aún así se envía con el resto de los datos del formulario) 
+		
+		o deshabilitados (el valor de entrada no se puede modificar y nunca se envía con el resto de los datos del formulario) .
+
+
+		Pueden tener un marcador de posición
+		
+		este es el texto que aparece dentro del cuadro de entrada de texto y que debe usarse para describir brevemente el propósito del cuadro.
+
+
+		Se pueden restringir en tamaño (el tamaño físico del cuadro) y longitud máxima (el número máximo de caracteres que se pueden ingresar en el cuadro).
+
+		
+		Pueden beneficiarse del corrector ortográfico (utilizando el atributo de corrector ortográfico
+
+		
+		El elemento <input> es único entre los elementos HTML porque puede adoptar muchas formas según el valor del atributo de tipo
+		
+		Se utiliza para crear la mayoría de los tipos de widgets de formulario
+		
+		incluidos campos de texto de una sola línea, controles de fecha y hora, controles sin entrada de texto como casillas de verificación, botones de opción y selectores de color, y botones.
+
+
+	Campos de texto de una sola línea:
+		
+		Un campo de texto de una sola línea se crea utilizando un elemento <input>
+		
+		cuyo valor de atributo de tipo se establece en text
+		
+		o omitiendo el atributo de tipo por completo (el texto es el valor predeterminado)
+		
+		value text para este atributo también es el valor alternativo si el navegador desconoce el valor que especifica para el atributo de tipo
+		
+		(por ejemplo, si especifica type="color" y el navegador no admite selectores de color nativos).
+
+		
+		Como ejemplo básico de single text field:
+		
+		```
+		<input type="text" id="comment" name="comment" value="I'm a text field" />
+
+		```
+		
+		Los campos de texto de una sola línea tienen solo una restricción verdadera
+		
+		si escribe texto con saltos de línea, el navegador elimina esos saltos de línea antes de enviar los datos al servidor
+		
+		La siguiente captura de pantalla muestra una entrada de texto en los estados
+		
+		input in default, focused, and disabled states
+		
+		La mayoría de los navegadores indican el estado enfocado usando un anillo de enfoque alrededor del control 
+		
+		el estado deshabilitado usando texto gris o un control descolorido/semiopaco
+		
+		
+		Puede haber pequeñas variaciones en estos campos/botones en diferentes navegadores
+		
+		pero la técnica básica de resaltado sigue siendo similar.
+
+		
+		Los tipos de entrada HTML5,
+		
+		los valores para el atributo de tipo que imponen restricciones de validación específicas
+		
+		incluidos los tipos de entrada de color, correo electrónico y URL.
+
+
+	Campo password:
+		
+		Uno de los tipos de entrada originales era el tipo de campo de texto de contraseña
+		
+		```
+		<input type="password" id="pwd" name="pwd" />
+
+		```
+		
+		La siguiente captura de pantalla muestra el campo de entrada de Contraseña 
+		
+		cada carácter de entrada se muestra como un punto.
+		
+		El valor de la contraseña no agrega ninguna restricción especial al texto ingresado
+		
+		pero oscurece el valor ingresado en el campo (por ejemplo, con puntos o asteriscos) para que otros no puedan leerlo fácilmente.
+
+		
+		Tenga en cuenta que esto es sólo una característica de la interfaz de usuario
+		
+		a menos que envíe su formulario de forma segura
+		
+		se enviará en texto sin formato, lo cual es malo para la seguridad
+		
+		una parte malintencionada podría interceptar sus datos y robar contraseñas
+
+		detalles de tarjetas de crédito o cualquier otra cosa que haya enviado.
+		
+		
+		La mejor manera de proteger a los usuarios de esto 
+		
+		es alojar cualquier página que incluya formularios 
+		
+		a través de una conexión segura
+		
+		(es decir, ubicada en una dirección https://)
+		
+		de modo que los datos se cifren antes de enviarse
+		
+		
+		Los navegadores reconocen las implicaciones de seguridad que conlleva el envío de datos de formularios a través de una conexión insegura
+		
+		tienen advertencias para disuadir a los usuarios de utilizar formularios inseguros
+		
+	
+	Hidden content:
+
+		Otro control de texto original es el tipo de entrada oculta
+		
+		se utiliza para crear un control de formulario que es invisible para el usuario
+		
+		pero que aún se envía al servidor junto con el resto de los datos del formulario una vez enviado
+		
+		por ejemplo, es posible que desee enviar una marca de tiempo al servidor que indique cuándo se realizó un pedido. metido.
+		
+		Debido a que está oculto, el usuario no puede ver ni editar intencionalmente el valor
+		
+		nunca recibirá atención y un lector de pantalla tampoco lo notará.
+
+		```
+		<input type="hidden" id="timestamp" name="timestamp" value="1286705410" />
+		
+		```
+		
+		Si crea un elemento de este tipo, es necesario establecer sus atributos de nombre y valor
+		
+		El valor se puede establecer dinámicamente a través de JavaScript.
+		 
+		El tipo de entrada oculto no debe tener una etiqueta asociada.
+
+		
+		Otros tipos de entrada de texto, como búsqueda, URL y tel son de HTML5 
+		
+	
+	Checkable items: checkboxes and radio buttons
+		
+		Elementos que se pueden marcar
+ 
+		casillas de verificación y botones de opción
+
+		Los elementos comprobables son controles cuyo estado puede cambiar
+		
+		haciendo clic en ellos o en sus etiquetas asociadas.
+		
+		Hay dos tipos de elementos que se pueden marcar
+		
+		la casilla de verificación y el botón de opción.
+		
+		Ambos usan el atributo marcado para indicar si el widget está marcado de forma predeterminada o no
+		
+		
+		estos widgets no se comportan exactamente como otros widgets de formulario
+		
+		Para la mayoría de los widgets de formulario
+		
+		una vez que se envía el formulario, se envían todos los widgets que tienen un atributo de nombre
+		
+		incluso si no se ha completado ningún valor. 
+		
+		En el caso de checkable items
+		
+		sus valores se envían sólo si están marcados
+		
+		Si no se marcan no se envía nada, ni siquiera su nombre
+		
+		Si están marcados pero no tienen valor, el nombre se envía con el valor on.
+
+
+		Para máxima usabilidad/accesibilidad
+
+		se recomienda rodear cada lista de elementos relacionados en un <fieldset>
+		
+		con una <legend> que proporcione una descripción general de la lista. 
+		
+		Cada par individual de elementos <label>/<input>
+		
+		debe estar contenido en su propio elemento de lista (o similar). 
+		
+		La <label> asociada generalmente se coloca inmediatamente antes o después del botón de opción o casilla de verificación
+		
+		las instrucciones para el grupo de botones de opción o casillas de verificación generalmente son el contenido de la <leyenda>.
+		
+		
+	Checkbox: 
+		
+		Se crea una casilla de verificación utilizando el elemento <input> 
+		
+		con un atributo de tipo establecido en checkbox
+		
+		Los elementos de casilla de verificación relacionados deben usar el mismo atributo de nombre
+		
+		Incluir el atributo marcado hace que la casilla de verificación se marque automáticamente cuando se carga la página
+		
+		Al hacer clic en la casilla de verificación o en su etiqueta asociada, se activa y desactiva la casilla de verificación
+		
+		captura de pantalla muestra casillas de verificación en los estados
+		
+		default, focused, and disabled states
+		
+		Las casillas de verificación en los estados predeterminado y deshabilitado aparecen marcadas
+		
+		mientras que en el estado enfocado, la casilla de verificación no está marcada, con un anillo de enfoque alrededor.
+
+		
+		Todas las casillas de verificación y botones de opción
+		
+		con el atributo marcado al cargar coinciden con la pseudoclase :default
+		
+		incluso si ya no están marcados.
+		
+		Cualquiera que esté actualmente marcado coincide con la pseudoclase :checked.
+
+		
+		Debido a la naturaleza de encendido y apagado de las casillas de verificación
+		
+		la casilla de verificación se considera un botón de alternancia
+		
+		y muchos desarrolladores y diseñadores amplían el estilo de casilla de verificación predeterminado
+		 
+		para crear botones que parecen interruptores de palanca.
+
+		Ej, toggle switch: 
+		
+		```
+		<!DOCTYPE html>
+		<html lang="en-US">
+		  <head>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width">
+			<title>Toggle switch example</title>
+			<style>
+			  * {
+				box-sizing: border-box;
+			  }
+
+			  /* Flexbox fu to make the control and label line up */
+
+			  li {
+				width: 100px;
+				display: flex;
+				align-items: center;
+				justify-content: space-around;
+				position: relative;
+			  }
+
+			  /*
+				 Size the label, and make the on and off parts sit on top
+				 of one another using positioning
+			  */
+
+			  label {
+				width: 20px;
+				height: 20px;
+				line-height: 20px;
+				position: relative;
+			  }
+
+			  label span {
+				position: absolute;
+			  }
+
+			  /*
+				 remove the default styling of the checkbox using appearance
+				 and create the outer toggle area
+			  */
+
+			  input[type="checkbox"] {
+				-webkit-appearance: none;
+				appearance: none;
+				width: 44px;
+				height: 24px;
+				border-radius: 12px;
+				border: 2px solid black;
+				background: #eee;
+				transition: all 0.4s;
+			  }
+
+			  /*
+				 style the ::before content to look like
+				 the inner toggle switch - the bit that moves
+			  */
+
+			  input[type="checkbox"]::before {
+				width: 16px;
+				height: 16px;
+				border-radius: 9px;
+				background-color: black;
+				content: '';
+				position: absolute;
+				top: 7px;
+				left: 16%;
+				transition: all 0.4s;
+			  }
+
+			  /*
+				 change the outer background color and move the inner toggle switch
+				 when the checkbox is checked; use transitions for smooth animation
+			  */
+
+			  input[type="checkbox"]:checked {
+				background-color: #ffaa00;
+				transition: all 0.4s;
+			  }
+
+			  input[type="checkbox"]:checked::before {
+				left: 35%;
+				transition: all 0.4s;
+			  }
+
+			  /*
+				 cause the On and Off parts of the label to be visible when the checkbox is
+				 checked and unchecked, respectively
+			  */
+
+			  input[type="checkbox"] ~ label .on, input[type="checkbox"]:checked ~ label .off {
+				opacity: 0;
+			  }
+
+			  input[type="checkbox"] ~ label .off, input[type="checkbox"]:checked ~ label .on {
+				opacity: 1;
+			  }
+
+			  /*
+				 make the focus outline a bit more subtle on Chrome, rather than the
+				 default heavy blue outline
+			  */
+
+			  input:focus {
+				outline: 1px dotted black;
+			  }
+
+			</style>
+		  </head>
+		  <body>
+			<ul>
+			  <li>
+				<input type="checkbox" name="power" id="power">
+				<label for="power"><span class="on">On</span> <span class="off">Off</span></label>
+			  </li>
+			</ul>
+		  </body>
+		</html>
+				
+		```
+	
+	
+	Radio button: 
+		
+		Se crea un botón de opción utilizando el elemento <input>
+		
+		con su atributo de tipo establecido en el valor de radio
+
+		```
+		<input type="radio" id="soup" name="meal" value="soup" checked />
+
+		```
+
+		Se pueden unir varios botones de opción
+		
+		Si comparten el mismo valor para su atributo de nombre
+		
+		se considerará que están en el mismo grupo de botones
+		
+		Sólo se puede marcar un botón de un grupo determinado a la vez
+		
+		esto significa que cuando uno de ellos está marcado, todos los demás automáticamente se desmarcan
+		
+		Cuando se envía el formulario, solo se envía el valor del botón de opción marcado.
+		
+		Si ninguno de ellos está marcado, se considera que todo el conjunto de botones de opción está en un estado desconocido y no se envía ningún valor con el formulario
+		
+		Una vez que se marca uno de los botones de opción en un grupo de botones con el mismo nombre,
+		
+		no es posible que el usuario desmarque todos los botones sin restablecer el formulario
+		
+		captura de pantalla muestra botones de opción
+		
+		default and disabled en el estado marcado, 
+		
+		junto con un botón de opción enfocado en el estado no marcado.
+
+		
+	Botón real: 
+		
+		El botón de opción no es en realidad un botón
+		
+		los botones reales son de tres tipos de entrada
+		
+		que producirán botones. 
+		
+		
+		summit:
+		
+		Envía los datos del formulario al servidor
+		 
+		Para los elementos <button>, omitir el atributo de tipo (o un valor de tipo no válido) da como resultado un botón de envío.
+
+		
+		reset: 
+			
+		Restablece todos los widgets de formulario a sus valores predeterminados.
+
+		
+		button:
+			
+		Botones que no tienen efecto automático
+		
+		se pueden personalizar mediante código JavaScript
+		
+		
+		Luego también tenemos el elemento <button> en sí. 
+		
+		puede tomar un atributo de tipo summit, reset o button 
+		
+		para imitar el comportamiento de los tres tipos <input> mencionados anteriormente.
+		
+		La principal diferencia entre los dos es que los elementos <button> reales son mucho más fáciles de diseñar.
+
+		```
+		<input type="submit" value="Submit this form" />
+		<input type="reset" value="Reset this form" />
+		<input type="button" value="Do Nothing without JavaScript" />
+
+		<button type="submit">Submit this form</button>
+		<button type="reset">Reset this form</button>
+		<button type="button">Do Nothing without JavaScript</button>
+			
+		```
+
+	submit: 
+		
+		```
+		<button type="submit">This is a <strong>submit button</strong></button>
+
+		<input type="submit" value="This is a submit button" />
+
+		```
+	
+	reset: 
+		
+		```
+		<button type="reset">This is a <strong>reset button</strong></button>
+
+		<input type="reset" value="This is a reset button" />
+
+		```
+	
+	button: 
+	
+		```
+		<button type="button">This is an <strong>anonymous button</strong></button>
+
+		<input type="button" value="This is an anonymous button" />
+
+		```
+		
+	
+	Los botones siempre se comportan igual ya sea que use un elemento <button> o un elemento <input>.
+	
+	Sin embargo, como puede ver en los ejemplos, los elementos <button> le permiten usar HTML en su contenido
+	
+	que se inserta entre las etiquetas <button>
+	
+	Los elementos <input> por otro lado son elementos vacíos
+	
+	el contenido mostrado se inserta dentro del atributo de valor y, por lo tanto, solo acepta texto sin formato como contenido.
+
+	button tiene tres estados 
+	
+	default, focused, and disabled states
+	
+	En el estado enfocado, hay un anillo de enfoque alrededor del botón y en el estado deshabilitado, el botón aparece atenuado
+	
+	
+	Image button: 
+		
+		representa exactamente como un elemento <img>,
+		
+		excepto que cuando el usuario hace clic en él,
+		
+		se comporta como un botón de envío.
+
+		se crea utilizando un elemento <input> con su atributo de tipo establecido en el valor de la imagen
+		
+		Este elemento admite exactamente el mismo conjunto de atributos que el elemento <img>
+		
+		además de todos los atributos admitidos por otros botones de formulario.
+
+		
+		Si se utiliza el botón de imagen para enviar el formulario, este control no envía su valor
+		
+		en su lugar, se envían las coordenadas X e Y del clic en la imagen
+		
+		Las coordenadas se envían como dos pares clave/valor:
+		
+		
+		La clave del valor X es el valor del atributo de nombre seguido de la cadena ".x".
+
+		La clave del valor Y es el valor del atributo de nombre seguido de la cadena ".y".
+
+		Entonces, por ejemplo, cuando hace clic en la imagen en las coordenadas
+		
+		(123, 456) y la envía mediante el método get, verá los valores agregados a la URL de la siguiente manera:
+		
+		```
+		http://foo.com?pos.x=123&pos.y=456
+
+		```
+		Esta es una forma muy conveniente de crear un "mapa activo"
+		
+	
+	File picker: 
+		
+		último tipo <input> que nos llegó en los inicios del HTML:
+		
+		el tipo de entrada de archivo.
+		
+		Los formularios pueden enviar archivos a un servidor
+		
+		El widget de selección de archivos se puede utilizar para elegir uno o más archivos para enviar.
+	
+		Para crear un widget de selección de archivos, utiliza el elemento <input> con su atributo de tipo establecido en file
+		
+		Los tipos de archivos que se aceptan se pueden restringir utilizando el atributo accept
+		
+		Además, si desea permitir que el usuario elija más de un archivo, puede hacerlo agregando el atributo múltiple.
+
+		
+		Ej, se crea un selector de archivos que solicita archivos de imágenes gráficas
+		
+		En este caso, el usuario puede seleccionar varios archivos.
+
+		```
+		<input type="file" name="file" id="file" accept="image/*" multiple />
+
+		```
+		
+		En algunos dispositivos móviles, el selector de archivos puede acceder a fotos, videos y audio
+		
+		capturados directamente por la cámara y el micrófono del dispositivo
+		
+		agregando información de captura al atributo de aceptación de la siguiente manera:
+
+		```
+		<input type="file" accept="image/*;capture=camera" />
+		<input type="file" accept="video/*;capture=camcorder" />
+		<input type="file" accept="audio/*;capture=microphone" />
+
+		```
+		
+		La siguiente captura de pantalla muestra el widget de selección de archivos en los estados
+		
+		default, focus, and disabled
+	
+	
+	Atributos comunes: 
+		
+		Muchos de los elementos utilizados para definir controles de formulario tienen algunos de sus propios atributos específicos
+		
+		Sin embargo, existe un conjunto de atributos comunes a todos los elementos del formulario
+		
+		
+		autofocus: false (default value)
+			
+		Este atributo booleano le permite especificar que el elemento debe tener automáticamente el foco de entrada cuando se carga la página
+		
+		Sólo un elemento asociado a un formulario en un documento puede tener especificado este atributo.
+	
+		
+		disabled: false (default)
+		
+		atributo booleano indica que el usuario no puede interactuar con el elemento. 
+		
+		Si no se especifica este atributo, el elemento hereda su configuración del elemento que lo contiene
+		
+		por ejemplo, <fieldset>; si no hay ningún elemento contenedor con el atributo deshabilitado establecido, entonces el elemento está habilitado.
+		
+		
+		name: 
+		
+		nombre del elemento, esto se envía con los datos del formulario
+
+		
+		value: 
+		
+		El valor inicial del elemento.
+
+
+		
+|| HTML5 inputs
+	
+	inmersión profunda en el elemento <input>
+	
+	tipos de entrada adicionales proporcionados cuando se lanzó HTML5
+	
+	los diversos controles de interfaz de usuario y mejoras en la recopilación de datos que brindan
+	
+	Además, el elemento <output>
+	
+	
+	Debido a que la apariencia del control de formulario HTML puede ser bastante diferente de las especificaciones de un diseñador
+	
+	los desarrolladores web a veces crean sus propios controles de formulario personalizados
+	
+	
+	Email address field:
+		
+		Este tipo de campo se establece utilizando el valor de correo electrónico para el atributo de tipo
+		
+		```
+		<input type="email" id="email" name="email" />
+		
+		```
+		
+		Cuando se utiliza este tipo, el valor debe ser una dirección de correo electrónico para que sea válido
+		
+		Cualquier otro contenido hace que el navegador muestre un error cuando se envía el formulario
+		
+		
+		Puede utilizar el atributo múltiple en combinación con el tipo de entrada de correo electrónico
+		
+		para permitir que se ingresen varias direcciones de correo electrónico separadas por comas en la misma entrada
+		
+		```
+		<input type="email" id="email" name="email" multiple />
+
+		```
+	
+		En algunos dispositivos, en particular los dispositivos táctiles
+		
+		con teclados dinámicos como los teléfonos inteligentes
+		
+		es posible que se presente un teclado virtual diferente que sea más adecuado para ingresar direcciones de correo electrónico, incluida la tecla @.
+
+
+		Esta es otra buena razón para utilizar estos tipos de entrada más nuevos, mejorando la experiencia de usuario de estos dispositivos
+
+	
+	Validación del lado del cliente:
+		
+		Validación del lado del cliente
+		
+		proporciona una validación de errores incorporada del lado del cliente
+		
+		realizada por el navegador antes de que los datos se envíen al servidor.
+		
+		Es una ayuda útil para guiar a los usuarios a completar un formulario con precisión y puede ahorrar tiempo
+		
+		es útil saber que sus datos no son correctos de inmediato
+		
+		en lugar de tener que esperar un viaje de ida y vuelta al servidor.
+
+		
+		Sus aplicaciones siempre deben realizar controles de seguridad en cualquier dato enviado en un formulario
+		
+		tanto en el lado del servidor como en el lado del cliente
+		
+		porque la validación del lado del cliente es demasiado fácil de desactivar
+		
+		por lo que los usuarios malintencionados aún pueden enviar fácilmente datos incorrectos a su servidor. 
+		
+		
+		Tenga en cuenta que a@b es una dirección de correo electrónico válida
+		
+		según las restricciones proporcionadas por defecto
+		
+		el tipo de entrada de correo electrónico permite direcciones de correo electrónico de intranet de forma predeterminada
+		
+		Para implementar un comportamiento de validación diferente
+		
+		puede utilizar el atributo de pattern
+		
+		También puede personalizar los mensajes de error
+		
+		
+		Si los datos ingresados ​​no son una dirección de correo electrónico
+		
+		a pseudoclase :invalid coincidirá y la propiedad validState.typeMismatch devolverá verdadero
+		
+	
+	Search field: 
+		
+		están destinados a usarse para crear cuadros de búsqueda en páginas y aplicaciones
+		
+		Este tipo de campo se establece mediante search para el atributo de tipo
+		
+		```
+		<input type="search" id="search" name="search" />
+
+		``` 
+		
+		La principal diferencia entre un campo de texto y un campo de búsqueda es cómo el navegador diseña su apariencia
+		
+		En algunos navegadores, los campos de búsqueda se muestran con esquinas redondeadas
+		
+		En algunos navegadores, se muestra un icono de borrar "Ⓧ",
+		
+		que borra cualquier valor del campo al hacer clic.
+		
+		Este icono claro solo aparece si el campo tiene un valor y, aparte de Safari, solo se muestra cuando el campo está enfocado
+		
+		Además, en dispositivos con teclados dinámicos, la tecla Intro del teclado puede leer "buscar" o mostrar un icono de lupa.
+
+		
+		Otra característica digna de mención es que los valores de un campo de búsqueda se pueden guardar y reutilizar automáticamente para ofrecer autocompletado en varias páginas del mismo sitio web
+		
+		Esto tiende a suceder automáticamente en la mayoría de los navegadores modernos.
+
+
+	Phone number field:
+	
+		Se puede crear un campo especial para completar números de teléfono usando tel como valor del atributo de tipo
+		
+		```
+		<input type="tel" id="tel" name="tel" />
+
+		```
+		Cuando se accede a través de un dispositivo táctil con un teclado dinámico
+		
+		la mayoría de los dispositivos mostrarán un teclado numérico cuando se encuentre el tipo="tel"
+		
+		lo que significa que este tipo es útil siempre que un teclado numérico sea útil y no solo tiene que usarse para teléfono. números.
+
+
+		Debido a la amplia variedad de formatos de números de teléfono en todo el mundo
+		
+		este tipo de campo no impone ninguna restricción sobre el valor ingresado por un usuario (esto significa que puede incluir letras, etc.).
+			
+	
+		Como mencionamos anteriormente, el atributo de pattern se puede usar para imponer restricciones
+		
+		
+	URL field:
+		
+		Se puede crear un tipo especial de campo para ingresar URL utilizando el valor de URL para el atributo de tipo
+		
+		```
+		<input type="url" id="url" name="url" />
+
+		```
+		
+		Agrega restricciones de validación especiales al campo
+		
+		El navegador informará un error si no se ingresa ningún protocolo (como http:)
+		
+		o si la URL tiene algún otro formato incorrecto
+		
+		En dispositivos con teclados dinámicos, el teclado predeterminado
+		
+		a menudo mostrará algunos o todos los dos puntos, el punto y la barra diagonal como teclas predeterminadas.
+
+
+	Numeric field: 
+		
+		Los controles para ingresar números se pueden crear con un tipo de número <input>.
+		
+		Este control parece un campo de texto pero solo permite números de punto flotante
+		
+		generalmente proporciona botones en forma de rueda giratoria para aumentar y disminuir el valor del control
+		
+		En dispositivos con teclados dinámicos, el teclado numérico generalmente se muestra
+
+		También puede utilizar el atributo step
+
+		para establecer el incremento y la disminución causados ​​al presionar los botones giratorios.
+		
+		De forma predeterminada, el tipo de entrada de número solo se valida si el número es un número entero
+		
+		ya que el atributo step tiene por defecto 1.
+		
+		Para permitir números flotantes, especifique step="any"
+		
+		o un valor específico, como step="0.01" 
+		
+		para restringir la entrada flotante. 
+		
+		Si se omite, como el valor del paso por defecto es 1, solo son válidos los números enteros
+		 
+		 
+		Ej, control numérico cuyo valor válido está restringido a un valor impar entre 1 y 10
+		 
+		Los botones de aumentar y disminuir cambian el valor en 2, comenzando con el valor mínimo.
+
+		```
+		<input type="number" name="age" id="age" min="1" max="10" step="2" />
+
+		```
+		crea un control numérico cuyo valor está restringido a cualquier valor entre 0 y 1 inclusive
+		
+		cuyos botones de aumento y disminución cambian su valor en 0,01.
+		
+		El tipo de entrada numérica tiene sentido cuando el rango de valores válidos es limitado
+		
+		como la edad o la altura de una persona.
+		
+		Si el rango es demasiado grande para que los aumentos incrementales tengan sentido 
+		
+		(como los códigos postales de EE. UU., que van de 00001 a 99999)
+		
+		 el tipo de teléfono podría ser una mejor opción; proporciona el teclado numérico y renuncia a la función de interfaz de usuario giratoria del número.
+		 
+		 
+	Slider controls:
+	
+		Otra forma de elegir un número es utilizar un control deslizante
+		
+		Estos se ven con bastante frecuencia en sitios como sitios de compras donde desea establecer un precio máximo de propiedad para filtrar
+		
+		En cuanto al uso, los controles deslizantes son menos precisos que los campos de texto
+		
+		Por lo tanto, se utilizan para elegir un número cuyo valor preciso no es necesariamente importante.
+		
+		
+		Se crea un control deslizante utilizando <input> con su atributo de tipo establecido en range 
+		
+		El control deslizante se puede mover con el mouse o al tacto, o con las flechas del teclado.
+
+		Es importante configurar correctamente su control deslizante
+		
+		se recomienda encarecidamente que establezca los atributos mínimo, máximo y step 
+		
+		que establecen los valores mínimo, máximo e incremental, respectivamente.
+		
+		```
+		<label for="price">Choose a maximum house price: </label>
+		<input
+		  type="range"
+		  name="price"
+		  id="price"
+		  min="50000"
+		  max="500000"
+		  step="1000"
+		  value="250000" />
+		<output class="price-output" for="price"></output>
+
+		```
+		
+		crea un control deslizante cuyo valor puede oscilar entre 50000 y 500000, que aumenta o disminuye en 1000 a la vez.
+		
+		Le hemos dado un valor predeterminado de 250000, usando el atributo de valor.
+
+		Un problema con los controles deslizantes es que no ofrecen ningún tipo de información visual sobre cuál es el valor actual
+		
+		cuál es el valor actual. Es por eso que hemos incluido un elemento <output> 
+		
+		para contener el valor actual. 
+		
+		Podrías mostrar un valor de entrada o la salida de un cálculo dentro de cualquier elemento
+		
+		pero <output> es especial, como <label>,
+		
+		puede tomar un atributo for que te permita asociarlo con el elemento o elementos que generan el valor de salida
+		
+		Para mostrar realmente el valor actual y actualizarlo a medida que cambia, debe usar JavaScript
+		
+		```
+		const price = document.querySelector("#price");
+		const output = document.querySelector(".price-output");
+
+		output.textContent = price.value;
+
+		price.addEventListener("input", () => {
+		  output.textContent = price.value;
+		});
+
+		```
+		
+		Aquí almacenamos referencias al rango de entrada y salida en dos variables
+		
+		Luego configuramos inmediatamente el contenido de texto de la salida al valor actual de la entrada
+		
+		Finalmente, se configura un detector de eventos para garantizar que cada vez que se mueve el control deslizante de rango
+		
+		el contenido del texto de salida se actualiza al nuevo valor.
+
+	
+	Selectores de fecha y hora:
+		
+		para una buena experiencia de usuario al recopilar valores de fecha y hora
+		
+		es importante proporcionar una interfaz de usuario de selección de calendario
+		
+		Estos permiten a los usuarios seleccionar fechas sin necesidad de cambiar de contexto a una aplicación de calendario nativa o ingresarlas en diferentes formatos que son difíciles de analizar.
+		
+		El último minuto del milenio anterior se puede expresar de las siguientes maneras: 1999/12/31, 23:59 o 12/31/99T11:59PM
+		
+		
+		Hay controles de fecha HTML disponibles para manejar este tipo específico de datos
+
+		proporcionando widgets de calendario y uniformando los datos.
+
+		fecha y hora utilizando el elemento <input>
+		
+		un valor apropiado para el atributo de tipo
+		
+		dependiendo de si desea recopilar fechas, horas o ambas
+		
+		
+		brevemente los diferentes tipos disponibles.
+		
+		Tenga en cuenta que el uso de estos tipos es bastante complejo, especialmente si se considera la compatibilidad con el navegador
+		
+		Para conocer todos los detalles, siga los enlaces a continuación a las páginas de referencia para cada tipo
+		
+		
+		datetime-local:
+			
+			<input type="datetime-local"> 
+			
+			crea un widget para mostrar y seleccionar una fecha con hora sin información de zona horaria específica
+
+			```
+			<input type="datetime-local" name="datetime" id="datetime" />
+
+			```
+		
+		month:
+		
+			<input type="month">
+			
+			crea un widget para mostrar y seleccionar un mes con un año.
+			
+			```
+			<input type="month" name="month" id="month" />
+
+			```
+		
+		
+		time: 
+			
+			<input type="time">
+			
+			crea un widget para mostrar y seleccionar un valor de tiempo.
+			
+			Si bien la hora puede mostrarse en formato de 12 horas
+			
+			el valor devuelto está en formato de 24 horas.
+
+			```
+			<input type="time" name="time" id="time" />
+
+			```
+
+
+		week: 
+			
+			<input type="week">
+			
+			crea un widget para mostrar y seleccionar un número de semana y su año.
+
+			Las semanas comienzan el lunes y terminan en el domingo
+			
+			Además, la primera semana 1 de cada año contiene el primer jueves de ese año
+			
+			que puede no incluir el primer día del año o puede incluir los últimos días del año anterior
+			
+			```
+			<input type="week" name="week" id="week" />
+
+			```
+			
+			
+		date/time values:
+			
+			Todos los controles de fecha y hora se pueden restringir utilizando los atributos mínimo y máximo
+			
+			siendo posible restringir aún más mediante el atributo de paso (cuyo valor varía según el tipo de entrada).
+
+			```
+			<label for="myDate">When are you available this summer?</label><br />
+			<input
+			  type="date"
+			  name="myDate"
+			  min="2025-06-01"
+			  max="2025-08-31"
+			  step="7"
+			  id="myDate" />
+
+			```
+			
+		Color picker control:
+			
+			Los colores siempre son un poco difíciles de manejar
+			
+			Hay muchas formas de expresarlos: valores RGB (decimal o hexadecimal), valores HSL, palabras clave, etc
+			
+			Se puede crear un control de color utilizando el elemento <input> con su atributo de tipo establecido color
+			
+			```
+			<input type="color" name="color" id="color" />
+
+			```
+			
+			Al hacer clic en un control de color, generalmente se muestra la función de selección de color predeterminada del sistema operativo para que usted elija.
+			
+			El valor devuelto es siempre un color hexadecimal de 6 valores en minúsculas.
+
+
+
+
+		
+		
+		
+		
+		```
+		
+		```
+		
+		
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+
+
+
+		
+
 		
 		
 
 		
 		
-			
+
+
+		
+
+	
+
+		
+		
+					
 || RS
 
 
 
 
-	1. 
 
-		Ejecución de Js
+		1. 
 
-		Orden de ejecución JS
+			Ejecución de Js
+
+			Orden de ejecución JS
 
 		Estrategias de carga
 
