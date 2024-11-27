@@ -17102,54 +17102,4538 @@ Contenido de js, css y html.
 			El valor devuelto es siempre un color hexadecimal de 6 valores en minúsculas.
 
 
-
-
+|| Otros controles de HTML5
 		
-		
-		
+	Funcionalidad de los elementos de formulario que no son <input>,
+	
+	desde otros tipos de control como listas desplegables y campos de texto de varias líneas
+	
+	hasta otras características útiles del formulario como el elemento <output> y barras de progreso.
+	
+	
+	Multi-line text fields:
+	
+		Se especifica mediante un elemento <textarea>, en lugar de utilizar el elemento <input>
 		
 		```
-		
+		<textarea cols="30" rows="8"></textarea>
+
 		```
 		
+		La principal diferencia entre un <textarea> y un campo de texto normal de una sola línea
 		
-
-
+		los usuarios pueden incluir saltos de línea (es decir, presionar Intro)
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-
-
+		se incluirán cuando se envíen los datos.
 
 		
+		<textarea> también lleva una etiqueta de cierre;
+		
+		cualquier texto predeterminado que desee que contenga debe colocarse entre las etiquetas de apertura y cierre
+		
+		
+		Aunque puede colocar cualquier cosa dentro de un elemento <textarea>
+		
+		(incluidos otros elementos HTML, CSS y JavaScript),
+
+		debido a su naturaleza, todo se representa como si fuera contenido de texto sin formato
+		
+		(El uso de contenteditable en controles sin formulario proporciona una API para capturar contenido HTML/"rich" en lugar de texto sin formato).
+
+		La mayoría de los navegadores proporcionan un controlador de arrastre que puede arrastrar para aumentar o disminuir el tamaño del área de texto.
 
 		
+		Usamos uno en el primer formulario. 
 		
+	
+	Control de renderización multi-linea: 
+	
+		<textarea>:
+			
+			Acepta tres atributos para controlar su representación en varias líneas
+			
+		cols:
+			
+			Especifica el ancho visible (columnas) del control de texto
+			
+			medido en anchos de caracteres promedio
+			
+			Este es efectivamente el ancho inicial, ya que se puede cambiar cambiando el tamaño del <textarea> y anularlo usando CSS.
+			
+			El valor predeterminado si no se especifica ninguno es 20.
+		
+		rows:
+			
+			Especifica el número de filas de texto visibles para el control
+			
+			Esta es efectivamente la altura inicial
+			
+			ya que se puede cambiar cambiando el tamaño del <textarea> y anularla usando CSS.
+			
+			El valor predeterminado si no se especifica ninguno es 2.
 
+		wrap:
+			
+			Especifica cómo el control ajusta el texto
+			
+			soft es el valor por defecto. 
+			
+			significa que el texto enviado no está ajustado pero el texto representado por el navegador sí está ajustado
+			
+			hard (el atributo cols debe especificarse cuando se usa este valor),
+			
+			lo que significa que tanto el texto enviado como el renderizado se ajustan y se desactiva, lo que deja de ajustarse.
+			
+	
+	Controlar el tamaño de <textarea>:
 		
+		Se controla con CSS resize que tiene valores como: 
 		
+		both:
+		
+			Valor predeterminado permite cambiar el tamaño horizontal y verticalmente
+			
+		horizontal: 
+			
+			Permite cambiar el tamaño sólo en horizontal.
+			
+		vertical: 
+			
+			Permite cambiar el tamaño sólo verticalmente.
+		
+		none: 
+			
+			no permite cambiar el tamaño.
+
+		block e inline: 
+			
+			valores experimentales que permiten cambiar el tamaño en el bloque o en la dirección en línea únicamente
+			
+			(esto varía según la direccionalidad del texto; lea Manejo de diferentes direcciones de texto si desea obtener más información).
 
 
+	Controles drop-down: 
 		
+		Los controles desplegables son una forma sencilla de permitir a los usuarios seleccionar entre muchas opciones
+		
+		sin ocupar mucho espacio en la interfaz de usuario. 
+		
+		HTML tiene dos tipos de controles desplegables:
+		
+		select box y autocomplete box
+		
+		La interacción es la misma en ambos tipos de controles desplegables
+		
+		después de activar el control, el navegador muestra una lista de valores entre los que el usuario puede seleccionar.
+
+
+	Select box:
+		
+		cuadro de selección simple se crea con un elemento <select> con uno o más elementos <option> como hijos,
+		 
+		cada uno de los cuales especifica uno de sus valores posibles
+		
+		```
+		<select id="simple" name="simple">
+		  <option>Banana</option>
+		  <option selected>Cherry</option>
+		  <option>Lemon</option>
+		</select>
+
+		```
+		Si es necesario, el valor predeterminado para el cuadro de selección se puede establecer
+		
+		usando el atributo selected en el elemento <option> deseado
+		
+		
+	optgroup:
+		
+		Grupo de opciones, Los elementos <option> se pueden anidar dentro de elementos <optgroup>
+			
+		para crear grupos de valores visualmente asociados.
+		
+		```
+		<select id="groups" name="groups">
+		  <optgroup label="fruits">
+			<option>Banana</option>
+			<option selected>Cherry</option>
+			<option>Lemon</option>
+		  </optgroup>
+		  <optgroup label="vegetables">
+			<option>Carrot</option>
+			<option>Eggplant</option>
+			<option>Potato</option>
+		  </optgroup>
+		</select>
+
+		```
+		
+		En el elemento <optgroup>, el valor del atributo label
+		
+		se muestra antes de los valores de las opciones anidadas.
+		
+		El navegador generalmente los distingue visualmente de las opciones
+		
+		(es decir, en negrita y en un nivel de anidamiento diferente)
+		
+		por lo que es menos probable que se confundan con las opciones reales.
 
 	
+	Usando el atributo value: 
+		
+		Si un elemento <option> tiene un atributo explicit
+		
+		ese valor se envía cuando el formulario se envía con esa opción seleccionada
+		
+		Si se omite el valor del atributo 
+		
+		como en los ejemplos anteriores, el contenido del elemento <option> se utiliza como valor
+		
+		Por lo tanto, los atributos de valor no son necesarios,
+		
+		pero es posible que encuentre una razón para querer enviar al servidor un valor acortado o diferente al que se muestra visualmente en el cuadro de selección
+		
+		```
+		<select id="simple" name="simple">
+		  <option value="banana">Big, beautiful yellow banana</option>
+		  <option value="cherry">Succulent, juicy cherry</option>
+		  <option value="lemon">Sharp, powerful lemon</option>
+		</select>
+
+		```
+		
+		De forma predeterminada, la altura del cuadro de selección es suficiente para mostrar un único valor
+		
+		El atributo de tamaño opcional proporciona control sobre cuántas opciones son visibles cuando la selección no tiene foco.
+		
+		
+	Multiple choice selected box: 
+		
+		De forma predeterminada select box
+		
+		permite al usuario seleccionar solo un valor
+		
+		Al agregar el atributo múltiple al elemento <select>,
+		
+		puede permitir a los usuarios seleccionar varios valores
+		
+		Los usuarios pueden seleccionar varios valores utilizando el mecanismo predeterminado proporcionado por el sistema operativo
+		
+		(por ejemplo, en el escritorio, se puede hacer clic en varios valores mientras se mantienen presionadas las teclas Cmd/Ctrl).
+		
+		```
+		<select id="multi" name="multi" multiple size="2">
+		  <optgroup label="fruits">
+			<option>Banana</option>
+			<option selected>Cherry</option>
+			<option>Lemon</option>
+		  </optgroup>
+		  <optgroup label="vegetables">
+			<option>Carrot</option>
+			<option>Eggplant</option>
+			<option>Potato</option>
+		  </optgroup>
+		</select>
+		
+		```
+		
+		En multiple choice select boxes
+		
+		notará que el cuadro de selección ya no muestra los valores como contenido desplegable
+		
+		en cambio, todos los valores se muestran a la vez en una lista, con el atributo de tamaño opcional determinando la altura. del widget.
 
 		
+		Todos los navegadores que admiten el elemento <select> también admiten el atributo múltiple.
 		
+	
+	Autocomplete box:
+		
+		Puede proporcionar valores sugeridos que se completan automáticamente para los widgets de formulario utilizando el elemento <datalist> con elementos secundarios <option>
+		
+		para especificar los valores que se mostrarán.
+		
+		La <lista de datos> debe recibir una identificación.
+
+		
+		Luego, la lista de datos se vincula a un elemento <input> 
+		
+		(por ejemplo, un tipo de entrada de texto o correo electrónico)
+		
+		utilizando el atributo de lista, cuyo valor es la identificación de la lista de datos a vincular.
+
+
+		Una vez que una lista de datos está afiliada a un widget de formulario
+		
+		sus opciones se utilizan para completar automáticamente el texto ingresado por el usuario;
+		
+		Normalmente, esto se presenta al usuario como un cuadro desplegable que enumera posibles coincidencias para lo que ha escrito en la entrada.
+		
+		```
+		<label for="myFruit">What's your favorite fruit?</label>
+		<input type="text" name="myFruit" id="myFruit" list="mySuggestion" />
+		<datalist id="mySuggestion">
+		  <option>Apple</option>
+		  <option>Banana</option>
+		  <option>Blackberry</option>
+		  <option>Blueberry</option>
+		  <option>Lemon</option>
+		  <option>Lychee</option>
+		  <option>Peach</option>
+		  <option>Pear</option>
+		</datalist>
+		
+		```
+		
+	
+	Usos de listas de datos:
+	
+		Según la especificación HTML, el atributo list y el elemento <datalist>
+		
+		se pueden usar con cualquier tipo de widget que requiera la entrada del usuario.
+		
+		Esto lleva a algunos usos que pueden parecer poco obvios.
+
+		
+		Por ejemplo, en navegadores que admiten <datalist> en tipos de entrada de rango
+		
+		se mostrará una pequeña marca encima del rango para cada valor de datalist <option>.
+		
+		
+		Y los navegadores que admiten <datalist> y <input type="color">
+		
+		deben mostrar una paleta de colores personalizada de forma predeterminada
+		
+		sin dejar de estar disponible la paleta de colores completa.
+
+		
+		En este caso, los diferentes navegadores se comportan de forma diferente según el caso
+		
+		por lo que debe considerar dichos usos como una mejora progresiva y asegurarse de que se degraden correctamente.
+
+
+	Otras funcionalidades de los form: 
+		
+		Hay algunas otras características del formulario que no son tan obvias como las que ya hemos mencionado
+		
+		pero aún así son útiles en algunas situaciones, por lo que pensamos que valdría la pena mencionarlas brevemente
+		
+	
+	Meters and progress bars:
+		
+		Los medidores y las barras de progreso son representaciones visuales de valores numéricos
+		
+		La compatibilidad con <progress> y <meter> está disponible en todos los navegadores modernos
+		
+		
+		Meters:
+			
+			Una barra de medidor representa un valor fijo en un rango delimitado por valores máximo y mínimo.
+				
+			Este valor se representa visualmente como una barra y, para saber cómo se ve esta barra, 
+			
+			comparamos el valor con otros valores establecidos
+				
+			
+			low y high:
+				
+				dividen el rango en las tres partes siguientes
+				
+				lower part:
+					
+					del rango está entre los valores min y low, los incluye
+					
+				medium part:
+					
+					del rango se sitúa entre los valores low y high excluyente
+						
+				higher part:
+				
+					del rango está entre los valores high y max, incluyendolos.
+					
+				
+			Optimus value:
+				
+				define el valor óptimo para el elemento <meter>.
+				
+				Junto con el valor low y high define qué parte del rango se prefiere
+				
+					
+					Si el valor óptimo está en la parte inferior del rango
+						
+						el rango inferior se considera la parte preferida
+						
+						el rango medio se considera la parte promedio y el rango superior se considera la peor parte
+						
+					
+					Si el valor óptimo está en la parte media del rango
+						
+						el rango inferior se considera una parte promedio
+						
+						el rango medio se considera la parte preferida y el rango superior también se considera promedio.
+						
+					
+					Si el valor óptimo está en la parte más alta del rango
+					
+						el rango más bajo se considera la peor parte
+						
+						el rango medio se considera la parte promedio y el rango más alto se considera la parte preferida
+						
+			
+				Todos los navegadores que implementan el elemento <meter>
+				
+				usan esos valores para cambiar el color de la barra del medidor		
+		
+					Si el valor actual está en la parte preferida del rango, la barra es verde.
+
+					Si el valor actual está en la parte promedio del rango, la barra es amarilla.
+						
+					Si el valor actual está en la peor parte del rango, la barra es roja.
+
+				
+				Esta barra se crea utilizando el elemento <meter>.
+				
+				Esto es para implementar cualquier tipo de medidor
+				
+				por ejemplo, una barra que muestra el espacio total utilizado en un disco
+				
+				que se vuelve roja cuando comienza a llenarse.
+				
+				```
+				<meter min="0" max="100" value="75" low="33" high="66" optimum="0">75</meter>
+
+				```
+				
+				El contenido dentro del elemento <meter> es una alternativa para los navegadores que no admiten el elemento
+				
+				y para las tecnologías de asistencia para vocalizarlo.
+				
+		
+		Progress:
+		
+			Una barra de progreso representa un valor que cambia con el tiempo hasta un valor máximo especificado por el atributo max
+			
+			Dicha barra se crea utilizando un elemento <progress>.
+					
+			```
+			<progress max="100" value="75">75/100</progress>
+
+			```
+					
+			El contenido dentro del elemento <progress> es un recurso alternativo para los navegadores que no admiten el elemento y para que los lectores de pantalla lo vocalicen
+
+
+
+|| Styling Forms
+
+	1. Diseñar formularios web
+		
+		introducción al diseño de formularios con CSS
+		
+	
+	2. Diseño de formulario avanzado	
+	
+		tratar con algunos de los elementos de formulario más difíciles de diseñar
+	
+	3. Pseudoclases UI
+		
+		introducción a las pseudoclases de la interfaz de usuario que permiten orientar los controles de formulario HTML
+		
+		en función de su estado actual.
+		
+		
+		
+|| Diseñar Formularios Web
+		
+	En 1995, la especificación HTML 2 introdujo controles de formulario
+	
+	(también conocidos como "widgets de formulario" o "elementos de formulario").
+	
+	Pero CSS no se lanzó hasta finales de 1996 y la mayoría de los navegadores no lo admitieron hasta años después
+	
+	Por lo tanto, mientras tanto, los navegadores dependían del sistema operativo subyacente para representar los widgets de los formularios.
+
+	
+	Incluso con CSS disponible, los proveedores de navegadores se mostraron reacios al principio a hacer que los elementos de formulario fueran estilizables
+
+	porque los usuarios estaban muy acostumbrados a la apariencia de sus respectivos navegadores
+	
+	Pero las cosas han cambiado y los widgets de formularios ahora son en su mayoría estilizables, con algunas excepciones
+	
+	
+	Tipos de widgets:
+	
+	Easy-to-style:
+		
+		<form>
+		
+		<fieldset> y <legend>
+		
+		Single-line text <input> (type text, url, email),
+		
+			except for <input type="search">.
+
+		Multi-line <textarea>
+		
+		Buttons: <inputs> y <button>
+		
+		<label>
+		
+		<output>
+		
+	
+	Harder-to-style:
+		
+		Checkboxes y radio buttons
+		
+		<input type="search">
+		
+	
+	Elementos internos no se puede diseñar solo con CSS:
+		
+		<input type="color">
+		
+		Date-related controls como <input type="datetime-local">
+	
+		<input type="range">
+		
+		<input type="file">
+		
+		Elementos involucrados en la creación de widgets desplegables, incluidos
+		
+		<select>, <option>, <optgroup> y <datalist>.
+	
+		<progress> y <meter>
+		
+		
+		Por ejemplo, el calendario del selector de fechas y el botón en <select> 
+		
+		que muestra una lista de opciones cuando se hace clic, no se pueden diseñar usando CSS únicamente.
+
+		
+		Algunos pseudoelementos CSS propietarios, como ::-moz-range-track
+		
+		son capaces de diseñar dichos componentes internos
+		
+		pero no son consistentes en todos los navegadores
+		
+		por lo que no son muy confiables
+		
+		
+	Diseñar widgets de formularios simples:
+		
+		Los widgets "fáciles de diseñar"
+		
+		se pueden diseñar utilizando técnicas
+		
+		de form y Bloques de construcción CSS
+		
+		También hay selectores especiales (pseudoclases de UI) que permiten diseñar según el estado actual de la UI.
+
+		
+		Algunos aspectos especiales del estilo de formulario que vale la pena conocer
+		
+	
+	Font and text:
+		
+		Las funciones de fuente y texto CSS se pueden usar fácilmente con cualquier widget
+		
+		(y sí, puedes usar @font-face con widgets de formulario).
+		
+		Sin embargo, el comportamiento del navegador suele ser inconsistente
+		
+		De forma predeterminada, algunos widgets no heredan la familia y el tamaño de fuente de sus padres.
+		
+		En su lugar, muchos navegadores utilizan la apariencia predeterminada del sistema
+		
+		Para que la apariencia de sus formularios sea consistente con el resto de su contenido
+		
+		puede agregar las siguientes reglas a su hoja de estilo
+
+		```
+		button,
+		input,
+		select,
+		textarea {
+		  font-family: inherit;
+		  font-size: 100%;
+		}
+
+		```
+
+		El valor inherit hace que el valor de la propiedad coincida con el valor calculado de la propiedad de su elemento principal heredando el valor del padre.
+
+		
+		Los valores predeterminados diferían en varios aspectos.
+		
+		La herencia debe cambiar sus fuentes a la de la familia de fuentes principal
+		
+		en este caso, la fuente serif predeterminada del contenedor principal.
+		
+		Todos lo hacen, con una extraña excepción: <input type="submit">
+		
+		no hereda del párrafo principal en Chrome. Más bien, utiliza la familia de fuentes: system-ui
+		
+		¡Esta es otra razón para usar elementos <button> en lugar de sus tipos de entrada equivalentes!
+		
+		
+	Box sizing:
+		
+		Todos los campos de texto tienen soporte completo para todas las propiedades relacionadas con el modelo de cuadro CSS, como ancho, alto, relleno, margen y borde.
+		
+		Sin embargo, como antes, los navegadores se basan en los estilos predeterminados del sistema al mostrar estos widgets
+		
+		Depende de usted definir cómo desea combinarlos en su contenido.
+		
+		Si desea mantener la apariencia nativa de los widgets
+		
+		enfrentará algunas dificultades si desea darles un tamaño consistente.
+
+		
+		Esto se debe a que cada widget tiene sus propias reglas para borde, relleno y margen.
+		
+		Para dar el mismo tamaño a varios widgets diferentes, puedes usar la propiedad box-sizing
+		
+		junto con algunos valores consistentes para otras propiedades
+
+		```
+		input,
+		textarea,
+		select,
+		button {
+		  width: 150px;
+		  padding: 0;
+		  margin: 0;
+		  box-sizing: border-box;
+		}
+
+		```	
+
+		Nos permite garantizar que todos los elementos ocupen la misma cantidad de espacio, a pesar de las reglas predeterminadas de la plataforma para cada tipo de widget
+		
+		los controles de radio y de casilla de verificación siguen teniendo el mismo aspecto
+		
+		pero están centrados en los 150 píxeles de espacio horizontal proporcionados por la propiedad de ancho.
+		
+		Es posible que otros navegadores no centren los widgets, pero sí respetan el espacio asignado
+		
+		
+	Ubicación de legend:
+		
+		Se puede diseñar el elemento <legend>
+		
+		pero puede ser un poco complicado controlar su ubicación
+		
+		De forma predeterminada, siempre se coloca sobre el borde superior de su padre <fieldset>,
+		
+		cerca de la esquina superior izquierda.
+		
+		Para colocarlo en otro lugar
+		
+		por ejemplo dentro del conjunto de campos
+		
+		o cerca de la esquina inferior izquierda, debe confiar en el posicionamiento
+		
+		utilizamos el siguiente CSS:
+		
+		```
+		fieldset {
+		  position: relative;
+		}
+
+		legend {
+		  position: absolute;
+		  bottom: 0;
+		  right: 0;
+		}
+
+		```
+		
+		El <fieldset> también debe posicionarse, de modo que la <legend>
+	
+		esté posicionada en relación con él (de lo contrario
+		
+		se ubicaría en relación con el <body>. 
+		
+		El elemento <legend> es muy importante para la accesibilidad (las tecnologías de asistencia lo pronunciarán como parte de la etiqueta de cada elemento del formulario dentro del conjunto de campos),
+		
+		El contenido de la leyenda se seguirá pronunciando de la misma manera; es sólo la posición visual la que ha cambiado.
+
+		
+		También puede utilizar la propiedad de transformación para ayudarle a posicionar su <leyenda>.
+		
+		Sin embargo, cuando lo posicionas con, por ejemplo, una transformación: TranslateY();,
+		
+		se mueve pero deja un feo espacio en el borde <fieldset>, del cual no es fácil deshacerse.
+		
+	
+	Ejemplo de estilo específico:
+		
+		ejemplo concreto de cómo diseñar un formulario HTML
+		
+		Crearemos un formulario de contacto de "postal"
+		
+		copiar postal.html, un poco más complicados 
+		
+		tiene algunas identificaciones adicionales y un título
+		
+		```
+		<form>
+		  <h1>to: Mozilla</h1>
+
+		  <div id="from">
+			<label for="name">from:</label>
+			<input type="text" id="name" name="user_name" />
+		  </div>
+
+		  <div id="reply">
+			<label for="mail">reply:</label>
+			<input type="email" id="mail" name="user_email" />
+		  </div>
+
+		  <div id="message">
+			<label for="msg">Your message:</label>
+			<textarea id="msg" name="user_message"></textarea>
+		  </div>
+
+		  <div class="button">
+			<button type="submit">Send your message</button>
+		  </div>
+		</form>
+
+		```
+		
+	Assets adicionales: 
+		
+		Descarge el fondo, las dos fuentes. 
+		
+		Los archivos los copiamos en el directorio del proy
+		
+		Las fuentes necesitan procesamiento para convertirse en fuentes web. 
+		
+		generador de fuentes web fontsquirrel.com
+		
+		Usando el formulario, cargue sus archivos de fuentes y genere un kit de fuentes web
+		
+		Descarga el kit, descomprima el zip. 
+		
+		(en el momento de escribir este artículo, dos archivos .woff y dos archivos .woff2; pueden variar en el futuro).
+		
+		Copie estos archivos en un directorio llamado fuentes
+		
+		Usamos dos archivos diferentes para cada fuente para maximizar la compatibilidad del navegador
+		
+		
+	CSS y diseño: 
+		
+		nos preparamos definiendo nuestras reglas @font-face
+		
+		y todos los estilos básicos establecidos en los elementos <body> y <form>.
+		
+		Si la salida de fontsquirrel fue diferente de lo que describimos anteriormente, puede encontrar los bloques @font-face
+		
+		correctos dentro de su kit de fuentes web descargado, en el archivo stylesheet.css
+		
+		(deberá reemplazar los bloques @font-face a continuación con ellos y actualice las rutas a los archivos de fuentes
+		
+		```
+		@font-face {
+		  font-family: "handwriting";
+		  src:
+			url("fonts/journal-webfont.woff2") format("woff2"),
+			url("fonts/journal-webfont.woff") format("woff");
+		  font-weight: normal;
+		  font-style: normal;
+		}
+
+		@font-face {
+		  font-family: "typewriter";
+		  src:
+			url("fonts/momot___-webfont.woff2") format("woff2"),
+			url("fonts/momot___-webfont.woff") format("woff");
+		  font-weight: normal;
+		  font-style: normal;
+		}
+
+		body {
+		  font: 1.3rem sans-serif;
+		  padding: 0.5em;
+		  margin: 0;
+		  background: #222;
+		}
+
+		form {
+		  position: relative;
+		  width: 740px;
+		  height: 498px;
+		  margin: 0 auto;
+		  padding: 1em;
+		  box-sizing: border-box;
+		  background: #fff url(background.jpg);
+
+		  /* we create our grid */
+		  display: grid;
+		  grid-gap: 20px;
+		  grid-template-columns: repeat(2, 1fr);
+		  grid-template-rows: 10em 1em 1em 1em;
+		}
+
+		```
+		
+		hemos utilizado alguna cuadrícula CSS y Flexbox para diseñar el formulario.
+		
+		Usando esto podemos posicionar fácilmente nuestros elementos
+		
+		incluido el título y todos los elementos del formulario:
+		
+		```
+		h1 {
+		  font:
+			1em "typewriter",
+			monospace;
+		  align-self: end;
+		}
+
+		#message {
+		  grid-row: 1 / 5;
+		}
+
+		#from,
+		#reply {
+		  display: flex;
+		}
+
+		```
+
+	Labels y controls:
+		
+		trabajar en los propios elementos del formulario
+		
+		Primero, asegurémonos de que las <label> tengan la fuente correcta.
+
+		```
+		label {
+		  font:
+			0.8em "typewriter",
+			sans-serif;
+		}
+
+		```
+		
+		Los campos de texto requieren algunas reglas comunes
+		
+		En otras palabras, eliminamos sus bordes y fondos, y redefinimos su relleno y margen:
+		
+		```
+		input,
+		textarea {
+		  font:
+			1.4em/1.5em "handwriting",
+			cursive,
+			sans-serif;
+		  border: none;
+		  padding: 0 10px;
+		  margin: 0;
+		  width: 80%;
+		  background: none;
+		}
+
+		```
+			
+		Cuando uno de estos campos gana foco, los resaltamos con un fondo gris claro transparente
+		
+		(siempre es importante tener un estilo de foco, para usabilidad y accesibilidad del teclado):
+		
+		```
+		input:focus,
+		textarea:focus {
+		  background: rgb(0 0 0 / 10%);
+		  border-radius: 5px;
+		}
+
+		```
+
+		Ahora que nuestros campos de texto están completos
+		
+		necesitamos ajustar la visualización de los campos de texto de una y varias líneas para que coincidan
+		
+		ya que normalmente no se verán iguales usando los valores predeterminados.
+		
+	
+	Ajustar las áreas de texto:
+		
+		Los elementos <textarea> se representan de forma predeterminada como un elemento de bloque en línea
+		
+		Las dos cosas importantes aquí son las propiedades de cambio de tamaño y desbordamiento.
+		
+		Si bien nuestro diseño es de tamaño fijo y podríamos usar la propiedad de cambio de tamaño para evitar que los usuarios cambien el tamaño de nuestro campo de texto de varias líneas
+		
+		es mejor no evitar que los usuarios cambien el tamaño de un área de texto si así lo desean.
+		
+		La propiedad de desbordamiento se utiliza para hacer que el campo se muestre de manera más consistente en todos los navegadores
+		
+		Algunos navegadores utilizan de forma predeterminada el valor automático
+		
+		mientras que otros utilizan de forma predeterminada el valor de desplazamiento
+		
+		En nuestro caso, es mejor estar seguro de que todos usarán la función automática.
+		
+		```
+		textarea {
+		  display: block;
+
+		  padding: 10px;
+		  margin: 10px 0 0 -10px;
+		  width: 100%;
+		  height: 90%;
+
+		  border-right: 1px solid;
+
+		  /* resize  : none; */
+		  overflow: auto;
+		}
+
+		```
+		
+	Diseñar el botón submit: 
+	
+		El elemento <button> es realmente conveniente para aplicar estilo con CSS
+		
+		puedes hacer lo que quieras, incluso usando pseudoelementos:
+		
+		```
+		button {
+		  padding: 5px;
+		  font: bold 0.6em sans-serif;
+		  border: 2px solid #333;
+		  border-radius: 5px;
+		  background: none;
+		  cursor: pointer;
+		  transform: rotate(-1.5deg);
+		}
+
+		button:after {
+		  content: " >>>";
+		}
+
+		button:hover,
+		button:focus {
+		  background: #000;
+		  color: #fff;
+		}
+		
+		```
+
+
+
+|| Diseño Avanzado de Formulario
+		
+	Diseñar los tipos de control de formulario que son más difíciles de diseñar
+	
+	el diseño de las partes más problemáticas.
+	
+	
+	Requieren CSS más complejo o algunos trucos más específicos:
+	
+		Checkboxes y radio buttons
+	
+	
+	Algunos elementos no se pueden diseñar completamente usando CSS
+		
+		Elementos involucrados en la creación de widgets desplegables:
+		
+		<select>, <option>, <optgroup> y <datalist>
+		
+		<input type="color">
+	
+		
+	Controles relacionados con la fecha, como: <input type="datetime-local">
+		 
+		 <input type="range">
+		 
+		 <input type="file">
+		 
+		 <progress> and <meter>
+		 
+		
+	Primero hablemos de la propiedad de appearance
+	
+	útil para hacer que todo lo anterior tenga más estilo.
+	
+	
+	Appearance controlar el estilo a nivel del sistema operativo:
+			
+		Dijimos que históricamente, el estilo de los controles de formularios web se tomaba en gran medida del sistema operativo subyacente
+	
+		lo cual es parte del problema de personalizar el aspecto de estos controles.
+
+		
+		La propiedad de apariencia se creó como una forma de controlar qué estilo a nivel de sistema operativo o sistema se aplicó a los controles de formulario web
+		
+		Con diferencia, el valor más útil, y probablemente el único que utilizará, es none.
+		
+		Esto evita que cualquier control al que lo aplique utilice estilos a nivel de sistema
+		
+		en la medida de lo posible, y le permite crear los estilos usted mismo utilizando CSS.
+		
+		
+		Ejemplo, tomemos los siguientes controles:
+		
+		```
+		<form>
+		  <p>
+			<label for="search">search: </label>
+			<input id="search" name="search" type="search" />
+		  </p>
+		  <p>
+			<label for="text">text: </label>
+			<input id="text" name="text" type="text" />
+		  </p>
+		  <p>
+			<label for="date">date: </label>
+			<input id="date" name="date" type="datetime-local" />
+		  </p>
+		  <p>
+			<label for="radio">radio: </label>
+			<input id="radio" name="radio" type="radio" />
+		  </p>
+		  <p>
+			<label for="checkbox">checkbox: </label>
+			<input id="checkbox" name="checkbox" type="checkbox" />
+		  </p>
+		  <p><input type="submit" value="submit" /></p>
+		  <p><input type="button" value="button" /></p>
+		</form>
+
+		```
+		
+		Aplicarles el siguiente CSS elimina el estilo a nivel del sistema 
+		
+		```
+		input {
+		  appearance: none;
+		}
+
+		```
+
+		En la mayoría de los casos, el efecto es eliminar el borde estilizado, lo que facilita un poco el estilo CSS, pero no es realmente esencial.
+		
+		En un par de casos (búsqueda y botones de opción/casillas de verificación), se vuelve mucho más útil.
+		
+	
+	Search boxes:
+		
+		<input type="search">
+		
+		es básicamente solo una entrada de texto,
+		
+		appearance: none es útil aquí
+	
+		La respuesta es que los cuadros de búsqueda de Safari tienen algunas restricciones de estilo
+			
+		por ejemplo, no se puede ajustar su height o font-size libremente.
+
+		Esto se puede solucionar usando appearance: none
+		
+		que desactiva la apariencia predeterminada:
+		
+		```
+		input[type="search"] {
+		  appearance: none;
+		}
+
+		```
+		
+		Si lo miras en Safari en macOS, verás que el de la izquierda no tiene el tamaño adecuado.
+
+		configurar border/background en el campo de búsqueda también soluciona este problema
+		
+		
+		el campo de búsqueda, el ícono de eliminación "x"
+		
+		aparece cuando el valor de la búsqueda no es nulo
+		
+		desaparece cuando la entrada pierde el foco en Edge y Chrome pero permanece en Safari
+		
+		Para eliminar mediante CSS, puede usar
+		
+		```
+		input[type="search"]:not(:focus, :active)::-webkit-search-cancel-button { display: none; }.
+		
+		```
+	
+	
+	Dar estilo a checkboxes y radio buttons:
+		
+		Es complicado de forma predeterminada.
+		
+		Los tamaños de las casillas de verificación y los botones de opción
+		
+		no deben cambiarse con sus diseños predeterminados
+		
+		y los navegadores reaccionan de manera muy diferente cuando lo intentas.
+		
+		```
+		<label
+		  ><span><input type="checkbox" name="q5" value="true" /></span> True</label
+		>
+		<label
+		  ><span><input type="checkbox" name="q5" value="false" /></span> False</label
+		>
+
+		```
+	
+		```
+		span {
+		  display: inline-block;
+		  background: red;
+		}
+
+		input[type="checkbox"] {
+		  width: 100px;
+		  height: 100px;
+		}
+
+		```
+		
+		Diferentes navegadores manejan la casilla de verificación y la abarcan de manera diferente, a menudo fea
+		
+	
+	appearance: none en radios/checkboxes:
+		
+		puede eliminar por completo la apariencia predeterminada de una casilla de verificación o botón de opción
+		
+		```
+		<form>
+		  <fieldset>
+			<legend>Fruit preferences</legend>
+
+			<p>
+			  <label>
+				<input type="checkbox" name="fruit" value="cherry" />
+				I like cherry
+			  </label>
+			</p>
+			<p>
+			  <label>
+				<input type="checkbox" name="fruit" value="banana" disabled />
+				I can't like banana
+			  </label>
+			</p>
+			<p>
+			  <label>
+				<input type="checkbox" name="fruit" value="strawberry" />
+				I like strawberry
+			  </label>
+			</p>
+		  </fieldset>
+		</form>
+		
+		```
+		
+		
+		Diseñémoslos con un diseño de casilla de verificación personalizado
+		
+		Comencemos por eliminar el estilo de las casillas de verificación originales
+		
+		```
+		input[type="checkbox"] {
+		  appearance: none;
+		}
+
+		```
+		
+		Podemos usar las pseudoclases :checked y :disabled
+		
+		para cambiar la apariencia de nuestra casilla de verificación personalizada a medida que cambia su estado:
+		
+		```
+		input[type="checkbox"] {
+		  position: relative;
+		  width: 1em;
+		  height: 1em;
+		  border: 1px solid gray;
+		  /* Adjusts the position of the checkboxes on the text baseline */
+		  vertical-align: -2px;
+		  /* Set here so that Windows' High-Contrast Mode can override */
+		  color: green;
+		}
+
+		input[type="checkbox"]::before {
+		  content: "✔";
+		  position: absolute;
+		  font-size: 1.2em;
+		  right: -1px;
+		  top: -0.3em;
+		  visibility: hidden;
+		}
+
+		input[type="checkbox"]:checked::before {
+		  /* Use `visibility` instead of `display` to avoid recalculating layout */
+		  visibility: visible;
+		}
+
+		input[type="checkbox"]:disabled {
+		  border-color: black;
+		  background: #ddd;
+		  color: gray;
+		}
+
+		```
+		
+		:checked
+		
+			la casilla de verificación (o botón de opción) está marcada: el usuario ha hecho clic/activado
+		
+		:disabled
+			
+			la casilla de verificación (o botón de opción) está en estado deshabilitado y no se puede interactuar con él.
+
+
+		Un par de ejemplos más para darle más ideas
+			
+			
+		radio buttons:
+		
+			Estilo de botón de radio personalizado
+			
+		toggle switch:
+		
+			una casilla de verificación diseñada para que parezca un interruptor de palanca.
+
+
+		Si ve estas casillas de verificación en un navegador que no admite la apariencia, su diseño personalizado se perderá
+
+		pero seguirán pareciendo casillas de verificación y se podrán utilizar.
+		
+	
+	Elementos feos: 
+	
+		Los controles "feos", aquellos a los que es realmente difícil diseñar a fondo
+		
+		se trata de cuadros desplegables, tipos de controles complejos como color y fecha y hora local
+		
+		y controles orientados a la retroalimentación como <progress> y <meter>.
+
+		El problema es que estos elementos tienen un aspecto predeterminado muy diferente en los diferentes navegadores
+		
+		si bien puedes diseñarlos de alguna manera, algunas partes internas son literalmente imposibles de diseñar.
+
+
+		Si está preparado para vivir con algunas diferencias en apariencia
+		
+		puede salirse con la suya con un estilo simple para hacer que el tamaño sea consistente
+		
+		un estilo uniforme de cosas como colores de fondo y el uso de la apariencia para deshacerse de algunos estilos a nivel de sistema
+		
+		```
+		body {
+		  font-family: "Josefin Sans", sans-serif;
+		  margin: 20px auto;
+		  max-width: 400px;
+		}
+
+		form > div {
+		  margin-bottom: 20px;
+		}
+
+		select {
+		  appearance: none;
+		  width: 100%;
+		  height: 100%;
+		}
+
+		.select-wrapper {
+		  position: relative;
+		}
+
+		.select-wrapper::after {
+		  content: "▼";
+		  font-size: 1rem;
+		  top: 3px;
+		  right: 10px;
+		  position: absolute;
+		}
+
+		button,
+		label,
+		input,
+		select,
+		progress,
+		meter {
+		  display: block;
+		  font-family: inherit;
+		  font-size: 100%;
+		  margin: 0;
+		  box-sizing: border-box;
+		  width: 100%;
+		  padding: 5px;
+		  height: 30px;
+		}
+
+		input[type="text"],
+		input[type="datetime-local"],
+		input[type="color"],
+		select {
+		  box-shadow: inset 1px 1px 3px #ccc;
+		  border-radius: 5px;
+		}
+
+		label {
+		  margin-bottom: 5px;
+		}
+
+		button {
+		  width: 60%;
+		  margin: 0 auto;
+		}
+
+		```
+		
+		hemos agregado algo de JavaScript a la página que enumera los archivos seleccionados por el selector de archivos, debajo del control mismo
+		
+		hemos logrado bastante bien lograr que se vean uniformes en todos los navegadores modernos.
+
+		
+		Hemos aplicado CSS de normalización global a todos los controles y sus etiquetas, para que tengan el mismo tamaño, adopten su fuente principal, etc., como se mencionó en el artículo anterior
+
+		```
+		button,
+		label,
+		input,
+		select,
+		progress,
+		meter {
+		  display: block;
+		  font-family: inherit;
+		  font-size: 100%;
+		  margin: 0;
+		  box-sizing: border-box;
+		  width: 100%;
+		  padding: 5px;
+		  height: 30px;
+		}
+
+		```
+		
+		También agregamos algunas sombras uniformes y esquinas redondeadas a los controles en los que tenía sentido
+		
+		```
+		input[type="text"],
+		input[type="datetime-local"],
+		input[type="color"],
+		select {
+		  box-shadow: inset 1px 1px 3px #ccc;
+		  border-radius: 5px;
+		}
+
+		```
+		
+		En otros controles, como tipos de rango, barras de progreso y medidores
+		
+		simplemente agregan un cuadro feo alrededor del área de control, por lo que no tiene sentido.
+
+		
+		Particularidades de cada uno de estos tipos de control, destacando las dificultades en el camino.
+		
+		
+	Selects y datalists:
+		
+		En los navegadores modernos, las selecciones y las listas de datos generalmente no son tan malas para diseñar
+		
+		siempre que no desee variar demasiado la apariencia de los valores predeterminados
+		
+		Hemos logrado que el aspecto básico de las cajas luzca bastante uniforme y consistente
+		
+		El control de la lista de datos es <input type="text"> de todos modos, así que sabíamos que esto no sería un problema
+		
+		
+		Hay dos cosas que son un poco más problemáticas
+		
+		En primer lugar, el icono de "flecha" de selección que indica que es un menú desplegable difiere según el navegador
+		
+		También tiende a cambiar si aumenta el tamaño del cuadro de selección o cambia el tamaño de manera fea
+		
+		Para solucionar este problema en nuestro ejemplo
+		
+		appearance: none para deshacernos del ícono por completo.
+		
+		```
+		select {
+		  appearance: none;
+		}
+
+		```
+		
+		Luego creamos nuestro propio ícono usando generated content
+		
+		Ponemos un envoltorio adicional alrededor del control
+		
+		porque ::before/::after no funciona en elementos <select>
+		
+		(porque su contenido está totalmente controlado por el navegador)
+		
+		```
+		<label for="select">Select a fruit</label>
+		<div class="select-wrapper">
+		  <select id="select" name="select">
+			<option>Banana</option>
+			<option>Cherry</option>
+			<option>Lemon</option>
+		  </select>
+		</div>
+
+		```
+		
+		Luego usamos el contenido generado para generar una pequeña flecha hacia abajo y la colocamos en el lugar correcto usando el posicionamiento
+		
+		```
+		.select-wrapper {
+		  position: relative;
+		}
+
+		.select-wrapper::after {
+		  content: "▼";
+		  font-size: 1rem;
+		  top: 6px;
+		  right: 10px;
+		  position: absolute;
+		}
+
+		```
+		
+		El segundo problema, un poco más importante
+		
+		es que no tienes control sobre el cuadro que aparece que contiene las opciones cuando haces clic en el cuadro <select> para abrirlo
+		
+		Puede heredar la fuente configurada en el padre, pero no podrá establecer cosas como el espaciado y los colores
+		
+		Lo mismo ocurre con la lista de autocompletar que aparece con <datalist>.
+
+		
+		Si realmente necesita control total sobre el estilo de las opciones
+		
+		tendrá que usar algún tipo de biblioteca para generar un control personalizado
+		
+		crear su propio control personalizado o, en el caso de seleccionar, usar el atributo múltiple
+
+		lo que hace que todos los Las opciones aparecen en la página, evitando este problema en particular:
+		
+		```
+		<label for="select">Select fruits</label>
+		<select id="select" name="select" multiple>
+		  …
+		</select>
+
+		```
+
+		Es posible que esto tampoco encaje con el diseño que estás buscando
+		
+	
+	Date input types:
+	
+		Todos los tipos de entrada de fecha/hora (fechahora-local, hora, semana, mes) tienen el mismo problema importante asociado
+		
+		El estilo del cuadro contenedor real es tan fácil como cualquier entrada de texto, y lo que tenemos en esta demostración se ve bien.
+		
+		Sin embargo, las partes internas del control (por ejemplo, el calendario emergente que usa para elegir una fecha, la rueda giratoria que puede usar para incrementar/disminuir valores)
+		
+		no se pueden diseñar en absoluto y no puede deshacerse de ellas usando la apariencia. : ninguno;.
+		
+		Si realmente necesita control total sobre el estilo, tendrá que usar algún tipo de biblioteca para generar un control personalizado o crear el suyo propio.
+		
+		
+		Vale la pena mencionar <input type="number">
+		
+		aquí también; esto también tiene una rueda giratoria que puede usar para incrementar/disminuir valores
+		
+		por lo que potencialmente sufre el mismo problema
+		
+		Sin embargo, en el caso del tipo numérico, los datos que se recopilan son más simples y es fácil usar
+		
+		simplemente un tipo de entrada tel que tiene la apariencia de texto, pero muestra el teclado numérico en dispositivos con teclados táctiles.
+		
+		
+	Range input types:
+		
+		<input type="range"> es molesto de diseñar
+		
+		Puede usar algo como lo siguiente para eliminar completamente la pista del control deslizante predeterminada y reemplazarla con un estilo personalizado
+		
+		```
+		input[type="range"] {
+		  appearance: none;
+		  background: red;
+		  height: 2px;
+		  padding: 0;
+		  outline: 1px solid transparent;
+		}
+
+		```
+
+		es muy difícil personalizar el estilo del controlador de arrastre del control de rango
+		
+		para obtener un control total sobre el estilo del rango, necesitará usar una gran cantidad de código CSS complejo, incluidos múltiples pseudoelementos no estándar y específicos del navegador
+		
+	
+	Color input types:
+	
+		Los controles de entrada de tipo color no son tan malos. En los navegadores compatibles, tienden a ofrecerle simplemente un bloque de color sólido con un borde pequeño.
+
+		Puedes eliminar el borde, dejando solo el bloque de color, usando algo como esto:
+		
+		```
+		input[type="color"] {
+		  border: 0;
+		  padding: 0;
+		}
+
+		```
+
+		Sin embargo, una solución personalizada es la única manera de conseguir algo significativamente diferente.
+		
+	
+	File input types:
+	
+		Las entradas de tipo archivo generalmente están bien; como vio en nuestro ejemplo
+		
+		es bastante fácil crear algo que encaje bien con el resto de la página
+		
+		la línea de salida que forma parte del control heredará la fuente principal si se lo indica. la entrada para hacerlo
+		
+		y puede diseñar la lista personalizada de nombres y tamaños de archivos de la forma que desee
+		
+		después de todo, lo creamos nosotros.
+
+		
+		El único problema con los selectores de archivos es que el botón que debe presionar para abrir el selector de archivos no tiene ningún estilo
+		
+		no se le puede cambiar el tamaño ni el color, y ni siquiera acepta una fuente diferente.
+
+
+		Una forma de evitar esto es aprovechar el hecho de que si tiene una etiqueta asociada con un control de formulario
+		
+		al hacer clic en la etiqueta se activará el control
+		
+		Entonces podrías ocultar la entrada del formulario real usando algo como esto
+		
+		```
+		input[type="file"] {
+		  height: 0;
+		  padding: 0;
+		  opacity: 0;
+		}
+
+		```
+		
+		Y luego diseñe la etiqueta para que actúe como un botón, que al presionarlo abrirá el selector de archivos como se esperaba
+		
+		```
+		label[for="file"] {
+		  box-shadow: 1px 1px 3px #ccc;
+		  background: linear-gradient(to bottom, #eee, #ccc);
+		  border: 1px solid rgb(169 169 169);
+		  border-radius: 5px;
+		  text-align: center;
+		  line-height: 1.5;
+		}
+
+		label[for="file"]:hover {
+		  background: linear-gradient(to bottom, #fff, #ddd);
+		}
+
+		label[for="file"]:active {
+		  box-shadow: inset 1px 1px 3px #ccc;
+		}
+
+		```
+
+	
+	Meters y progress bars:
+		
+		<meter> y <progress> son posiblemente los peores de todos
+		
+		Como vio en el ejemplo anterior, podemos configurarlos al ancho deseado con relativa precisión
+		
+		Pero más allá de eso, son realmente difíciles de diseñar de cualquier manera
+		
+		No manejan la configuración de altura de manera consistente entre sí y entre navegadores,
+		
+		puede colorear el fondo, pero no la barra de primer plano, y configurar la apariencia: ninguno de ellos empeora las cosas, ni las mejora.
+
+		
+		Es más fácil crear su propia solución personalizada para estas funciones, si desea poder controlar el estilo, o utilizar una solución de terceros como Progressbar.js
+		
+	
+		
+|| Pseudoclases de UI: 
+	
+	Permiten orientar los controles de formulario HTML en función de su estado actual.
+	
+	Por por ejemplo, usar :checked para apuntar a una casilla de verificación solo cuando está seleccionada.
+	
+	
+	Las pseudoclases originales (de CSS 2.1) que son relevantes para los formularios son
+
+	:hover
+		
+		selecciona un elemento solo cuando se coloca el puntero del mouse sobre él.
+
+	:focus
+		
+		selecciona un elemento solo cuando está enfocado (es decir, al acceder mediante tabulación mediante el teclado).
+		
+	:focus
+
+		selecciona un elemento solo cuando se está activando (es decir, mientras se hace clic en él, o cuando se presiona la tecla Return / Enter en el caso de una activación del teclado).
+		
+		
+	Los selectores de CSS proporcionan varias otras pseudoclases relacionadas con los formularios HTML
+	
+	:required and :optional
+		
+		elementos de destino que pueden ser required 
+		
+		requeridos (por ejemplo, elementos que admiten el atributo HTML required. 
+		
+		según si son obligatorios u opcionales.		
+			
+	:valid, :invalid, :in-range y :out-of-range:
+		
+		controles de formulario de destino que son válidos/no válidos según las restricciones de validación de formulario establecidas en ellos, o dentro del rango/fuera del rango
+	
+	:enabled, :disabled, :read-only y :read-write: 
+		
+		elementos de destino que se pueden deshabilitar
+		
+		(por ejemplo, elementos que admiten el atributo HTML disabled)
+		
+		según si están actualmente habilitados o deshabilitados y lectura-escritura o lectura.
+		
+		Controles de formulario de solo lectura (por ejemplo, elementos con el conjunto de atributos HTML de solo lectura).
+	
+	:checked, :indeterminate y :default:
+					
+		apuntan respectivamente a casillas de verificación y botones de opción que están marcados
+		
+		en un estado indeterminado (ni marcados ni no marcados) y a la opción seleccionada predeterminada cuando se carga la página
+		
+		(por ejemplo, una <input type="checkbox">).
+					
+		con el conjunto de atributos marcado, o un elemento <option> con el conjunto de atributos seleccionado
+	
+		
+	Hay muchos otros, pero los enumerados anteriormente son los más útiles
+	
+	Algunos de ellos están destinados a resolver problemas de nichos muy específicos
+	
+	Las pseudoclases de UI enumeradas anteriormente tienen una excelente compatibilidad con el navegador
+	
+	pero, por supuesto, debe probar las implementaciones de sus formularios cuidadosamente para asegurarse de que funcionen para su público objetivo
+	
+	
+	Varias de las pseudoclases analizadas aquí se ocupan del diseño de controles de formulario en función de su estado de validación
+	
+	(¿sus datos son válidos o no?).
+	 
+	
+	Estilo a las entradas en función de si son necesarias o no:
+		
+		Uno de los conceptos más básicos con respecto a la validación de formularios del lado del cliente
+		
+		es si la entrada del formulario es obligatoria
+		
+		(debe completarse antes de poder enviar el formulario) u opcional.
+		
+		Los elementos <input>, <select> y <textarea> tienen un atributo required/obligatorio disponible
+		
+		que, cuando se establece, significa que debe completar ese control antes de que el formulario se envíe correctamente.
+		
+		```
+		<form>
+		  <fieldset>
+			<legend>Feedback form</legend>
+			<div>
+			  <label for="fname">First name: </label>
+			  <input id="fname" name="fname" type="text" required />
+			</div>
+			<div>
+			  <label for="lname">Last name: </label>
+			  <input id="lname" name="lname" type="text" required />
+			</div>
+			<div>
+			  <label for="email">
+				Email address (include if you want a response):
+			  </label>
+			  <input id="email" name="email" type="email" />
+			</div>
+			<div><button>Submit</button></div>
+		  </fieldset>
+		</form>
+
+		```
+		
+		Aquí, el nombre y el apellido son obligatorios
+		
+		pero la dirección de correo electrónico es opcional.
+
+		Puede hacer coincidir estos dos estados utilizando las pseudoclases
+		
+		:required y :optional:
+		
+		```
+		input:required {
+		  border: 1px solid black;
+		}
+
+		input:optional {
+		  border: 1px solid silver;
+		}
+
+		```
+		
+		Los controles requeridos tendrán un borde negro y el control opcional tendrá un borde plateado, así
+		
+		También puede intentar enviar el formulario sin completarlo para ver los mensajes de error de validación del lado del cliente que los navegadores le brindan de forma predeterminada
+		
+		
+		El formulario anterior no es malo, pero tampoco es excelente
+		
+		Para empezar, estamos señalando el estado requerido versus el estado opcional usando solo el color, lo cual no es bueno para las personas daltónicas
+		
+		En segundo lugar, la convención estándar en la web para el estado requerido es un asterisco (*),
+		
+		o la palabra "requerido/obligatorio" asociada con los controles en cuestión.
+
+		
+		Probablemente no te encontrarás usando la pseudoclase :opcional muy a menudo
+		
+		Los controles de formulario son opcionales de forma predeterminada
+		
+		por lo que puede simplemente aplicar su estilo opcional de forma predeterminada
+		
+		y agregar estilos en la parte superior para los controles requeridos.
+		
+		
+		Si un botón de opción en un grupo de botones de opción con el mismo nombre tiene el atributo requerido establecido
+		
+		todos los botones de opción no serán válidos hasta que se seleccione uno
+		
+		pero solo el que tiene el atributo asignado coincidirá realmente con: requerido.
+		
+	
+	Generar contenido con pseudoclases: 
+	
+		generated content
+		 
+		La idea es que podemos usar los pseudoelementos ::before y ::after
+	
+		junto con la propiedad de contenido para hacer que una parte del contenido aparezca antes o después del elemento afectado. 
+		
+		La porción de contenido no se agrega al DOM
+		
+		por lo que puede resultar invisible para algunos lectores de pantalla. 
+		
+		Debido a que es un pseudoelemento, se le puede asignar estilos de la misma manera que cualquier nodo DOM real.
+
+		
+		Esto es realmente útil cuando desea agregar un indicador visual a un elemento
+		
+		como una etiqueta o un ícono, cuando también hay indicadores alternativos disponibles para garantizar la accesibilidad para todos los usuarios
+		
+		Por ejemplo, en nuestro ejemplo de botones de opción personalizados, utilizamos contenido generado para manejar la ubicación y la animación del círculo interno de un botón de opción personalizado cuando se selecciona un botón de opción
+		
+		```
+		input[type="radio"]::before {
+		  display: block;
+		  content: " ";
+		  width: 10px;
+		  height: 10px;
+		  border-radius: 6px;
+		  background-color: red;
+		  font-size: 1.2em;
+		  transform: translate(3px, 3px) scale(0);
+		  transform-origin: center;
+		  transition: all 0.3s ease-in;
+		}
+
+		input[type="radio"]:checked::before {
+		  transform: translate(3px, 3px) scale(1);
+		  transition: all 0.3s cubic-bezier(0.25, 0.25, 0.56, 2);
+		}
+
+		```
+		
+		Esto es realmente útil: los lectores de pantalla ya informan a sus usuarios cuando un botón de opción o casilla de verificación que encuentran está marcado/seleccionado
+		
+		por lo que no desea que lean otro elemento DOM que indique selección; eso podría resultar confuso
+		
+		Tener un indicador puramente visual soluciona este problema.
+
+
+		No todos los tipos de <input> admiten que se les coloque contenido generado
+		
+		Todos los tipos de entrada que muestran texto dinámico, como texto, contraseña o botón, no muestran el contenido generado.
+		
+		Otros, incluidos el rango, el color, la casilla de verificación, etc., muestran el contenido generado
+		
+		
+		usaremos contenido generado para agregar una etiqueta indicadora
+		
+		agregaremos un párrafo en la parte superior del formulario para decir lo que estás buscando
+		
+		```
+		<p>Required fields are labeled with "required".</p>
+		
+		```
+		
+		Los usuarios de lectores de pantalla obtendrán una lectura "obligatoria"
+
+		como información adicional cuando accedan a cada entrada requerida
+		
+		mientras que los usuarios videntes obtendrán nuestra etiqueta.
+
+		
+		Como se mencionó anteriormente, las entradas de texto no admiten contenido generado
+		
+		por lo que agregamos un <span> vacío para colgar el contenido generado:
+		
+		```
+		<div>
+		  <label for="fname">First name: </label>
+		  <input id="fname" name="fname" type="text" required />
+		  <span></span>
+		</div>
+
+		```
+
+		El problema inmediato con esto fue que el intervalo caía a una nueva línea debajo de la entrada porque tanto la entrada como la etiqueta están configuradas con un ancho: 100%.
+		
+		Para solucionar este problema, diseñamos el <div> principal para que se convierta en un contenedor flexible
+		
+		pero también le decimos que ajuste su contenido en nuevas líneas si el contenido se vuelve
+		
+		```
+		fieldset > div {
+		  margin-bottom: 20px;
+		  display: flex;
+		  flex-flow: row wrap;
+		}
+
+		```
+		
+		El efecto que esto tiene es que la etiqueta y la entrada se ubican en líneas separadas porque ambas tienen un ancho: 100%
+		
+		pero <span> tiene un ancho de 0, por lo que puede ubicarse en la misma línea que la entrada.
+
+		
+		Ahora pasemos al contenido generado. Lo creamos usando este CSS:
+
+		```
+		input + span {
+		  position: relative;
+		}
+
+		input:required + span::after {
+		  font-size: 0.7rem;
+		  position: absolute;
+		  content: "required";
+		  color: white;
+		  background-color: black;
+		  padding: 5px 10px;
+		  top: -26px;
+		  left: -70px;
+		}	
+
+		```
+		
+		Establecemos <span> en posición: relativa para que podamos configurar el contenido generado en posición: absoluta y posicionarlo en relación con <span> en lugar de <cuerpo> 
+		
+		(el contenido generado actúa como si fuera un nodo secundario de el elemento sobre el que se genera, a efectos de posicionamiento).
+		
+		
+		Luego le damos al contenido generado el contenido "requerido", que es lo que queríamos que dijera nuestra etiqueta
+		
+		y le damos el estilo y la posición que queremos. El resultado se ve a continuación.
+		
+		
+	Estilo a controles en función si sus datos son validos: 
+	
+		El otro concepto fundamental y realmente importante en la validación de formularios es si los datos de un control de formulario son válidos o no
+		
+		(en el caso de datos numéricos, también podemos hablar de datos dentro y fuera de rango).
+		
+		Los controles de formulario con limitaciones de restricciones se pueden orientar en función de estos estados.
+		
+		
+		:valid y :invalid
+				
+			Puede apuntar a controles de formulario utilizando las pseudoclases
+			
+			:valid y :invalid.
+			
+			
+			A tener en cuenta: 
+			
+			Los controles sin validación de restricciones siempre serán válidos y, por lo tanto, coincidirán con :valid.
+
+			Los controles con la configuración requerida que no tienen ningún valor se cuentan como no válidos; se compararán con :invalid y :required.
+			
+			Los controles con validación incorporada, como <input type="email"> o <input type="url"> son (coincidentes con): no válidos
+			    
+			cuando los datos ingresados ​​en ellos no coinciden con el patrón que están buscando (pero son válidos cuando están vacíos).
+
+			Los controles cuyo valor actual está fuera de los límites de rango especificados por los atributos mínimo y máximo son (coinciden con) :inválido,
+			
+			pero también coinciden con :fuera de rango, como verá más adelante.
+
+			Hay otras formas de hacer que un elemento coincida con :valid/:invalid, como verá en el artículo sobre validación de formularios del lado del cliente.
+			
+		
+		Como en el ejemplo anterior, tenemos <span> adicionales para generar contenido
+		
+		usaremos para proporcionar indicadores de datos válidos/no válidos:
+		
+		```
+		<div>
+		  <label for="fname">First name: </label>
+		  <input id="fname" name="fname" type="text" required />
+		  <span></span>
+		</div>
+
+		```
+	
+		Para proporcionar estos indicadores, utilizamos el siguiente CSS
+		
+		```
+		input + span {
+		  position: relative;
+		}
+
+		input + span::before {
+		  position: absolute;
+		  right: -20px;
+		  top: 5px;
+		}
+
+		input:invalid {
+		  border: 2px solid red;
+		}
+
+		input:invalid + span::before {
+		  content: "✖";
+		  color: red;
+		}
+
+		input:valid + span::before {
+		  content: "✓";
+		  color: green;
+		}
+
+		```
+
+		Como antes, configuramos los <span> en posición: relativa
+		
+		para que podamos colocar el contenido generado en relación con ellos
+		
+		Luego posicionamos absolutamente diferentes contenidos generados dependiendo de si los datos del formulario son válidos o no:
+		
+		un cheque verde o una cruz roja, respectivamente. 
+		
+		Para agregar un poco más de urgencia a los datos no válidos
+		
+		también le hemos dado a las entradas un borde rojo grueso cuando no son válidas.
+
+		Hemos usado ::before para agregar estas etiquetas, ya que ya estábamos usando ::after para las etiquetas "requeridas".
+		
+		
+		Observe cómo las entradas de texto requeridas no son válidas cuando están vacías
+		
+		pero son válidas cuando tienen algo completado
+		
+		La entrada de correo electrónico, por otro lado, es válida cuando está vacía
+		
+		ya que no es obligatoria, pero no es válida cuando contiene algo que no es un correo electrónico adecuado.
+		
+	
+	:in-range y :out-of-range data:
+		
+		Estos coinciden con entradas numéricas donde los límites de rango están especificados por el mínimo y el máximo
+		
+		cuando sus datos están dentro o fuera del rango especificado, respectivamente
+		
+		Los tipos de entrada numérica son fecha, mes, semana, hora, fecha y hora local, número y rango.
+		
+		
+		Vale la pena señalar que las entradas cuyos datos están dentro del rango también coincidirán con la pseudoclase :válida
+		
+		las entradas cuyos datos están fuera del rango también coincidirán con la pseudoclase :inválida.
+		
+		Entonces, ¿por qué tener ambos? En realidad, el problema es semántico:
+		
+		fuera de rango es un tipo más específico de comunicación no válida
+		
+		por lo que es posible que desee proporcionar un mensaje diferente para las entradas fuera de rango
+		
+		lo que será más útil para los usuarios que simplemente decir " inválido".
+		
+		Es posible que incluso quieras proporcionar ambos.
+		
+		```
+		<div>
+		  <label for="age">Age (must be 12+): </label>
+		  <input id="age" name="age" type="number" min="12" max="120" required />
+		  <span></span>
+		</div>
+
+		```
+		
+		```
+		input + span {
+		  position: relative;
+		}
+
+		input + span::after {
+		  font-size: 0.7rem;
+		  position: absolute;
+		  padding: 5px 10px;
+		  top: -26px;
+		}
+
+		input:required + span::after {
+		  color: white;
+		  background-color: black;
+		  content: "Required";
+		  left: -70px;
+		}
+
+		input:out-of-range + span::after {
+		  color: white;
+		  background-color: red;
+		  width: 155px;
+		  content: "Outside allowable value range";
+		  left: -182px;
+		}
+
+		```
+		
+		similar a la que teníamos antes en el ejemplo :required
+		
+		excepto que aquí hemos dividido las declaraciones que se aplican a cualquier contenido ::after en una regla separada
+		
+		hemos proporcionado el contenido ::after separado para :required y :out-of-range indica su propio contenido y estilo
+		
+		
+		Es posible que la entrada del número sea requerida y esté fuera de rango al mismo tiempo, entonces
+		
+		¿qué sucede entonces? Debido a que la regla :fuera de rango aparece más tarde en el código fuente que la regla :required,
+		
+		las reglas en cascada entran en juego y se muestra el mensaje de fuera de rango.
+
+		
+		Esto funciona bastante bien: cuando la página se carga por primera vez, se muestra "Obligatorio", junto con una cruz roja y un borde.
+		
+		Cuando haya ingresado una edad válida (es decir, entre 12 y 120 años), la entrada se volverá válida.
+		
+		Sin embargo, si luego cambia la entrada de edad a una que está fuera del rango,
+		
+		aparecerá el mensaje "Fuera del rango de valores permitidos" en lugar de "Obligatorio".
+
+		
+		Para ingresar un valor no válido o fuera de rango, deberá enfocar el formulario y escribirlo usando el teclado
+		
+		Los botones giratorios no le permitirán incrementar/disminuir el valor fuera del rango permitido
+		
+	
+	Estilo a disabled y enable inputs y read-only y read-write:
+	
+		Un elemento enable es un elemento que se puede activar; se puede seleccionar
+			
+		se puede seleccionar, hacer clic en él, escribir, etc.
+		
+		no se puede interactuar con un elemento disabled de ninguna manera y sus datos ni siquiera se envían al servidor
+		
+		
+		Estos dos estados se pueden abordar utilizando :enabled y :disabled.
+		
+		¿Por qué son útiles las entradas deshabilitadas? 
+		
+		A veces, si algunos datos no se aplican a un determinado usuario
+		
+		es posible que ni siquiera desees enviarlos cuando envíe el formulario
+		
+		Un ejemplo clásico es un formulario de envío
+		
+		normalmente se le preguntará si desea utilizar la misma dirección para facturación y envío
+		
+		Si es así, puede enviar una única dirección al servidor y también puede desactivar los campos de dirección de facturación
+		
+		
+		Un ejemplo que hace precisamente esto
+		
+		formulario simple que contiene entradas de texto
+		
+		una casilla de verificación para activar y desactivar la desactivación de la dirección de facturación
+		
+		Los campos de dirección de facturación están deshabilitados de forma predeterminada.
+
+		```
+		<form>
+		  <fieldset id="shipping">
+			<legend>Shipping address</legend>
+			<div>
+			  <label for="name1">Name: </label>
+			  <input id="name1" name="name1" type="text" required />
+			</div>
+			<div>
+			  <label for="address1">Address: </label>
+			  <input id="address1" name="address1" type="text" required />
+			</div>
+			<div>
+			  <label for="zip-code1">Zip/postal code: </label>
+			  <input id="zip-code1" name="zip-code1" type="text" required />
+			</div>
+		  </fieldset>
+		  <fieldset id="billing">
+			<legend>Billing address</legend>
+			<div>
+			  <label for="billing-checkbox">Same as shipping address:</label>
+			  <input type="checkbox" id="billing-checkbox" checked />
+			</div>
+			<div>
+			  <label for="name" class="billing-label disabled-label">Name: </label>
+			  <input id="name" name="name" type="text" disabled required />
+			</div>
+			<div>
+			  <label for="address2" class="billing-label disabled-label">
+				Address:
+			  </label>
+			  <input id="address2" name="address2" type="text" disabled required />
+			</div>
+			<div>
+			  <label for="zip-code2" class="billing-label disabled-label">
+				Zip/postal code:
+			  </label>
+			  <input id="zip-code2" name="zip-code2" type="text" disabled required />
+			</div>
+		  </fieldset>
+
+		  <div><button>Submit</button></div>
+		</form>
+
+		```
+		
+		```
+		input[type="text"]:disabled {
+		  background: #eee;
+		  border: 1px solid #ccc;
+		}
+
+		label:has(+ :disabled) {
+		  color: #aaa;
+		}
+
+		```
+		
+		Hemos seleccionado directamente las entradas que queremos deshabilitar usando input[type="text"]:disabled
+		
+		pero también queríamos atenuar las etiquetas de texto correspondientes.
+		
+		Como las etiquetas están justo antes de sus entradas, seleccionamos aquellas que usan la pseudoclase :has.
+		
+		
+		Finalmente, hemos usado algo de JavaScript para alternar la desactivación de los campos de dirección de facturación
+		
+		```
+		// Wait for the page to finish loading
+		document.addEventListener(
+		  "DOMContentLoaded",
+		  () => {
+			// Attach `change` event listener to checkbox
+			document
+			  .getElementById("billing-checkbox")
+			  .addEventListener("change", toggleBilling);
+		  },
+		  false,
+		);
+
+		function toggleBilling() {
+		  // Select the billing text fields
+		  const billingItems = document.querySelectorAll('#billing input[type="text"]');
+
+		  // Toggle the billing text fields
+		  for (let i = 0; i < billingItems.length; i++) {
+			billingItems[i].disabled = !billingItems[i].disabled;
+		  }
+		}
+
+		```
+		Utiliza el evento change para permitir al usuario habilitar/deshabilitar los campos de facturación y alternar el estilo de las etiquetas asociadas.
+
+
+	Read-only y read-write:
+		
+		De manera similar a :disabled y :enabled
+		
+		las pseudoclases :read-only y :read-write
+		
+		apuntan a dos estados que forman entradas que se alternan
+		
+		Al igual que con las entradas deshabilitadas, el usuario no puede editar entradas de solo lectura
+		
+		Sin embargo, a diferencia de las entradas deshabilitadas
+		
+		los valores de entrada de solo lectura se enviarán al servidor.
+		
+		Read-write significa que se pueden editar: su estado predeterminado.
+
+
+		Una entrada se configura como read-only utilizando este atributo
+		
+		imagine una página de confirmación donde el desarrollador ha enviado los detalles completados en páginas anteriores a esta página
+		
+		con el objetivo de que el usuario los verifique todos en un solo lugar
+		
+		agregue los datos finales que sean necesarios y luego confirme el pedido enviando
+		
+		En este punto, todos los datos del formulario final se pueden enviar al servidor de una sola vez.
+
+		
+		Fragmento del HTML es el siguiente: tenga en cuenta el atributo de solo lectura
+		
+		```
+		<div>
+		  <label for="name">Name: </label>
+		  <input id="name" name="name" type="text" value="Mr Soft" readonly />
+		</div>
+
+		```
+		
+		verá que el conjunto superior de elementos del formulario no es editable
+		
+		sin embargo, los valores se envían cuando se envía el formulario
+		
+		
+		Hemos diseñado los controles del formulario utilizando las pseudoclases :read-only y :read-write
+		
+		```
+		input:read-only,
+		textarea:read-only {
+		  border: 0;
+		  box-shadow: none;
+		  background-color: white;
+		}
+
+		textarea:read-write {
+		  box-shadow: inset 1px 1px 3px #ccc;
+		  border-radius: 5px;
+		}
+
+		```
+		
+		:enabled y :read-write son dos pseudoclases más que probablemente rara vez usarás
+		
+		dado que describen los estados predeterminados de los elementos de entrada.
+		
+		
+	Radio y checkbox states — checked, default, indeterminate:
+		
+		los botones de opción y las casillas de verificación tiene checked (marcar) o unchecked(desmarcar)
+		
+		Pero también hay un par de estados más a considerar
+		
+		:default
+			
+			Coincide con radios/casillas de verificación que están marcadas de forma predeterminada, al cargar la página
+			
+			(es decir, estableciendo el atributo marcado en ellas).
+			
+			Estos coinciden con la pseudoclase :default, incluso si el usuario los desmarca.
+		
+		:indeterminate
+			
+			Cuando las radios/casillas de verificación no están marcadas ni desmarcadas
+			
+			se consideran indeterminadas y coincidirán con la pseudoclase :indeterminada.
+			
+			Más sobre lo que esto significa a continuación
+					
+		:checked
+			
+			Cuando estén marcados, coincidirán con la pseudoclase :checked.
+		
+			
+		El uso más común de esto es agregar un estilo diferente a la casilla de verificación o al botón de opción cuando está marcado
+		
+		en los casos en los que haya eliminado el estilo predeterminado del sistema con appearance: none y desea reconstruir los estilos usted mismo
+		
+		
+		el código :checked de nuestro ejemplo de botones de opción con estilo se ve así:
+		
+		```
+		input[type="radio"]::before {
+		  display: block;
+		  content: " ";
+		  width: 10px;
+		  height: 10px;
+		  border-radius: 6px;
+		  background-color: red;
+		  font-size: 1.2em;
+		  transform: translate(3px, 3px) scale(0);
+		  transform-origin: center;
+		  transition: all 0.3s ease-in;
+		}
+
+		input[type="radio"]:checked::before {
+		  transform: translate(3px, 3px) scale(1);
+		  transition: all 0.3s cubic-bezier(0.25, 0.25, 0.56, 2);
+		}
+
+		```
+		
+		Básicamente, creamos el estilo para el "círculo interno"
+		
+		de un botón de opción usando el pseudoelemento ::before
+		
+		pero configuramos una transformación de escala(0) en él. 
+		
+		Luego usamos una transición para hacer que el contenido generado en la etiqueta se anime agradablemente y se vea cuando se selecciona/marca la radio
+		
+		La ventaja de usar una transformación en lugar de hacer una transición de ancho/alto es que puedes usar transform-origin
+		
+		para hacerlo crecer desde el centro del círculo, en lugar de que parezca que crece desde la esquina del círculo, y no hay comportamiento de salto como no se actualiza ningún valor de propiedad del modelo de caja
+		
+	
+	:default y :indeterminate
+		
+		la pseudoclase :default coincide con radios/casillas de verificación que están marcadas (checked) de forma predeterminada
+		
+		al cargar la página, incluso cuando no están marcadas. 
+		
+		Esto podría ser útil para agregar un indicador a una lista de opciones para recordarle al usuario cuáles eran los valores predeterminados
+		
+		(u opciones iniciales), en caso de que quiera restablecer sus opciones.
+		
+		
+		Además, las radios/casillas de verificación mencionadas anteriormente coincidirán con la pseudoclase :indeterminada
+		
+		cuando se encuentren en un estado en el que no estén marcadas ni desmarcadas
+		
+		Los elementos que son indeterminados incluyen:
+
+		
+		<input/radio> 
+		
+			cuando todos los botones de opción en un grupo con el mismo nombre no están marcados
+			
+			
+		<input/checkbox> 
+			
+			entradas cuya propiedad indeterminada se establece en verdadero a través de JavaScript
+		
+		<progress> 
+			
+			elementos que no tienen valor.
+
+		
+		Esto no es algo que probablemente uses con mucha frecuencia
+		
+		Un caso de uso podría ser un indicador para indicar a los usuarios que realmente necesitan seleccionar un botón de opción antes de continuar.
+
+		
+		Veamos un par de versiones modificadas del ejemplo anterior que recuerdan al usuario
+		
+		cuál era la opción predeterminada y aplican estilo a las etiquetas de los botones de opción cuando son indeterminadas
+		
+		Ambos tienen la siguiente estructura HTML para las entradas:
+		
+		```
+		<p>
+		  <input type="radio" name="fruit" value="cherry" id="cherry" />
+		  <label for="cherry">Cherry</label>
+		  <span></span>
+		</p>
+
+		```
+
+		Para el ejemplo default (predeterminado)
+
+		agregamos el atributo marcado a la entrada del botón de opción central
+		
+		por lo que se seleccionará de forma predeterminada cuando se cargue.
+		
+		Luego le damos estilo a esto con el siguiente CSS:
+		
+		```
+		input ~ span {
+		  position: relative;
+		}
+
+		input:default ~ span::after {
+		  font-size: 0.7rem;
+		  position: absolute;
+		  content: "Default";
+		  color: white;
+		  background-color: black;
+		  padding: 5px 10px;
+		  right: -65px;
+		  top: -3px;
+		}
+
+		```
+			
+		Esto proporciona una pequeña etiqueta "default"
+		
+		en el elemento que se seleccionó originalmente cuando se cargó la página. 
+		
+		Tenga en cuenta que aquí estamos usando el combinador de hermanos posteriores (~) en lugar del combinador de hermanos siguientes (+); 
+		
+		debemos hacer esto porque <span> no viene justo después de <input> en el orden de origen
+		
+		
+		Para el ejemplo: indeterminate
+		
+		no tenemos ningún botón de opción seleccionado default
+		
+		esto es importante; si lo hubiera, entonces no habría ningún estado indeterminado al que aplicar estilo.
+		
+		Diseñamos los botones de radio indeterminados con el siguiente CSS:
+		
+		```
+		input[type="radio"]:indeterminate {
+		  outline: 2px solid red;
+		  animation: 0.4s linear infinite alternate outline-pulse;
+		}
+
+		@keyframes outline-pulse {
+		  from {
+			outline: 2px solid red;
+		  }
+
+		  to {
+			outline: 6px solid red;
+		  }
+		}
+
+		```
+		
+		Esto crea un pequeño y divertido esquema animado en los botones de opción, que con suerte indica que debes seleccionar uno de ellos
+		
+		
+	Más pseudoclases:
+		
+		:focus-within 
+			
+			coincide con un elemento que ha recibido el foco o contiene un elemento que ha recibido el foco
+			
+			Esto es útil si desea que un formulario completo se resalte de alguna manera cuando una entrada dentro de él está enfocada.
+			
+		:focus-visible 
+			
+			coincide con elementos enfocados que recibieron el enfoque a través de la interacción del teclado
+			
+			(en lugar de tocar o usar el mouse)
+			
+			lo cual es útil si desea mostrar un estilo diferente para el enfoque del teclado en comparación con el enfoque del mouse (u otro).
+			
+		:placeholder-shown
+		
+			coincide con los elementos <input> y <textarea> que muestran su marcador de posición
+			
+			(es decir, el contenido del atributo de marcador de posición)
+			
+			porque el valor del elemento está vacío
+		
+		
+		Aún no compatible con los navegadores:
+		
+		:blank 
+			
+			selecciona controles de formulario vacíos. :empty también coincide con elementos que no tienen hijos, como <input>,
+			
+			pero es más general: también coincide con otros elementos vacíos como <br> y <hr>. :empty tiene un soporte de navegador razonable
+			
+			La especificación de la pseudoclase :blank aún no está terminada, por lo que aún no es compatible con ningún navegador.
+			
+			
+		:user-invalid 
+	
+			cuando sea compatible, será similar a :invalid, pero con una mejor experiencia de usuario.
+			
+			Si el valor es válido cuando la entrada recibe el foco, el elemento puede coincidir con :invalid cuando el usuario ingresa datos si el valor no es válido temporalmente
+			
+			pero solo coincidirá con :user-invalid cuando el elemento pierde el foco.
+			
+			Si el valor originalmente no era válido, coincidirá con :invalid y :user-invalid durante toda la duración del foco
+			
+			De manera similar a :invalid, dejará de coincidir con :user-invalid si el valor se vuelve válido
+
+	
+	
+|| Validación del lado del Cliente y Envio de datos
+
+		1. Client-side form validation
+			
+			Enviar datos no es suficiente: también debemos asegurarnos de que los datos que los usuarios ingresan en los formularios tengan el formato correcto
+			
+			para procesarlos exitosamente y que no dañen nuestras aplicaciones.
+			
+			También queremos ayudar a nuestros usuarios a completar nuestros formularios correctamente y no frustrarse al intentar utilizar nuestras aplicaciones
+			
+			La validación de formularios nos ayuda a lograr estos objetivos
+			
+		
+		2. Sending form data
+			
+			lo que sucede cuando un usuario envía un formulario:
+			
+			¿a dónde van los datos y cómo los manejamos cuando llegan allí?
+			
+			También analizamos algunos de los problemas de seguridad asociados con el envío de datos de formularios.
+			
+			
+		
+|| Client-side form validation
+			
+	Es importante asegurarse de que todos los controles del formulario requeridos se completen
+	
+	en el formato correcto, antes de enviar los datos del formulario ingresados ​​por el usuario al servidor.
+	
+	Esta validación de formulario del lado del cliente ayuda a garantizar que los datos ingresados ​​coincidan con los requisitos establecidos en los distintos controles del formulario.
+
+				
+	La validación del lado del cliente es una verificación inicial y una característica importante de una buena experiencia de usuario
+	
+	Al detectar datos no válidos en el lado del cliente, el usuario puede solucionarlos de inmediato.
+	
+	Si llega al servidor y luego es rechazado, se produce un retraso notable debido a un viaje de ida y vuelta al servidor
+	
+	y luego de regreso al lado del cliente para decirle al usuario que arregle sus datos.
+	
+	
+	Sin embargo, la validación del lado del cliente no debe considerarse una medida de seguridad exhaustiva
+	
+	Sus aplicaciones siempre deben realizar validaciones, incluidas comprobaciones de seguridad
+	
+	tanto en el lado del servidor como en el lado del cliente, porque la validación del lado del cliente es demasiado fácil de eludir
+	
+	por lo que los usuarios malintencionados aún pueden enviar datos incorrectos fácilmente a través de su servidor.
+	
+	
+	Validar formularios: 
+	
+		Los formularios brindan comentarios cuando no ingresa sus datos en el formato que esperan. 
+		
+		Recibirás mensajes como:
+		
+		    "Este campo es obligatorio" (required). No puede dejar este campo en blanco.
+
+			"Por favor ingresa tu número de teléfono en el formato xxx-xxxx" 
+				
+				(Se requiere un formato de datos específico para que se considere válido).
+
+			"Ingrese una dirección de correo electrónico válida"
+					
+				(los datos que ingresó no están en el formato correcto).
+			
+			"Su contraseña debe tener entre 8 y 30 caracteres y contener una letra mayúscula, un símbolo y un número".
+					
+				(Se requiere un formato de datos muy específico para sus datos)
+		
+			    
+		Esto es la validación de formulario
+			
+		Cuando ingresa datos, el navegador (y el servidor web) 
+		
+		verificarán que los datos estén en el formato correcto y dentro de las restricciones establecidas por la aplicación.
+		
+		La validación realizada en el navegador se denomina validación del lado del cliente,
+		
+		mientras que la validación realizada en el servidor se denomina validación del lado del servidor
+		
+		En este capítulo nos centraremos en la validación del lado del cliente.
+
+
+		Si la información tiene el formato correcto
+		
+		la aplicación permite que los datos se envíen al servidor y (normalmente) se guarden en una base de datos
+		
+		si la información no tiene el formato correcto
+		
+		le muestra al usuario un mensaje de error que explica lo que debe corregirse y le permite volver a intentarlo.
+
+		
+		Razones para validar formularios: 
+		
+		Queremos obtener los datos correctos, en el formato correcto:
+			
+			Nuestras aplicaciones no funcionarán correctamente si los datos de nuestros usuarios se almacenan en el formato incorrecto, son incorrectos o se omiten por completo
+			
+		Queremos proteger los datos de nuestros usuarios:
+		
+			Obligar a nuestros usuarios a ingresar contraseñas seguras hace que sea más fácil proteger la información de su cuenta
+			
+		Queremos protegernos
+			
+			Hay muchas formas en que los usuarios malintencionados pueden hacer un mal uso de formularios desprotegidos para dañar la aplicación
+			
+		
+		Nunca confíe en los datos pasados ​​a su servidor desde el cliente
+		
+		Incluso si su formulario se valida correctamente y evita entradas con formato incorrecto en el lado del cliente
+		
+		un usuario malintencionado aún puede alterar la solicitud de red.
+		
+		
+	Diferentes tipos de validación del lado del cliente:
+		
+		Hay dos tipos diferentes de validación del lado del cliente que encontrará en la web
+		
+		
+		Validación de formulario HTML:
+			
+			Los atributos de formulario HTML pueden definir qué controles de formulario se requieren
+			
+			y en qué formato deben estar los datos ingresados ​​por el usuario para que sean válidos.
+
+
+		Validación de formularios JavaScript:
+			
+			JavaScript generalmente se incluye para mejorar o personalizar la validación de formularios HTML
+			
+		
+		La validación del lado del cliente se puede lograr con poco o ningún JavaScript
+		
+		La validación de HTML es más rápida que la de JavaScript
+		
+		pero es menos personalizable que la validación de JavaScript
+		
+		En general, se recomienda comenzar sus formularios utilizando funciones HTML sólidas
+		
+		luego mejorar la experiencia del usuario con JavaScript según sea necesario.
+		
+		
+	Built-in form validation:
+	
+		Una de las características más importantes de los controles de formulario
+		
+		es la capacidad de validar la mayoría de los datos del usuario sin depender de JavaScript.
+		
+		Esto se hace mediante el uso de atributos de validación en los elementos del formulario
+		
+		
+		
+		required: 
+			
+			especifica si es necesario completar un campo del formulario antes de poder enviar el formulario.
+		
+		minlength y maxlength: 
+			
+			especifica la longitud mínima y máxima de los datos textuales (cadenas).
+		
+		min, max y step: 
+			
+			especifica los valores mínimo y máximo de los tipos de entrada numérica
+			
+			y el incremento o paso de los valores, comenzando desde el mínimo.
+		
+		type:
+			
+			especifica si los datos deben ser un número, una dirección de correo electrónico o algún otro tipo preestablecido específico
+		
+		pattern: 
+			
+			especifica una expresión regular que define un patrón que los datos ingresados ​​deben seguir
+			
+		
+		Si los datos ingresados ​​en un campo de formulario siguen todas las reglas especificadas por los atributos aplicados al campo, se considera válido.
+		
+		En caso contrario, se considera inválido.
+		
+		
+		Cuando un elemento es válido lo siguiente es verdadero:
+
+			El elemento coincide con la pseudoclase CSS :valid
+					
+			que le permite aplicar un estilo específico a elementos válidos
+			
+			El control también coincidirá con :user-valid
+			
+			si el usuario ha interactuado con el control
+			
+			y puede coincidir con otras pseudoclases de UI, como :in-range
+			
+			según el tipo de entrada y los atributos.
+
+		
+			Si el usuario intenta enviar los datos:
+			
+			el navegador enviará el formulario
+			
+			siempre que no haya nada que lo impida (por ejemplo, JavaScript).
+		
+			
+		Cuando un elemento no es válido, las siguientes condiciones son verdaderas: 
+		
+			El elemento coincide con la pseudoclase CSS :invalid.
+			
+			Si el usuario ha interactuado con el control, también coincide con la pseudoclase CSS :user-invalid.
+			
+			Otras pseudoclases de UI también pueden coincidir, como :out-of-range, según el error.
+			
+			Estos le permiten aplicar un estilo específico a elementos no válidos.
+
+
+			Si el usuario intenta enviar los datos
+			
+			el navegador bloqueará el envío del formulario y mostrará un mensaje de error
+			
+			El mensaje de error variará según el tipo de error.
+		
+			Se describirá la Constraint Validation API
+		
+	
+	Ejemplo de Built-in form validation:
+		
+		probaremos algunos de los atributos que analizados
+		
+		Ej, una entrada que te permite elegir si prefieres un plátano o una cereza
+		
+		Este ejemplo involucra un texto básico <input>
+		
+		con una <label> asociada y un <button> de envío
+		
+		```
+		<form>
+		  <label for="choose">Would you prefer a banana or cherry?</label>
+		  <input id="choose" name="i-like" />
+		  <button>Submit</button>
+		</form>
+
+		```
+		
+		```
+		input:invalid {
+		  border: 2px dashed red;
+		}
+
+		input:valid {
+		  border: 2px solid black;
+		}
+
+		```
+		
+	Atributo requiered:
+		
+		Una característica común de validación de HTML es el atributo required
+		
+		Agregue este atributo a una entrada para que un elemento sea obligatorio
+		
+		Cuando se establece este atributo
+		
+		el elemento coincide con la pseudoclase de UI :required
+		
+		y el formulario no se enviará, mostrando un mensaje de error al enviarlo, si la entrada está vacía
+	
+		Mientras esté vacía, la entrada también se considerará inválida
+		
+		y coincidirá con la pseudoclase de interfaz de usuario :invalid
+		
+		
+		Si algún botón de opción (radio button) 
+		
+		en un grupo con el mismo nombre tiene el atributo required
+		
+		se debe marcar (checked) uno de los botones de opción en ese grupo
+		
+		para que el grupo sea válido 
+		 
+		el radio button no tiene que ser la que tiene el atributo set
+		
+		solo solicite a los usuarios que ingresen los datos que necesita
+		
+		por ejemplo, ¿es realmente necesario saber el género o el cargo de alguien?
+		
+		
+		Agregue un atributo required a su entrada así: 
+		
+		```
+		<form>
+		  <label for="choose">Would you prefer a banana or cherry? (required)</label>
+		  <input id="choose" name="i-like" required />
+		  <button>Submit</button>
+		</form>
+
+		```
+		
+		Agregamos "(required)" a <label> para informar al usuario que <input> es obligatoria/requerida.
+		
+		Indicar al usuario cuándo son obligatorios los campos del formulario no solo es una buena experiencia de usuario
+		
+		sino que también lo exigen las pautas de accesibilidad WCAG
+		
+		
+		Incluimos estilos CSS que se aplican en función de si el elemento es required, valid o invalid
+		
+		```
+		input:invalid {
+		  border: 2px dashed red;
+		}
+
+		input:invalid:required {
+		  background-image: linear-gradient(to right, pink, lightgreen);
+		}
+
+		input:valid {
+		  border: 2px solid black;
+		}
+
+		```
+		
+		Este CSS hace que la entrada tenga un borde rojo discontinuo cuando no es válida
+		
+		y un borde negro sólido más sutil cuando es válida.
+		
+		También agregamos un degradado de fondo cuando la entrada es obligatoria y no es válida.
+		
+		
+		Intente enviar el formulario sin ningún valor
+		
+		Observe cómo se enfoca la entrada no válida
+		
+		aparece un mensaje de error predeterminado ("Complete este campo")
+		
+		y se impide que se envíe el formulario.
+		
+	
+	Validar contra una expresión regular:
+		
+		Otra característica de validación útil es el atributo pattern
+		
+		que espera una expresión regular como valor
+		
+		Una expresión regular (regexp)
+		
+		es un patrón que se puede usar para hacer coincidir combinaciones de caracteres en cadenas de texto
+		
+		son ideales para la validación de formularios y sirven para una variedad de otros usos en JavaScript.
+
+		
+		Las expresiones regulares son bastante complejas
+		
+		se muestran algunos ejemplos para darle una idea básica de cómo funcionan
+		
+		
+		a:
+			coincide con un carácter que es a (no b, no aa, etc.).
+
+		abc:
+			
+			coincide con a, seguido de b, seguido de c.
+
+		ab?c:
+		
+			coincide con a, seguida opcionalmente de una sola b, seguida de c. (ac o abc)
+			
+		ab*c:
+		
+			coincide con a, seguido opcionalmente de cualquier número de bs
+			
+			seguido de c. (ac, abc, abbbbbc, etc.).
+
+		a|b:
+			
+			coincide con un carácter que es a o b.
+
+		abc|xyz:
+			
+			coincide exactamente con abc o exactamente xyz (pero no con abcxyz o aoy, etc.).
+
+		
+		Hay muchas más posibilidades.
+		
+		
+		Implementemos un ejemplo. 
+		
+		Actualice su HTML para agregar un atributo pattern
+		
+		```
+		<form>
+		  <label for="choose">Would you prefer a banana or a cherry?</label>
+		  <input id="choose" name="i-like" required pattern="[Bb]anana|[Cc]herry" />
+		  <button>Submit</button>
+		</form>
+
+		```
+		
+		En este ejemplo, el elemento <input> acepta uno de cuatro valores posibles
+		
+		las cadenas "banana", "Banana", "cherry" o "Cherry".
+		
+		Las expresiones regulares distinguen entre mayúsculas y minúsculas
+		
+		pero hemos hecho que admitan versiones en mayúsculas y minúsculas utilizando un patrón "Aa"
+		
+		adicional anidado entre corchetes
+		
+		
+		En este punto, intente cambiar el valor dentro del atributo de patrón para que sea igual a algunos de los ejemplos que vio anteriormente
+		
+		observe cómo eso afecta los valores que puede ingresar para que el valor de entrada sea válido
+		
+		
+		Si un valor no vacío de <input> no coincide con el patrón de la expresión regular
+		
+		la entrada coincidirá con la pseudoclase :invalid
+		
+		Si está vacío y el elemento no es obligatorio
+		
+		no se considera inválido
+	
+		
+		Algunos tipos de elementos <input> no necesitan un atributo de patrón para validarse con una expresión regular
+		
+		Por ejemplo, especificar el tipo de correo electrónico valida el valor de las entradas frente a un patrón de dirección de correo electrónico bien formado
+		
+		o un patrón que coincida con una lista de direcciones de correo electrónico separadas por comas
+		
+		si tiene el atributo múltiple.
+
+
+		El elemento <textarea> no admite el atributo de patrón
+		
+		
+	Restringir la longitud de sus entradas
+	
+		Puede restringir la longitud de caracteres de todos los campos de texto creados por <input> o <textarea>
+		
+		utilizando los atributos minlength y maxlength
+		
+		Un campo no es válido si tiene un valor y ese valor tiene menos caracteres que el valor de longitud mínima
+		
+		o más que el valor de longitud máxima.
+
+		
+		Los navegadores a menudo no permiten al usuario escribir un valor más largo de lo esperado en los campos de texto
+		
+		Una mejor experiencia de usuario que simplemente usar maxlength
+		
+		es proporcionar también comentarios sobre el recuento de caracteres de manera accesible
+		
+		y permitir que el usuario edite su contenido al tamaño adecuado
+		
+		Un ejemplo de esto es el límite de caracteres al publicar en las redes sociales
+		
+		Se puede utilizar JavaScript, incluidas las soluciones que utilizan maxlength, para proporcionar esto
+		
+		Las restricciones de longitud nunca se informan si el valor se establece mediante programación
+		
+		Solo se informan para la entrada proporcionada por el usuario.
+		
+	
+	Restringir los valores de sus entradas:
+	
+		Para campos numéricos, incluidos <input type="number">
+		
+		y los distintos tipos de entrada de fecha
+		
+		los atributos mínimo y máximo se pueden utilizar para proporcionar un rango de valores válidos
+		
+		Si el campo contiene un valor fuera de este rango, no será válido.
+
+		
+		Para el ejemplo usamos el siguiente body: 
+		
+		```
+		<form>
+		  <div>
+			<label for="choose">Would you prefer a banana or a cherry?</label>
+			<input
+			  type="text"
+			  id="choose"
+			  name="i-like"
+			  required
+			  minlength="6"
+			  maxlength="6" />
+		  </div>
+		  <div>
+			<label for="number">How many would you like?</label>
+			<input type="number" id="number" name="amount" value="1" min="1" max="10" />
+		  </div>
+		  <div>
+			<button>Submit</button>
+		  </div>
+		</form>
+
+		```
+		
+		verá que le hemos dado al campo de texto una longitud mínima y una longitud máxima de seis
+		
+		que es la misma longitud que el plátano y la cereza.
+
+		También le hemos dado al campo numérico un mínimo de uno y un máximo de diez
+		
+		Los números ingresados ​​fuera de este rango se mostrarán como no válidos
+		
+		los usuarios no podrán usar las flechas de incremento/disminución para mover el valor fuera de este rango
+		
+		Si el usuario ingresa manualmente un número fuera de este rango, los datos no son válidos.
+		 
+		El número no es obligatorio, por lo que eliminar el valor dará como resultado un valor válido.
+		
+		
+		Los tipos de entrada numéricos, como número, rango y fecha, también pueden tener el atributo set
+		
+		Este atributo especifica en qué incremento aumentará o disminuirá el valor cuando se utilicen los controles de entrada
+		
+		(como los botones numéricos de arriba y abajo, o deslizar el pulgar de rangos).
+		 
+		El atributo step se omite en nuestro ejemplo, por lo que el valor predeterminado es 1.
+		
+		Esto significa que los flotantes, como 3.2, también se mostrarán como no válidos.
+		
+		
+		Consulte Atributos relacionados con la validación para obtener una lista completa de atributos 
+		
+		que se pueden usar para restringir los valores de entrada y los tipos de entrada que los admiten
+		
+	
+	Validar formularios usando JS: 
+		
+		Si desea cambiar el texto de los mensajes de error nativos, se necesita JavaScript
+		
+		veremos las diferentes formas de hacer esto.
+
+
+	Constraint Validation API (Validación de restricciones):
+	
+		Consta de un conjunto de métodos y propiedades disponibles en las siguientes interfaces DOM de elementos de formulario
+			
+		HTMLButtonElement (represents a <button> element)
+		HTMLFieldSetElement (represents a <fieldset> element)
+		HTMLInputElement (represents an <input> element)
+		HTMLOutputElement (represents an <output> element)
+		HTMLSelectElement (represents a <select> element)
+		HTMLTextAreaElement (represents a <textarea> element)
+
+
+
+		validationMessage
+			
+			devuelve un mensaje localizado que describe las restricciones de validación que el control no satisface (si corresponde).
+			
+			Si el control no es candidato para la validación de restricciones (willValidate es falso) 
+			
+			o el valor del elemento satisface sus restricciones (es válido), esto devolverá una cadena vacía.
+
+		validity
+			
+			devuelve un objeto ValidityState que contiene varias propiedades que describen el estado de validez del elemento
+			
+			Puede encontrar detalles completos de todas las propiedades disponibles en la página de referencia de ValidityState
+			
+			A continuación se enumeran algunos de los más comunes
+			
+			
+			patternMismatch:
+				
+				devuelve verdadero si el valor no coincide con el patrón especificado y falso si coincide.
+				
+				Si es verdadero, el elemento coincide con la pseudoclase :invalid de css
+				
+			tooLong:
+				
+				devuelve verdadero si el valor es más largo que la longitud máxima especificada por el atributo maxlength
+				
+				o falso si es más corto o igual al máximo.
+				
+				Si es verdadero, el elemento coincide con la pseudoclase CSS :invalid
+				
+			tooShort:
+				
+				Devuelve verdadero si el valor es más corto que la longitud mínima especificada por el atributo minlength
+				
+				o falso si es mayor o igual al mínimo.
+				
+				Si es verdadero, el elemento coincide con la pseudoclase CSS :invalid
+				
+			rangeOverflow: 
+				
+				Devuelve verdadero si el valor es mayor que el máximo especificado por el atributo max
+				
+				o falso si es menor o igual al máximo.
+				
+				Si es verdadero, el elemento coincide con las pseudoclases CSS :invalid y :out-of-range.
+				
+			rangeUnderflow:
+				
+				Devuelve verdadero si el valor es menor que el mínimo especificado por el atributo min
+				
+				o falso si es mayor o igual al mínimo.
+				
+				Si es verdadero, el elemento coincide con las pseudoclases CSS :invalid y :out-of-range.
+
+			typeMismatch:
+				
+				devuelve verdadero si el valor no está en la sintaxis requerida
+				
+				(cuando el tipo es correo electrónico o URL)
+				
+				o falso si la sintaxis es correcta.
+				
+				Si es verdadero, el elemento coincide con la pseudoclase CSS :invalid. 
+				
+			valid:
+				
+				Devuelve verdadero si el elemento cumple con todas sus restricciones de validación
+				
+				y, por lo tanto, se considera válido, o falso si falla alguna restricción.
+				
+				Si es verdadero, el elemento coincide con la pseudoclase CSS válida;
+				
+				de lo contrario, la pseudoclase CSS :invalid.
+				
+			valueMissing:
+				
+				Devuelve verdadero si el elemento tiene un atributo requerido, pero ningún valor
+				
+				o falso en caso contrario. 
+				
+				 Si es verdadero, el elemento coincide con la pseudoclase CSS :invalid
+		
+		willValidate:
+			
+			Devuelve verdadero si el elemento se validará cuando se envíe el formulario; falso en caso contrario.
+			
+		
+		La API de validación de restricciones también hace que los siguientes métodos
+		
+		estén disponibles en los elementos anteriores y en el elemento de formulario.
+		
+		
+		checkValidity():
+			
+			Devuelve verdadero si el valor del elemento no tiene problemas de validez; falso en caso contrario
+			
+			Si el elemento no es válido, este método también activa un evento no válido en el elemento.
+			
+		reportValidity():
+			
+			Informa campos no válidos mediante eventos.
+			
+			Este método es útil en combinación con preventDefault() en un controlador de eventos onSubmit
+			
+		setCustomValidity(message):
+			
+			agrega un mensaje de error personalizado al elemento;
+			
+			Si configura un mensaje de error personalizado
+			
+			el elemento se considera no válido y se muestra el error especificado
+			
+			Esto le permite utilizar código JavaScript para establecer un error de validación distinto de los ofrecidos por las restricciones de validación HTML estándar
+		
+			El mensaje se muestra al usuario cuando informa el problema.
+			
+	
+	Implementar mensaje de error personalizado: 
+		
+		Como vio anteriormente en los ejemplos de restricciones de validación de HTML
+		
+		cada vez que un usuario intenta enviar un formulario no válido
+		
+		el navegador muestra un mensaje de error.
+		
+		La forma en que se muestra este mensaje depende del navegador.
+		
+		
+		Estos mensajes automatizados tienen dos inconvenientes
+			
+			No existe una forma estándar de cambiar su apariencia con CSS.
+			
+			Dependen de la configuración regional del navegador
+				
+				lo que significa que puede tener una página en un idioma pero mostrar un mensaje de error en otro idioma
+			
+		
+		Personalizar estos mensajes de error es uno de los casos de uso más comunes de la API de validación de restricciones
+			
+		En un ejemplo sencillo, con algo de HTML
+		
+		
+	Extender la validación incluida en los formularios: 
+		
+		El ejemplo anterior mostró cómo agregar un mensaje personalizado
+		
+		para un tipo particular de error (validity.typeMismatch).
+		
+		También es posible utilizar toda la validación de formulario integrada y luego agregarla usando setCustomValidity().
+		
+		
+		Puede ampliar la validación <input type="email"> incorporada
+		
+		para aceptar solo direcciones con el dominio @example.com.
+		
+		Con el HTML: 
+		
+		```
+		<form>
+		  <label for="mail">Email address (@example.com only):</label>
+		  <input type="email" id="mail" />
+		  <button>Submit</button>
+		</form>
+
+		```
+		
+		El código de validación se muestra a continuación
+		
+		En caso de cualquier entrada nueva
+		
+		el código primero restablece el mensaje de validez personalizado llamando a setCustomValidity("").
+		
+		Luego usa email.validity.valid para verificar si la dirección ingresada no es válida y, de ser así, regresa del controlador de eventos
+		
+		Esto garantiza que se ejecuten todas las comprobaciones de validación integradas normales mientras el texto ingresado no sea una dirección de correo electrónico válida
+		
+		
+		Una vez que la dirección de correo electrónico es válida
+		
+		el código agrega una restricción personalizada, llamando a setCustomValidity() 
+		
+		con un mensaje de error si la dirección no termina en @example.com.
+		
+		```
+		const email = document.getElementById("mail");
+
+		email.addEventListener("input", (event) => {
+		  // Validate with the built-in constraints
+		  email.setCustomValidity("");
+		  if (!email.validity.valid) {
+			return;
+		  }
+
+		  // Extend with a custom constraints
+		  if (!email.value.endsWith("@example.com")) {
+			email.setCustomValidity("Please enter an email address of @example.com");
+		  }
+		});
+
+		```
+		
+	
+	Validación más detallada:
+	
+		Podemos usar esta API para crear una validación personalizada un poco más compleja
+		
+		Con el HTML:
+		
+		```
+		<form novalidate>
+		  <p>
+			<label for="mail">
+			  <span>Please enter an email address:</span>
+			  <input type="email" id="mail" name="mail" required minlength="8" />
+			  <span class="error" aria-live="polite"></span>
+			</label>
+		  </p>
+		  <button>Submit</button>
+		</form>
+
+		```
+		
+		
+		Este formulario utiliza el atributo novalidate
+		
+		para desactivar la validación automática del navegador
+		
+		Configurar el atributo novalidate en el formulario evita que el formulario muestre sus propias burbujas de mensajes de error
+		
+		y, en su lugar, nos permite mostrar los mensajes de error personalizados en el DOM de la forma que elijamos.
+		
+		Sin embargo, esto no deshabilita el soporte para la API de validación de restricciones ni la aplicación de pseudoclases CSS como :valid, etc. 
+			
+		Eso significa que aunque el navegador no verifica automáticamente la validez del formulario antes de enviar sus datos,
+		
+		Todavía puedes hacerlo tú mismo y diseñar el formulario en consecuencia.
+		
+		
+		Nuestra entrada para validar es un <input type="email">,
+		
+		que es obligatorio y tiene una longitud mínima de 8 caracteres. 
+		
+		Comprobémoslos usando nuestro propio código y mostremos un mensaje de error personalizado para cada uno.
+
+		
+		Nuestro objetivo es mostrar los mensajes de error dentro de un elemento <span>.
+		
+		El atributo aria-live está configurado en ese <span> para garantizar que nuestro mensaje de error personalizado se presente a todos
+
+		incluso que se lea en voz alta a los usuarios de lectores de pantalla.
+
+
+		Ahora pasemos a algo de CSS básico para mejorar ligeramente el aspecto del formulario y proporcionar información visual cuando los datos de entrada no son válidos:
+		
+		```
+		body {
+		  font: 1em sans-serif;
+		  width: 200px;
+		  padding: 0;
+		  margin: 0 auto;
+		}
+
+		p * {
+		  display: block;
+		}
+
+		input[type="email"] {
+		  appearance: none;
+
+		  width: 100%;
+		  border: 1px solid #333;
+		  margin: 0;
+
+		  font-family: inherit;
+		  font-size: 90%;
+
+		  box-sizing: border-box;
+		}
+
+		/* invalid fields */
+		input:invalid {
+		  border-color: #900;
+		  background-color: #fdd;
+		}
+
+		input:focus:invalid {
+		  outline: none;
+		}
+
+		/* error message styles */
+		.error {
+		  width: 100%;
+		  padding: 0;
+
+		  font-size: 80%;
+		  color: white;
+		  background-color: #900;
+		  border-radius: 0 0 5px 5px;
+
+		  box-sizing: border-box;
+		}
+
+		.error.active {
+		  padding: 0.3em;
+		}
+
+		```
+		
+		
+		Ahora veamos el JavaScript que implementa la validación de errores personalizada
+		
+		Hay muchas formas de elegir un nodo DOM; 
+		
+		aquí obtenemos el formulario en sí y el cuadro de entrada del correo electrónico
+		
+		así como el elemento span en el que colocaremos el mensaje de error.
+
+
+		Usando controladores de eventos
+		
+		verificamos si los campos del formulario son válidos cada vez que el usuario escribe algo.
+		
+		Si hay algún error, lo mostramos. Si no hay ningún error, eliminamos cualquier mensaje de error.
+		
+		```
+		const form = document.querySelector("form");
+		const email = document.getElementById("mail");
+		const emailError = document.querySelector("#mail + span.error");
+
+		email.addEventListener("input", (event) => {
+		  if (email.validity.valid) {
+			emailError.textContent = ""; // Remove the message content
+			emailError.className = "error"; // Removes the `active` class
+		  } else {
+			// If there is still an error, show the correct error
+			showError();
+		  }
+		});
+
+		form.addEventListener("submit", (event) => {
+		  // if the email field is invalid
+		  if (!email.validity.valid) {
+			// display an appropriate error message
+			showError();
+			// prevent form submission
+			event.preventDefault();
+		  }
+		});
+
+		function showError() {
+		  if (email.validity.valueMissing) {
+			// If empty
+			emailError.textContent = "You need to enter an email address.";
+		  } else if (email.validity.typeMismatch) {
+			// If it's not an email address,
+			emailError.textContent = "Entered value needs to be an email address.";
+		  } else if (email.validity.tooShort) {
+			// If the value is too short,
+			emailError.textContent = `Email should be at least ${email.minLength} characters; you entered ${email.value.length}.`;
+		  }
+		  // Add the `active` class
+		  emailError.className = "error active";
+		}
+
+		```
+		
+		Cada vez que cambiamos el valor de la entrada, verificamos si contiene datos válidos.
+		
+		Si es así, eliminamos cualquier mensaje de error que se muestre.
+		
+		Si los datos no son válidos, ejecutamos showError() para mostrar el error apropiado.
+		
+		
+		Cada vez que intentamos enviar el formulario
+		
+		comprobamos nuevamente si los datos son válidos
+		
+		Si es así, dejamos que se envíe el formulario.
+		
+		De lo contrario, ejecutamos showError() para mostrar el error apropiado y detenemos el envío del formulario con preventDefault().
+		
+		
+		La función showError() utiliza varias propiedades del objeto de validez de la entrada para determinar cuál es el error
+		
+		luego muestra un mensaje de error según corresponda.
+		
+		
+		La API de validación de restricciones le brinda una herramienta poderosa para manejar la validación de formularios
+
+		validación de formularios, lo que le permite tener un control enorme sobre la interfaz de usuario más allá de lo que puede hacer solo con HTML y CSS.
+		
+		
+	Validar formularios sin la API incorporada:
+		
+		En algunos casos, como en los controles personalizados
+		
+		no podrá o no querrá utilizar la API de validación de restricciones.
+		
+		Aún puedes usar JavaScript para validar tu formulario
+		
+		pero solo tendrás que escribir el tuyo propio.
+
+		
+		Para validar un formulario, hágase algunas preguntas
+		
+		
+		¿Qué tipo de validación debo realizar?
+	
+			Debe determinar cómo validar sus datos:
+			
+			operaciones de cadenas, conversión de tipos, expresiones regulares, etc. Tu decides.
+
+	
+		¿Qué debo hacer si el formulario no se valida?
+		
+			Esto es claramente una cuestión de interfaz de usuario
+			
+			Tienes que decidir cómo se comportará el formulario.
+			
+			¿El formulario envía los datos de todos modos?
+			
+			¿Deberías resaltar los campos que tienen errores?
+			
+			¿Debería mostrar mensajes de error?
+			
+			¿Cómo puedo ayudar al usuario a corregir datos no válidos?
+			
+			
+		¿Cómo puedo ayudar al usuario a corregir datos no válidos?
+
+			Para reducir la frustración del usuario
+			
+			es muy importante proporcionar tanta información útil como sea posible para guiarlo en la corrección de sus entradas
+			
+			Debe ofrecer sugerencias por adelantado para que sepan lo que se espera, así como mensajes de error claros.
+			
+			Si desea profundizar en los requisitos de la interfaz de usuario de validación de formularios
+			
+	
+	Ejemplo que no usa constraint validation API:
+		
+		Una versión simplificada del ejemplo anterior sin la API de validación de restricciones
+		
+		El HTML es casi el mismo
+		
+		eliminar las funciones de validación de HTML.
+		
+		```
+		<form>
+		  <p>
+			<label for="mail">
+			  <span>Please enter an email address:</span>
+			  <input type="text" id="mail" name="mail" />
+			  <span class="error" aria-live="polite"></span>
+			</label>
+		  </p>
+		  <button>Submit</button>
+		</form>
+
+		```	
+			
+		De manera similar, el CSS no necesita cambiar mucho
+		
+		Acabamos de convertir la pseudoclase CSS :invalid en una clase real 
+		
+		y evitamos usar el selector de atributos.
+		
+		```
+		body {
+		  font: 1em sans-serif;
+		  width: 200px;
+		  padding: 0;
+		  margin: 0 auto;
+		}
+
+		form {
+		  max-width: 200px;
+		}
+
+		p * {
+		  display: block;
+		}
+
+		input#mail {
+		  appearance: none;
+		  width: 100%;
+		  border: 1px solid #333;
+		  margin: 0;
+
+		  font-family: inherit;
+		  font-size: 90%;
+
+		  box-sizing: border-box;
+		}
+
+		/* invalid fields */
+		input#mail.invalid {
+		  border-color: #900;
+		  background-color: #fdd;
+		}
+
+		input:focus.invalid {
+		  outline: none;
+		}
+
+		/* error messages */
+		.error {
+		  width: 100%;
+		  padding: 0;
+
+		  font-size: 80%;
+		  color: white;
+		  background-color: #900;
+		  border-radius: 0 0 5px 5px;
+		  box-sizing: border-box;
+		}
+
+		.error.active {
+		  padding: 0.3em;
+		}
+
+		```
+		
+		
+		Los grandes cambios están en el código JavaScript
+		
+		que necesita hacer mucho más trabajo pesado.
+		
+		```
+		const form = document.querySelector("form");
+		const email = document.getElementById("mail");
+		const error = email.nextElementSibling;
+
+		// As per the HTML Specification
+		const emailRegExp =
+		  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+		// Now we can rebuild our validation constraint
+		// Because we do not rely on CSS pseudo-class, we have to
+		// explicitly set the valid/invalid class on our email field
+		window.addEventListener("load", () => {
+		  // Here, we test if the field is empty (remember, the field is not required)
+		  // If it is not, we check if its content is a well-formed email address.
+		  const isValid = email.value.length === 0 || emailRegExp.test(email.value);
+		  email.className = isValid ? "valid" : "invalid";
+		});
+
+		// This defines what happens when the user types in the field
+		email.addEventListener("input", () => {
+		  const isValid = email.value.length === 0 || emailRegExp.test(email.value);
+		  if (isValid) {
+			email.className = "valid";
+			error.textContent = "";
+			error.className = "error";
+		  } else {
+			email.className = "invalid";
+		  }
+		});
+
+		// This defines what happens when the user tries to submit the data
+		form.addEventListener("submit", (event) => {
+		  event.preventDefault();
+
+		  const isValid = email.value.length === 0 || emailRegExp.test(email.value);
+		  if (!isValid) {
+			email.className = "invalid";
+			error.textContent = "I expect an email, darling!";
+			error.className = "error active";
+		  } else {
+			email.className = "valid";
+			error.textContent = "";
+			error.className = "error";
+		  }
+		});
+
+		```
+		
+		Como puede ver, no es tan difícil crear un sistema de validación por su cuenta
+		
+		La parte difícil es hacerlo lo suficientemente genérico como para usarlo multiplataforma
+		
+		y en cualquier formato que puedas crear
+		
+		Hay muchas bibliotecas disponibles para realizar la validación de formularios, como Validate.js.
+	
+
+
+|| Sending form data	
+				
+	Una vez que los datos del formulario hayan sido validados por el lado del cliente
+	
+	puede enviar el formulario, se analiza lo que sucede cuando un usuario envía un formulario
+	
+	¿a dónde van los datos y cómo los manejamos cuando llegan allí?
+	
+	Tambien se analiza algunos de los problemas de seguridad asociados con el envío de datos de formularios.
+	
+	
+	Arquitectura cliente/servidor:
+		
+		En su forma más básica, la web utiliza una arquitectura cliente/servidor
+		
+		se puede resumir de la siguiente manera:
+		
+		un cliente (generalmente un navegador web) envía una solicitud a un servidor
+		
+		(la mayoría de las veces un servidor web como Apache, Nginx, IIS, Tomcat , etc.), 
+		
+		utilizando el protocolo HTTP. 
+		
+		El servidor responde a la solicitud 
+		
+		utilizando  el mismo protocolo.
+			
+			Client -> request -> Server 
+				   <- response <-
+		
+		
+		Un formulario HTML en una página web no es más que una forma cómoda y fácil de usar de configurar una solicitud HTTP
+		
+		Esto permite al usuario proporcionar información que se entregará en la solicitud HTTP.
+
+	
+	Del lado del cliente: definir cómo enviar los datos
+		
+		El elemento <form> define cómo se enviarán los datos
+		
+		Todos sus atributos están diseñados para permitirle configurar la solicitud
+		
+		que se enviará cuando un usuario presione el botón de enviar
+		
+		Los dos atributos más importantes son: 
+		
+		action y method.
+
+	
+	El atributo de action
+		
+		define dónde se envían los datos
+		
+		Su valor debe ser una URL relativa o absoluta válida.
+		
+		Si no se proporciona este atributo
+		
+		los datos se enviarán a la URL de la página que contiene el formulario
+		
+		la página actual.
+
+		
+		Ejemplo, los datos se envían a una URL absoluta:
+		
+		https://example.com
+		
+		```
+		<form action="https://example.com">…</form>
+
+		```
+		
+		Utilizando una URL relativa: 
+		
+		los datos se envían a una URL diferente 
+		
+		en el mismo origen:
+		
+		```
+		<form action="/somewhere_else">…</form>
+
+		```
+
+		
+		Cuando se especifica sin atributos
+		
+		como se muestra a continuación
+		
+		los datos del <formulario> se envían a la misma página en la que está presente el formulario:
+		
+		```
+		<form>…</form>
+
+		```
+		
+		Es posible especificar una URL que utilice el protocolo HTTPS (HTTP seguro).
+		
+		Cuando hace esto, los datos se cifran junto con el resto de la solicitud
+		
+		incluso si el formulario en sí está alojado en una página insegura a la que se accede mediante HTTP.
+		
+		Por otro lado, si el formulario está alojado en una página segura
+		
+		pero especifica una URL HTTP insegura con el atributo de acción
+		
+		todos los navegadores muestran una advertencia de seguridad al usuario 
+		
+		cada vez que intenta enviar datos porque los datos no estarán cifrados.
+		
+		
+		Los nombres y valores de los controles de formulario que no son archivos
+		
+		se envían al servidor como pares name=value unidos con símbolos.
+		
+		El valor de la acción debe ser un archivo en el servidor que pueda manejar los datos entrantes
+		
+		incluida la garantía de la validación del lado del servidor
+		
+		Luego, el servidor responde
+		
+		generalmente manejando los datos y cargando la URL definida por el atributo de acción
+		
+		lo que provoca la carga de una nueva página 
+		
+		(o una actualización de la página existente, si la acción apunta a la misma página).
+
+
+		La forma en que se envían los datos depende del atributo method.
+		
+	
+	El atributo method: 
+		
+		define cómo se envían los datos
+		
+		El protocolo HTTP proporciona varias formas de realizar una solicitud
+		
+		Los datos del formulario HTML se pueden transmitir a través de varios métodos diferentes
+		
+		siendo los más comunes el método GET y el método POST.
+		
+		
+		Para comprender la diferencia entre esos dos métodos
+
+		retrocedamos y examinemos cómo funciona HTTP
+		
+		Cada vez que desea acceder a un recurso en la Web
+		
+		el navegador envía una solicitud a una URL
+		
+		Una solicitud HTTP consta de dos partes:
+		
+		un encabezado que contiene un conjunto de metadatos globales
+		
+		sobre las capacidades del navegador
+		
+		un cuerpo que puede contener información necesaria 
+		
+		para que el servidor procese la solicitud específica
+		
+		
+	Método GET: 
+	
+		Es el método utilizado por el navegador para pedirle al servidor que devuelva un recurso determinado
+
+		En este caso, el navegador envía un cuerpo vacío
+		
+		Debido a que el cuerpo está vacío
+		
+		si se envía un formulario utilizando este método
+		
+		los datos enviados al servidor se agregan a la URL.
+		
+		Ej, el siguiente form:
+
+		```
+		<form action="http://www.foo.com" method="GET">
+		  <div>
+			<label for="say">What greeting do you want to say?</label>
+			<input name="say" id="say" value="Hi" />
+		  </div>
+		  <div>
+			<label for="to">Who do you want to say it to?</label>
+			<input name="to" id="to" value="Mom" />
+		  </div>
+		  <div>
+			<button>Send my greetings</button>
+		  </div>
+		</form>
+
+		```
+		
+		Dado que se utilizó el método GET
+		
+		verá la URL www.foo.com/?say=Hi&to=Mom 
+		
+		aparecer en la barra de direcciones del navegador cuando envíe el formulario
+		
+		Los datos se agregan a la URL como una serie de pares de nombre/valor
+		
+		Una vez finalizada la dirección web URL
+		
+		incluimos un signo de interrogación (?) seguido de los pares de nombre/valor
+		
+		seguido de los pares de nombre/valor, cada uno separado por un signo comercial (&).
+		
+		En este caso, estamos pasando dos datos al servidor:
+
+		
+		say que tiene un valor de Hi
+		 
+		to que tiene un valor de Mom
+			
+		
+		La solicitud HTTP se ve así:
+		
+		```
+		GET /?say=Hi&to=Mom HTTP/2.0	
+		Host: foo.com
+		
+		```
+		Los datos no se agregarán si el esquema de URL
+		
+		de action no puede manejar consultas, ej. archivo:.
+		
+		
+	Método POST:
+		
+		Utiliza el navegador para hablar con el servidor
+		
+		cuando solicita una respuesta que tiene en cuenta los datos proporcionados en el cuerpo de la solicitud HTTP
+		
+		Si se envía un formulario utilizando este método
+		
+		los datos se adjuntan al cuerpo de la solicitud HTTP.
+
+
+		Ej, form pero con el atributo del método establecido en POST
+		
+		```
+		<form action="http://www.foo.com" method="POST">
+		  <div>
+			<label for="say">What greeting do you want to say?</label>
+			<input name="say" id="say" value="Hi" />
+		  </div>
+		  <div>
+			<label for="to">Who do you want to say it to?</label>
+			<input name="to" id="to" value="Mom" />
+		  </div>
+		  <div>
+			<button>Send my greetings</button>
+		  </div>
+		</form>
+
+		```
+		
+		Cuando el formulario se envía utilizando el método POST	
+
+		no se agregan datos a la URL y la solicitud HTTP se ve así
+		
+		con los datos incluidos en el cuerpo de la solicitud:
+
+		```
+		POST / HTTP/2.0
+		Host: foo.com
+		Content-Type: application/x-www-form-urlencoded
+		Content-Length: 13
+
+		say=Hi&to=Mom
+
+		```
+	
+		El encabezado Content-Length indica el tamaño del cuerpo
+		
+		y el encabezado Content-Type indica el tipo de recurso enviado al servidor. 
+
+						
+		En su lugar, se utilizará el método GET				
+		
+		si el esquema de URL de acción no puede manejar
+		
+		el cuerpo de una solicitud, p. datos:.
+		
+	
+	Ver las HTTP request: 
+		
+		Las solicitudes HTTP nunca se muestran al usuario
+		
+		(si desea verlas, debe utilizar herramientas como Firefox Network Monitor o Chrome Developer Tools).
+		
+		Como ejemplo, los datos de su formulario se mostrarán de la siguiente manera en la pestaña Red de Chrome.
+		
+		Después de enviar el formulario:
+		
+		1. herramientas de desarrollador
+		
+		2. Seleccione "Red"
+		
+		3. Seleccione "Todos"
+		
+		4. Seleccione "foo.com" en la pestaña "Nombre"
+		
+		5. Seleccione "Solicitar/Request" (Firefox) o "Carga útil/Payload" (Chrome/Edge)
+
+		
+		Luego puede obtener los datos del formulario
+		
+		
+		Lo único que se muestra al usuario es la URL llamada
+		
+		Como mencionamos anteriormente, con una solicitud GET
+		
+		el usuario verá los datos en su barra de URL
+		
+		pero con una solicitud POST no lo harán
+		
+		Esto puede ser muy importante por dos razones:
+		
+		Si necesita enviar una contraseña (o cualquier otro dato confidencial),
+		
+		nunca utilice el método GET o corre el riesgo de mostrarla en la barra de URL
+		
+		lo que sería muy inseguro.
+
+		
+		Si necesita enviar una gran cantidad de datos
+		
+		se prefiere el método POST porque algunos navegadores limitan el tamaño de las URL
+		
+		Además, muchos servidores limitan la longitud de las URL que aceptan
+		
+	
+	Del lado del servidor: recuperando los datos
+		
+		Cualquiera que sea el método HTTP que elija
+		
+		el servidor recibe una cadena que se analizará
+		
+		para obtener los datos como una lista de pares clave/valor.
+		
+		La forma de acceder a esta lista depende de la plataforma de desarrollo que utilice
+		
+		y de los marcos específicos que pueda utilizar con ella.
+		
+		
+	Ejemplo: PHP sin formato
+		
+		PHP ofrece algunos objetos globales para acceder a los datos
+	
+		Suponiendo que haya utilizado el método POST
+		
+		el siguiente ejemplo simplemente toma los datos y se los muestra al usuario.
+		
+		Por supuesto, lo que hagas con los datos depende de ti.
+		
+		Puede mostrarlo, almacenarlo en una base de datos
+		
+		enviarlo por correo electrónico o procesarlo de alguna otra manera.
+		
+		```
+		<?php
+		  // The global $_POST variable allows you to access the data sent with the POST method by name
+		  // To access the data sent with the GET method, you can use $_GET
+		  $say = htmlspecialchars($_POST['say']);
+		  $to  = htmlspecialchars($_POST['to']);
+
+		  echo  $say, ' ', $to;
+		?>
+
+		```
+		
+		La variable global $_POST
+		
+		te permite acceder a los datos 
+		
+		enviados con el método POST por el nombre 
+		
+		Para acceder a los datos enviados con el método GET
+		
+		puedes usar $_GET
+		
+		
+		Este ejemplo muestra una página con los datos que enviamos
+		
+		Puedes ver esto en action 
+		
+		en el archivo php-example.html
+		
+		contiene el mismo formulario de ejemplo
+		
+		con un método POST y action 
+		
+		Cuando se envía, envía los datos del formulario a php-example.php
+		
+		que contiene el código PHP que se ve en el bloque anterior.
+		
+		Cuando se ejecuta este código, el resultado en el navegador es Hola mamá.
+		
+		
+		Este ejemplo no funcionará cuando lo cargue en un navegador localmente
+		
+		los navegadores no pueden interpretar el código PHP
+		
+		por lo que cuando se envíe el formulario
+		
+		el navegador simplemente le ofrecerá descargar el archivo PHP
+		
+		Para que funcione, necesita ejecutar el ejemplo a través de algún tipo de servidor PHP
+		
+		Buenas opciones para las pruebas de PHP locales son MAMP (Mac y Windows)
+		
+		y XAMPP (Mac, Windows, Linux).
+
+		
+		Tenga en cuenta también que si está utilizando MAMP pero no tiene MAMP Pro instalado
+		
+		(o si la prueba de tiempo de demostración de MAMP Pro ha caducado),
+		
+		es posible que tenga problemas para que funcione
+		
+		Para que funcione nuevamente, descubrimos que puede cargar la aplicación MAMP
+		
+		luego elegir las opciones de menú MAMP > Preferencias > PHP y configurar "Versión estándar:" en "7.2.x" (x diferirá según la versión que has instalado).
+
+
+	Ejemplo en Python: 	
+	
+		Para hacer lo mismo: mostrar los datos enviados en una página web.
+		
+		Esto utiliza el marco Flask para representar las plantillas
+		
+		manejar el envío de datos del formulario, etc. (consulte python-example.py).
+
+		```
+		from flask import Flask, render_template, request
+
+		app = Flask(__name__)
+
+		@app.route('/', methods=['GET', 'POST'])
+		def form():
+			return render_template('form.html')
+
+		@app.route('/hello', methods=['GET', 'POST'])
+		def hello():
+			return render_template('greeting.html', say=request.form['say'], to=request.form['to'])
+
+		if __name__ == "__main__":
+			app.run()
+
+		```
+		
+		Las dos plantillas a las que se hace referencia en el código anterior son las siguientes
+		
+		(deben estar en un subdirectorio llamado plantillas en el mismo directorio que el archivo python-example.py)
+		
+		
+		form.html:
+			
+			mismo formulario que vimos arriba en la sección del método POST
+			
+			pero con action configurada en {{ url_for('hello') }}.
+			
+			Esta es una plantilla de Jinja
+			
+			que es básicamente HTML pero puede contener llamadas al código Python
+			
+			que ejecuta el servidor web entre llaves 
+			
+			url_for('hello') 
+			
+			básicamente dice "redireccionar a /hello
+			
+			cuando se envía el formulario".
+	
+		greeting.html: 
+	
+			esta plantilla solo contiene una línea que representa los dos bits de datos que se le pasan cuando se representa
+			
+			Esto se hace a través de la función hello()
+			
+			que se ejecuta cuando se navega a la URL /hello
+			
+			
+		Nuevamente, este código no funcionará si intentas cargarlo directamente en un navegador
+		
+		Python funciona un poco diferente a PHP:
+		
+		para ejecutar este código localmente necesitarás instalar Python/PIP
+		
+		luego instalar Flask usando pip3 install flask.
+		
+		En este punto, debería poder ejecutar el ejemplo
+		
+		usando python3 python-example.py
+		
+		luego navegar hasta localhost:5042 en su navegador.
+		
+	
+	Otros lenguajes y frameworks: 
+			
+		Hay muchas otras tecnologías del lado del servidor que puede utilizar para el manejo de formularios
+		
+		incluidas Perl, Java, .Net, Ruby, etc. 
+		
+		Es muy poco común utilizar estas tecnologías directamente
+		
+		porque puede resultar complicado
+		
+		Es más común utilizar uno de los muchos frameworks
+		
+		de alta calidad que facilitan el manejo de formularios
+		
+		Como: 
+		
+		Python:
+			
+			Django, Flask, web2py, py4web 
+			
+		Node.js:
+
+			Express, Next.js (for React apps), Nuxt (for Vue apps), Remix
+
+		PHP:
+			
+			Laravel, Laminas (formerly Zend Framework), Symfony
+
+		Ruby:
+
+			Ruby On Rails
+
+		Java:
+			
+			Spring Boot
+
+
+		Vale la pena señalar que incluso utilizando estos marcos
+		
+		trabajar con formularios no es necesariamente fácil
+		
+		Pero es mucho más fácil que intentar escribir todas las funciones usted mismo desde cero y le ahorrará mucho tiempo
+		
+		
+	Un caso especial: envío de archivos
+		
+		El envío de archivos con formularios HTML es un caso especial
+		
+		Los archivos son datos binarios
+		
+		o se consideran como tales
+		
+		mientras que todos los demás datos son datos de texto
+		
+		Debido a que HTTP es un protocolo de texto
+		
+		existen requisitos especiales para manejar datos binarios.
+		
+		
+	Atributo enctype:
+
+		Este atributo le permite especificar el valor de Content-Type HTTP header, 
+		
+		incluido en la solicitud generada cuando se envía el formulario
+		
+		Este encabezado es muy importante porque le dice al servidor qué tipo de datos se envían
+		
+		De forma predeterminada, su valor es application/x-www-form-urlencoded.
+		
+		Significa: "Estos son datos de formulario que se han codificado en parámetros de URL"
+		
+		
+		Si desea enviar archivos, debe realizar tres pasos adicionales
+			
+		
+		Establezca el atributo del método en POST
+			
+			porque el contenido del archivo no se puede colocar dentro de los parámetros de URL
+		
+		
+		Establezca el valor de enctype en multipart/form-data
+				
+			porque los datos se dividirán en varias partes
+			
+			una para cada archivo más una para los datos de texto incluidos en el cuerpo del formulario
+			
+			(si el texto también se ingresa en el formulario).
+
+		
+		Incluya uno o más controles <input type="file">
+			
+			para permitir a sus usuarios seleccionar los archivos que se cargarán.
+			
+		
+		```
+		<form method="post" action="https://www.foo.com" enctype="multipart/form-data">
+		  <div>
+			<label for="file">Choose a file</label>
+			<input type="file" id="file" name="myFile" />
+		  </div>
+		  <div>
+			<button>Send the file</button>
+		  </div>
+		</form>
+
+		```
+		
+		Los servidores se pueden configurar con un límite de tamaño para archivos y solicitudes HTTP para evitar abusos
+		
+	
+	Problemas de seguridad:
+		
+		Cada vez que envía datos a un servidor
+		
+		debe considerar la seguridad	
+		
+		Los formularios HTML son, con diferencia
+		
+		los vectores de ataque a servidores más comunes
+		
+		Los problemas nunca provienen de los formularios HTML en sí
+		
+		sino de cómo el servidor maneja los datos.
+
+
+	Sea paranoico: nunca confíe en sus usuarios	
+		
+		Hay algunas reglas a tener en cuenta.
+		
+		La regla más importante es: nunca confíes en tus usuarios, incluido tú mismo
+		
+		Incluso un usuario de confianza podría haber sido secuestrado/hijacked.
+
+
+		Todos los datos que llegan a su servidor deben ser verificados y desinfectados
+		
+		Siempre. Sin excepción
+		
+		
+		Escapa caracteres potencialmente peligrosos:
+			
+			Los caracteres específicos con los que debes tener cuidado
+			
+			varían según el contexto en el que se utilizan los datos y la plataforma del servidor que empleas
+			
+			pero todos los lenguajes del lado del servidor tienen funciones para esto
+			
+			Lo que hay que tener en cuenta son las secuencias de caracteres
+			
+			(como comandos JavaScript o SQL).
+			
+			
+		Limite la cantidad de datos entrantes
+				
+			para permitir solo lo necesario.
+
+		
+		Archivos cargados en Sandbox
+			
+			Guárdelos en un servidor diferente
+			
+			diferente y permita el acceso al archivo sólo a través de un subdominio diferente
+			
+			o, mejor aún, a través de un dominio completamente diferente.
+		
+		
+		Debería poder evitar muchos o la mayoría de los problemas si sigue estas tres reglas
+		
+		pero siempre es una buena idea que un tercero competente realice una revisión de seguridad
+		
+		No asuma que ha visto todos los problemas posibles.
+
+
+		Enviar datos de formularios es fácil
+		
+		pero proteger una aplicación puede ser complicado.
+		
+		Un desarrollador front-end no es quien debe definir el modelo de seguridad de los datos
+		
+		Es posible realizar la validación del formulario del lado del cliente
+		
+		pero el servidor no puede confiar en esta validación
+		
+		porque no tiene forma de saber realmente qué sucedió realmente en el lado del cliente
+		
+		
+
+|| Enviar forms a través de JavaScript
+
+	Analiza formas de utilizar un formulario para ensamblar una solicitud HTTP y enviarla mediante JavaScript personalizado
+		
+	en lugar del envío de formulario estándar. 
+	
+	analiza por qué querrías hacer esto y las implicaciones de hacerlo.
+	
+	(FormData objects)
+	
+	
+	Cuando un usuario envía un formulario HTML, por ejemplo, al hacer clic en el botón enviar
+	
+	el navegador realiza una solicitud HTTP para enviar los datos del formulario
+	
+	Pero en lugar de este enfoque declarativo
+	
+	las aplicaciones web a veces usan API de JavaScript como fetch() para enviar datos
+	
+	mediante programación a un punto final que espera el envío de un formulario.
+	
+	
+	Usar JavaScript para enviar datos del formularios: 
+		
+		El envío de formulario HTML estándar
+		
+		como se describe en nuestro artículo sobre el envío de datos de formulario
+		
+		carga la URL donde se enviaron los datos
+		
+		lo que significa que la ventana del navegador navega con una página cargada por completo.
+		
+		
+		Sin embargo, muchas aplicaciones web
+		
+		especialmente las aplicaciones web progresivas y las aplicaciones de una sola página
+		
+		utilizan API de JavaScript para solicitar datos del servidor y actualizar las partes relevantes de la página
+		
+		evitando la sobrecarga de una carga de página completa.
+
+
+		Por este motivo, cuando estas aplicaciones web desean enviar datos de formularios
+		
+		utilizan formularios HTML solo para recopilar información del usuario
+		
+		pero no para enviar datos.
+		
+		Cuando el usuario intenta enviar los datos
+		
+		la aplicación toma el control y envía los datos utilizando una API de JavaScript como fetch().
+		
+		
+		SPA (Single Web Application):
+			
+			es una implementación de aplicación web que carga solo un documento web
+			
+			y luego actualiza el contenido del cuerpo de ese documento a través de API de JavaScript como Fetch,
+			
+			cuando se debe mostrar contenido diferente.
+			
+			
+			Por lo tanto, esto permite a los usuarios usar sitios web sin cargar páginas completamente nuevas desde el servidor
+			
+			lo que puede resultar en ganancias de rendimiento y una experiencia más dinámica
+			
+			con algunas desventajas como SEO, se requiere más esfuerzo para mantener el estado
+			
+			implementar la navegación y lograr un rendimiento significativo
+
+
+		PWA (Progressive Web App):
+			
+			son aplicaciones que se crean utilizando tecnologías de plataforma web
+			
+			pero que brindan una experiencia de usuario similar a la de una aplicación específica de una plataforma.
+
+			Este tipo de aplicaciones disfrutan de las mejores partes de la Web
+			
+			como la capacidad de descubrimiento a través de motores de búsqueda
+			
+			la posibilidad de vincularse mediante URL y el funcionamiento en múltiples factores de forma
+			
+			pero se mejoran progresivamente con API modernas (como Service Workers y Push).
+
+			Estas características incluyen ser instalable, trabajar sin conexión y ser fácil de sincronizar y volver a interactuar con el usuario desde el servidor
+			
+	
+	El problema con el envío de formularios JavaScript:
+		
+		Si el endpoint del servidor al que la aplicación web envía los datos del formulario
+		
+		está bajo el control del desarrollador de la aplicación web
+		
+		entonces puede enviar los datos del formulario de la forma que elija
+		
+		por ejemplo, como un objeto JSON.
+
+		
+		Sin embargo, si el endpoint del servidor espera el envío de un formulario
+		
+		la aplicación web debe codificar los datos de una manera particular
+		
+		Por ejemplo, si los datos son solo textuales
+		
+		están formados por listas codificadas en URL de pares key/value
+		
+		y se envían con un tipo de contenido de aplicación/x-www-form-urlencoded.
+		
+		Si el formulario incluye datos binarios
+		
+		debe enviarse utilizando el tipo de contenido multipart/form-data.
+
+		
+		La interfaz FormData se encarga del proceso de codificación de datos de esta manera
+		
+	
+	Construyendo un objeto FormData manualmente:
+		
+		Puede completar un objeto FormData llamando al método append() del objeto para cada campo que desee agregar pasando el nombre y el valor del campo.
+		
+		El valor puede ser una cadena, para campos de texto, o un Blob, para campos binarios, incluidos los objetos Archivo.
+		
+		
+		Enviaremos datos como envío de formulario 
+		
+		cuando el usuario hace clic en un botón:
+		
+		```
+		async function sendData(data) {
+		  // Construct a FormData instance
+		  const formData = new FormData();
+
+		  // Add a text field
+		  formData.append("name", "Pomegranate");
+
+		  // Add a file
+		  const selection = await window.showOpenFilePicker();
+		  if (selection.length > 0) {
+			const file = await selection[0].getFile();
+			formData.append("file", file);
+		  }
+
+		  try {
+			const response = await fetch("https://example.org/post", {
+			  method: "POST",
+			  // Set the FormData instance as the request body
+			  body: formData,
+			});
+			console.log(await response.json());
+		  } catch (e) {
+			console.error(e);
+		  }
+		}
+
+		const send = document.querySelector("#send");
+		send.addEventListener("click", sendData);
+
+		```
+		
+		Primero construimos un objeto FormData nuevo y vacío
+		
+		A continuación, llamamos a append() dos veces para agregar dos elementos al objeto FormData: un campo de texto y un archivo.
+
+		Finalmente, realizamos una solicitud POST utilizando la API fetch(),
+		
+		configurando el objeto FormData como cuerpo de la solicitud.
+
+		
+		Tenga en cuenta que no tenemos que configurar el encabezado Content-Type
+		
+		el encabezado correcto se establece automáticamente cuando pasamos un objeto FormData a fetch().
+		
+		
+	Asociar un objeto FormData y un <form>:
+		
+		Si los datos que envía realmente provienen de un <form>,
+		
+		puede completar la instancia de FormData pasando el formulario al constructor FormData
+		
+		Supongamos que nuestro HTML declara un elemento <form>:
+		
+		```
+		<form id="userinfo">
+		  <p>
+			<label for="username">Enter your name:</label>
+			<input type="text" id="username" name="username" value="Dominic" />
+		  </p>
+		  <p>
+			<label for="avatar">Select an avatar</label>
+			<input type="file" id="avatar" name="avatar" required />
+		  </p>
+		  <input type="submit" value="Submit" />
+		</form>
+
+		```
+		
+		El formulario incluye una entrada de texto, una entrada de archivo y un botón de envío.
+
+		```
+		const form = document.querySelector("#userinfo");
+
+		async function sendData() {
+		  // Associate the FormData object with the form element
+		  const formData = new FormData(form);
+
+		  try {
+			const response = await fetch("https://example.org/post", {
+			  method: "POST",
+			  // Set the FormData instance as the request body
+			  body: formData,
+			});
+			console.log(await response.json());
+		  } catch (e) {
+			console.error(e);
+		  }
+		}
+
+		// Take over form submission
+		form.addEventListener("submit", (event) => {
+		  event.preventDefault();
+		  sendData();
+		});
+
+		```
+
+		Agregamos un controlador de eventos de envío para el elemento de formulario
+		
+		Esto primero llama a preventDefault() para evitar el envío de formularios integrados en el navegador
+		
+		para que podamos tomar el control
+		
+		Luego llamamos a sendData(),
+		
+		que recupera el elemento del formulario y lo pasa al constructor FormData.
+
+
+		Después de eso, enviamos la instancia de FormData como una solicitud HTTP POST, usando fetch().
+		
+		
+
+
 					
 || RS
+
 
 
 
